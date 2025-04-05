@@ -1,7 +1,14 @@
+"use client"
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { FaSearch } from "react-icons/fa";
 import styles from "@/styles/CitySitemap/CityCoursePage.module.css";
 
 const CityCoursePage = ({ city, cityInfo }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCategories, setFilteredCategories] = useState([]);
+
   // Modified course categories structure
   const courseCategories = [
     {
@@ -23,10 +30,7 @@ const CityCoursePage = ({ city, cityInfo }) => {
             { name: "SAP PS", slug: `/sap-ps-course-in-${city}` },
             { name: "SAP EWM", slug: `/sap-ewm-course-in-${city}` },
             { name: "SAP SCM", slug: `/sap-scm-course-in-${city}` },
-            {
-              name: "SAP SUCCESSFACTOR",
-              slug: `/sap-successfactors-course-in-${city}`,
-            },
+            { name: "SAP SUCCESSFACTOR", slug: `/sap-successfactors-course-in-${city}` },
           ],
         },
         {
@@ -47,28 +51,16 @@ const CityCoursePage = ({ city, cityInfo }) => {
         {
           title: "Data Science",
           courses: [
-            {
-              name: "MASTERS IN DATA ANALYTICS",
-              slug: `/data-analytics-course-in-${city}`,
-            },
-            {
-              name: "MASTERS IN DATA SCIENCE",
-              slug: `/data-science-course-in-${city}`,
-            },
-            {
-              name: "MASTERS IN BUSINESS ANALYTICS",
-              slug: `/business-analytics-course-in-${city}`,
-            },
+            { name: "MASTERS IN DATA ANALYTICS", slug: `/data-analytics-course-in-${city}` },
+            { name: "MASTERS IN DATA SCIENCE", slug: `/data-science-course-in-${city}` },
+            { name: "MASTERS IN BUSINESS ANALYTICS", slug: `/business-analytics-course-in-${city}` },
             { name: "CHAT GPT & AI", slug: `/chatgpt-course-in-${city}` },
           ],
         },
       ],
       courses: [
         { name: "IT Course", slug: `/it-course-in-${city}` },
-        {
-          name: "Full Stack Training",
-          slug: `/full-stack-developer-course-in-${city}`,
-        },
+        { name: "Full Stack Training", slug: `/full-stack-developer-course-in-${city}` },
         { name: "JAVA", slug: `/java-course-in-${city}` },
         { name: "MERN Stack", slug: `/mern-stack-course-in-${city}` },
         { name: "UI/UX Design", slug: `/ui-ux-course-in-${city}` },
@@ -80,10 +72,7 @@ const CityCoursePage = ({ city, cityInfo }) => {
       id: "data-viz",
       name: "Data Visualisation Courses",
       courses: [
-        {
-          name: "Data Visualisation Course",
-          slug: `/data-visualisation-course-in-${city}`,
-        },
+        { name: "Data Visualisation Course", slug: `/data-visualisation-course-in-${city}` },
         { name: "Tableau", slug: `/tableau-training-in-${city}` },
         { name: "Power BI", slug: `/power-bi-course-in-${city}` },
         { name: "SQL", slug: `/sql-course-in-${city}` },
@@ -93,30 +82,11 @@ const CityCoursePage = ({ city, cityInfo }) => {
       id: "digital",
       name: "Digital Marketing Courses",
       courses: [
-        {
-          name: "Advance Digital Marketing",
-          slug: `/digital-marketing-course-in-${city}`,
-        },
-        {
-          name: "Pay Per Click Training",
-          slug: `/digital-marketing-course-in-${city}#pay-per-click`,
-          section: "pay-per-click",
-        },
-        {
-          name: "Search Engine Optimization",
-          slug: `/digital-marketing-course-in-${city}#search-engine-optimization`,
-          section: "search-engine-opti",
-        },
-        {
-          name: "Social Media Marketing",
-          slug: `/digital-marketing-course-in-${city}#social-media-marketing`,
-          section: "social-media",
-        },
-        {
-          name: "Advance Google Analytics Training",
-          slug: `/digital-marketing-course-in-${city}#advance-analytics`,
-          section: "advance-analytics",
-        },
+        { name: "Advance Digital Marketing", slug: `/digital-marketing-course-in-${city}` },
+        { name: "Pay Per Click Training", slug: `/digital-marketing-course-in-${city}#pay-per-click`, section: "pay-per-click" },
+        { name: "Search Engine Optimization", slug: `/digital-marketing-course-in-${city}#search-engine-optimization`, section: "search-engine-opti" },
+        { name: "Social Media Marketing", slug: `/digital-marketing-course-in-${city}#social-media-marketing`, section: "social-media" },
+        { name: "Advance Google Analytics Training", slug: `/digital-marketing-course-in-${city}#advance-analytics`, section: "advance-analytics" },
       ],
     },
     {
@@ -133,60 +103,134 @@ const CityCoursePage = ({ city, cityInfo }) => {
     },
   ];
 
+  // Initialize filtered categories on first render
+  useEffect(() => {
+    setFilteredCategories(courseCategories);
+  }, []);
+
+  // Filter courses by search term
+  useEffect(() => {
+    if (searchTerm.trim() === '') {
+      setFilteredCategories(courseCategories);
+      return;
+    }
+
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    
+    const filtered = courseCategories.filter(category => {
+      // Check category name
+      if (category.name.toLowerCase().includes(lowerSearchTerm)) {
+        return true;
+      }
+
+      // Check direct courses
+      if (category.courses && category.courses.some(course => 
+        course.name.toLowerCase().includes(lowerSearchTerm)
+      )) {
+        return true;
+      }
+
+      // Check subcategory courses
+      if (category.subcategories && category.subcategories.some(sub => 
+        sub.title.toLowerCase().includes(lowerSearchTerm) || 
+        sub.courses.some(course => course.name.toLowerCase().includes(lowerSearchTerm))
+      )) {
+        return true;
+      }
+
+      return false;
+    });
+
+    setFilteredCategories(filtered);
+  }, [searchTerm]);
+
   return (
     <div className={styles.cityPageContainer}>
+      {/* City Header Section */}
       <div className={styles.cityHeader}>
         <h1>Courses in {cityInfo.name}</h1>
         <p>{cityInfo.description}</p>
+        
+        {/* Search Bar */}
+        <div className={styles.searchBox}>
+          <FaSearch className={styles.searchIcon} />
+          <input 
+            type="text" 
+            placeholder={`Find a course in ${cityInfo.name}...`} 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput} 
+          />
+        </div>
       </div>
 
+      {/* No Results Message */}
+      {filteredCategories.length === 0 && (
+        <div className={styles.noResults}>
+          <h3>No courses found matching "{searchTerm}"</h3>
+          <button 
+            className={styles.resetButton} 
+            onClick={() => setSearchTerm("")}
+          >
+            View All Courses
+          </button>
+        </div>
+      )}
+
+      {/* Main Course Categories */}
       <div className={styles.categoriesContainer}>
-        {courseCategories.map((category) => (
+        {filteredCategories.map((category) => (
           <div key={category.id} className={styles.categorySection}>
-            <h2 className={styles.categoryTitle}>{category.name}</h2>
+            <div className={styles.categoryTitle}>
+              <h2>{category.name}</h2>
+            </div>
+            
+            <div className={styles.categoryContent}>
+              {/* Display subcategories if present */}
+              {category.subcategories && (
+                <div className={styles.subcategoriesContainer}>
+                  {category.subcategories.map((subcategory, index) => (
+                    <div key={index} className={styles.subcategorySection}>
+                      <h3 className={styles.subcategoryTitle}>
+                        {subcategory.title}
+                      </h3>
+                      <div className={styles.horizontalCourseList}>
+                        {subcategory.courses
+                          .filter(course => !searchTerm || course.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                          .map((course, idx) => (
+                          <div key={idx} className={styles.courseItem}>
+                            <Link
+                              href={course.slug}
+                              className={styles.courseLink}
+                            >
+                              {course.name}
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            {/* Display subcategories if present */}
-            {category.subcategories && (
-              <div className={styles.subcategoriesLayout}>
-                {category.subcategories.map((subcategory, index) => (
-                  <div key={index} className={styles.subcategoryBlock}>
-                    <h3 className={styles.subcategoryTitle}>
-                      {subcategory.title}
-                    </h3>
-                    <ul className={styles.courseGrid}>
-                      {subcategory.courses.map((course, idx) => (
-                        <li key={idx}>
-                          <Link
-                            href={course.slug}
-                            className={styles.courseLink}
-                          >
-                            <span className={styles.bulletPoint}>•</span>{" "}
-                            {course.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Display direct courses if present */}
-            {category.courses && (
-              <ul className={styles.courseGrid}>
-                {category.courses.map((course, idx) => (
-                  <li key={idx}>
-                    <Link href={course.slug} className={styles.courseLink}>
-                      <span className={styles.bulletPoint}>•</span>{" "}
-                      {course.name}
-                      {course.section && (
-                        <span className={styles.sectionTag}>Section</span>
-                      )}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+              {/* Display direct courses if present */}
+              {category.courses && (
+                <div className={styles.horizontalCourseList}>
+                  {category.courses
+                    .filter(course => !searchTerm || course.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                    .map((course, idx) => (
+                    <div key={idx} className={styles.courseItem}>
+                      <Link href={course.slug} className={styles.courseLink}>
+                        {course.name}
+                        {course.section && (
+                          <span className={styles.sectionTag}>Section</span>
+                        )}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

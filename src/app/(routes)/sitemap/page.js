@@ -1,4 +1,3 @@
-import Breadcrumb from "@/components/CitySitemap/Breadcrumb";
 import CitySitemap from "@/components/CitySitemap/CitySitemap";
 
 export const metadata = {
@@ -8,14 +7,9 @@ export const metadata = {
 };
 
 export default function SitemapPage() {
-  const breadcrumbItems = [
-    { label: "Home", path: "/" },
-    { label: "Sitemap", path: "/sitemap" },
-  ];
 
   return (
     <main>
-      <Breadcrumb items={breadcrumbItems} />
       <CitySitemap />
     </main>
   );

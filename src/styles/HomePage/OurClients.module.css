@@ -1,4 +1,4 @@
-.ourClientsSection{
+.ourClientsSection {
   text-align: center;
   width: 100%;
   margin: 50px auto;
@@ -23,6 +23,20 @@
   white-space: nowrap;
   width: 100%;
   position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
 }
 
 /* Animation for infinite scrolling */
@@ -32,13 +46,13 @@
   gap: 30px;
   height: 120px;
   padding-top: 20px;
-  animation: marqueeScroll 40s linear infinite;
+  animation: marqueeScroll 80s linear infinite;
   will-change: transform;
 }
 
 /* Reverse animation for the middle marquee */
 .marqueeReverse .marqueeContent {
-  animation: marqueeScrollReverse 40s linear infinite;
+  animation: marqueeScrollReverse 60s linear infinite;
 }
 
 .clientLogoContainer {
@@ -80,8 +94,14 @@
   font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: 4px;
-  text-shadow: 0 0 0px #fff, 0 0 10px #fff, 0 0 10px #0073e6, 0 0 20px #182e4a,
-    0 0 20px #182e4a, 0 0 30px #182e4a, 0 0 30px #182e4a;
+  text-shadow:
+    0 0 0px #fff,
+    0 0 10px #fff,
+    0 0 10px #0073e6,
+    0 0 20px #182e4a,
+    0 0 20px #182e4a,
+    0 0 30px #182e4a,
+    0 0 30px #182e4a;
   background: linear-gradient(
     90deg,
     #fff 35%,
@@ -115,6 +135,22 @@
   .marqueeContainer {
     gap: 0;
   }
+  .marquee {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 20%,
+      black 80%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 20%,
+      black 80%,
+      transparent 100%
+    );
+  }
 }
 
 @media (max-width: 480px) {
@@ -127,6 +163,22 @@
   }
   .marqueeContainer {
     gap: 0;
+  }
+  .marquee {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 25%,
+      black 75%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 25%,
+      black 75%,
+      transparent 100%
+    );
   }
 }
 

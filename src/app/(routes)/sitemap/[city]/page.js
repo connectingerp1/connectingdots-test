@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Breadcrumb from "@/components/CitySitemap/Breadcrumb";
 import CityCoursePage from "@/components/CitySitemap/CityCoursePage";
 
 // This data would ideally come from your CMS or API
@@ -231,15 +230,8 @@ export default function CityPage({ params }) {
     notFound();
   }
 
-  const breadcrumbItems = [
-    { label: "Home", path: "/" },
-    { label: "Sitemap", path: "/sitemap" },
-    { label: cityData[city].name, path: `/sitemap/${city}` },
-  ];
-
   return (
     <main>
-      <Breadcrumb items={breadcrumbItems} />
       <CityCoursePage city={city} cityInfo={cityData[city]} />
     </main>
   );
