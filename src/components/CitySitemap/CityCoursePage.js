@@ -11,6 +11,7 @@ const CityCoursePage = ({ city, cityInfo }) => {
         {
           title: "SAP Functional",
           courses: [
+            { name: "SAP", slug: `/sap-course-in-${city}` },
             { name: "SAP FICO", slug: `/sap-fico-course-in-${city}` },
             { name: "SAP Ariba", slug: `/sap-ariba-course-in-${city}` },
             { name: "SAP MM", slug: `/sap-mm-course-in-${city}` },
@@ -63,6 +64,7 @@ const CityCoursePage = ({ city, cityInfo }) => {
         },
       ],
       courses: [
+        { name: "IT Course", slug: `/it-course-in-${city}` },
         {
           name: "Full Stack Training",
           slug: `/full-stack-developer-course-in-${city}`,
@@ -78,6 +80,10 @@ const CityCoursePage = ({ city, cityInfo }) => {
       id: "data-viz",
       name: "Data Visualisation Courses",
       courses: [
+        {
+          name: "Data Visualisation Course",
+          slug: `/data-visualisation-course-in-${city}`,
+        },
         { name: "Tableau", slug: `/tableau-training-in-${city}` },
         { name: "Power BI", slug: `/power-bi-course-in-${city}` },
         { name: "SQL", slug: `/sql-course-in-${city}` },
