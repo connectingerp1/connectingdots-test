@@ -209,7 +209,6 @@
   font-size: 16px;
   font-weight: 600;
   margin: 0;
-  margin-bottom: 8px;
   min-height: 40px;
   display: flex;
   justify-content: center;
@@ -221,7 +220,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px 0;
+  margin: 2px 0;
 }
 
 .starIcon {
