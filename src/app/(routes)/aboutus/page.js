@@ -7,7 +7,7 @@ import StickyScrollReveal from "@/components/AboutusPage/StickyScrollReveal";
 import ProgressBars from "@/components/AboutusPage/ProgressBars";
 import AboutGallery from "@/components/AboutusPage/AboutGallery";
 import Branches from "@/components/AboutusPage/Branches";
-import styles from "@/styles/AboutPage.module.css";
+import styles from "@/styles/AboutPage.module.css"; 
 
 const AboutPage = () => {
   return (
