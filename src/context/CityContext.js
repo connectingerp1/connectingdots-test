@@ -20,7 +20,7 @@ const availableCities = [
   "agra", "nashik", "rajkot", "varanasi", "kerala", "surat", "dehradun",
   "madurai", "mysore", "pondicherry", "ranchi", "coimbatore",
   "chandigarh", "bhubaneswar", "tirupati", "vizag", "trivandrum",
-  "jalandhar", "mohali", "raipur", "cochin", "mangalore",
+  "jalandhar", "mohali", "raipur", "cochin", "mangalore", "katraj", "pimpri-chinchwad",
 ];
 
 const capitalizeCity = (city) => {

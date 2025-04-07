@@ -22,6 +22,8 @@ const CitySitemap = () => {
   // Cities data with added region for filtering
   const cities = [
     { name: "Pune", slug: "pune", region: "West", popular: true },
+    { name: "Katraj", slug: "katraj", region: "West", popular: true },
+    { name: "Pimpri-Chinchwad", slug: "pimpri-chinchwad", region: "West", popular: true }, 
     { name: "Mumbai", slug: "mumbai", region: "West", popular: true },
     { name: "Delhi", slug: "delhi", region: "North", popular: true },
     { name: "Kolkata", slug: "kolkata", region: "East", popular: true },

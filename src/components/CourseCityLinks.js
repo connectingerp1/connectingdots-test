@@ -43,6 +43,8 @@ const CourseCityLinks = () => {
     "raipur",
     "cochin",
     "mangalore",
+    "katraj", 
+    "pimpri-chinchwad",
   ];
 
   const courses = [
