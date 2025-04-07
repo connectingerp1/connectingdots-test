@@ -164,12 +164,11 @@ const Courses = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState(""); // Add location field
+  const [location, setLocation] = useState("");
   const [selectedCountryCode, setSelectedCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
   const [errors, setErrors] = useState({});
-  const [formStep, setFormStep] = useState(0);
 
   // Timer refs for cleanup
   const timerRefs = useRef([]);
@@ -243,7 +242,6 @@ const Courses = () => {
       document.body.classList.add("modal-open");
     } else {
       document.body.classList.remove("modal-open");
-      setFormStep(0);
     }
 
     return () => {
@@ -349,7 +347,6 @@ const Courses = () => {
     setSelectedCountryCode("+91");
     setValidated(false);
     setErrors({});
-    setFormStep(0);
   };
 
   const handleClosePopupForm = () => {
@@ -397,16 +394,6 @@ const Courses = () => {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const handleNextStep = () => {
-    if (validateForm()) {
-      setFormStep(1);
-    }
-  };
-
-  const handlePrevStep = () => {
-    setFormStep(0);
   };
 
   const handleFormSubmit = async (event) => {
@@ -616,7 +603,7 @@ const Courses = () => {
         </Button>
       </div>
 
-      {/* Enrollment Form Modal */}
+      {/* Single-step Enrollment Form Modal */}
       <Modal
         show={showPopupForm}
         onHide={handleClosePopupForm}
@@ -632,211 +619,146 @@ const Courses = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.modalBody}>
-          <div className={styles.formProgress}>
-            <div
-              className={`${styles.progressStep} ${formStep >= 0 ? styles.active : ""}`}
-              onClick={() => formStep > 0 && setFormStep(0)}
-            >
-              <div className={styles.stepNumber}>1</div>
-              <div className={styles.stepName}>Personal Info</div>
-            </div>
-            <div className={styles.progressLine}></div>
-            <div
-              className={`${styles.progressStep} ${formStep >= 1 ? styles.active : ""}`}
-            >
-              <div className={styles.stepNumber}>2</div>
-              <div className={styles.stepName}>Confirm</div>
+          {/* Selected course display */}
+          <div className={styles.selectedCourseInfo}>
+            <div className={styles.selectedCourseLabel}>Course:</div>
+            <div className={styles.selectedCourseName}>
+              {selectedCourse ? selectedCourse.name : ""}
             </div>
           </div>
 
           <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-            {formStep === 0 ? (
-              <div className={styles.formStep}>
-                <div className={styles.formGroup}>
-                  <div className={styles.inputIcon}>
-                    <FaUser className={styles.icon} />
-                  </div>
-                  <div className={styles.inputField}>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter your full name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      isInvalid={!!errors.name}
-                      required
-                      className={styles.formControl}
-                    />
-                    <Form.Label className={styles.floatingLabel}>
-                      Full Name
-                    </Form.Label>
-                    <div className={styles.errorMessage}>{errors.name}</div>
-                  </div>
+            <div className={styles.formStep}>
+              <div className={styles.formGroup}>
+                <div className={styles.inputIcon}>
+                  <FaUser className={styles.icon} />
                 </div>
-
-                <div className={styles.formGroup}>
-                  <div className={styles.inputIcon}>
-                    <FaEnvelope className={styles.icon} />
-                  </div>
-                  <div className={styles.inputField}>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      isInvalid={!!errors.email}
-                      required
-                      className={styles.formControl}
-                    />
-                    <Form.Label className={styles.floatingLabel}>
-                      Email Address
-                    </Form.Label>
-                    <div className={styles.errorMessage}>{errors.email}</div>
-                  </div>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <div className={styles.inputIcon}>
-                    <FaPhone className={styles.icon} />
-                  </div>
-                  <div className={styles.inputField}>
-                    <div className={styles.phoneInputWrapper}>
-                      <Form.Select
-                        className={styles.countryCodeSelect}
-                        value={selectedCountryCode}
-                        onChange={(e) => setSelectedCountryCode(e.target.value)}
-                      >
-                        {countryCodes.map((country) => (
-                          <option key={country.code} value={country.code}>
-                            {country.flag} {country.code}
-                          </option>
-                        ))}
-                      </Form.Select>
-                      <Form.Control
-                        type="tel"
-                        placeholder={contactPlaceholder}
-                        value={phone}
-                        onChange={(e) => {
-                          // Only allow digits
-                          const regex = /^[0-9\b]+$/;
-                          if (
-                            e.target.value === "" ||
-                            regex.test(e.target.value)
-                          ) {
-                            setPhone(e.target.value);
-                          }
-                        }}
-                        isInvalid={!!errors.phone}
-                        required
-                        className={styles.phoneInput}
-                        maxLength={selectedCountry?.maxLength || 15}
-                      />
-                    </div>
-                    <Form.Label className={styles.floatingLabel}>
-                      Phone Number
-                    </Form.Label>
-                    <div className={styles.errorMessage}>{errors.phone}</div>
-                  </div>
-                </div>
-
-                {/* Add Location field */}
-                <div className={styles.formGroup}>
-                  <div className={styles.inputIcon}>
-                    <FaMapMarkerAlt className={styles.icon} />
-                  </div>
-                  <div className={styles.inputField}>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter your location"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      isInvalid={!!errors.location}
-                      required
-                      className={styles.formControl}
-                    />
-                    <Form.Label className={styles.floatingLabel}>
-                      Location
-                    </Form.Label>
-                    <div className={styles.errorMessage}>{errors.location}</div>
-                  </div>
-                </div>
-
-                <Button
-                  variant="primary"
-                  className={styles.nextButton}
-                  onClick={handleNextStep}
-                >
-                  Continue
-                </Button>
-              </div>
-            ) : (
-              <div className={styles.formStep}>
-                <div className={styles.summaryCard}>
-                  <div className={styles.summaryTitle}>Application Summary</div>
-
-                  <div className={styles.summaryItem}>
-                    <div className={styles.summaryLabel}>Course</div>
-                    <div className={styles.summaryValue}>
-                      {selectedCourse ? selectedCourse.name : ""}
-                    </div>
-                  </div>
-
-                  <div className={styles.summaryItem}>
-                    <div className={styles.summaryLabel}>Name</div>
-                    <div className={styles.summaryValue}>{name}</div>
-                  </div>
-
-                  <div className={styles.summaryItem}>
-                    <div className={styles.summaryLabel}>Email</div>
-                    <div className={styles.summaryValue}>{email}</div>
-                  </div>
-
-                  <div className={styles.summaryItem}>
-                    <div className={styles.summaryLabel}>Phone</div>
-                    <div className={styles.summaryValue}>
-                      {selectedCountryCode} {phone}
-                    </div>
-                  </div>
-
-                  <div className={styles.summaryItem}>
-                    <div className={styles.summaryLabel}>Location</div>
-                    <div className={styles.summaryValue}>{location}</div>
-                  </div>
-                </div>
-
-                <div className={styles.formButtons}>
-                  <Button
-                    variant="outline-secondary"
-                    className={styles.backButton}
-                    onClick={handlePrevStep}
-                  >
-                    Back
-                  </Button>
-
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    className={styles.submitButton}
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <>
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-2"
-                        />
-                        Processing...
-                      </>
-                    ) : (
-                      "Submit Enrollment"
-                    )}
-                  </Button>
+                <div className={styles.inputField}>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    isInvalid={!!errors.name}
+                    required
+                    className={styles.formControl}
+                  />
+                  <Form.Label className={styles.floatingLabel}>
+                    Full Name
+                  </Form.Label>
+                  <div className={styles.errorMessage}>{errors.name}</div>
                 </div>
               </div>
-            )}
+
+              <div className={styles.formGroup}>
+                <div className={styles.inputIcon}>
+                  <FaEnvelope className={styles.icon} />
+                </div>
+                <div className={styles.inputField}>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    isInvalid={!!errors.email}
+                    required
+                    className={styles.formControl}
+                  />
+                  <Form.Label className={styles.floatingLabel}>
+                    Email Address
+                  </Form.Label>
+                  <div className={styles.errorMessage}>{errors.email}</div>
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <div className={styles.inputIcon}>
+                  <FaPhone className={styles.icon} />
+                </div>
+                <div className={styles.inputField}>
+                  <div className={styles.phoneInputWrapper}>
+                    <Form.Select
+                      className={styles.countryCodeSelect}
+                      value={selectedCountryCode}
+                      onChange={(e) => setSelectedCountryCode(e.target.value)}
+                    >
+                      {countryCodes.map((country) => (
+                        <option key={country.code} value={country.code}>
+                          {country.flag} {country.code}
+                        </option>
+                      ))}
+                    </Form.Select>
+                    <Form.Control
+                      type="tel"
+                      placeholder={contactPlaceholder}
+                      value={phone}
+                      onChange={(e) => {
+                        // Only allow digits
+                        const regex = /^[0-9\b]+$/;
+                        if (
+                          e.target.value === "" ||
+                          regex.test(e.target.value)
+                        ) {
+                          setPhone(e.target.value);
+                        }
+                      }}
+                      isInvalid={!!errors.phone}
+                      required
+                      className={styles.phoneInput}
+                      maxLength={selectedCountry?.maxLength || 15}
+                    />
+                  </div>
+                  <Form.Label className={styles.floatingLabel}>
+                    Phone Number
+                  </Form.Label>
+                  <div className={styles.errorMessage}>{errors.phone}</div>
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <div className={styles.inputIcon}>
+                  <FaMapMarkerAlt className={styles.icon} />
+                </div>
+                <div className={styles.inputField}>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    isInvalid={!!errors.location}
+                    required
+                    className={styles.formControl}
+                  />
+                  <Form.Label className={styles.floatingLabel}>
+                    Location
+                  </Form.Label>
+                  <div className={styles.errorMessage}>{errors.location}</div>
+                </div>
+              </div>
+
+              <Button
+                variant="primary"
+                type="submit"
+                className={styles.submitButton}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                    Processing...
+                  </>
+                ) : (
+                  "Submit Enrollment"
+                )}
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>

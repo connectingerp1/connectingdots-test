@@ -7,6 +7,7 @@
   max-width: 1800px;
   margin: auto;
 }
+
 .coursesContainer:before {
   content: "";
   position: absolute;
@@ -224,12 +225,12 @@
 }
 
 .starIcon {
-  color: #FFD700;  /* Gold color for stars */
+  color: #ffd700; /* Gold color for stars */
   margin: 0 1px;
 }
 
 .emptyStar {
-  color: #E0E0E0;  /* Light gray color for empty stars */
+  color: #e0e0e0; /* Light gray color for empty stars */
 }
 
 .halfStarContainer {
@@ -239,7 +240,7 @@
 }
 
 .halfStarBack {
-  color: #E0E0E0;  /* Light gray for background */
+  color: #e0e0e0; /* Light gray for background */
 }
 
 .halfStarWrapper {
@@ -251,7 +252,7 @@
 }
 
 .halfStarFront {
-  color: #FFD700;  /* Gold color for the visible half */
+  color: #ffd700; /* Gold color for the visible half */
 }
 
 .ratingText {
@@ -365,7 +366,7 @@
   color: white;
 }
 
-/* New attractive enrollment form styles */
+/* Enrollment form styles */
 .enrollmentModal :global(.modal-content) {
   border-radius: 15px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -400,66 +401,27 @@
   background-color: #f8fafc;
 }
 
-/* Form progress steps */
-.formProgress {
+/* Selected course info display */
+.selectedCourseInfo {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
-  position: relative;
-  gap: 20px;
+  background-color: white;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-left: 3px solid #3b82f6;
 }
 
-.progressStep {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.progressStep.active .stepNumber {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  color: white;
-}
-
-.progressStep.active .stepName {
-  color: #1d4ed8;
+.selectedCourseLabel {
   font-weight: 600;
+  color: #4b5563;
+  margin-right: 10px;
 }
 
-.stepNumber {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #e5e7eb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #6b7280;
-  font-weight: 600;
-  margin-bottom: 5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.stepName {
-  font-size: 12px;
-  color: #6b7280;
-  transition: all 0.3s ease;
-}
-
-.progressLine {
-  position: absolute;
-  top: 17px;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 2px;
-  background-color: #e5e7eb;
-  width: 80px;
-  z-index: 0;
+.selectedCourseName {
+  font-weight: 500;
+  color: #1e3a8a;
 }
 
 .formStep {
@@ -568,8 +530,7 @@
   padding-bottom: 5px;
 }
 
-/* Buttons */
-.nextButton,
+/* Submit button */
 .submitButton {
   background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   border: none;
@@ -579,97 +540,13 @@
   border-radius: 8px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
+  margin-top: 10px;
 }
 
-.nextButton:hover,
 .submitButton:hover:not(:disabled) {
   background: linear-gradient(135deg, #2563eb, #1e40af);
   box-shadow: 0 6px 10px rgba(29, 78, 216, 0.3);
   transform: translateY(-2px);
-}
-
-.backButton {
-  background-color: transparent;
-  color: #6b7280;
-  border: 1px solid #d1d5db;
-  padding: 12px;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.backButton:hover {
-  background-color: #f9fafb;
-  color: #111827;
-  border-color: #9ca3af;
-}
-
-.formButtons {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.backButton,
-.submitButton {
-  flex: 1;
-}
-
-/* Summary card */
-.summaryCard {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
-}
-
-.summaryTitle {
-  font-weight: 600;
-  font-size: 18px;
-  color: #111827;
-  margin-bottom: 15px;
-  text-align: center;
-  position: relative;
-  padding-bottom: 10px;
-}
-
-.summaryTitle::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
-  border-radius: 3px;
-}
-
-.summaryItem {
-  display: flex;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.summaryItem:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.summaryLabel {
-  width: 30%;
-  font-weight: 500;
-  color: #6b7280;
-}
-
-.summaryValue {
-  width: 70%;
-  color: #111827;
-  font-weight: 500;
-  word-break: break-word;
 }
 
 /* Responsive styles */
@@ -711,10 +588,6 @@
   .timerDivider {
     font-size: 16px;
   }
-
-  .progressLine {
-    width: 60px;
-  }
 }
 
 @media screen and (max-width: 768px) {
@@ -729,14 +602,6 @@
 
   .coursesTitle h2 {
     font-size: 2rem;
-  }
-
-  .summaryLabel {
-    width: 40%;
-  }
-
-  .summaryValue {
-    width: 60%;
   }
 }
 
@@ -813,29 +678,6 @@
     align-items: center;
     gap: 10px;
   }
-
-  .progressLine {
-    width: 40px;
-  }
-
-  .stepNumber {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-  }
-
-  .stepName {
-    font-size: 10px;
-  }
-
-  .formButtons {
-    flex-direction: column;
-  }
-
-  .backButton,
-  .submitButton {
-    width: 100%;
-  }
 }
 
 @media (max-width: 480px) {
@@ -871,17 +713,12 @@
     font-size: 14px;
   }
 
-  .summaryLabel,
-  .summaryValue {
-    width: 100%;
-  }
-
-  .summaryItem {
+  .selectedCourseInfo {
     flex-direction: column;
+    align-items: flex-start;
   }
 
-  .summaryLabel {
+  .selectedCourseLabel {
     margin-bottom: 5px;
-    color: #4b5563;
   }
 }
