@@ -56,7 +56,18 @@ const availableCities = [
   "mangalore",
   "katraj",
   "pimpri-chinchwad",
+  "shivaji-nagar",
+  "koregaon-park",
+  "viman-nagar",
+  "pimple-saudagar",
+  "baner",
+  "hinjewadi",
+  "wakad",
+  "kothrud",
+  "hadapsar",
+  "aundh",
 ];
+
 
 const capitalizeCity = (city) => {
   return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();

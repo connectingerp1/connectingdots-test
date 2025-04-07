@@ -24,6 +24,16 @@ const CitySitemap = () => {
     { name: "Pune", slug: "pune", region: "West", popular: true },
     { name: "Katraj", slug: "katraj", region: "West", popular: true },
     { name: "Pimpri-Chinchwad", slug: "pimpri-chinchwad", region: "West", popular: true }, 
+    { name: "Shivaji Nagar", slug: "shivaji-nagar", region: "West", popular: true },
+    { name: "Koregaon Park", slug: "koregaon-park", region: "West", popular: true },
+    { name: "Viman Nagar", slug: "viman-nagar", region: "West", popular: true },
+    { name: "Pimple Saudagar", slug: "pimple-saudagar", region: "West", popular: true },
+    { name: "Baner", slug: "baner", region: "West", popular: true },
+    { name: "Hinjewadi", slug: "hinjewadi", region: "West", popular: true },
+    { name: "Wakad", slug: "wakad", region: "West", popular: true },
+    { name: "Kothrud", slug: "kothrud", region: "West", popular: true },
+    { name: "Hadapsar", slug: "hadapsar", region: "West", popular: true },
+    { name: "Aundh", slug: "aundh", region: "West", popular: true },
     { name: "Mumbai", slug: "mumbai", region: "West", popular: true },
     { name: "Delhi", slug: "delhi", region: "North", popular: true },
     { name: "Kolkata", slug: "kolkata", region: "East", popular: true },
@@ -83,6 +93,36 @@ const CitySitemap = () => {
   // Regions for filtering
   const regions = ["All", "North", "South", "East", "West", "Central"];
 
+  // Search and Filter Controls
+  const SearchFilters = () => (
+    <div className={styles.filterControls}>
+      <div className={styles.searchBox}>
+        <FaSearch className={styles.searchIcon} />
+        <input
+          type="text"
+          placeholder="Search city..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+      </div>
+      <div className={styles.regionFilter}>
+        <FaFilter className={styles.filterIcon} />
+        <select
+          value={selectedRegion}
+          onChange={(e) => setSelectedRegion(e.target.value)}
+          className={styles.regionSelect}
+        >
+          {regions.map((region) => (
+            <option key={region} value={region}>
+              {region} Region
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+
   // Popular cities section
   const popularCities = cities.filter((city) => city.popular);
 
@@ -110,6 +150,9 @@ const CitySitemap = () => {
             India
           </p>
         </div>
+
+        {/* Search and Filtering Controls */}
+        <SearchFilters />
 
         {/* Popular Cities Section */}
         <div className={styles.popularCitiesSection}>
