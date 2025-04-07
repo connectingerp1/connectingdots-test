@@ -61,27 +61,27 @@ const PopupForm = ({ onSubmitData }) => {
       setStatusMessage({ text: "Name should be less than 50 characters", type: "error" });
       return false;
     }
-    
+
     if (!/^\d{10}$/.test(mobile)) {
       setStatusMessage({ text: "Please enter a valid 10-digit mobile number", type: "error" });
       return false;
     }
-    
+
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
       setStatusMessage({ text: "Please enter a valid email address", type: "error" });
       return false;
     }
-    
+
     if (course.length > 50) {
       setStatusMessage({ text: "Course name should be less than 50 characters", type: "error" });
       return false;
     }
-    
+
     if (!isChecked) {
       setStatusMessage({ text: "Please accept the terms and conditions", type: "error" });
       return false;
     }
-    
+
     return true;
   };
 
@@ -143,6 +143,14 @@ const PopupForm = ({ onSubmitData }) => {
   return (
     <div className={styles.popupFormOverlay}>
       <div className={styles.popupFormContainer}>
+        {/* Lightning border effect */}
+        <div className={styles.lightningBorder}>
+          <div className={`${styles.lightningEdge} ${styles.top}`}></div>
+          <div className={`${styles.lightningEdge} ${styles.right}`}></div>
+          <div className={`${styles.lightningEdge} ${styles.bottom}`}></div>
+          <div className={`${styles.lightningEdge} ${styles.left}`}></div>
+        </div>
+        
         <button
           className={styles.closeButton}
           onClick={() => setIsVisible(false)}
@@ -158,7 +166,7 @@ const PopupForm = ({ onSubmitData }) => {
           />
           <h2>Register now</h2>
         </div>
-        
+
         {statusMessage.text && (
           <div className={`${styles.statusMessage} ${styles[statusMessage.type]}`}>
             {statusMessage.text}

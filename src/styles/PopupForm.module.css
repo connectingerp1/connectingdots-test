@@ -22,8 +22,129 @@
   max-width: 380px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   position: relative;
+  overflow: visible;
 }
 
+/* Lightning border effect */
+.lightningBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.lightningEdge {
+  position: absolute;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #2277d3, 
+    #64b5f6, 
+    #ffffff, 
+    #64b5f6, 
+    #2277d3, 
+    transparent);
+  background-size: 200% 100%;
+  z-index: 5;
+}
+
+.lightningEdge.top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  animation: lightningMoveHorizontal 3s infinite linear; /* Slower speed: 3s instead of 1.5s */
+}
+
+.lightningEdge.right {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  animation: lightningMoveVertical 3s infinite linear 0.75s; /* Slower speed: 3s instead of 1.5s */
+  background: linear-gradient(180deg, 
+    transparent, 
+    #2277d3, 
+    #64b5f6, 
+    #ffffff, 
+    #64b5f6, 
+    #2277d3, 
+    transparent);
+  background-size: 100% 200%;
+}
+
+.lightningEdge.bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  animation: lightningMoveHorizontal 3s infinite linear 1.5s; /* Slower speed: 3s instead of 1.5s */
+}
+
+.lightningEdge.left {
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  animation: lightningMoveVertical 3s infinite linear 2.25s; /* Slower speed: 3s instead of 1.5s */
+  background: linear-gradient(180deg, 
+    transparent, 
+    #2277d3, 
+    #64b5f6, 
+    #ffffff, 
+    #64b5f6, 
+    #2277d3, 
+    transparent);
+  background-size: 100% 200%;
+}
+
+@keyframes lightningMoveHorizontal {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8; /* Reduced opacity for subtler effect */
+  }
+  50% {
+    background-position: 100% 0%;
+    opacity: 0.8; /* Reduced opacity for subtler effect */
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    background-position: 200% 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes lightningMoveVertical {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8; /* Reduced opacity for subtler effect */
+  }
+  50% {
+    background-position: 0% 100%;
+    opacity: 0.8; /* Reduced opacity for subtler effect */
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    background-position: 0% 200%;
+    opacity: 0;
+  }
+}
+
+/* The rest of your existing CSS */
 .closeButton {
   position: absolute;
   top: 20px;
@@ -86,6 +207,7 @@
 .popupFormContainer form input::placeholder {
   color: #999;
 }
+
 .termsCheckbox {
   width: 100%;
   display: flex;
@@ -185,8 +307,6 @@
     margin: 0;
   }
 }
-
-/* Add these styles to your existing PopupForm.module.css file */
 
 /* Status message styling */
 .statusMessage {
