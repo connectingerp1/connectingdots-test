@@ -14,7 +14,7 @@ const cityData = {
       "Explore our comprehensive range of professional courses in Katraj, Maharashtra's educational hub.",
   },
   "pimpri-chinchwad": {
-    name: "Pune",
+    name: "Pimpri-Chinchwad",
     description:
       "Explore our comprehensive range of professional courses in Pune, Maharashtra's educational hub.",
   },

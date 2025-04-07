@@ -14,13 +14,48 @@ export const useCity = () => {
 };
 
 const availableCities = [
-  "pune", "mumbai", "delhi", "kolkata", "chennai", "bangalore",
-  "hyderabad", "ahmedabad", "jaipur", "lucknow", "kanpur", "nagpur",
-  "patna", "indore", "bhopal", "visakhapatnam", "vadodara", "ludhiana",
-  "agra", "nashik", "rajkot", "varanasi", "kerala", "surat", "dehradun",
-  "madurai", "mysore", "pondicherry", "ranchi", "coimbatore",
-  "chandigarh", "bhubaneswar", "tirupati", "vizag", "trivandrum",
-  "jalandhar", "mohali", "raipur", "cochin", "mangalore", "katraj", "pimpri-chinchwad",
+  "pune",
+  "mumbai",
+  "delhi",
+  "kolkata",
+  "chennai",
+  "bangalore",
+  "hyderabad",
+  "ahmedabad",
+  "jaipur",
+  "lucknow",
+  "kanpur",
+  "nagpur",
+  "patna",
+  "indore",
+  "bhopal",
+  "visakhapatnam",
+  "vadodara",
+  "ludhiana",
+  "agra",
+  "nashik",
+  "rajkot",
+  "varanasi",
+  "kerala",
+  "surat",
+  "dehradun",
+  "madurai",
+  "mysore",
+  "pondicherry",
+  "ranchi",
+  "coimbatore",
+  "chandigarh",
+  "bhubaneswar",
+  "tirupati",
+  "vizag",
+  "trivandrum",
+  "jalandhar",
+  "mohali",
+  "raipur",
+  "cochin",
+  "mangalore",
+  "katraj",
+  "pimpri-chinchwad",
 ];
 
 const capitalizeCity = (city) => {
@@ -33,8 +68,14 @@ export const CityProvider = ({ children }) => {
 
   useEffect(() => {
     if (pathname) {
-      const citySlug = pathname.substring(pathname.lastIndexOf("-") + 1);
-      if (availableCities.includes(citySlug.toLowerCase())) {
+      const pathParts = pathname.split("-"); // Split by hyphen
+      let citySlug = pathParts.slice(-2).join("-").toLowerCase(); // Try last two parts
+
+      if (!availableCities.includes(citySlug)) {
+        citySlug = pathParts.slice(-1)[0].toLowerCase(); // Fallback to last part
+      }
+
+      if (availableCities.includes(citySlug)) {
         setCity(capitalizeCity(citySlug));
       } else {
         setCity("Pune");
@@ -43,8 +84,6 @@ export const CityProvider = ({ children }) => {
   }, [pathname]);
 
   return (
-    <CityContext.Provider value={{ city }}>
-      {children}
-    </CityContext.Provider>
+    <CityContext.Provider value={{ city }}>{children}</CityContext.Provider>
   );
 };
