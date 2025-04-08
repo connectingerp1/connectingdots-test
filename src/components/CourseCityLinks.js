@@ -116,13 +116,17 @@ const CourseCityLinks = () => {
       <h2>Explore Our Courses by City</h2>
       <ul>
         {courses.map((course) =>
-          cities.map((city) => (
-            <li key={`${course}-${city}`}>
-              <Link href={`/${course}/${city}`}>
-                {course} in {city}
-              </Link>
-            </li>
-          ))
+          cities.map((city) => {
+            // Construct the slug correctly
+            const slug = `/${course}-${city}`.replace(/\//g, "").toLowerCase();
+            return (
+              <li key={`${course}-${city}`}>
+                <Link href={slug}>
+                  {course.replace(/-/g, " ").replace(/in/g, "in")} in {city}
+                </Link>
+              </li>
+            );
+          })
         )}
       </ul>
     </div>
