@@ -44,6 +44,11 @@ export default function RootLayout({ children }) {
           data-key="Lvg8yXKWB+tW+q2A0zb0LQ"
           async
         ></Script>
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="pUfORHA6uR+7KBt+fOIy2g"
+          async
+        ></Script>
 
         {/* Google Tag Manager - HEAD */}
         <Script

@@ -1,25 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  FaMapMarkerAlt,
-  FaPhone,
-  FaSearch,
-  FaFilter,
-  FaBuilding,
-} from "react-icons/fa";
-import { MdEmail, MdLocationCity } from "react-icons/md";
+import { FaMapMarkerAlt, FaPhone, FaBuilding } from "react-icons/fa";
+import { MdLocationCity } from "react-icons/md";
 import styles from "@/styles/CitySitemap/CitySitemap.module.css";
 
 const CitySitemap = () => {
-  // States
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("All");
-  const [filteredCities, setFilteredCities] = useState([]);
-
-  // Cities data with added region for filtering
+  // Cities
   const cities = [
     { name: "Pune", slug: "pune", region: "West", popular: true },
     { name: "Katraj", slug: "katraj", region: "West", popular: true },
@@ -121,54 +108,8 @@ const CitySitemap = () => {
     { name: "Mangalore", slug: "mangalore", region: "South", popular: false },
   ];
 
-  // Regions for filtering
-  const regions = ["All", "North", "South", "East", "West", "Central"];
-
-  // Search and Filter Controls
-  const SearchFilters = () => (
-    <div className={styles.filterControls}>
-      <div className={styles.searchBox}>
-        <FaSearch className={styles.searchIcon} />
-        <input
-          type="text"
-          placeholder="Search city..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className={styles.searchInput}
-        />
-      </div>
-      <div className={styles.regionFilter}>
-        <FaFilter className={styles.filterIcon} />
-        <select
-          value={selectedRegion}
-          onChange={(e) => setSelectedRegion(e.target.value)}
-          className={styles.regionSelect}
-        >
-          {regions.map((region) => (
-            <option key={region} value={region}>
-              {region} Region
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
-
   // Popular cities section
   const popularCities = cities.filter((city) => city.popular);
-
-  // Filtering logic
-  useEffect(() => {
-    const results = cities.filter((city) => {
-      const matchesSearch = city.name
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      const matchesRegion =
-        selectedRegion === "All" || city.region === selectedRegion;
-      return matchesSearch && matchesRegion;
-    });
-    setFilteredCities(results);
-  }, [searchTerm, selectedRegion]);
 
   return (
     <div className={styles.pageWrapper}>
@@ -181,9 +122,6 @@ const CitySitemap = () => {
             India
           </p>
         </div>
-
-        {/* Search and Filtering Controls */}
-        <SearchFilters />
 
         {/* Popular Cities Section */}
         <div className={styles.popularCitiesSection}>
@@ -205,31 +143,22 @@ const CitySitemap = () => {
 
         {/* All Cities Grid */}
         <div className={styles.allCitiesSection}>
-          <h3>
-            All Training Locations{" "}
-            {filteredCities.length > 0 && `(${filteredCities.length})`}
-          </h3>
+          <h3>All Training Locations ({cities.length})</h3>
 
-          {filteredCities.length === 0 ? (
-            <div className={styles.noResults}>
-              <p>No cities found matching your search criteria.</p>
-            </div>
-          ) : (
-            <div className={styles.citiesGrid}>
-              {filteredCities.map((city, index) => (
-                <Link
-                  href={`/sitemap/${city.slug}`}
-                  key={index}
-                  className={styles.cityCard}
-                >
-                  <div className={styles.cityCardContent}>
-                    <h2>{city.name}</h2>
-                    <span className={styles.regionTag}>{city.region}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
+          <div className={styles.citiesGrid}>
+            {cities.map((city, index) => (
+              <Link
+                href={`/sitemap/${city.slug}`}
+                key={index}
+                className={styles.cityCard}
+              >
+                <div className={styles.cityCardContent}>
+                  <h2>{city.name}</h2>
+                  <span className={styles.regionTag}>{city.region}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* Contact Information Section - Always visible now */}
