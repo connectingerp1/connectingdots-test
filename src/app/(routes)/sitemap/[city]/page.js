@@ -73,6 +73,61 @@ const cityData = {
     description:
       "Discover top-rated professional training programs in Mumbai, India's financial capital and business hub.",
   },
+  "navi-mumbai": {
+    name: "Navi Mumbai",
+    description:
+      "Explore career-boosting courses in Navi Mumbai, a well-planned satellite city with booming IT and commercial sectors.",
+  },
+  thane: {
+    name: "Thane",
+    description:
+      "Advance your skills in Thane, a fast-growing city near Mumbai known for its vibrant job market and infrastructure.",
+  },
+  kalyan: {
+    name: "Kalyan",
+    description:
+      "Discover specialized training in Kalyan, a key residential and commercial hub in the Mumbai Metropolitan Region.",
+  },
+  bandra: {
+    name: "Bandra",
+    description:
+      "Upgrade your expertise in Bandra, Mumbai’s trendy suburb known for its business centers and cultural hotspots.",
+  },
+  andheri: {
+    name: "Andheri",
+    description:
+      "Gain industry-relevant knowledge in Andheri, Mumbai's major business district with diverse corporate opportunities.",
+  },
+  powai: {
+    name: "Powai",
+    description:
+      "Join professional courses in Powai, a leading educational and startup hub in Mumbai with a strong corporate presence.",
+  },
+  worli: {
+    name: "Worli",
+    description:
+      "Develop your career in Worli, one of Mumbai’s prime commercial districts with elite business and educational centers.",
+  },
+  chembur: {
+    name: "Chembur",
+    description:
+      "Find top-rated training in Chembur, a well-connected residential and industrial area in Mumbai.",
+  },
+  malad: {
+    name: "Malad",
+    description:
+      "Advance your skills with specialized courses in Malad, a dynamic residential and IT hub in Mumbai’s western suburbs.",
+  },
+  "vile-parle": {
+    name: "Vile Parle",
+    description:
+      "Enroll in professional training in Vile Parle, home to top educational institutions and business districts.",
+  },
+  matunga: {
+    name: "Matunga",
+    description:
+      "Excel in your field with expert training in Matunga, Mumbai’s academic and cultural hub.",
+  },
   delhi: {
     name: "Delhi",
     description:

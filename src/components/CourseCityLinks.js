@@ -55,6 +55,17 @@ const CourseCityLinks = () => {
     "kothrud",
     "hadapsar",
     "aundh",
+    "navi-mumbai",
+    "thane",
+    "kalyan",
+    "bandra",
+    "andheri",
+    "powai",
+    "worli",
+    "chembur",
+    "malad",
+    "vile-parle",
+    "matunga",
   ];
 
   const courses = [

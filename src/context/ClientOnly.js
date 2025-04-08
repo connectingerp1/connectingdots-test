@@ -10,10 +10,10 @@ const ClientOnly = ({ children }) => {
   }, []);
 
   if (!hasMounted) {
-    return null; // Render nothing on the server
+    return null;
   }
 
-  return children; // Render children on the client
+  return children;
 };
 
 export default ClientOnly;
