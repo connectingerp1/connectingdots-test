@@ -359,6 +359,7 @@
   gap: 50px;
   flex-direction: column;
   display: flex;
+  padding-left: 100px;
 }
 
 .cardBox2 {
@@ -729,6 +730,7 @@
   .carouselText2 {
     margin-bottom: 30px;
     text-align: center;
+    padding-left: 0px;
   }
   .cardBox2 {
     width: 450px;
@@ -789,6 +791,7 @@
     width: 100%;
     gap: 20px;
     text-align: center;
+    padding-left: 0px;
   }
   .carouselText2 h1 {
     font-size: 1.8rem;
@@ -979,6 +982,7 @@
   .carouselText2 {
     margin-bottom: 0px;
     gap: 0;
+    padding-left: 0px;
   }
 
   .carouselText2 h2 {
@@ -1026,6 +1030,7 @@
   .carouselText2 {
     margin-bottom: 0px;
     gap: 0;
+    padding-left: 0px;
   }
 
   .carouselText2 h2 {
@@ -1065,6 +1070,7 @@
   .carouselText2 {
     margin-bottom: 0px;
     gap: 0;
+    padding-left: 0px;
   }
 
   .carouselText2 h2 {
