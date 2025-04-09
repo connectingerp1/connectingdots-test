@@ -63,7 +63,7 @@ const Dashboard = () => {
   const fetchLeads = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://serverbackend-0nvg.onrender.com/api/leads");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leads`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
