@@ -15,7 +15,7 @@ const DSHeader = ({ pageId, pageType }) => {
   const [statusMessage, setStatusMessage] = useState({ text: "", type: "" });
   const { city } = useContext(CityContext);
   const [showForm, setShowForm] = useState(false);
-  
+
   // Store raw data without city replacement
   const [rawData, setRawData] = useState(null);
 
@@ -62,7 +62,7 @@ const DSHeader = ({ pageId, pageType }) => {
         // Load raw data from localStorage
         const cacheKey = `dsHeader_raw_${pageId}_${pageType}`;
         const cachedRawData = localStorage.getItem(cacheKey);
-        
+
         if (cachedRawData) {
           setRawData(JSON.parse(cachedRawData));
         } else {
@@ -80,7 +80,7 @@ const DSHeader = ({ pageId, pageType }) => {
             throw new Error("Page data not found");
           }
         }
-        
+
         setLoading(false);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -97,11 +97,14 @@ const DSHeader = ({ pageId, pageType }) => {
     if (rawData && city) {
       // Create a deep copy to avoid modifying the original data
       const processedData = JSON.parse(JSON.stringify(rawData));
-      
+
       // Apply city replacements
       processedData.title = processedData.title.replace(/{city}/g, city);
       processedData.subtitle = processedData.subtitle.replace(/{city}/g, city);
-      processedData.description = processedData.description.replace(/{city}/g, city);
+      processedData.description = processedData.description.replace(
+        /{city}/g,
+        city
+      );
       processedData.features = processedData.features.map((feature) =>
         feature.replace(/{city}/g, city)
       );
@@ -120,13 +123,13 @@ const DSHeader = ({ pageId, pageType }) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    
+
     // If it's the contact field, remove non-digit characters
     if (name === "contact") {
-      const digitsOnly = value.replace(/\D/g, '');
-      setFormData(prevData => ({ ...prevData, [name]: digitsOnly }));
+      const digitsOnly = value.replace(/\D/g, "");
+      setFormData((prevData) => ({ ...prevData, [name]: digitsOnly }));
     } else {
-      setFormData(prevData => ({ ...prevData, [name]: value }));
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
   };
 
@@ -142,9 +145,9 @@ const DSHeader = ({ pageId, pageType }) => {
 
     // Get the selected country code details
     const selectedCountry = countryCodes.find(
-      country => country.code === formData.countryCode
+      (country) => country.code === formData.countryCode
     );
-    
+
     if (!selectedCountry) {
       setStatusMessage({
         text: "Invalid country code",
@@ -154,7 +157,7 @@ const DSHeader = ({ pageId, pageType }) => {
     }
 
     const { minLength, maxLength } = selectedCountry;
-    
+
     // Check if phone number length is valid for the selected country
     if (
       formData.contact.length < minLength ||
@@ -192,43 +195,42 @@ const DSHeader = ({ pageId, pageType }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // Validate form first
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
     setStatusMessage({ text: "", type: "" });
 
     try {
       const response = await fetch(
-        "https://serverbackend-0nvg.onrender.com/api/submit",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/submit`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         }
       );
-      
+
       if (!response.ok) {
         throw new Error("Submission failed. Please try again.");
       }
-      
+
       setStatusMessage({
         text: "Form submitted successfully!",
         type: "success",
       });
-      
+
       // Reset form fields after successful submission
-      setFormData({ 
+      setFormData({
         name: "",
         email: "",
         course: "",
         countryCode: "+91",
-        contact: "" 
+        contact: "",
       });
-      
     } catch (error) {
       setStatusMessage({
         text: error.message || "An error occurred. Please try again.",
@@ -314,22 +316,24 @@ const DSHeader = ({ pageId, pageType }) => {
 
       <div className={styles.rightSectionItDs}>
         <h3>{data.form.title}</h3>
-        
+
         {statusMessage.text && (
-          <div className={`${styles.statusMessage} ${styles[statusMessage.type]}`}>
+          <div
+            className={`${styles.statusMessage} ${styles[statusMessage.type]}`}
+          >
             {statusMessage.text}
           </div>
         )}
-        
+
         <form onSubmit={handleSubmit} className={styles.form}>
           {data.form?.inputs?.map((input, index) => {
             if (input.countryCode) {
               // Find the selected country to get its maxLength
               const selectedCountry = countryCodes.find(
-                country => country.code === formData.countryCode
+                (country) => country.code === formData.countryCode
               );
               const maxLength = selectedCountry?.maxLength || 10;
-              
+
               return (
                 <div key={index} className={styles.phoneInputItDs}>
                   <div className={styles.countryCodeWrapper}>
@@ -380,7 +384,7 @@ const DSHeader = ({ pageId, pageType }) => {
 
           <button
             type="submit"
-            className={`${styles.submitButtonItDs} ${isSubmitting ? styles.loading : ''}`}
+            className={`${styles.submitButtonItDs} ${isSubmitting ? styles.loading : ""}`}
             disabled={isSubmitting}
           >
             {isSubmitting ? (

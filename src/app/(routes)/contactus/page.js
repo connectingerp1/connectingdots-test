@@ -100,24 +100,24 @@ const ContactPage = ({
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    
+
     console.log(`Field changed: ${name} = ${value}`);
-    
+
     // If it's the contact field, remove non-digit characters
     if (name === "contact") {
-      const digitsOnly = value.replace(/\D/g, '');
-      setLocalFormData(prev => ({ ...prev, [name]: digitsOnly }));
+      const digitsOnly = value.replace(/\D/g, "");
+      setLocalFormData((prev) => ({ ...prev, [name]: digitsOnly }));
     } else {
-      setLocalFormData(prev => ({ ...prev, [name]: value }));
+      setLocalFormData((prev) => ({ ...prev, [name]: value }));
     }
-    
+
     // Also update parent state if provided
     if (setFormData) {
       if (name === "contact") {
-        const digitsOnly = value.replace(/\D/g, '');
-        setFormData(prev => ({ ...prev, [name]: digitsOnly }));
+        const digitsOnly = value.replace(/\D/g, "");
+        setFormData((prev) => ({ ...prev, [name]: digitsOnly }));
       } else {
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
       }
     }
   };
@@ -139,10 +139,12 @@ const ContactPage = ({
 
     // Fix for undefined country code - use default if not set
     const countryCode = localFormData.countryCode || "+91";
-    
+
     // Get the selected country code details
-    const selectedCountry = countryCodes.find(country => country.code === countryCode);
-    
+    const selectedCountry = countryCodes.find(
+      (country) => country.code === countryCode
+    );
+
     if (!selectedCountry) {
       setSubmissionError(`Invalid country code: "${countryCode}"`);
       setIsSubmitting(false);
@@ -150,7 +152,7 @@ const ContactPage = ({
     }
 
     const { minLength, maxLength } = selectedCountry;
-    
+
     // Check if phone number length is valid for the selected country
     if (
       localFormData.contact.length < minLength ||
@@ -187,22 +189,22 @@ const ContactPage = ({
         coursename: localFormData.course, // Use coursename for API compatibility
         countryCode: countryCode, // Use the fixed countryCode
       };
-      
+
       console.log("Submitting data:", submissionData);
-      
+
       const response = await fetch(
-        "https://serverbackend-0nvg.onrender.com/api/submit",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/submit`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(submissionData),
+          body: JSON.stringify(formData),
         }
       );
-      
+
       if (!response.ok) throw new Error("Submission failed");
-      
+
       alert("Form submitted successfully!");
-      
+
       // Reset the form
       setLocalFormData({
         name: "",
@@ -221,7 +223,9 @@ const ContactPage = ({
   // Get the current selected country's maxLength
   const getSelectedCountryMaxLength = () => {
     const countryCode = localFormData.countryCode || "+91"; // Use default if not set
-    const selectedCountry = countryCodes.find(country => country.code === countryCode);
+    const selectedCountry = countryCodes.find(
+      (country) => country.code === countryCode
+    );
     return selectedCountry?.maxLength || 10;
   };
 
@@ -231,7 +235,7 @@ const ContactPage = ({
         <h2 className={styles.branchesTitle}>
           EXPLORE OUR EXPERT TECH TRAINING SOLUTIONS
         </h2>
-        
+
         <div className="row gx-4 gy-4">
           {/* Contact Info Section */}
           <div className="col-lg-8 col-md-7">
@@ -241,22 +245,25 @@ const ContactPage = ({
                 className={`row border-bottom pb-4 mb-4 ${styles.branchInfo}`}
               >
                 {/* Branch Name */}
-                <h5 className={`fw-bold text-uppercase mb-3 ${styles.branchName}`}>
+                <h5
+                  className={`fw-bold text-uppercase mb-3 ${styles.branchName}`}
+                >
                   {branch.name}
                 </h5>
-                
+
                 <div className="row g-3">
                   {/* Phone Section */}
                   <div className="col-md-4 col-sm-6">
                     <div className={styles.contactCard}>
-                      <FaPhone
-                        size={30}
-                        className={styles.phoneIcon}
-                      />
+                      <FaPhone size={30} className={styles.phoneIcon} />
                       <h6 className={styles.cardSubtitle}>Phone</h6>
                       <div className={styles.contactDetails}>
                         {branch.phone.map((num, i) => (
-                          <a href={`tel:${num.replace(/\s/g, '')}`} key={i} className={styles.contactLink}>
+                          <a
+                            href={`tel:${num.replace(/\s/g, "")}`}
+                            key={i}
+                            className={styles.contactLink}
+                          >
                             {num}
                           </a>
                         ))}
@@ -270,7 +277,10 @@ const ContactPage = ({
                       <FaWhatsapp size={30} className={styles.whatsappIcon} />
                       <h6 className={styles.cardSubtitle}>WhatsApp</h6>
                       <div className={styles.contactDetails}>
-                        <a href={branch.whatsapp} className={styles.whatsappBtn}>
+                        <a
+                          href={branch.whatsapp}
+                          className={styles.whatsappBtn}
+                        >
                           Chat Now
                         </a>
                       </div>
@@ -280,7 +290,10 @@ const ContactPage = ({
                   {/* Address Section */}
                   <div className="col-md-4 col-sm-12">
                     <div className={styles.contactCard}>
-                      <FaMapMarkerAlt size={30} className={styles.addressIcon} />
+                      <FaMapMarkerAlt
+                        size={30}
+                        className={styles.addressIcon}
+                      />
                       <h6 className={styles.cardSubtitle}>Address</h6>
                       <div className={styles.contactDetails}>
                         <a
@@ -315,7 +328,7 @@ const ContactPage = ({
                     required
                   />
                 </div>
-                
+
                 <div className={styles.phoneInputItDs}>
                   <select
                     name="countryCode" // Important: ensure this matches the state property name
@@ -340,7 +353,7 @@ const ContactPage = ({
                     required
                   />
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <input
                     type="email"
@@ -352,7 +365,7 @@ const ContactPage = ({
                     required
                   />
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <input
                     type="text"
@@ -364,7 +377,7 @@ const ContactPage = ({
                     required
                   />
                 </div>
-                
+
                 <button
                   type="submit"
                   className={styles.submitButtonItDs}
@@ -372,7 +385,7 @@ const ContactPage = ({
                 >
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </button>
-                
+
                 {submissionError && (
                   <p className={styles.error}>{submissionError}</p>
                 )}

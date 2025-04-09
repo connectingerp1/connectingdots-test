@@ -130,7 +130,7 @@ const ContactForm = ({ course, formData, onClose }) => {
     setIsLoading(true); // Start loading
 
     try {
-      await axios.post("https://serverbackend-0nvg.onrender.com/api/submit", formValues);
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit`, formValues);
 
       setIsLoading(false);
       setThankYouVisible(true);

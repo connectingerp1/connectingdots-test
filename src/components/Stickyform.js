@@ -186,7 +186,7 @@ const SContactForm = () => {
     };
 
     try {
-      const response = await axios.post("https://serverbackend-0nvg.onrender.com/api/submit", submissionData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit`, submissionData);
 
       if (response.status === 200) {
         setShowPopup(true);
