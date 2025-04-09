@@ -35,7 +35,18 @@ const clientLogos = [
   "vyapar.avif",
   "weber.avif",
   "whitehat.avif",
-  "zenser.avif",
+  "zenser.avif",  
+  "BAJAJ.avif",
+  "BIG.avif",
+  "BOSTON.avif",
+  "CAP.avif",
+  "FIRST.avif",
+  "GNS.avif",
+  "INTE.avif",
+  "ZELI.avif",
+  "DCT.avif",
+  "NA.avif",
+  "KOHLER.avif",
 ];
 
 // Fisher-Yates shuffle algorithm

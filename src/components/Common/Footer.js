@@ -243,6 +243,9 @@ const Footer = () => {
                 <li>
                   <Link href="/sitemap">CITY SITEMAP</Link>
                 </li>
+                <li>
+                  <Link href="/all-course-links">ALL COURSES/CITY SITEMAP</Link>
+                </li>
               </ul>
             </div>
           </div>
