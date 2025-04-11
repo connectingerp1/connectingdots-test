@@ -70,7 +70,7 @@ const Dashboard = () => {
       }
 
       const data = await response.json();
-      setLeads(data.reverse());
+      setLeads();
     } catch (err) {
       setError(err.message);
     } finally {
