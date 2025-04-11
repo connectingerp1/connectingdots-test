@@ -2,7 +2,14 @@
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/dashboard/Dashboard.module.css";
-import { FaTrash, FaSpinner, FaDownload, FaSignOutAlt, FaCheckSquare, FaSquare } from "react-icons/fa";
+import {
+  FaTrash,
+  FaSpinner,
+  FaDownload,
+  FaSignOutAlt,
+  FaCheckSquare,
+  FaSquare,
+} from "react-icons/fa";
 
 const Dashboard = () => {
   const [leads, setLeads] = useState([]);
@@ -21,10 +28,10 @@ const Dashboard = () => {
     () => Math.ceil(leads.length / leadsPerPage),
     [leads.length]
   );
-  
+
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  
+
   const currentLeads = useMemo(
     () => leads.slice(indexOfFirstLead, indexOfLastLead),
     [leads, indexOfFirstLead, indexOfLastLead]
@@ -50,7 +57,7 @@ const Dashboard = () => {
   // Check "select all" status when leads or selection changes
   useEffect(() => {
     if (currentLeads.length > 0) {
-      const allSelected = currentLeads.every(lead => 
+      const allSelected = currentLeads.every((lead) =>
         selectedLeads.includes(lead._id)
       );
       setSelectAll(allSelected);
@@ -63,16 +70,36 @@ const Dashboard = () => {
   const fetchLeads = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leads`);
+      setError(null); // Clear previous errors before fetching
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/leads`
+      );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        // Try to get error message from backend if available
+        let errorMsg = `HTTP error! Status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMsg = errorData.message || errorMsg;
+        } catch (jsonError) {
+          // Ignore if response body is not JSON
+        }
+        throw new Error(errorMsg);
       }
 
       const data = await response.json();
-      setLeads();
+      // Ensure data is an array before setting state
+      if (Array.isArray(data)) {
+        setLeads(data); // <-- CORRECT: Pass the fetched data array
+      } else {
+        console.error("API did not return an array:", data);
+        setLeads([]); // Set to empty array if response is not as expected
+        throw new Error("Received invalid data format from API.");
+      }
     } catch (err) {
+      console.error("Error fetching leads:", err); // Log the full error
       setError(err.message);
+      setLeads([]); // Ensure leads is an empty array on error
     } finally {
       setLoading(false);
     }
@@ -84,9 +111,12 @@ const Dashboard = () => {
 
     try {
       setDeleteLoading(true);
-      const response = await fetch(`https://serverbackend-0nvg.onrender.com/api/leads/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://serverbackend-0nvg.onrender.com/api/leads/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
@@ -95,7 +125,7 @@ const Dashboard = () => {
       setLeads((prevLeads) => prevLeads.filter((lead) => lead._id !== id));
       // If the lead was selected, remove it from selected leads
       if (selectedLeads.includes(id)) {
-        setSelectedLeads(prev => prev.filter(leadId => leadId !== id));
+        setSelectedLeads((prev) => prev.filter((leadId) => leadId !== id));
       }
     } catch (error) {
       console.error("Error deleting lead:", error.message);
@@ -111,7 +141,12 @@ const Dashboard = () => {
       return;
     }
 
-    if (!window.confirm(`Are you sure you want to delete ${selectedLeads.length} selected leads?`)) return;
+    if (
+      !window.confirm(
+        `Are you sure you want to delete ${selectedLeads.length} selected leads?`
+      )
+    )
+      return;
 
     setDeleteLoading(true);
     let successCount = 0;
@@ -119,9 +154,12 @@ const Dashboard = () => {
 
     for (const id of selectedLeads) {
       try {
-        const response = await fetch(`https://serverbackend-0nvg.onrender.com/api/leads/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `https://serverbackend-0nvg.onrender.com/api/leads/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         if (response.ok) {
           successCount++;
@@ -135,12 +173,14 @@ const Dashboard = () => {
     }
 
     if (successCount > 0) {
-      setLeads((prevLeads) => 
+      setLeads((prevLeads) =>
         prevLeads.filter((lead) => !selectedLeads.includes(lead._id))
       );
       setSelectedLeads([]);
       setSelectAll(false);
-      alert(`Successfully deleted ${successCount} leads${errorCount > 0 ? `. Failed to delete ${errorCount} leads.` : ''}`);
+      alert(
+        `Successfully deleted ${successCount} leads${errorCount > 0 ? `. Failed to delete ${errorCount} leads.` : ""}`
+      );
     } else if (errorCount > 0) {
       alert(`Failed to delete ${errorCount} leads. Please try again.`);
     }
@@ -150,9 +190,9 @@ const Dashboard = () => {
 
   // Handle selection of a single lead
   const handleSelectLead = (id) => {
-    setSelectedLeads(prev => {
+    setSelectedLeads((prev) => {
       if (prev.includes(id)) {
-        return prev.filter(leadId => leadId !== id);
+        return prev.filter((leadId) => leadId !== id);
       } else {
         return [...prev, id];
       }
@@ -162,14 +202,14 @@ const Dashboard = () => {
   // Handle select all leads on current page
   const handleSelectAll = () => {
     if (selectAll) {
-      setSelectedLeads(prev => 
-        prev.filter(id => !currentLeads.some(lead => lead._id === id))
+      setSelectedLeads((prev) =>
+        prev.filter((id) => !currentLeads.some((lead) => lead._id === id))
       );
     } else {
-      const currentPageIds = currentLeads.map(lead => lead._id);
-      setSelectedLeads(prev => {
+      const currentPageIds = currentLeads.map((lead) => lead._id);
+      setSelectedLeads((prev) => {
         // Add only ids that aren't already in the array
-        const newIds = currentPageIds.filter(id => !prev.includes(id));
+        const newIds = currentPageIds.filter((id) => !prev.includes(id));
         return [...prev, ...newIds];
       });
     }
@@ -258,14 +298,19 @@ const Dashboard = () => {
       {selectedLeads.length > 0 && (
         <div className={styles.bulkActionBar}>
           <span>
-            {selectedLeads.length} {selectedLeads.length === 1 ? 'lead' : 'leads'} selected
+            {selectedLeads.length}{" "}
+            {selectedLeads.length === 1 ? "lead" : "leads"} selected
           </span>
-          <button 
-            onClick={deleteSelectedLeads} 
+          <button
+            onClick={deleteSelectedLeads}
             className={styles.bulkDeleteButton}
             disabled={deleteLoading}
           >
-            {deleteLoading ? <FaSpinner className={styles.spinner} /> : <FaTrash />} 
+            {deleteLoading ? (
+              <FaSpinner className={styles.spinner} />
+            ) : (
+              <FaTrash />
+            )}
             Delete Selected
           </button>
         </div>
@@ -286,8 +331,15 @@ const Dashboard = () => {
                 <thead>
                   <tr>
                     <th className={styles.checkboxColumn}>
-                      <div className={styles.checkboxWrapper} onClick={handleSelectAll}>
-                        {selectAll ? <FaCheckSquare className={styles.checkIcon} /> : <FaSquare className={styles.checkIcon} />}
+                      <div
+                        className={styles.checkboxWrapper}
+                        onClick={handleSelectAll}
+                      >
+                        {selectAll ? (
+                          <FaCheckSquare className={styles.checkIcon} />
+                        ) : (
+                          <FaSquare className={styles.checkIcon} />
+                        )}
                       </div>
                     </th>
                     <th>Sr. No.</th>
@@ -304,15 +356,19 @@ const Dashboard = () => {
                   {currentLeads.length > 0 ? (
                     currentLeads.map((lead, index) => (
                       <tr key={lead._id || index}>
-                        <td data-label="Select" className={styles.checkboxColumn}>
-                          <div 
-                            className={styles.checkboxWrapper} 
+                        <td
+                          data-label="Select"
+                          className={styles.checkboxColumn}
+                        >
+                          <div
+                            className={styles.checkboxWrapper}
                             onClick={() => handleSelectLead(lead._id)}
                           >
-                            {selectedLeads.includes(lead._id) ? 
-                              <FaCheckSquare className={styles.checkIcon} /> : 
+                            {selectedLeads.includes(lead._id) ? (
+                              <FaCheckSquare className={styles.checkIcon} />
+                            ) : (
                               <FaSquare className={styles.checkIcon} />
-                            }
+                            )}
                           </div>
                         </td>
                         <td data-label="Sr. No.">
@@ -323,9 +379,12 @@ const Dashboard = () => {
                         <td data-label="Course Name">{lead.coursename}</td>
                         <td data-label="Email ID">{lead.email}</td>
                         <td data-label="Date">
-                          {new Date(lead.createdAt).toLocaleDateString("en-US", {
-                            timeZone: "UTC",
-                          })}
+                          {new Date(lead.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              timeZone: "UTC",
+                            }
+                          )}
                         </td>
                         <td data-label="Location">{lead.location}</td>
                         <td data-label="Actions">
