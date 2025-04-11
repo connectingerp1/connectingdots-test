@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "@/styles/HomePage/ContactForm.module.css"; // Import module CSS
-import axios from "axios";
+import axios from "axios"; // Make sure axios is imported
 import { IonIcon } from "@ionic/react";
 import { personOutline, mailOutline, callOutline } from "ionicons/icons";
 
-// Define countryCodes array with phone number length requirements
+// Define countryCodes array (assuming this is correct for your needs)
 const countryCodes = [
   { code: "+1", country: "USA", minLength: 10, maxLength: 10 },
   { code: "+91", country: "India", minLength: 10, maxLength: 10 },
@@ -36,222 +36,386 @@ const ContactForm = ({ course, formData, onClose }) => {
     email: "",
     contact: "",
     countryCode: "+91", // Default country code
+    // Add course and location if they should be part of the form state explicitly
+    // coursename: course || "",
+    // location: "", // Or derive location if needed
   });
   const [errors, setErrors] = useState({});
   const [isThankYouVisible, setThankYouVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
+  // Initialize form state from formData prop if provided
+  // This seems specific to your use case, keeping it as is.
   useEffect(() => {
     if (formData?.fields) {
       const initialFormValues = formData.fields.reduce((acc, field) => {
         acc[field.name] = "";
         return acc;
       }, {});
-      setFormValues({ ...initialFormValues, countryCode: "+91" }); // Ensure countryCode is set
+      setFormValues((prev) => ({
+        ...prev, // Keep default country code
+        ...initialFormValues,
+        countryCode: prev.countryCode || "+91", // Ensure countryCode isn't overwritten if not in fields
+      }));
     }
   }, [formData]);
 
+  // Intersection observer for animation/lazy loading
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true);
-          observer.disconnect();
+          observer.disconnect(); // Disconnect once in view
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } // Trigger when 10% is visible
     );
 
-    if (formRef.current) observer.observe(formRef.current);
+    const currentFormRef = formRef.current; // Capture ref value
+    if (currentFormRef) {
+      observer.observe(currentFormRef);
+    }
 
-    return () => observer.disconnect();
-  }, []);
+    // Cleanup function
+    return () => {
+      if (currentFormRef) {
+        observer.unobserve(currentFormRef);
+      }
+      observer.disconnect();
+    };
+  }, []); // Empty dependency array ensures this runs only on mount/unmount
 
+  // Handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-    
+
+    let processedValue = value;
     if (name === "contact") {
       // Allow only digits for phone numbers
-      const digitsOnly = value.replace(/\D/g, '');
-      setFormValues({ ...formValues, [name]: digitsOnly });
-    } else {
-      setFormValues({ ...formValues, [name]: value });
+      processedValue = value.replace(/\D/g, "");
     }
-    
-    // Clear error when user starts typing
+
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: processedValue,
+    }));
+
+    // Clear the specific error when the user starts typing in that field
     if (errors[name]) {
-      setErrors({ ...errors, [name]: undefined });
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: undefined,
+      }));
     }
   };
 
+  // Frontend validation logic
   const validate = () => {
     const newErrors = {};
-    
-    if (!formValues.name || !formValues.name.trim()) {
+    const { name, email, contact, countryCode } = formValues;
+
+    if (!name || !name.trim()) {
       newErrors.name = "Name is required";
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formValues.email || !emailPattern.test(formValues.email)) {
-      newErrors.email = "Please enter a valid email";
+    if (!email || !emailPattern.test(email)) {
+      newErrors.email = "Please enter a valid email address";
     }
 
-    // Get the selected country's phone number requirements
-    const selectedCountry = countryCodes.find(country => country.code === formValues.countryCode);
-    const { minLength, maxLength } = selectedCountry;
-    
-    // Check if the phone number length is within the valid range for the selected country
-    if (!formValues.contact || formValues.contact.length < minLength || formValues.contact.length > maxLength) {
-      newErrors.contact = `Please enter a valid ${minLength === maxLength ? minLength : `${minLength}-${maxLength}`}-digit number for ${selectedCountry.country}`;
-    }
+    // Find selected country for validation rules
+    const selectedCountry = countryCodes.find((c) => c.code === countryCode);
 
-    // Check if the contact contains only digits
-    if (formValues.contact && !/^\d+$/.test(formValues.contact)) {
-      newErrors.contact = "Phone number should contain only digits";
+    if (selectedCountry) {
+      const { minLength, maxLength } = selectedCountry;
+      const contactDigits = contact.replace(/\D/g, ""); // Ensure we're checking digits
+
+      if (
+        !contactDigits ||
+        contactDigits.length < minLength ||
+        contactDigits.length > maxLength
+      ) {
+        newErrors.contact = `Please enter a valid ${minLength === maxLength ? minLength : `${minLength}-${maxLength}`}-digit number for ${selectedCountry.country}`;
+      } else if (!/^\d+$/.test(contactDigits)) {
+        // This check might be redundant due to the replace(/\D/g, '') in handleChange, but good as a safeguard
+        newErrors.contact = "Phone number should contain only digits";
+      }
+    } else {
+      // Fallback if country code somehow isn't found (shouldn't happen with select)
+      if (!contact || !/^\d{7,15}$/.test(contact.replace(/\D/g, ""))) {
+        // Generic length check
+        newErrors.contact = "Please enter a valid phone number";
+      }
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
+  // Handle form submission
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    
-    // Validate form before submission
+    event.preventDefault(); // Prevent default form submission
+
+    // Perform frontend validation first
     if (!validate()) {
-      // Display first error
-      const firstError = Object.values(errors)[0];
-      alert(firstError);
-      return;
+      // Find the first error to alert (optional, errors are shown below fields)
+      const firstErrorKey = Object.keys(errors).find((key) => errors[key]);
+      if (firstErrorKey) {
+        // You could alert here, but inline errors are generally better UX
+        // alert(errors[firstErrorKey]);
+        console.log("Frontend validation failed:", errors);
+      }
+      return; // Stop submission if validation fails
     }
-    
-    setIsLoading(true); // Start loading
+
+    setIsLoading(true); // Show loading indicator
+
+    // Prepare data payload (ensure all necessary fields are included)
+    const payload = {
+      ...formValues,
+      coursename: course || formData?.courseName || "Not Specified", // Include course name if available
+      // location: formValues.location || "Not Specified" // Include location if tracked
+    };
 
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit`, formValues);
+      // --- Send data to backend API ---
+      // Use environment variable for API URL
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Provide a fallback if needed
+      if (!apiUrl) {
+        console.error(
+          "API URL environment variable (NEXT_PUBLIC_API_URL) is not set."
+        );
+        alert("Configuration error. Cannot submit form.");
+        setIsLoading(false);
+        return;
+      }
 
+      const response = await axios.post(`${apiUrl}/api/submit`, payload);
+
+      // --- Handle Success ---
+      console.log("Form submitted successfully:", response.data);
       setIsLoading(false);
-      setThankYouVisible(true);
+      setThankYouVisible(true); // Show thank you message
 
+      // Reset form fields after successful submission (optional)
+      // setFormValues({ name: "", email: "", contact: "", countryCode: "+91" });
+
+      // Close the form/modal after a delay
       setTimeout(() => {
         setThankYouVisible(false);
-        onClose(); // Close form after showing Thank You
-      }, 3000);
+        if (onClose) onClose(); // Call the onClose prop if provided
+      }, 3000); // 3 seconds delay
     } catch (error) {
-      setIsLoading(false);
-      console.error("Error submitting form:", error);
+      // --- Handle Errors ---
+      setIsLoading(false); // Hide loading indicator
+      console.error("Error submitting form:", error); // Log the full error
 
-      if (error.response?.status === 400) {
-        alert(error.response.data.message || "Email already exists. Try another email.");
+      let errorMessage =
+        "An error occurred while submitting the form. Please try again later."; // Default generic error
+
+      if (axios.isAxiosError(error) && error.response) {
+        // Handle HTTP errors from the backend
+        console.error("Backend Response Status:", error.response.status);
+        console.error("Backend Response Data:", error.response.data);
+
+        if (error.response.status === 400) {
+          // Specifically handle 400 Bad Request (validation errors, duplicates)
+          // Use the specific message provided by the backend
+          errorMessage =
+            error.response.data.message ||
+            "Submission failed. Please check your input and try again.";
+        } else {
+          // Handle other server errors (5xx, 404, etc.)
+          errorMessage = `Server error (${error.response.status}). Please try again later.`;
+        }
+      } else if (error.request) {
+        // Handle network errors (request made but no response received)
+        errorMessage =
+          "Network error. Please check your internet connection and try again.";
       } else {
-        alert("An error occurred while submitting the form.");
+        // Handle other errors (e.g., setup errors in the request)
+        errorMessage = `Error: ${error.message}. Please try again.`;
       }
+
+      alert(errorMessage); // Show the determined error message to the user
     }
   };
 
-  if (!formData) return null;
+  // ---- Render Logic ----
 
-  // Find the selected country to display length requirements in placeholder
-  const selectedCountry = countryCodes.find(country => country.code === formValues.countryCode);
-  const contactPlaceholder = selectedCountry 
-    ? `${selectedCountry.minLength === selectedCountry.maxLength 
-        ? selectedCountry.minLength 
-        : `${selectedCountry.minLength}-${selectedCountry.maxLength}`} digit number`
+  // Return null if essential formData is missing
+  if (!formData) {
+    console.warn("ContactForm rendered without formData prop.");
+    return null; // Or render a placeholder/error state
+  }
+
+  // Calculate placeholder text based on selected country
+  const selectedCountryInfo = countryCodes.find(
+    (c) => c.code === formValues.countryCode
+  );
+  const contactPlaceholder = selectedCountryInfo
+    ? `${
+        selectedCountryInfo.minLength === selectedCountryInfo.maxLength
+          ? selectedCountryInfo.minLength
+          : `${selectedCountryInfo.minLength}-${selectedCountryInfo.maxLength}`
+      } digit number`
     : "Contact Number";
 
-  const buttonText = formData.submitButton?.includes("Demo")
-    ? formData.submitButton.replace(/Demo\s*Demo/, "Demo")
-    : formData.submitButton || "Submit";
+  // Determine button text (handling potential "Demo Demo" issue)
+  const rawButtonText = formData.submitButton || "Submit";
+  const buttonText = rawButtonText.includes("Demo Demo")
+    ? rawButtonText.replace(/Demo\s*Demo/, "Demo").trim()
+    : rawButtonText;
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={`${styles.modalContent} ${isInView ? styles.backgroundLoaded : ""}`} ref={formRef}>
-        <span className={styles.closeBtnContact} onClick={onClose}>
+      {/* Add animation class based on isInView state */}
+      <div
+        className={`${styles.modalContent} ${isInView ? styles.backgroundLoaded : ""}`}
+        ref={formRef}
+      >
+        {/* Close Button */}
+        <span
+          className={styles.closeBtnContact}
+          onClick={onClose}
+          role="button"
+          aria-label="Close form"
+        >
           &times;
         </span>
 
-        <form className={styles.contactForm} onSubmit={handleSubmit}>
+        {/* Form Element */}
+        <form className={styles.contactForm} onSubmit={handleSubmit} noValidate>
+          {/* Form Title/Header (Optional) */}
+          {/* <h2>{formData.title || "Contact Us"}</h2> */}
+
           {/* Name Field */}
           <div className={styles.contactFormGroup}>
+            <label htmlFor="name" className={styles.srOnly}>
+              Your Name
+            </label>{" "}
+            {/* Added label */}
             <div className={styles.inputWithIcon}>
               <input
                 type="text"
                 id="name"
                 name="name"
-                value={formValues["name"] || ""}
+                value={formValues.name}
                 onChange={handleChange}
                 placeholder="Your Name"
                 className={errors.name ? styles.inputError : ""}
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? "name-error" : undefined}
                 required
               />
-              <IonIcon icon={personOutline} />
+              <IonIcon icon={personOutline} aria-hidden="true" />
             </div>
-            {errors.name && <span className={styles.errorText}>{errors.name}</span>}
+            {errors.name && (
+              <span id="name-error" className={styles.errorText} role="alert">
+                {errors.name}
+              </span>
+            )}
           </div>
 
           {/* Email Field */}
           <div className={styles.contactFormGroup}>
+            <label htmlFor="email" className={styles.srOnly}>
+              Your Email
+            </label>{" "}
+            {/* Added label */}
             <div className={styles.inputWithIcon}>
               <input
                 type="email"
                 id="email"
                 name="email"
-                value={formValues["email"] || ""}
+                value={formValues.email}
                 onChange={handleChange}
                 placeholder="Your Email"
                 className={errors.email ? styles.inputError : ""}
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? "email-error" : undefined}
                 required
               />
-              <IonIcon icon={mailOutline} />
+              <IonIcon icon={mailOutline} aria-hidden="true" />
             </div>
-            {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+            {errors.email && (
+              <span id="email-error" className={styles.errorText} role="alert">
+                {errors.email}
+              </span>
+            )}
           </div>
 
           {/* Country Code and Contact Number Field */}
           <div className={styles.contactFormGroup}>
+            {/* Combine labels logically if possible, or use aria-label */}
+            <label htmlFor="countryCode" className={styles.srOnly}>
+              Country Code
+            </label>
+            <label htmlFor="contact" className={styles.srOnly}>
+              Contact Number
+            </label>
             <div className={styles.inputWithIcon}>
               {/* Country Code Dropdown */}
               <select
                 id="countryCode"
                 name="countryCode"
-                value={formValues["countryCode"] || "+91"} // Default to India
+                value={formValues.countryCode}
                 onChange={handleChange}
                 className={styles.selectCountryCode}
+                aria-label="Select your country code"
               >
                 {countryCodes.map(({ code, country }) => (
                   <option key={code} value={code}>
-                    {`${code} ${country}`} {/* Display both code and country */}
+                    {`${code} (${country})`} {/* Clearer format */}
                   </option>
                 ))}
               </select>
               {/* Contact Number Input */}
               <input
-                type="tel"
+                type="tel" // Use "tel" type for semantic meaning and mobile keyboards
+                inputMode="numeric" // Suggest numeric keyboard
                 id="contact"
                 name="contact"
-                value={formValues["contact"] || ""}
+                value={formValues.contact}
                 onChange={handleChange}
                 placeholder={contactPlaceholder}
-                className={errors.contact ? styles.inputError : ""}
-                maxLength={selectedCountry?.maxLength || 15}
+                className={`${styles.contactInput} ${errors.contact ? styles.inputError : ""}`} // Added specific class if needed
+                maxLength={selectedCountryInfo?.maxLength || 15} // Dynamic max length
+                aria-invalid={!!errors.contact}
+                aria-describedby={errors.contact ? "contact-error" : undefined}
                 required
               />
-              <IonIcon icon={callOutline} />
+              <IonIcon icon={callOutline} aria-hidden="true" />
             </div>
-            {errors.contact && <span className={styles.errorText}>{errors.contact}</span>}
+            {errors.contact && (
+              <span
+                id="contact-error"
+                className={styles.errorText}
+                role="alert"
+              >
+                {errors.contact}
+              </span>
+            )}
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className={styles.submitBtnContact} disabled={isLoading}>
+          <button
+            type="submit"
+            className={styles.submitBtnContact}
+            disabled={isLoading}
+          >
             {isLoading ? "Submitting..." : buttonText}
           </button>
         </form>
 
         {/* Thank You Popup */}
         {isThankYouVisible && (
-          <div className={styles.thankYouPopup}>
+          <div className={styles.thankYouPopup} role="status">
+            {" "}
+            {/* Added role */}
             <p>🎉 Thank you for submitting! We'll get back to you soon.</p>
           </div>
         )}

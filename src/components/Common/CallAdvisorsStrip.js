@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+// Keep Next's Link for internal navigation if needed elsewhere, but we don't need it for the tel: link itself.
 import Link from "next/link";
 import styles from "@/styles/Common/CallAdvisorsStrip.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,60 +9,72 @@ import { faFacebookF, faWhatsapp, faYoutube, faLinkedinIn, faInstagram } from "@
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const CallAdvisorsStrip = () => {
-  const [advisorsContact, setAdvisorsContact] = useState("");
+  // --- Use the hardcoded number as the initial/default state ---
+  // If you uncomment the fetch, this will be overridden when the data loads.
+  const [advisorsContact, setAdvisorsContact] = useState("9004008253");
   const [location, setLocation] = useState("default");
 
+  // --- Keep your fetch logic commented or uncomment if needed ---
   // useEffect(() => {
-  //   fetch("/Jsonfolder/datacontact.json")
-  //     .then((response) => response.json())
+  //   fetch("/Jsonfolder/datacontact.json") // Make sure this path is correct (usually relative to the `public` folder)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
   //     .then((data) => {
-  //       setAdvisorsContact(
-  //         data[location]?.advisorsContact || data["default"].advisorsContact
-  //       );
+  //       const contact = data[location]?.advisorsContact || data["default"]?.advisorsContact;
+  //       if (contact) { // Only update if we found a contact
+  //         setAdvisorsContact(contact);
+  //       } else {
+  //         console.warn("Advisor contact not found in JSON for location:", location);
+  //         // Keep the default state if not found
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error("Failed to fetch advisor contact:", error);
+  //       // Optionally handle the error, e.g., keep the default number
   //     });
-  // }, [location]);
+  // }, [location]); // Dependency array is correct
 
   return (
     <div className={styles.callAdvisorsStrip}>
-      {/* Right side content */}
+      {/* Right side content - Social Icons */}
       <div className={styles.rightStripContent}>
         <div>
           <div className={styles.socialIconsStrip}>
-            <Link href="https://www.facebook.com/sapinstallation.pune.9">
-              <FontAwesomeIcon 
-                icon={faFacebookF} 
-                className="hover:text-blue-600 transition duration-300" 
-                alt="Facebook"
+            {/* Using standard <a> tags for external links is also fine */}
+            <a href="https://www.facebook.com/sapinstallation.pune.9" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <FontAwesomeIcon
+                icon={faFacebookF}
+                className="hover:text-blue-600 transition duration-300"
               />
-            </Link>
-            <Link href="https://wa.me/919004002941">
-              <FontAwesomeIcon 
-                icon={faWhatsapp} 
-                className="hover:text-green-500 transition duration-300" 
-                alt="WhatsApp"
+            </a>
+            <a href="https://wa.me/919004002941" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <FontAwesomeIcon
+                icon={faWhatsapp}
+                className="hover:text-green-500 transition duration-300"
               />
-            </Link>
-            <Link href="https://youtube.com/@connectingdotserp?si=hSKEiEg3MdytdEe_">
-              <FontAwesomeIcon 
-                icon={faYoutube} 
-                className="hover:text-red-600 transition duration-300" 
-                alt="YouTube"
+            </a>
+            <a href="https://youtube.com/@connectingdotserp?si=hSKEiEg3MdytdEe_" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <FontAwesomeIcon
+                icon={faYoutube}
+                className="hover:text-red-600 transition duration-300"
               />
-            </Link>
-            <Link href="https://in.linkedin.com/in/connecting-dots-erp-043039171">
-              <FontAwesomeIcon 
-                icon={faLinkedinIn} 
-                className="hover:text-blue-700 transition duration-300" 
-                alt="LinkedIn"
+            </a>
+            <a href="https://in.linkedin.com/in/connecting-dots-erp-043039171" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FontAwesomeIcon
+                icon={faLinkedinIn}
+                className="hover:text-blue-700 transition duration-300"
               />
-            </Link>
-            <Link href="https://www.instagram.com/connecting_dots_sap_training?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-              <FontAwesomeIcon 
-                icon={faInstagram} 
-                className="hover:text-pink-500 transition duration-300" 
-                alt="Instagram"
+            </a>
+            <a href="https://www.instagram.com/connecting_dots_sap_training?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <FontAwesomeIcon
+                icon={faInstagram}
+                className="hover:text-pink-500 transition duration-300"
               />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -72,14 +85,17 @@ const CallAdvisorsStrip = () => {
           <FontAwesomeIcon icon={faPhone} alt="Phone" />
         </span>
         <span className={styles.advisorText}>
-          Get Free Career Counselling: 9004008253
+          {/* This text is static, consider if it should also be dynamic */}
+          Get Free Career Counselling:
         </span>
-        <Link
-          href={`tel:${advisorsContact}`}
-          className={`${styles.advisorNumber} text-decoration-none`}
+
+        {/* --- Use a standard <a> tag for the tel: link --- */}
+        <a
+          href={`tel:${advisorsContact}`} // Use the state variable
+          className={`${styles.advisorNumber} text-decoration-none`} // Keep your styles
         >
-          {advisorsContact}
-        </Link>
+          {advisorsContact} {/* Display the number from state */}
+        </a>
       </div>
     </div>
   );
