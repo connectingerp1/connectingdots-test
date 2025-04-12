@@ -36,6 +36,11 @@ export default function RootLayout({ children }) {
 
         <meta
           name="ahrefs-site-verification"
+          content="05890b7d6657f7c22a48d201ddbced6847469e2f76ac6f73f1b7d49ef0da283d"
+        />
+
+        <meta
+          name="ahrefs-site-verification"
           content="02de04071d4e08f203c50f26aaee76be72f3a3af3d54f684f0932ff933cb1a3f"
         />
 
