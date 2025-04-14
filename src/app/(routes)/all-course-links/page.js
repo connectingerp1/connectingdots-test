@@ -11,6 +11,7 @@ export default function AllCourseLinks() {
   return (
     <>
       <Breadcrumb items={breadcrumbItems} />
+
       <div className="bg-white p-5 flex flex-column align-items-center">
         <h1 className="display-5 fw-bold mb-4">All Course and City Links</h1>
         <p className="lead text-muted mb-5">
