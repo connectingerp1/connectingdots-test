@@ -142,6 +142,22 @@ export async function GET() {
       <priority>0.9</priority>
     </url>
     `,
+    `
+    <url>
+      <loc>${baseUrl}/all-course-links</loc>
+      <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.9</priority>
+    </url>
+    `,
+    `
+    <url>
+      <loc>${baseUrl}/sitemap</loc>
+      <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.9</priority>
+    </url>
+    `,
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
