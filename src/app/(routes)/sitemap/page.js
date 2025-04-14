@@ -14,7 +14,7 @@ export const metadata = {
 export default function SitemapPage() {
   // Define breadcrumb items for this page
   const breadcrumbItems = [
-    { label: "Home", path: "/home" }, // Assuming '/home' is your homepage route, adjust if it's '/'
+    { label: "Home", path: "/home" },
     { label: "Sitemap" }, // Current page
   ];
 
