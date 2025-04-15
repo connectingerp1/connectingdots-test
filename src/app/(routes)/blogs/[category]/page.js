@@ -6,7 +6,7 @@ import styles from "@/styles/BlogPage/CategoryPage.module.css";
 import BlogCard from "@/components/BlogsPage/BlogCard";
 import Breadcrumb from "@/components/BlogsPage/Breadcrumb";
 
-const BASE_URL = "https://blog-page-panel.onrender.com";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const CategoryPage = () => {
   const { category } = useParams() || {};
