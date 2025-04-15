@@ -13,6 +13,7 @@ const CategoryPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState("All");
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     if (category) {
@@ -23,46 +24,48 @@ const CategoryPage = () => {
 
   const fetchAllSubcategories = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/blogs?category=${category}`);
+      const response = await fetch(
+        `${BASE_URL}/api/blogs?category=${category}`
+      );
       const data = await response.json();
-  
+
       const uniqueSubcategories = [
-        "All", // Ensure "All" is always included
-        ...new Set(data
-          .map((blog) => blog.subcategory?.trim()) // Avoid undefined/null
-          .filter(Boolean) // Remove falsy values (null, undefined, empty strings)
+        "All",
+        ...new Set(
+          data.map((blog) => blog.subcategory?.trim()).filter(Boolean)
         ),
       ];
-  
+
       setSubcategories(uniqueSubcategories);
     } catch (error) {
       console.error("Error fetching subcategories:", error);
     }
   };
-  
 
   const fetchBlogs = async () => {
+    setLoading(true); // Start loading
     try {
       let url = `${BASE_URL}/api/blogs?category=${encodeURIComponent(category)}`;
-  
+
       if (selectedSubcategory.toLowerCase() !== "all") {
         url += `&subcategory=${encodeURIComponent(selectedSubcategory.trim())}`;
       }
-  
+
       const response = await fetch(url);
       const data = await response.json();
-  
+
       if (!response.ok || !Array.isArray(data)) {
         throw new Error("Invalid response format");
       }
-  
+
       setBlogs(data);
     } catch (error) {
       console.error("Error fetching blogs:", error);
       setBlogs([]);
+    } finally {
+      setLoading(false); // End loading
     }
   };
-  
 
   return (
     <div className="p-4">
@@ -70,7 +73,6 @@ const CategoryPage = () => {
       <div className={styles.categoryPage}>
         <h1 className={styles.categoryTitle}>{category?.toUpperCase()}</h1>
 
-        {/* ✅ Horizontal Subcategory Filter */}
         <div className={styles.subcategoryContainer}>
           {subcategories.map((sub, index) => (
             <button
@@ -83,17 +85,27 @@ const CategoryPage = () => {
           ))}
         </div>
 
-        {/* ✅ Blog Cards */}
-        <div className={styles.blogsContainer}>
-          {blogs.length === 0 ? (
-            <p className={styles.noBlogs}>
-              No blogs found for {category}
-              {selectedSubcategory !== "All" ? ` - ${selectedSubcategory}` : ""}.
-            </p>
-          ) : (
-            blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)
-          )}
-        </div>
+        {/* Loading Indicator */}
+        {loading ? (
+          <div className={styles.loadingIndicator}>
+            <p>Loading blogs...</p>
+            <div className={styles.spinner}></div> {/* Add spinner styles */}
+          </div>
+        ) : (
+          <div className={styles.blogsContainer}>
+            {blogs.length === 0 ? (
+              <p className={styles.noBlogs}>
+                No blogs found for {category}
+                {selectedSubcategory !== "All"
+                  ? ` - ${selectedSubcategory}`
+                  : ""}
+                .
+              </p>
+            ) : (
+              blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
