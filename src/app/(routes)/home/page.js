@@ -1,8 +1,6 @@
-// src/app/page.js
-
+// home/page.js
 import "@/app/globals.css";
-import { notFound } from 'next/navigation';
-import { getStaticPageHtml } from "@/lib/staticHtml"; // Corrected import name
+import { getStaticHtml } from "@/lib/staticHtml";
 import HeaderCarousel from "@/components/HomePage/HeaderCarousel";
 import Marquee from "@/components/HomePage/Marquee2";
 import Chevron from "@/components/HomePage/Chevron";
@@ -17,54 +15,32 @@ import Branches from "@/components/HomePage/Branches";
 import Courses from "@/components/HomePage/PopCourses";
 import Script from "next/script";
 
-// Home page specific metadata (ensure this aligns with your homepage.html <head>)
+// Get static HTML content
+const staticHtml = getStaticHtml('home-page');
+
+// Home page specific metadata (overrides the default from layout.js)
 export const metadata = {
-  title: 'Connecting Dots ERP | SAP & IT Training Institute In Pune, Mumbai, Raipur', // Example - use your actual title
-  description: 'Connecting Dots ERP offers Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support in Pune, Mumbai, and Raipur.', // Example
-  keywords: 'SAP Training Institute, IT Training Institute, HR Courses, Connecting Dots ERP, SAP Course, Data Science Course, Python Course, Pune, Mumbai, Raipur, Placement Support', // Example
-  author: 'Connecting Dots ERP | Software and SAP Training Institute',
-  alternates: {
-    canonical: '/',
-  },
-  // Add matching Open Graph / Twitter tags here if desired, mirroring homepage.html
-  // openGraph: { ... },
-  // twitter: { ... },
-};
+  title: 'Connecting Dots ERP | SAP Training Institute In Pune',
+  description: 'We offer Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.',
+  keywords: 'SAP Certification Courses, SAP Course, Data Science Course, Power Bi Course, Digital Marketing Course, HR Training Institute, SAP Training Institute, Python Course, Software Course, Training, Education',
+  author: 'Connecting Dots ERP | Software and SAP Training Institute'
+}
 
-export default async function HomePage() { // Make component async
-  // --- Fetch Static HTML ---
-  // Ensure 'homepage.html' exists in your static HTML directory
-  const htmlContent = await getStaticPageHtml('homepage'); // Use correct filename
-
-  if (!htmlContent) {
-    // Decide how to handle missing static file for homepage - maybe log error but don't 404?
-    console.error("CRITICAL: homepage.html not found in static directory!");
-    // Optionally, you could return a basic version of the page here without the static injection
-    // For now, we proceed but log the error. If it MUST exist, use notFound().
-    // notFound();
-  }
-  // --- End Fetch Static HTML ---
-
+export default function HomePage() {
   return (
     <>
-      {/* Static HTML content for SEO (only injected if found) */}
-      {htmlContent && (
-        <div id="seo-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      )}
-
-      {/* Script to hide the static content (only add if static content was injected) */}
-      {htmlContent && (
-        <Script id="hide-seo-content" strategy="beforeInteractive">
-          {`
-            // Check if element exists before trying to hide
-            const seoContent = document.getElementById('seo-content');
-            if (seoContent) {
-              seoContent.style.display = 'none';
-            }
-          `}
-        </Script>
-      )}
-
+      {/* Static HTML content for SEO (will be visible in page source) */}
+      <div id="seo-content" dangerouslySetInnerHTML={{ __html: staticHtml }} />
+      
+      {/* Script to hide the static content when JavaScript is enabled */}
+      <Script id="hide-seo-content" strategy="beforeInteractive">
+        {`
+          document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('seo-content').style.display = 'none';
+          });
+        `}
+      </Script>
+      
       {/* Regular dynamic content */}
       <main className="flex-col justify-center">
         <HeaderCarousel />

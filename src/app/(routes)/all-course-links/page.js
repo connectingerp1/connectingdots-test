@@ -1,37 +1,14 @@
-// src/app/(routes)/all-course-links/page.js
-
-import { notFound } from "next/navigation";
-import { getStaticPageHtml } from "@/lib/staticHtml";
 import Link from "next/link";
 import Breadcrumb from "@/components/CitySitemap/Breadcrumb";
 
-// Define metadata (ensure this matches the <head> in allcourseslinks.html)
-export const metadata = {
-  title: "All Courses | SAP, IT & HR Training | Connecting Dots ERP",
-  description:
-    "Browse all SAP, IT, and HR courses offered by Connecting Dots ERP. Find detailed information and links to specific training programs with placement support.",
-  keywords:
-    "all courses, course list, SAP courses, IT courses, HR courses, Connecting Dots ERP, training programs, certification courses, placement assistance",
-  alternates: {
-    canonical: "/all-course-links",
-  },
-};
-
-// Define breadcrumb items statically or fetch if needed
+// Define breadcrumb items for this page
 const breadcrumbItems = [
-  { label: "Home", path: "/" }, // Link to homepage root
-  { label: "All Courses" }, // Current page - Changed label from Sitemap
+  { label: "Home", path: "/home" }, // Assuming '/home' is your homepage route, adjust if it's '/'
+  { label: "Sitemap" }, // Current page
 ];
 
-export default async function AllCoursesLinksPage() {
-  // Fetch static HTML
-  const htmlContent = await getStaticPageHtml("allcourseslinks"); // Reads allcourseslinks.html
-
-  if (!htmlContent) {
-    notFound();
-  }
-
-  const courseLinksContent = (
+export default function AllCourseLinks() {
+  return (
     <>
       <Breadcrumb items={breadcrumbItems} />
 
@@ -20203,21 +20180,6 @@ export default async function AllCoursesLinksPage() {
           </div>
         </div>
       </div>
-    </>
-  );
-
-  return (
-    <>
-      {/* Static HTML for SEO */}
-      {/* Added a check for htmlContent before rendering */}
-      {htmlContent && <div dangerouslySetInnerHTML={{ __html: htmlContent }} />}
-
-      {/* Dynamic React Content */}
-      {/* Render the JSX defined above */}
-      {courseLinksContent}
-
-      {/* Optional: Script to hide static content if needed */}
-      {/* {htmlContent && <Script id="hide-seo-content" strategy="beforeInteractive"> ... </Script>} */}
     </>
   );
 }

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/BlogPage/BlogDetails.module.css";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = "https://blog-page-panel.onrender.com"; // Change for production
 
 const BlogDetails = () => {
   const { category, id } = useParams();

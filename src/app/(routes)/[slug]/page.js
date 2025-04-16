@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import CourseComponentLoader from "@/components/CourseComponentLoader";
 import ClientOnly from "@/context/ClientOnly";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic"; // ✅ Forces the page to always fetch fresh data
 
 async function getPageHtml(slug) {
   const filePath = path.join(process.cwd(), "src/pages", `${slug}.html`);
