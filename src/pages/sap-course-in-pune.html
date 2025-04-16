@@ -265,7 +265,8 @@
             "minPrice": "30000",
             "maxPrice": "200000"
           },
-          "priceValidUntil": "2025-04-08",
+          // Consider updating priceValidUntil if needed
+          "priceValidUntil": "2025-12-31", // Example: updated validity date
           "availability": "https://schema.org/InStock",
           "category": "Professional Training",
           "areaServed": {
@@ -279,22 +280,23 @@
         },
         "aggregateRating": {
           "@type": "AggregateRating",
-          "ratingValue": "4.7",
-          "reviewCount": "378",
+          "ratingValue": "4.7", // Your desired rating value
+          "reviewCount": "404", // <-- Updated review count
           "bestRating": "5",
           "worstRating": "1"
         },
         "review": {
+          // This is an example of *one* review. Google prefers aggregate data.
           "@type": "Review",
           "author": {
             "@type": "Person",
-            "name": "Nitendra Singh"
+            "name": "Nitendra Singh" // Keep this updated or use a representative review
           },
-          "datePublished": "2025-04-08",
+          "datePublished": "2025-04-08", // Keep this updated
           "reviewBody": "The SAP course at Connecting Dots ERP is fantastic! The course content is comprehensive, and the trainers are highly knowledgeable. I highly recommend it to anyone looking to build a career in SAP Course.",
           "reviewRating": {
             "@type": "Rating",
-            "ratingValue": "5",
+            "ratingValue": "5", // Rating for this specific review example
             "bestRating": "5"
           },
           "publisher": {
@@ -303,11 +305,8 @@
         },
         "hasCourseInstance": {
           "@type": "CourseInstance",
-          "courseMode": [
-            "Online",
-            "Offline"
-          ],
-          "startDate": "2025-04-16",
+          "courseMode": ["Online", "Offline"],
+          "startDate": "2025-04-16", // Update as new courses start
           "location": {
             "@id": "https://connectingdotserp.com/pune/#localbusiness"
           }
