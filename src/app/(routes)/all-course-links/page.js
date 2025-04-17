@@ -1,5 +1,9 @@
 import Link from "next/link";
 import Breadcrumb from "@/components/CitySitemap/Breadcrumb";
+import { getStaticHtml } from "@/lib/staticHtml";
+
+// Get static HTML content
+const staticHtml = getStaticHtml("allcourseslinks");
 
 // Define breadcrumb items for this page
 const breadcrumbItems = [
@@ -10,6 +14,8 @@ const breadcrumbItems = [
 export default function AllCourseLinks() {
   return (
     <>
+      {/* Static HTML content for SEO (will be visible in page source) */}
+      <div id="seo-content" dangerouslySetInnerHTML={{ __html: staticHtml }} />
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="bg-white p-5 flex flex-column align-items-center">

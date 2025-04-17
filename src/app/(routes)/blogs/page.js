@@ -1,146 +1,31 @@
-"use client";
+// src/app/(routes)/blogs/page.js
 
-import { useEffect, useState } from "react";
-import Head from "next/head";
-import styles from "@/styles/BlogPage/BlogsPage.module.css";
-import Breadcrumb from "@/components/BlogsPage/Breadcrumb";
-import CategoryFilter from "@/components/BlogsPage/CategoryFilter";
-import BlogCarousel from "@/components/BlogsPage/BlogCarousel";
-import BlogHorizontalCarousel from "@/components/BlogsPage/BlogHorizontalCarousel";
+import { getStaticHtml } from "@/lib/staticHtml";
+import BlogClientContent from '@/components/BlogsPage/BlogClientContent'; // We will create this
 
-const BASE_URL = "https://blog-page-panel.onrender.com";
+const staticHtml = getStaticHtml('blog');
 
-const BlogsPage = () => {
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [blogs, setBlogs] = useState([]);
-  const [trendingBlogs, setTrendingBlogs] = useState([]);
-  const [recommendedBlogs, setRecommendedBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+// Server Component: Fetches data and defines metadata
 
-  useEffect(() => {
-    if (blogs.length > 0) {
-      // Filter blogs by status
-      const trending = blogs.filter((blog) => blog.status === "Trending");
-      const recommended = blogs.filter((blog) => blog.status === "Recommended");
+export const metadata = {
+  title: 'Connecting Dots ERP Blog | SAP, IT & HR Insights', // From your previous example
+  description: 'Explore the latest articles, insights, and news from Connecting Dots ERP on SAP, IT training, HR trends, and career development.', // From your previous example
+  alternates: {
+    canonical: '/blogs', // Adjust if your URL structure is different
+  },
+  // Add matching Open Graph / Twitter tags here if desired
+};
 
-      setTrendingBlogs(trending);
-      setRecommendedBlogs(recommended);
-
-      // Extract unique categories
-      const uniqueCategories = Array.from(
-        new Set(blogs.map((blog) => blog.category))
-      );
-
-      setCategories(uniqueCategories);
-      setLoading(false);
-    }
-  }, [blogs]);
-
-  // Fetch all blogs
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${BASE_URL}/api/blogs`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setBlogs(data);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-      setError("Failed to load blogs. Please try again later.");
-      setLoading(false);
-    }
-  };
-
-  // Filter blogs by category
-  const filteredBlogs =
-    selectedCategory === "all"
-      ? blogs
-      : blogs.filter((blog) => blog.category === selectedCategory);
+export default async function BlogIndexPage() {
 
   return (
     <>
-      <Head>
-        <title>Blogs | Connecting Dots ERP | SAP Training Institute In Pune</title>
-        <meta 
-          name="description" 
-          content="Explore our latest blogs on SAP, IT, Digital Marketing, and HR careers. Stay updated with industry trends and expert insights from Connecting Dots ERP." 
-        />
-      </Head>
+      {/* Static HTML content for SEO (will be visible in page source) */}
+      <div id="seo-content" dangerouslySetInnerHTML={{ __html: staticHtml }} />
 
-      <div className={styles.blogsPageContainer}>
-        <Breadcrumb />
-
-        <div className={styles.blogsHero}>
-          <h1 className={styles.blogsHeading}>Explore Our Latest Blogs</h1>
-          <p className={styles.blogsSubheading}>
-            Let's start career with the following domains
-          </p>
-        </div>
-
-        {/* Category Filters */}
-        <CategoryFilter
-          categories={categories}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-
-        {loading ? (
-          <div className={styles.loadingState}>
-            <div className={styles.spinnerContainer}>
-              <div className={styles.spinner}></div>
-            </div>
-            <p>Loading blogs...</p>
-          </div>
-        ) : error ? (
-          <div className={styles.errorState}>
-            <p>{error}</p>
-            <button onClick={fetchBlogs} className={styles.retryButton}>
-              Retry
-            </button>
-          </div>
-        ) : (
-          <>
-            {/* Recommended Blogs Horizontal Carousel */}
-            {trendingBlogs.length > 0 && (
-              <BlogHorizontalCarousel
-                blogs={recommendedBlogs}
-                title="Trending Blogs"
-                BASE_URL={BASE_URL}
-              />
-            )}
-
-            {/* Trending Blogs Carousel */}
-            {trendingBlogs.length > 0 && (
-              <BlogCarousel
-                blogs={trendingBlogs}
-                title="Trending Blogs"
-                BASE_URL={BASE_URL}
-              />
-            )}
-
-            {/* Recommended Blogs Carousel */}
-            {/* {recommendedBlogs.length > 0 && (
-              <BlogCarousel
-                blogs={recommendedBlogs}
-                title="Recommended Blogs"
-                BASE_URL={BASE_URL}
-              />
-            )} */}
-          </>
-        )}
-      </div>
+      {/* Dynamic React Content (rendered on client) */}
+      <BlogClientContent />
     </>
   );
-};
-
-export default BlogsPage;
+}
