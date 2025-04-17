@@ -171,16 +171,33 @@
             "name": "Connecting Dots ERP",
             "url":"https://connectingdotserp.com/"
           },
-          "hasCourseInstance": {
+          "hasCourseInstance": [
+          {
             "@type": "CourseInstance",
             "courseMode": "Online",
-            "startDate": "2025-04-10",
-            "endDate": "2025-12-31",
-            "location": {
-              "@type": "Place",
-              "name": "Pune Center",
-              "address": "1st Floor,101, Police, Wireless Colony, Vishal Nagar, Pimple Nilakh, Pune, Pimpri-Chinchwad, Maharashtra"
+            "location": "Pune",
+            "courseSchedule": {
+              "@type": "Schedule",
+              "duration": "PT3H",
+              "repeatFrequency": "Daily",
+              "repeatCount": 31,
+              "startDate": "2025-04-20",
+              "endDate": "2024-06-31"
             },
+            "instructor": [
+              {
+                "@type": "Person",
+                "name": "Saurav",
+                "description": "Working Professional In Top MNC"
+              }
+            ]
+          },
+          {
+            "@type": "CourseInstance",
+            "courseMode": "Online",
+            "courseWorkload": "P2D"
+          }
+        ]
             "offers": {
               "@type": "Offer",
               "price": "75000",
