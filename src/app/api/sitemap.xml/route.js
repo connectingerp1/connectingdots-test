@@ -144,6 +144,14 @@ export async function GET() {
     `,
     `
     <url>
+      <loc>${baseUrl}/contactus</loc>
+      <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+    </url>
+    `,
+    `
+    <url>
       <loc>${baseUrl}/all-course-links</loc>
       <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
       <changefreq>daily</changefreq>
