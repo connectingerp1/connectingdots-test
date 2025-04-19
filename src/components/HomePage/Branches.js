@@ -2,7 +2,7 @@
 
 import React from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import styles from "@/styles/HomePage/OurBranches.module.css"; // Import module CSS
+import styles from "@/styles/HomePage/OurBranches.module.css";
 
 // Branches data
 const branches = [
@@ -49,8 +49,16 @@ const Branches = () => {
           <div className={styles.branchCard} key={index}>
             <h3>{branch.city}</h3>
 
-            {/* Google Map */}
-            <div className={styles.mapContainer}>
+            {/* Accessible area for the Map */}
+            <div
+              className={styles.mapContainer}
+              aria-label={`Map showing the location of our branch in ${branch.city}: ${branch.address}`}
+              role="region"
+            >
+              {/* Visually hidden alternative for screen readers */}
+              <span className={styles.srOnly}>
+                Map of our {branch.city} branch location: {branch.address}
+              </span>
               <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={branch.position}

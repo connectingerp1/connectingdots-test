@@ -425,7 +425,14 @@ const Footer = () => {
                       className={styles.contactIcon}
                     />
                     <div>
-                      <h4 className={styles.locationTitle}>Pune Office</h4>
+                      <a
+                        href="https://maps.app.goo.gl/DNwzKa2Yt1WB6zUB7"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        alt="Pune Office"
+                      >
+                        <h4 className={styles.locationTitle}>Pune Office</h4>
+                      </a>
                       <p>
                         1st Floor, 101, Police, Wireless Colony, Vishal Nagar,
                         Pimple Nilakh, Pune, Pimpri-Chinchwad, Maharashtra
@@ -461,7 +468,14 @@ const Footer = () => {
                       className={styles.contactIcon}
                     />
                     <div>
-                      <h4 className={styles.locationTitle}>Mumbai Office</h4>
+                      <a
+                        href="https://maps.app.goo.gl/i7W3baVVS1mDLmTJ9"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        alt="Mumbai Office"
+                      >
+                        <h4 className={styles.locationTitle}>Mumbai Office</h4>
+                      </a>
                       <p>
                         4th Floor, Ram Niwas, B-404, Gokhale Rd, near
                         McDonald's, Dada Patil Wadi, Naupada, Thane West, Thane,
@@ -478,10 +492,6 @@ const Footer = () => {
                       +91 9004005382
                     </a>
                   </div>
-                  {/* <div className={styles.contactItem}>
-          <FontAwesomeIcon icon={faPhone} className={styles.contactIcon} />
-          <a href="tel:+919004002944" className={styles.contactLink}>+91 9004002944</a>
-        </div> */}
                 </div>
               </div>
             </div>

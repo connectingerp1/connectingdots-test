@@ -9,19 +9,25 @@
 .branchesTitle {
   font-size: 2.5rem;
   font-weight: 700;
-/* font-family: "Lato", sans-serif; */
-letter-spacing: 4px;
-text-shadow: 0 0 0px #fff, 0 0 10px #fff, 0 0 10px #0073e6, 0 0 20px #182e4a,
-  0 0 20px #182e4a, 0 0 30px #182e4a, 0 0 30px #182e4a;
-background: linear-gradient(
-  90deg,
-  #fff 35%,
-  rgba(3, 163, 196, 1) 49%,
-  #fff 62%
-);
--webkit-background-clip: text;
-color: transparent;
-text-align: center;
+  /* font-family: "Lato", sans-serif; */
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 0px #fff,
+    0 0 10px #fff,
+    0 0 10px #0073e6,
+    0 0 20px #182e4a,
+    0 0 20px #182e4a,
+    0 0 30px #182e4a,
+    0 0 30px #182e4a;
+  background: linear-gradient(
+    90deg,
+    #fff 35%,
+    rgba(3, 163, 196, 1) 49%,
+    #fff 62%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
 }
 
 .titleUnderline {
@@ -54,9 +60,6 @@ text-align: center;
   box-shadow: 0 10px 10px rgba(255, 255, 255, 0.1);
   transition: box-shadow 0.3s ease;
 }
-
-
-
 
 .branchCard:hover {
   box-shadow: 0 10px 16px rgba(255, 255, 255, 0.2);
@@ -137,4 +140,15 @@ text-align: center;
   .branchesTitle {
     font-size: 1.8rem;
   }
+}
+
+.srOnly {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
