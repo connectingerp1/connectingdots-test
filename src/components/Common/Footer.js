@@ -43,7 +43,7 @@ const Footer = () => {
                 alt="Connecting Dots ERP logo"
                 width={150}
                 height={50}
-                priority
+                loading="lazy"
               />
             </Link>
           </div>

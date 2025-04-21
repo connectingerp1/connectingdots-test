@@ -85,7 +85,7 @@ const CareerSlide = ({ onButtonClick }) => (
     <div className={styles.carouselImage}>
       <Image
         src="/Headercarousel/headerManimg.avif"
-        alt="Professional developing career skills through our training programs"
+        alt="Header Image"
         width={500}
         height={400}
         priority={true}

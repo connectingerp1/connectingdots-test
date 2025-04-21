@@ -734,7 +734,7 @@ const Header = () => {
                 alt="Logo of Connecting Dots ERP, featuring interconnected dots symbolizing integration and collaboration in enterprise resource planning."
                 width={220}
                 height={150}
-                priority
+                loading="lazy"
               />
             </Link>
           </div>
