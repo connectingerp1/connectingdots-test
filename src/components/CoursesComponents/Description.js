@@ -3,15 +3,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CityContext } from "@/context/CityContext";
 import styles from "@/styles/CoursesComponents/Description.module.css";
+import { FaCheckCircle, FaChevronRight } from "react-icons/fa";
 
-const Description = ({ pageId, sectionIndex }) => {
+const Description = ({ pageId, sectionIndex = 0 }) => {
   const [content, setContent] = useState(null);
+  const [error, setError] = useState("");
   const { city } = useContext(CityContext);
 
   useEffect(() => {
-    localStorage.clear();
-
     const fetchData = async () => {
+      setError("");
       try {
         const response = await fetch("/Jsonfolder/Descriptiondata.json");
         const data = await response.json();
@@ -20,62 +21,97 @@ const Description = ({ pageId, sectionIndex }) => {
         if (pageContent) {
           const updatedContent = {
             ...pageContent,
-            title: pageContent.title.replace(/{city}/g, city),
-            paragraphs: pageContent.paragraphs.map((p) =>
-              p.replace(/{city}/g, city)
-            ),
-            listItem1: pageContent.listItem1 || [],
+            title: pageContent.title?.replace(/{city}/g, city) ?? "",
+            paragraphs:
+              pageContent.paragraphs?.map((p) => p.replace(/{city}/g, city)) ??
+              [],
+            listItem1: pageContent.listItem1 ?? [],
+            listItem2: pageContent.listItem2 ?? [],
             secondTitle:
-              pageContent.secondTitle?.replace(/{city}/g, city) || "",
+              pageContent.secondTitle?.replace(/{city}/g, city) ?? "",
             secondParagraphs:
               pageContent.secondParagraphs?.map((p) =>
                 p.replace(/{city}/g, city)
-              ) || [],
-            listItem2: pageContent.listItem2 || [],
-            highlights: pageContent.highlights || [],
+              ) ?? [],
+            highlights: pageContent.highlights ?? [],
+            listItemAfterIndex:
+              typeof pageContent.listItemAfterIndex === "number"
+                ? pageContent.listItemAfterIndex
+                : undefined,
           };
           setContent(updatedContent);
+        } else {
+          setError("Course info not found.");
+          setContent(null);
         }
-      } catch (error) {
-        console.error("Error fetching the content:", error);
+      } catch (err) {
+        setError("Failed to load course info.");
+        setContent(null);
       }
     };
-
     fetchData();
   }, [pageId, city]);
 
   const applyHighlights = (text, highlights) => {
     if (!highlights || highlights.length === 0) return text;
-
+    const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const validHighlights = highlights.filter(
-      (word) => typeof word === "string" && word.trim() !== ""
+      (w) => typeof w === "string" && w.trim() !== ""
     );
     if (validHighlights.length === 0) return text;
-
-    const regex = new RegExp(`(${validHighlights.join("|")})`, "gi");
-    return text.split(regex).map((part, index) => {
-      if (
-        typeof part === "string" &&
-        validHighlights.some(
-          (word) => word.toLowerCase() === part.toLowerCase()
-        )
-      ) {
-        return (
-          <span key={index} className={styles.highlightDescJson}>
-            {part}
-          </span>
-        );
-      }
-      return part;
-    });
+    const regex = new RegExp(
+      `(${validHighlights.map(escapeRegex).join("|")})`,
+      "gi"
+    );
+    return text.split(regex).map((part, i) =>
+      validHighlights.some(
+        (word) => word.toLowerCase() === part.toLowerCase()
+      ) ? (
+        <span key={i} className={styles.highlightDescJson}>
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
   };
 
-  if (!content) {
-    return <p>Loading content...</p>;
-  }
+  if (error) return <div className={styles.errorMsg}>{error}</div>;
+
+  if (!content)
+    return <div className={styles.loader}>Loading course info...</div>;
+
+  // Figure out if/where to split paragraphs for the list
+  const insertListAfter =
+    typeof content.listItemAfterIndex === "number"
+      ? content.listItemAfterIndex
+      : -1;
+
+  const paragraphsBeforeList =
+    insertListAfter >= 0
+      ? content.paragraphs.slice(0, insertListAfter + 1)
+      : content.paragraphs;
+  const paragraphsAfterList =
+    insertListAfter >= 0 ? content.paragraphs.slice(insertListAfter + 1) : [];
+
+  // Helper to render list with icons
+  const renderList = (
+    items,
+    style,
+    icon = <FaCheckCircle className={styles.bulletIcon} />
+  ) => (
+    <ul className={style}>
+      {items.map((item, i) => (
+        <li key={i}>
+          {icon}
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
-    <div
+    <section
       className={`${styles.descriptionContainer} ${
         sectionIndex % 2 === 0 ? styles.videoLeft : styles.videoRight
       }`}
@@ -88,44 +124,60 @@ const Description = ({ pageId, sectionIndex }) => {
 
       <div className={styles.descriptionContent}>
         <h2 className={styles.descriptionTitle}>{content.title}</h2>
-        {content.paragraphs.map((paragraph, index) => (
-          <p key={index} className={styles.descriptionParagraph}>
-            {applyHighlights(paragraph, content.highlights)}
-          </p>
-        ))}
 
-        {content.listItem1.length > 0 && (
-          <ul className={styles.descriptionList}>
-            {content.listItem1.map((item, index) => (
-              <li key={index} className={styles.listItem}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {content.secondTitle && (
-          <>
-            <h2 className={styles.descriptionTitle}>{content.secondTitle}</h2>
-            {content.secondParagraphs.map((paragraph, index) => (
-              <p key={index} className={styles.descriptionParagraph}>
-                {applyHighlights(paragraph, content.highlights)}
+        {/* Paragraphs BEFORE list */}
+        {paragraphsBeforeList.map(
+          (p, i) =>
+            p.trim() && (
+              <p key={`before-${i}`} className={styles.descriptionParagraph}>
+                {applyHighlights(p, content.highlights)}
               </p>
-            ))}
-          </>
+            )
         )}
 
-        {content.listItem2.length > 0 && (
-          <ul className={styles.descriptionList}>
-            {content.listItem2.map((item, index) => (
-              <li key={index} className={styles.listItem}>
-                {item}
-              </li>
-            ))}
-          </ul>
+        {/* Insert feature list here if present */}
+        {content.listItem1 && content.listItem1.length > 0 && (
+          <div className={styles.sectionCard}>
+            <div className={styles.cardHeader}>What sets us apart:</div>
+            {renderList(content.listItem1, styles.featureList)}
+          </div>
+        )}
+
+        {/* Paragraphs AFTER list */}
+        {paragraphsAfterList.map(
+          (p, i) =>
+            p.trim() && (
+              <p key={`after-${i}`} className={styles.descriptionParagraph}>
+                {applyHighlights(p, content.highlights)}
+              </p>
+            )
+        )}
+
+        {/* Optionally render listItem2 (eg for your SAP closing statement) */}
+        {content.listItem2 &&
+          content.listItem2.length > 0 &&
+          renderList(
+            content.listItem2,
+            styles.listItem2,
+            <FaChevronRight className={styles.arrowIcon} />
+          )}
+
+        {/* Second section (What Will You Learn, etc.) */}
+        {content.secondTitle && (
+          <div className={styles.sectionCardAlt}>
+            <div className={styles.secondTitle}>{content.secondTitle}</div>
+            {content.secondParagraphs.map(
+              (p, i) =>
+                p.trim() && (
+                  <p key={i} className={styles.descriptionParagraphAlt}>
+                    {applyHighlights(p, content.highlights)}
+                  </p>
+                )
+            )}
+          </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,17 +1,25 @@
 [
   {
     "pageId": "sap-fico",
-    "title": "Why Choose Connecting Dots ERP for the SAP FICO Course in {city}?",
+    "title": "Why Choose Connecting Dots ERP for SAP FICO Training in {city}?",
     "paragraphs": [
       "If you're looking to build a successful career in SAP Financial Accounting and Controlling, Connecting Dots ERP is the perfect place to start. Recognized as a leading institute for SAP FICO training in {city}, we offer a structured, in-depth program designed to help you master the SAP FICO module from the ground up. Whether you're a fresher, finance professional, or IT expert looking to upskill, our SAP FICO course in {city} is tailored to match industry standards and demands.",
-      
       "At Connecting Dots ERP, our SAP FICO program stands out because of our practical approach to learning. Our SAP FICO classes in {city} are led by industry experts with real-world experience, ensuring that you not only learn theoretical concepts but also understand how they are applied in actual business environments. From General Ledger, Accounts Payable/Receivable, Asset Accounting to Cost Center Accounting and Internal Orders, we cover every aspect of SAP FICO in detail.",
-      
-      "What makes our SAP FICO training in {city} unique?\n✅ Industry Relevant Curriculum: Our course covers all essential FICO components with practical sessions and real-time scenarios.\n✅ Experienced Faculty: Learn from SAP professionals with 10 years of hands-on industry experience.\n✅ Flexible Learning Modes: Weekend, weekday, and online batch options to suit every learner’s schedule.\n✅ Affordable Fees: Accessible pricing with flexible payment plans.\n✅ 100% Placement Assistance: We help you prepare for interviews, build a strong resume, and connect you with top recruiters.\n✅ Industry-Recognized Certification: Earn a certification that boosts your employability and career prospects.",
-      
+      "What makes our SAP FICO training in {city} unique?"
+    ],
+    "listItem1": [
+      "Industry Relevant Curriculum: Our course covers all essential FICO components with practical sessions and real-time scenarios.",
+      "Experienced Faculty: Learn from SAP professionals with 10 years of hands-on industry experience.",
+      "Flexible Learning Modes: Weekend, weekday, and online batch options to suit every learner’s schedule.",
+      "Affordable Fees: Accessible pricing with flexible payment plans.",
+      "100% Placement Assistance: We help you prepare for interviews, build a strong resume, and connect you with top recruiters.",
+      "Industry-Recognized Certification: Earn a certification that boosts your employability and career prospects."
+    ],
+    "listItemAfterIndex": 2,
+    "paragraphsAfterList": [
       "By choosing Connecting Dots ERP for your SAP FICO course in {city}, you're investing in a future-proof career with opportunities in top MNCs and global enterprises. We don’t just train you — we mentor, guide, and empower you for long-term success. Join the best SAP FICO classes in {city} today and take your first step toward a high-paying, stable, and rewarding career in the SAP ecosystem."
     ]
-  },  
+  },
   {
     "pageId": "sap-abap",
     "title": "Why Choose Connecting Dots ERP for the SAP ABAP Course in {city} ?",
@@ -69,7 +77,7 @@
     "title": "Why Choose Connecting Dots ERP for the SAP BW/BI Course in {city} ?",
     "paragraphs": [
       "We at Connecting Dots ERP provide a thorough SAP BW/BI Course in {city} with an emphasis on hands-on training and real-world applications. We make sure you have a solid understanding of the tools and procedures utilized in the business by covering all the important facets of SAP BW/BI in our program, including data extraction, transformation, and reporting.",
-      
+
       "We focus on hands-on training, allowing you to work on live projects and case studies that mirror real business scenarios. This approach not only enhances your learning experience but also prepares you for the workforce by building your practical skills.",
       "Our SAP course is taught by Industry expert Trainers with 10+ years of top MNC experience who bring a wealth of industry knowledge to the classroom. After completing the course, we also offer 100% placement support and a worldwide recognized credential. Our Syllabus is designed to give you the skills necessary to succeed in the SAP BW/BI Course, whether you prefer online SAP BW/BI Training or SAP BW/BI Classroom Training. You may successfully start your career in business intelligence and data analytics with our committed support."
     ]
@@ -79,11 +87,9 @@
     "title": "Why Choose Connecting Dots ERP for the SAP EWM Course in {city} ?",
     "paragraphs": [
       "At Connecting Dots ERP, we offer an advanced SAP EWM certification in {city} that equips you with the essential knowledge and skills to excel in warehouse management roles. Our SAP EWM training is designed to cover all aspects of warehouse management, from setting up basic systems to advanced functionalities like slotting, resource management, and automation. With a curriculum tailored to meet real-world industry demands, you will gain practical skills that can be immediately applied in business environments.",
-      
+
       "Upon completing the course, you’ll receive a globally recognized certification, adding immense value to your professional profile and boosting your career prospects both locally and internationally. Our program is ISO-certified, ensuring the highest quality of education that meets global standards. The hands-on training includes live projects, real-world case studies, and simulations, allowing you to apply theoretical concepts in practical scenarios, making you job-ready from day one.",
       "We maintain small batch sizes of around 10-12 students, ensuring personalized attention and more interaction with experienced trainers who bring industry insights and practical knowledge to the classroom. Additionally, we offer comprehensive placement support, connecting you to top companies and helping you secure a job after completing the course. By choosing Connecting Dots ERP for your SAP EWM training in {city}, you gain expert-led education, global SAP certification, and the practical tools to succeed in warehouse management."
-
-
     ]
   },
   {
@@ -91,7 +97,7 @@
     "title": "Why Choose Connecting Dots ERP for the SAP S/4 HANA Course in {city} ?",
     "paragraphs": [
       "The deep SAP S/4 HANA Course in {city} that Connecting Dots ERP provides will familiarize you with the potent features of SAP's in-memory database technology. The skills you need to use this cutting-edge platform in business operations are covered in our training, which starts with the basics of SAP S/4 HANA and progresses to more complex subjects like data modeling, real-time analytics, and application development.",
-      
+
       "We place a high value on practical training, including real-world projects and real-world exposure to make sure you comprehend how SAP S/4 HANA interacts with other SAP modules. You will obtain important experience by working on real-world settings, which will help you get ready for the workforce after the course.",
       "Our SAP S/4 HANA Training in {city} includes professional direction from knowledgeable instructors, help finding a job 100% of the time, and a globally recognized SAP S/4 HANA Certification. Regardless of whether you opt for in-person or virtual Training, our course is made to provide you with the know-how and abilities required to succeed in the SAP S/4 HANA field, making you ready to begin your SAP career."
     ]
@@ -170,23 +176,33 @@
   },
   {
     "pageId": "sap-sd",
-    "title": "Why Choose Connecting Dots ERP for the SAP SD Course in {city}",
+    "title": "Why Choose Connecting Dots ERP for SAP SD Training in {city}?",
     "paragraphs": [
-      "At Connecting Dots ERP, we offer an industry-leading SAP SD course in {city} designed to equip you with the necessary skills to excel in Sales and Distribution (SD) processes within organizations. As the world’s leading software for managing business operations, SAP has become essential in streamlining everything from supply chains to customer relationship management. Our online SAP SD training ensures you gain hands-on experience in managing sales orders, billing, shipping, and invoicing processes. With the rapid digitization of industries, professionals with SAP SD expertise are in high demand, making it a lucrative career path. Our SAP SD course in {city} is designed to help you acquire in-depth knowledge and boost your career prospects.",
-      "At Connecting Dots ERP, we provide a comprehensive SAP SD training program that includes modules covering everything from supply chain documentation to sales management and distribution networks. Our expert trainers, who are industry professionals with real-world 10+ years of experience, ensure that you are well-versed in the latest SAP SD functionalities and business processes. Our state-of-the-art training facility in {city} offers hands-on practice through live projects and case studies, ensuring that you are job-ready upon completion of the course. Additionally, our SAP SD certification course is globally recognized, providing you with a significant edge in the competitive job market.",
-      "Whether you’re a beginner or looking to enhance your skills, our SAP SD course offers both offline and online learning modes to suit your needs. Connecting Dots ERP is committed to your success with a personalized approach, flexible scheduling, and dedicated placement support. With our SAP SD training in {city}, you will be equipped with the knowledge and skills needed to handle real-world business challenges in sales and distribution. Join us today for a rewarding career in SAP SD, and benefit from our robust job placement assistance with top MNCs."
-      
+      "If you're looking to build a successful career in SAP Sales and Distribution, Connecting Dots ERP is the most trusted choice for a SAP SD course in {city}. With a curriculum tailored to meet current industry demands, our training institute delivers the perfect blend of technical expertise and practical application to help you become job-ready.",
+      "Our SAP SD training in {city} covers all core components including sales order processing, pricing, billing, shipping, and customer master data. We go beyond textbook learning by providing real-time scenarios, business use cases, and project-based learning—ensuring you're prepared for real-world challenges.",
+      "Led by seasoned industry professionals, our SAP SD classes in {city} are interactive, hands-on, and designed to cater to beginners as well as working professionals. Whether you're switching careers or upskilling, our personalized mentorship ensures you understand each concept thoroughly and gain confidence in handling SAP SD modules.",
+      "What makes our SAP SD training in {city} unique?",
+      "Our commitment to quality training and student success makes us the top destination for SAP SD training in {city}. Join the growing community of professionals who chose Connecting Dots ERP for their SAP SD classes in {city}, and step confidently into a high-paying SAP career."
+    ],
+    "listItem1": [
+      "Industry Relevant Curriculum: Our course covers all essential SD components with practical sessions and real-time scenarios.",
+      "Experienced Faculty: Learn from SAP professionals with 10 years of hands-on industry experience.",
+      "Flexible Learning Modes: Weekend, weekday, and online batch options to suit every learner’s schedule.",
+      "Affordable Fees: Accessible pricing with flexible payment plans.",
+      "100% Placement Assistance: We help you prepare for interviews, build a strong resume, and connect you with top recruiters.",
+      "Industry-Recognized Certification: Earn a certification that boosts your employability and career prospects."
+    ],
+    "listItemAfterIndex": 3
+  },
+  {
+    "pageId": "sap-succ",
+    "title": "Why Choose Connecting Dots ERP for SAP SuccessFactors Course in {city}?",
+    "paragraphs": [
+      "Our SAP SuccessFactors training in {city} offers a comprehensive and updated syllabus that covers all key aspects of HR management, such as recruitment, onboarding, performance appraisals, and employee engagement. In addition to mastering these critical functions, you will learn how to leverage data-driven insights to optimize HR processes and strategies, giving you an edge in today's competitive job market. The globally recognized certification you receive upon course completion validates your expertise and strengthens your professional profile.",
+      "This ISO-certified program ensures that the curriculum and training meet international standards, giving you confidence in the skills and knowledge you gain. Practical, hands-on training is a core part of the SAP SuccessFactors course in {city}, with real-world projects, live case studies, and simulations designed to provide you with valuable experience in handling HR and HCM roles. The course is taught by expert faculty with years of industry experience, offering insights into both the technical and business aspects of SAP SuccessFactors.",
+      "In addition to expert-led learning, you will benefit from placement assistance. Our dedicated team will help with resume building, interview preparation, and connecting you with potential employers. The course also incorporates the latest HR tools and techniques used by top organizations, ensuring you’re well-versed in the technologies and strategies leading HR departments rely on."
     ]
   },
-    {
-      "pageId": "sap-succ",
-      "title": "Why Choose Connecting Dots ERP for SAP SuccessFactors Course in {city}?",
-      "paragraphs": [
-        "Our SAP SuccessFactors training in {city} offers a comprehensive and updated syllabus that covers all key aspects of HR management, such as recruitment, onboarding, performance appraisals, and employee engagement. In addition to mastering these critical functions, you will learn how to leverage data-driven insights to optimize HR processes and strategies, giving you an edge in today's competitive job market. The globally recognized certification you receive upon course completion validates your expertise and strengthens your professional profile.",
-        "This ISO-certified program ensures that the curriculum and training meet international standards, giving you confidence in the skills and knowledge you gain. Practical, hands-on training is a core part of the SAP SuccessFactors course in {city}, with real-world projects, live case studies, and simulations designed to provide you with valuable experience in handling HR and HCM roles. The course is taught by expert faculty with years of industry experience, offering insights into both the technical and business aspects of SAP SuccessFactors.",
-        "In addition to expert-led learning, you will benefit from placement assistance. Our dedicated team will help with resume building, interview preparation, and connecting you with potential employers. The course also incorporates the latest HR tools and techniques used by top organizations, ensuring you’re well-versed in the technologies and strategies leading HR departments rely on."
-      ]
-    },
   {
     "pageId": "mda",
     "title": "Why Choose Connecting Dots ERP for Data Analytics training in {city}?",
@@ -239,7 +255,6 @@
       "Connecting Dots ERP offers an advanced Java course in {city}, tailored to meet the current industry requirements. The syllabus covers everything from basic Java programming to advanced topics like the Spring Framework, Hibernate, and REST APIs, ensuring a strong theoretical and practical foundation. Additionally, the course integrates the latest Java technologies, preparing students for modern software development challenges. The Java certification in {city} from Connecting Dots ERP sets you apart, making you a competitive candidate for high-demand Java roles across the tech industry.",
       "At Connecting Dots ERP, the Java classes in {city} emphasize hands-on learning through live projects and real-world tasks. Our experienced trainers, with over a decade of industry expertise, provide the guidance you need to be job-ready. The Java training fees in {city} are affordable, making it accessible to students from various backgrounds, and we offer flexible payment plans for those in need. The combination of modern infrastructure and expert mentorship creates the perfect learning environment for learning Java development, ensuring students receive a detailed and practical education.",
       "At Connecting Dots, we believe in project-based learning. During the Java course in {city}, you'll work on collaborative projects, solve coding challenges, and participate in hackathons that mirror real-world industry demands. To support your career goals, Our Java course with 100% placement assistance, ensuring that you not only gain the technical skills but also have the support to secure top roles. Whether you're aiming to become a Java developer or manage full-scale software development projects, this Java course in {city} equips you with the skills and confidence to excel in your career."
-      
     ]
   },
   {
@@ -247,7 +262,7 @@
     "title": "Why Choose Connecting Dots ERP for MERN-Stack training in {city}?",
     "paragraphs": [
       "Connecting Dots ERP offers a advance MERN stack course in {city}, designed to meet the evolving demands of modern web development. The syllabus covers everything from MongoDB for efficient database management, Express.js for streamlined backend logic, React for dynamic front-end development, to Node.js for robust server-side programming. The MERN stack certification in {city} from Connecting Dots ensures you’re well-prepared for real-world development challenges. This course integrates industry-relevant skills and provides exposure to modern development practices, making you proficient in both client and server-side applications. Additionally, our curriculum is constantly updated to reflect the latest advancements in the MERN ecosystem",
-      
+
       "At Connecting Dots ERP, the MERN stack classes in {city} focus on practical learning through real-world projects. Our trainers, with over a decade of experience in the industry, guide you through hands-on exercises that give you the job-ready skills required in today’s competitive market. The MERN stack training fees in {city} are structured to be affordable, ensuring that students from diverse backgrounds have access to high-quality education. We also offer flexible payment options and scholarship opportunities for deserving candidates. With modern infrastructure, including state-of-the-art classrooms and high-performance computing labs, combined with dedicated mentorship, our institute creates the perfect environment for mastering MERN stack development and building a strong portfolio.",
       "In addition to honing technical skills, the MERN stack course in {city} emphasizes learning through collaboration and project-based tasks. Students participate in team-based development projects, hackathons, and problem-solving challenges that simulate real-world development environments. Whether you're aspiring to become a MERN stack developer or aiming to manage full-scale software projects, this course equips you with the confidence and skills to excel in the tech industry. Our MERN Stack course with 100% placement support, ensuring that you not only gain technical expertise but are well-prepared to land top positions in reputed organizations."
     ]
@@ -312,9 +327,7 @@
     ]
   },
 
-
-
- {
+  {
     "pageId": "digimdesc",
     "title": "Why Choose Connecting Dots ERP for Digital Marketing Training in {city}?",
     "paragraphs": [
@@ -331,7 +344,7 @@
       "Continuous Learning: Gain access to advanced workshops and industry updates, ensuring you stay at the forefront of digital marketing trends.",
       "Enroll Today and Accelerate Your Career: Take the first step toward a successful career in digital marketing. Join our Digital Marketing Training in {city} to gain the skills, confidence, and placement support needed to excel in this fast-growing industry. Contact us now for more details about fees, upcoming batches, and enrollment options."
     ],
-    
+
     "highlights": [
       "Expert Faculty:",
       "Hands-On Learning:",
@@ -343,11 +356,10 @@
       "Recognized Certification:",
       "Networking Opportunities:",
       "Continuous Learning:",
-      "Enroll Today and Accelerate Your Career:"  
+      "Enroll Today and Accelerate Your Career:"
     ]
-    
   },
- {
+  {
     "pageId": "digim",
     "title": "Pay Per Click (PPC) Training in {city}",
     "paragraphs": [
@@ -358,7 +370,6 @@
       "Advanced PPC Strategies: The course also focuses on advanced strategies such as remarketing, video ads, and display network advertising. You'll learn how to manage and optimize large-scale campaigns, perform A/B testing, and analyze detailed metrics to improve campaign performance. With specialized modules on Google Analytics, bid management tools, and automated bidding strategies, you'll gain the skills needed to deliver high-performing PPC campaigns. Our Pay Per Click Training in {city} with Placement ensures you’re ready for high-demand PPC roles in digital marketing agencies and organizations.",
       "Throughout the PPC Course Training in {city}, you'll gain hands-on experience in setting up, managing, and optimizing PPC campaigns. Our expert trainers will teach you advanced techniques such as keyword research, ad copy creation, bid management, and performance analysis. You'll also learn how to use various PPC tools and analytics to monitor and improve your campaigns continuously, ensuring you stay ahead of the competition.",
       "An advanced PPC Training in {city} opens the door to a wide variety of career opportunities in digital marketing. PPC specialists are in high demand as businesses seek to grow their online presence and drive immediate results. Here are some of the career opportunities you can pursue after completing the PPC training:"
-
     ],
     "listItem1": [
       "Google Ads Specialist",
@@ -373,10 +384,10 @@
       "Advanced PPC Strategies",
       "PPC Overview"
     ],
-    "videoUrl": "https://i.imgur.com/ICUTx4r.mp4" 
+    "videoUrl": "https://i.imgur.com/ICUTx4r.mp4"
   },
-{
-"pageId": "digim2",
+  {
+    "pageId": "digim2",
     "title": "Search Engine Optimization (SEO) Training in {city}",
     "paragraphs": [
       "What is Search Engine Optimization (SEO)?",
@@ -387,7 +398,6 @@
       "SEO Tools and Analytics: Learn how to use powerful SEO tools and analytics platforms such as Ahrefs, Moz, and Google Analytics to conduct in-depth website audits, monitor keyword rankings, and analyze competitor strategies. This hands-on experience will allow you to effectively track and measure the success of your SEO campaigns and optimize your content and website accordingly.",
       "What are the Career Opportunities After SEO Training?",
       "An SEO Training in {city} opens a wide range of career opportunities in the fast-growing field of digital marketing. SEO professionals are always in demand, as businesses across industries need skilled individuals to improve their online visibility. Here are some of the key career paths you can pursue after completing SEO training:"
-
     ],
     "listItem1": [
       "SEO Specialist",
@@ -403,7 +413,6 @@
       "Advanced SEO Strategies:",
       "SEO Tools and Analytics:",
       "What are the Career Opportunities After SEO Training?"
-      
     ],
     "videoUrl": "https://i.imgur.com/UZ1C9Pz.mp4"
   },
@@ -445,7 +454,6 @@
       "Data Visualization and Reporting: Advanced Google Analytics isn’t just about analyzing data; it’s also about presenting it in a way that’s easy to understand. You’ll learn how to visualize complex data using advanced tools like Tableau and Power BI to create dashboards, reports, and visualizations that tell a compelling story and facilitate decision-making.",
       "What Are the Career Opportunities After Advanced Google Analytics Training?",
       "The skills gained in Advanced Google Analytics Training in {city} are in high demand across a variety of industries. With organizations increasingly relying on data to make informed decisions, there are numerous career opportunities for professionals with expertise in Advanced Google Analytics. After completing this course, you can pursue several high-demand roles, including:"
-
     ],
     "listItem1": [
       "Data Scientist",
@@ -533,11 +541,8 @@
     "title": "Why Choose Connecting Dots ERP for SAP Training in {city}?",
     "paragraphs": [
       "At Connecting Dots ERP, we offer an industry-leading SAP course in {city} designed to equip you with the skills and expertise needed to thrive in today’s dynamic business environment. With a focus on SAP FICO, SAP MM, and SAP SD, our comprehensive SAP training in {city} blends theoretical learning with real-time practical experience, enabling you to manage core business processes efficiently and drive organizational success.",
-      
       "Our expert-led SAP classes in {city} are conducted by certified professionals with real-world experience. You’ll receive personalized mentorship and hands-on exposure through dummy projects and case studies, giving you deep insights into the practical applications of SAP tools and modules.",
-      
       "To ensure inclusivity, we offer flexible payment plans and financial assistance, making our SAP training in {city} accessible to learners from all backgrounds.",
-  
       "Join the most trusted SAP classes in {city} and take the next step toward a successful career in ERP. With our proven track record and commitment to student success, Connecting Dots ERP is your gateway to top opportunities in the SAP ecosystem."
     ],
     "listItem1": [
@@ -545,34 +550,11 @@
       "Real-world business case study discussions",
       "Experienced SAP trainers & one-on-one mentorship",
       "Development of soft skills, including teamwork & communication",
-      "100% placement assistance with resume building and interview preparation"
+      "100% placement assistance with resume building and interview preparation",
+      "Strong industry connections to help you land your dream job"
     ],
-    "secondTitle": "What Will You Learn in the SAP Training Program?",
-    "secondParagraphs": [
-      "SAP Module Overview: In the SAP training in {city}, you will gain in-depth knowledge of key SAP modules, including SAP FICO, SAP MM, and SAP SD. This course will equip you with the skills to configure, implement, and support SAP systems, ensuring that you can optimize business processes and add value to organizations using SAP solutions.",
-      "SAP System Configuration and Customization: Gain hands-on experience in SAP system configuration, learning how to customize SAP applications to meet specific business needs. You will explore different transaction codes, configuration steps, and the integration of modules to optimize workflows across the organization.",
-      "SAP Integration Across Modules: Learn how SAP modules work together to streamline business processes. Understand the integration points between SAP FICO, SAP MM, SAP SD, and other modules to ensure smooth data flow and consistency. This knowledge is crucial for professionals who want to implement end-to-end solutions within an organization.",
-      "Data Migration and SAP Implementation: Understand the process of migrating data from legacy systems to SAP. Learn about data cleansing, mapping, and loading techniques, along with strategies for managing SAP implementation projects. This knowledge will help you contribute to successful SAP rollouts and system upgrades.",
-      "Troubleshooting and Support: Gain expertise in troubleshooting common SAP issues and providing user support. You will learn how to resolve configuration errors, system integration problems, and other technical challenges that arise during daily SAP operations. This skill set is vital for those working in SAP support or consulting roles.",
-      "SAP Reporting and Analytics: Learn how to generate reports and analyze data within SAP. You’ll explore various reporting tools and methods for extracting business intelligence from SAP data, helping organizations make data-driven decisions. This training will prepare you to work with SAP’s reporting functionality and enhance decision-making through actionable insights.",
-      "SAP Security and Authorization: Understand SAP security concepts, including user roles, authorization profiles, and security audits. This module will teach you how to configure SAP security settings to ensure data integrity and safeguard organizational data against unauthorized access.",
-      "Best Practices and Industry Standards: Throughout the SAP training program, you will learn about best practices in SAP implementation and usage. This will help you apply proven methods and industry standards when configuring and optimizing SAP systems, ensuring that the solutions you provide meet both technical and business requirements.",
-      "SAP Certification and Placement Support: Project Work and Case Studies: Our SAP Course in {city} emphasizes practical learning through real-world projects and case studies. You will work on hands-on assignments that simulate real business scenarios, allowing you to apply your SAP knowledge to solve problems and optimize workflows in a controlled environment.",
-      "Upon completion of the course, you will be ready to take on roles such as SAP FICO Consultant, SAP MM Consultant, SAP SD Consultant, or SAP Implementation Specialist. As part of our SAP course in {city} with placement support, we provide assistance in preparing for SAP certification exams and offer job placement guidance to help you secure a rewarding SAP career.",
-      "By the end of this SAP training program, you will have the skills and expertise to take on critical SAP roles in any organization, making you job-ready for high-demand SAP positions."
-    ],
-    "highlights": [
-      "SAP Module Overview:",
-      "SAP System Configuration and Customization:",
-      "SAP Integration Across Modules:",
-      "Data Migration and SAP Implementation:",
-      "Troubleshooting and Support:",
-      "SAP Reporting and Analytics:",
-      "SAP Security and Authorization:",
-      "Best Practices and Industry Standards:",
-      "SAP Certification and Placement Support:"
-    ]
-  },    
+    "listItemAfterIndex": 2
+  },
   {
     "pageId": "itcourses-landing",
     "title": "Why Choose Connecting Dots ERP for HR Training in {city}?",
@@ -590,7 +572,7 @@
       "Contact us to learn more about our Software training institute in {city}, course fees, and upcoming batches."
     ],
     "secondTitle": "What Will You Learn in the IT Training Program?",
-    "secondParagraphs":[
+    "secondParagraphs": [
       "Software Course Overview: In our Software course in {city}, you will gain in-depth knowledge of key software development modules, including programming languages like Python and Java, Web Development, Data Structures, Algorithms, and Software Architecture. This course will equip you with the skills to design, develop, and maintain applications, optimize software processes, and ensure seamless integration across platforms.",
       "Software System Configuration and Customization: Gain hands-on experience with IT training in {city} in system configuration, learning how to customize software applications to meet specific business needs. You will explore different development frameworks, coding practices, and integration steps to streamline software workflows and ensure that applications perform optimally.",
       "Software Integration Across Modules: Learn how different software modules work together to create cohesive applications. Understand the integration points between back-end systems, front-end user interfaces, and databases, ensuring smooth data flow and consistency. This knowledge is essential for developers who want to implement end-to-end software solutions within an organization.",
@@ -603,25 +585,27 @@
       "Software Certification and Placement Support: Upon completion of the course, you will be ready to take on roles such as Software Developer, Full Stack Developer, Front-End Developer, Back-End Developer, or Software Engineer. As part of our Software course in {city} with placement support, we provide assistance in preparing for software certification exams and offer job placement guidance to help you secure a rewarding career in software development.",
       "By the end of this IT training in {city}, you will have the skills and expertise to take on critical software development roles in any organization, making you job-ready for high-demand IT positions."
     ],
-    "highlights": ["Expert Faculty:",
-                  "Flexible Learning Options:",
-                  "Hands-On Learning:",
-                  "Job Placement Assistance:",
-                  "Advance Curriculum:",
-                  "Industry-Relevant Skills:",
-                  "Certification and Recognition:",
-                  "Networking Opportunities:",
-                  "Lifelong Learning:",
-                  "Software Course Overview",
-                  "Software System Configuration and Customization",
-                  "Software Integration Across Modules",
-                  "Data Migration and Software Implementation",
-                  "Troubleshooting and Support",
-                  "Software Reporting and Analytics",
-                  "Software Security and Authorization",
-                  "Best Practices and Industry Standards",
-                  "Project Work and Case Studies",
-                  "Software Certification and Placement Support"]
+    "highlights": [
+      "Expert Faculty:",
+      "Flexible Learning Options:",
+      "Hands-On Learning:",
+      "Job Placement Assistance:",
+      "Advance Curriculum:",
+      "Industry-Relevant Skills:",
+      "Certification and Recognition:",
+      "Networking Opportunities:",
+      "Lifelong Learning:",
+      "Software Course Overview",
+      "Software System Configuration and Customization",
+      "Software Integration Across Modules",
+      "Data Migration and Software Implementation",
+      "Troubleshooting and Support",
+      "Software Reporting and Analytics",
+      "Software Security and Authorization",
+      "Best Practices and Industry Standards",
+      "Project Work and Case Studies",
+      "Software Certification and Placement Support"
+    ]
   },
   {
     "pageId": "hrcourses-landing",
@@ -641,7 +625,7 @@
       "Contact us to learn more about our HR Course in {city}, fees, and upcoming batches."
     ],
     "secondTitle": "What Will You Learn in the HR Training Program?",
-    "secondParagraphs":[
+    "secondParagraphs": [
       "HR Module Overview: In our HR Course in {city}, you will gain in-depth knowledge of key HR modules, including Recruitment and Selection, Performance Management, Compensation and Benefits, Employee Relations, and HR Analytics. This course will equip you with the skills to manage people effectively, optimize HR processes, and ensure compliance with labor laws.",
       "HR System Configuration and Customization: Gain hands-on experience with HR Training institute in {city} in  system configuration, learning how to customize HR applications to meet specific organizational needs. You will explore different transaction codes, configuration steps, and the integration of HR modules to optimize HR workflows.",
       "HR Integration Across Modules: Learn how HR modules work together to streamline HR processes. Understand the integration points between Recruitment, Performance Management, Compensation and Benefits, and Employee Relations to ensure smooth data flow and consistency. This knowledge is crucial for professionals who want to implement end-to-end HR solutions within an organization.",
@@ -653,9 +637,8 @@
       "Project Work and Case Studies: Our HR Course in {city} emphasizes practical learning through real-world projects and case studies. You will work on hands-on assignments that simulate real business scenarios, allowing you to apply your HR knowledge to solve problems and optimize HR workflows in a controlled environment.",
       "HR Certification and Placement Support: Upon completion of the course, you will be ready to take on roles such as HR Generalist, HR Specialist, HR Business Partner, or HR Manager. As part of our HR Course in {city} with placement support, we provide assistance in preparing for HR certification exams and offer job placement guidance to help you secure a rewarding HR career.",
       "By the end of this HR training program, you will have the skills and expertise to take on critical HR roles in any organization, making you job-ready for high-demand HR positions."
-
     ],
-    "highlights":[
+    "highlights": [
       "Expert Faculty:",
       "Flexible Learning Options:",
       "Hands-On Learning:",
@@ -676,10 +659,7 @@
       "Best Practices and Industry Standards",
       "Project Work and Case Studies",
       "HR Certification and Placement Support"
-
     ]
-
-
   },
   {
     "pageId": "DataVisual-landing",
@@ -699,7 +679,7 @@
       "For more details, including Data Visualization course fees in {city}, upcoming batches, and course inquiries, contact us today and get started on your path to becoming a Data Visualization expert."
     ],
     "secondTitle": "What Will You Learn in the HR Training Program?",
-    "secondParagraphs":[
+    "secondParagraphs": [
       "Data Visualization Course Overview: In our Data Visualization course in {city}, you will gain in-depth knowledge of key data visualization tools and techniques, including platforms like Tableau, Power BI, Excel, and other leading BI tools. This course will equip you with the skills to transform complex data into clear, actionable insights using interactive charts, dashboards, and reports. You will also learn how to manage data sources, create data-driven visualizations, and present information in a compelling way that helps businesses make informed decisions.",
       "Data Visualization System Configuration and Customization: Gain hands-on experience with the Data Visualization training institute in {city}, where you will learn how to configure visualization systems to meet specific business requirements. You will explore different visualization tools, dashboards, and data connectors, ensuring that your visualizations are optimized for various data sources and presentation styles.",
       "Data Visualization Integration Across Modules: Understand the process of migrating data from legacy systems to modern data visualization platforms. Learn about data cleansing, transformation, and mapping techniques, along with strategies for managing successful data visualization implementations. This expertise will help you contribute to seamless transitions and ensure that your visualizations present accurate, high-quality data.",
@@ -712,7 +692,7 @@
       "Data Visualization Certification and Placement Support: Upon completion of the course, you will be ready to take on roles such as Data Analyst, Data Visualization Specialist, BI Analyst, or Data Reporting Specialist. As part of our Data Visualization course in {city} with placement support, we provide assistance in preparing for certification exams and offer job placement guidance to help you secure a rewarding career in the data analytics field.By the end of this IT training in {city}, you will have the skills and expertise to take on key data visualization roles in any organization, making you job-ready for high-demand positions in business intelligence and analytics.",
       "Contact us today for more information on our Data Visualization course fees in {city}, upcoming batches, and to begin your journey to mastering data visualization!"
     ],
-    "highlights":[
+    "highlights": [
       "Data Visualization Certification and Placement Support:",
       "Project Work and Case Studies:",
       "Best Practices and Industry Standards:",
@@ -734,7 +714,6 @@
       "Lifelong Learning:",
       "Join Us and Unlock Your Potential:"
     ]
-
   },
   {
     "pageId": "about",
@@ -747,7 +726,6 @@
       "Advanced PPC Strategies: The course also focuses on advanced strategies such as remarketing, video ads, and display network advertising. You'll learn how to manage and optimize large-scale campaigns, perform A/B testing, and analyze detailed metrics to improve campaign performance. With specialized modules on Google Analytics, bid management tools, and automated bidding strategies, you'll gain the skills needed to deliver high-performing PPC campaigns. Our Pay Per Click Training in {city} with Placement ensures you’re ready for high-demand PPC roles in digital marketing agencies and organizations.",
       "Throughout the PPC Course Training in {city}, you'll gain hands-on experience in setting up, managing, and optimizing PPC campaigns. Our expert trainers will teach you advanced techniques such as keyword research, ad copy creation, bid management, and performance analysis. You'll also learn how to use various PPC tools and analytics to monitor and improve your campaigns continuously, ensuring you stay ahead of the competition.",
       "An advanced PPC Training in {city} opens the door to a wide variety of career opportunities in digital marketing. PPC specialists are in high demand as businesses seek to grow their online presence and drive immediate results. Here are some of the career opportunities you can pursue after completing the PPC training:"
-
     ],
     "listItem1": [
       "Google Ads Specialist",
@@ -762,6 +740,6 @@
       "Advanced PPC Strategies",
       "PPC Overview"
     ],
-    "videoUrl": "https://i.imgur.com/xo0wvjk.mp4" 
+    "videoUrl": "https://i.imgur.com/xo0wvjk.mp4"
   }
 ]
