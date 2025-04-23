@@ -138,7 +138,11 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
         {/* Insert feature list here if present */}
         {content.listItem1 && content.listItem1.length > 0 && (
           <div className={styles.sectionCard}>
-            <div className={styles.cardHeader}>What sets us apart:</div>
+            <div className={styles.cardHeader}>
+              {content.listItem1Header
+                ? content.listItem1Header.replace(/{city}/g, city)
+                : "What sets us apart:"}
+            </div>
             {renderList(content.listItem1, styles.featureList)}
           </div>
         )}

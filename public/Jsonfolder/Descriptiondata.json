@@ -4,9 +4,9 @@
     "title": "Why Choose Connecting Dots ERP for SAP FICO Training in {city}?",
     "paragraphs": [
       "If you're looking to build a successful career in SAP Financial Accounting and Controlling, Connecting Dots ERP is the perfect place to start. Recognized as a leading institute for SAP FICO training in {city}, we offer a structured, in-depth program designed to help you master the SAP FICO module from the ground up. Whether you're a fresher, finance professional, or IT expert looking to upskill, our SAP FICO course in {city} is tailored to match industry standards and demands.",
-      "At Connecting Dots ERP, our SAP FICO program stands out because of our practical approach to learning. Our SAP FICO classes in {city} are led by industry experts with real-world experience, ensuring that you not only learn theoretical concepts but also understand how they are applied in actual business environments. From General Ledger, Accounts Payable/Receivable, Asset Accounting to Cost Center Accounting and Internal Orders, we cover every aspect of SAP FICO in detail.",
-      "What makes our SAP FICO training in {city} unique?"
+      "At Connecting Dots ERP, our SAP FICO program stands out because of our practical approach to learning. Our SAP FICO classes in {city} are led by industry experts with real-world experience, ensuring that you not only learn theoretical concepts but also understand how they are applied in actual business environments. From General Ledger, Accounts Payable/Receivable, Asset Accounting to Cost Center Accounting and Internal Orders, we cover every aspect of SAP FICO in detail."
     ],
+    "listItem1Header": "What makes our SAP FICO training in {city} unique?",
     "listItem1": [
       "Industry Relevant Curriculum: Our course covers all essential FICO components with practical sessions and real-time scenarios.",
       "Experienced Faculty: Learn from SAP professionals with 10 years of hands-on industry experience.",
@@ -15,9 +15,10 @@
       "100% Placement Assistance: We help you prepare for interviews, build a strong resume, and connect you with top recruiters.",
       "Industry-Recognized Certification: Earn a certification that boosts your employability and career prospects."
     ],
-    "listItemAfterIndex": 2,
+    "listItemAfterIndex": 1,
     "paragraphsAfterList": [
-      "By choosing Connecting Dots ERP for your SAP FICO course in {city}, you're investing in a future-proof career with opportunities in top MNCs and global enterprises. We don’t just train you — we mentor, guide, and empower you for long-term success. Join the best SAP FICO classes in {city} today and take your first step toward a high-paying, stable, and rewarding career in the SAP ecosystem."
+      "By choosing Connecting Dots ERP for your SAP FICO course in {city}, you're investing in a future-proof career with opportunities in top MNCs and global enterprises. We don’t just train you — we mentor, guide, and empower you for long-term success.",
+      "Join the best SAP FICO classes in {city} today and take your first step toward a high-paying, stable, and rewarding career in the SAP ecosystem."
     ]
   },
   {
@@ -181,9 +182,9 @@
       "If you're looking to build a successful career in SAP Sales and Distribution, Connecting Dots ERP is the most trusted choice for a SAP SD course in {city}. With a curriculum tailored to meet current industry demands, our training institute delivers the perfect blend of technical expertise and practical application to help you become job-ready.",
       "Our SAP SD training in {city} covers all core components including sales order processing, pricing, billing, shipping, and customer master data. We go beyond textbook learning by providing real-time scenarios, business use cases, and project-based learning—ensuring you're prepared for real-world challenges.",
       "Led by seasoned industry professionals, our SAP SD classes in {city} are interactive, hands-on, and designed to cater to beginners as well as working professionals. Whether you're switching careers or upskilling, our personalized mentorship ensures you understand each concept thoroughly and gain confidence in handling SAP SD modules.",
-      "What makes our SAP SD training in {city} unique?",
       "Our commitment to quality training and student success makes us the top destination for SAP SD training in {city}. Join the growing community of professionals who chose Connecting Dots ERP for their SAP SD classes in {city}, and step confidently into a high-paying SAP career."
     ],
+    "listItem1Header": "What makes our SAP SD training in {city} unique?",
     "listItem1": [
       "Industry Relevant Curriculum: Our course covers all essential SD components with practical sessions and real-time scenarios.",
       "Experienced Faculty: Learn from SAP professionals with 10 years of hands-on industry experience.",
@@ -192,7 +193,7 @@
       "100% Placement Assistance: We help you prepare for interviews, build a strong resume, and connect you with top recruiters.",
       "Industry-Recognized Certification: Earn a certification that boosts your employability and career prospects."
     ],
-    "listItemAfterIndex": 3
+    "listItemAfterIndex": 2
   },
   {
     "pageId": "sap-succ",
