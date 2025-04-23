@@ -25,6 +25,12 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
             paragraphs:
               pageContent.paragraphs?.map((p) => p.replace(/{city}/g, city)) ??
               [],
+            paragraphsAfterList:
+              pageContent.paragraphsAfterList?.map((p) =>
+                p.replace(/{city}/g, city)
+              ) ?? [],
+            listItem1Header:
+              pageContent.listItem1Header?.replace(/{city}/g, city) ?? "",
             listItem1: pageContent.listItem1 ?? [],
             listItem2: pageContent.listItem2 ?? [],
             secondTitle:
@@ -140,14 +146,14 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
           <div className={styles.sectionCard}>
             <div className={styles.cardHeader}>
               {content.listItem1Header
-                ? content.listItem1Header.replace(/{city}/g, city)
+                ? content.listItem1Header
                 : "What sets us apart:"}
             </div>
             {renderList(content.listItem1, styles.featureList)}
           </div>
         )}
 
-        {/* Paragraphs AFTER list */}
+        {/* Paragraphs AFTER list from "paragraphs" array */}
         {paragraphsAfterList.map(
           (p, i) =>
             p.trim() && (
@@ -156,6 +162,20 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
               </p>
             )
         )}
+
+        {/* Paragraphs AFTER feature list (for the paragraphsAfterList property) */}
+        {content.paragraphsAfterList &&
+          content.paragraphsAfterList.map(
+            (p, i) =>
+              p.trim() && (
+                <p
+                  key={`afterlist-${i}`}
+                  className={styles.descriptionParagraph}
+                >
+                  {applyHighlights(p, content.highlights)}
+                </p>
+              )
+          )}
 
         {/* Optionally render listItem2 (eg for your SAP closing statement) */}
         {content.listItem2 &&
