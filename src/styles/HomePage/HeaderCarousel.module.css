@@ -3,7 +3,7 @@
   display: none !important;
 }
 
-.carouselWrapper{
+.carouselWrapper {
   width: 100%;
   max-width: 1800px;
   margin: auto;
@@ -31,13 +31,20 @@
   margin: 0 auto;
 }
 
+.carouselImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+/* Legacy styles for other image types */
 .carouselImage img {
   max-height: 100%;
   max-width: 100%;
-  margin-top: 40px;
-  margin-left: 180px;
   object-fit: cover;
-  height: 630px;
+  height: auto;
   width: auto;
 }
 
@@ -123,14 +130,16 @@
   font-weight: 500;
   background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
   position: relative;
   display: inline-flex;
   line-height: 50%;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
 }
 
@@ -311,8 +320,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 2px 2px 2px 0px rgb(98, 96, 96, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 2px 2px 2px 0px rgb(98, 96, 96, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
 }
 
@@ -371,7 +382,8 @@
   place-items: center;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 10px 0px,
+  box-shadow:
+    rgba(0, 0, 0, 0.4) 0px 2px 10px 0px,
     rgba(0, 0, 0, 0.5) 0px 2px 25px 0px;
   margin: auto;
   flex-shrink: 0;
@@ -393,7 +405,8 @@
   overflow: hidden;
   padding: 20px;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.7) 0px 3px 6px -2px inset,
+  box-shadow:
+    rgba(0, 0, 0, 0.7) 0px 3px 6px -2px inset,
     rgba(0, 0, 0, 0.7) 0px 8px 6px -8px inset;
 }
 
@@ -475,7 +488,8 @@
   place-items: center;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 10px 0px,
+  box-shadow:
+    rgba(0, 0, 0, 0.4) 0px 2px 10px 0px,
     rgba(0, 0, 0, 0.5) 0px 2px 25px 0px;
   /* margin-right: 80px; */
 }
@@ -496,7 +510,8 @@
   overflow: hidden;
   padding: 20px;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.7) 0px 3px 6px -2px inset,
+  box-shadow:
+    rgba(0, 0, 0, 0.7) 0px 3px 6px -2px inset,
     rgba(0, 0, 0, 0.7) 0px 8px 6px -8px inset;
 }
 
@@ -819,7 +834,7 @@
     width: 100%;
     margin-top: 0;
   }
-  .btn3 span{
+  .btn3 span {
     font-size: 10px;
   }
 }

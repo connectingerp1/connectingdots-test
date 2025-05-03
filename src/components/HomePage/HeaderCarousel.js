@@ -7,6 +7,7 @@ import styles from "@/styles/HomePage/HeaderCarousel.module.css";
 import Btnform from "./Btnform";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedLogo from "@/components/AnimatedLogo";
 
 // Constants moved outside component to avoid re-creation on render
 const TEXTS = [
@@ -41,8 +42,8 @@ const QUESTION_DATA = {
 // Memoized company logo component to reduce rerenders
 const CompanyLogos = memo(() => (
   <div className={styles.logoStrip}>
-    <Image 
-      src="/Headercarousel/logo strip.avif" 
+    <Image
+      src="/Headercarousel/logo strip.avif"
       alt="Partner companies logos including IBM, TCS, and other corporate partners"
       width={400}
       height={100}
@@ -83,13 +84,7 @@ const CareerSlide = ({ onButtonClick }) => (
       <CompanyLogos />
     </div>
     <div className={styles.carouselImage}>
-      <Image
-        src="/Headercarousel/headerManimg.avif"
-        alt="Header Image"
-        width={500}
-        height={400}
-        priority={true}
-      />
+      <AnimatedLogo />
     </div>
   </div>
 );
@@ -242,19 +237,19 @@ const HeaderCarousel = () => {
   // Check if viewport is mobile-sized
   useEffect(() => {
     const checkMobileView = () => setIsMobileView(window.innerWidth <= 768);
-    
+
     // Initial check
     checkMobileView();
-    
+
     // Setup event listener
     window.addEventListener("resize", checkMobileView);
-    
+
     // Load fonts
     const link = document.createElement("link");
     link.href = "https://fonts.googleapis.com/css2?family=Lato&display=swap";
     link.rel = "stylesheet";
     document.head.appendChild(link);
-    
+
     // Cleanup
     return () => window.removeEventListener("resize", checkMobileView);
   }, []);
@@ -268,7 +263,7 @@ const HeaderCarousel = () => {
         setTextVisible(true);
       }, 500);
     }, 3000);
-    
+
     return () => clearInterval(intervalId);
   }, []);
 
