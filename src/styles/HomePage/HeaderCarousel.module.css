@@ -854,7 +854,7 @@
     padding-right: 0;
     margin-top: 0px;
   }
-  .carouselImage img,
+  .carouselImage,
   .carouselImage3 img,
   .carouselSlide4 img {
     display: none;

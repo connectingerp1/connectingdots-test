@@ -137,30 +137,18 @@
     animation: rotate1_3D 8s linear infinite;
     border: 18px solid transparent;
     border-top: 18px solid #2ea5f0;
-    border-right: 18px solid #2ea5f0;
-    border-bottom: 6px solid rgba(46, 165, 240, 0.3);
-    border-left: 6px solid rgba(46, 165, 240, 0.3);
-    box-shadow: 0 0 15px rgba(46, 165, 240, 0.6);
   }
   
   .logoContainer:hover .line2 {
     animation: rotate2_3D 6s linear infinite;
     border: 18px solid transparent;
     border-top: 18px solid #1d4161;
-    border-left: 18px solid #1d4161;
-    border-bottom: 6px solid rgba(29, 65, 97, 0.3);
-    border-right: 6px solid rgba(29, 65, 97, 0.3);
-    box-shadow: 0 0 15px rgba(29, 65, 97, 0.6);
   }
   
   .logoContainer:hover .line3 {
     animation: rotate3_3D 10s linear infinite;
     border: 18px solid transparent;
     border-top: 18px solid #2ea5f0;
-    border-right: 18px solid #2ea5f0;
-    border-bottom: 6px solid rgba(46, 165, 240, 0.3);
-    border-left: 6px solid rgba(46, 165, 240, 0.3);
-    box-shadow: 0 0 15px rgba(46, 165, 240, 0.6);
   }
   
   /* 3D rotation animations on hover */
