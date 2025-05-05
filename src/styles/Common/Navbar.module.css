@@ -410,9 +410,6 @@
   .containerFluid {
     padding: 0 35px;
   }
-  .logo {
-    width: 250px;
-  }
   .navbarDesktop {
     display: flex;
   }
@@ -478,25 +475,5 @@
 @media (max-width: 768px) {
   .containerFluid {
     padding: 0 0px;
-  }
-  .logo {
-    width: 180px;
-    margin-left: 15px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .logo {
-    width: 150px;
-    margin-left: 12px;
-  }
-}
-
-/* Extra Small Mobile */
-@media (max-width: 320px) {
-  .logo {
-    width: 120px;
-    margin-left: 10px;
   }
 }
