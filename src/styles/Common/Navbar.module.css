@@ -38,8 +38,17 @@
 }
 
 .logo {
+  width: 260px;
+}
+
+.logoLink{
   display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+.animatedLogo{
+  cursor: pointer;
 }
 
 /* Navigation Items */
@@ -452,10 +461,6 @@
   .touchEnd {
     transition: transform 0.3s ease;
   }
-}
-
-.logo {
-  width: 200px;
 }
 
 .desktopDropdownArrow {

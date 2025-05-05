@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "@/styles/Common/Navbar.module.css";
+import AnimatedLogo from "../AnimatedLogo";
 
 // Custom component definitions
 const Navbar = ({ expand, className, children }) => (
@@ -728,11 +729,12 @@ const Header = () => {
       <Navbar expand="lg" className={styles.headerNav}>
         <Container fluid className={styles.navContainer}>
           <div className={styles.logo}>
-            <Link href="/">
+            <Link href="/" className={styles.logoLink}>
+              <AnimatedLogo className={styles.animatedLogo} />
               <Image
-                src="/logo.avif"
+                src="/Navbar/logo.png"
                 alt="Logo of Connecting Dots ERP, featuring interconnected dots symbolizing integration and collaboration in enterprise resource planning."
-                width={220}
+                width={180}
                 height={150}
                 loading="lazy"
               />
@@ -805,14 +807,14 @@ const Header = () => {
               >
                 Contact us
               </Link>
-                            <Link
+              <Link
                 className={styles.navLink}
                 href="/aboutus"
                 onClick={() => handleNavClick("link1")}
               >
                 About us
               </Link>
-              
+
               {renderDropdownSAP(true)}
               {renderDropdownITCourses(true)}
               {renderDropdownDataVisualisation(true)}

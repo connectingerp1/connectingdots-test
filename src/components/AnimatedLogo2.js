@@ -1,25 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import styles from "@/styles/AnimatedLogo.module.css"; 
+import styles from "@/styles/AnimatedLogo2.module.css";
 
-const AnimatedLogo = () => {
+const AnimatedLogo2 = () => {
   return (
     <div className={styles.logoContainer}>
-      {/* CSS-based lines (always visible) */}
       <div className={styles.linesContainer}>
         <div className={`${styles.arcLine} ${styles.line1}`}></div>
         <div className={`${styles.arcLine} ${styles.line2}`}></div>
         <div className={`${styles.arcLine} ${styles.line3}`}></div>
       </div>
-
-      {/* Center Arrow with up-down animation */}
       <div className={styles.centerArrow}>
         <Image
-          src="/Navbar/arrow.png" // Make sure this path is correct
-          alt="Logo Arrow"
-          width={30} // Reduced size for navbar
-          height={30} // Reduced size for navbar
+          src="/Navbar/arrow.png"
+          alt="Connecting Dots Logo"
+          width={180}
+          height={180}
           priority={true}
         />
       </div>
@@ -27,4 +24,4 @@ const AnimatedLogo = () => {
   );
 };
 
-export default AnimatedLogo;
+export default AnimatedLogo2;

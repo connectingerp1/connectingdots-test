@@ -7,7 +7,7 @@ import styles from "@/styles/HomePage/HeaderCarousel.module.css";
 import Btnform from "./Btnform";
 import Image from "next/image";
 import Link from "next/link";
-import AnimatedLogo from "@/components/AnimatedLogo";
+import AnimatedLogo2 from "@/components/AnimatedLogo2";
 
 // Constants moved outside component to avoid re-creation on render
 const TEXTS = [
@@ -84,7 +84,7 @@ const CareerSlide = ({ onButtonClick }) => (
       <CompanyLogos />
     </div>
     <div className={styles.carouselImage}>
-      <AnimatedLogo />
+      <AnimatedLogo2 />
     </div>
   </div>
 );
