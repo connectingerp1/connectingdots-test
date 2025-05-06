@@ -16,10 +16,10 @@ const AnimatedLogo = () => {
       {/* Center Arrow with up-down animation */}
       <div className={styles.centerArrow}>
         <Image
-          src="/Navbar/arrow.png" // Make sure this path is correct
+          src="/Navbar/arrow.png"
           alt="Logo Arrow"
-          width={30} // Reduced size for navbar
-          height={30} // Reduced size for navbar
+          width={22}
+          height={22}
           priority={true}
         />
       </div>

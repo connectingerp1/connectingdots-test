@@ -15,8 +15,8 @@ const AnimatedLogo2 = () => {
         <Image
           src="/Navbar/arrow.png"
           alt="Connecting Dots Logo"
-          width={180}
-          height={180}
+          width={120}
+          height={120}
           priority={true}
         />
       </div>
