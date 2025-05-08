@@ -1,47 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/adminlogin/AdminLogin.module.css";
 
 const AdminLogin = () => {
-  const [email, set_email] = useState("");
+  const [username, set_username] = useState("");
   const [password, set_password] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
-    .split(",")
-    .map((email) => email.replace(/"/g, "").trim());
-  const ADMIN_PASSWORDS = (process.env.NEXT_PUBLIC_ADMIN_PASSWORDS || "")
-    .split(",")
-    .map((password) => password.replace(/"/g, "").trim());
-
-  const handle_submit = (e, target_page) => {
+  const handle_submit = async (e, target_page) => {
     e.preventDefault();
-    const email_trimmed = email.trim().toLowerCase();
-    const user_index = ADMIN_EMAILS.findIndex(
-      (admin_email) => admin_email.toLowerCase() === email_trimmed
-    );
-
-    if (user_index !== -1) {
-      if (ADMIN_PASSWORDS[user_index] === password) {
-        // Set authentication in localStorage
+    setLoading(true);
+  
+    try {
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const res = await fetch(`${apiBaseUrl}/api/admin-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
         localStorage.setItem("isAdminLoggedIn", "true");
-        
-        // Redirect to the specified page or external URL
         if (target_page.startsWith("http")) {
           window.location.href = target_page;
         } else {
           router.push(target_page);
         }
       } else {
-        alert("Incorrect password!");
+        alert(data.message || "Admin login failed");
       }
-    } else {
-      alert("Incorrect email or password!");
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Server error. Please try again.");
     }
+  
+    setLoading(false);
   };
-
+  
   return (
     <section className={styles.admin_login_section}>
       <div className={styles.form_box}>
@@ -50,14 +50,14 @@ const AdminLogin = () => {
           <div className={styles.input_box}>
             <ion-icon name="person-outline"></ion-icon>
             <input
-              type="email"
-              name="email"
-              id="email_id"
-              value={email}
-              onChange={(e) => set_email(e.target.value)}
+              type="text"
+              name="username"
+              id="admin_username"
+              value={username}
+              onChange={(e) => set_username(e.target.value)}
               required
             />
-            <label htmlFor="email_id">Email Address</label>
+            <label htmlFor="admin_username">Username</label>
           </div>
 
           <div className={styles.input_box}>
@@ -77,15 +77,17 @@ const AdminLogin = () => {
               type="button"
               className={styles.admin_btn}
               onClick={(e) => handle_submit(e, "/dashboard")}
+              disabled={loading}
             >
-              Login In to Dashboard
+              {loading ? "Logging In..." : "Login In to Dashboard"}
             </button>
             <button
               type="button"
               className={styles.admin_btn}
               onClick={(e) => handle_submit(e, "https://blog-frontend-psi-bay.vercel.app/")}
+              disabled={loading}
             >
-              Login In to Blogs
+              {loading ? "Logging In..." : "Login In to Blogs"}
             </button>
           </div>
         </form>

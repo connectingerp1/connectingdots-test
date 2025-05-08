@@ -734,8 +734,8 @@ const Header = () => {
               <Image
                 src="/Navbar/logo.png"
                 alt="Logo of Connecting Dots ERP, featuring interconnected dots symbolizing integration and collaboration in enterprise resource planning."
-                width={180}
-                height={150}
+                width={150}
+                height={120}
                 loading="lazy"
               />
             </Link>

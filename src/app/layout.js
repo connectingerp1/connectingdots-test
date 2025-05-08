@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import "./globals.css";
 import { CityProvider } from "@/context/CityContext";
 import Navbar from "@/components/Common/Navbar";
@@ -17,10 +20,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const GTM_ID = "GTM-MB68QM2V";
 
 export default function RootLayout({ children }) {
+  useEffect(() => {
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
+    fetch(`${apiBaseUrl}/api/ping`).catch(() => {});
+  }, []);
+
   return (
     <html lang="en">
       <head>
-        {/* Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -38,12 +45,10 @@ export default function RootLayout({ children }) {
           name="ahrefs-site-verification"
           content="05890b7d6657f7c22a48d201ddbced6847469e2f76ac6f73f1b7d49ef0da283d"
         />
-
         <meta
           name="ahrefs-site-verification"
           content="02de04071d4e08f203c50f26aaee76be72f3a3af3d54f684f0932ff933cb1a3f"
         />
-
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="Lvg8yXKWB+tW+q2A0zb0LQ"
@@ -70,9 +75,7 @@ export default function RootLayout({ children }) {
           id="gtm-dataLayer-init"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-            `,
+            __html: `window.dataLayer = window.dataLayer || [];`,
           }}
         />
 
@@ -95,7 +98,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="body">
-        {/* Google Tag Manager - BODY (noscript fallback) */}
         <noscript
           dangerouslySetInnerHTML={{
             __html: `
@@ -104,8 +106,6 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-
-        {/* Background Animation */}
         <div className="background-animation">
           <div className="starsec"></div>
           <div className="starthird"></div>
@@ -113,7 +113,6 @@ export default function RootLayout({ children }) {
           <div className="starfifth"></div>
         </div>
 
-        {/* UI Components */}
         <CallAdvisorsStrip />
         <Marquee />
         <Navbar />
