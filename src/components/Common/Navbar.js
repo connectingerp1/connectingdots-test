@@ -1,3 +1,4 @@
+// Navbar.jsx
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -7,7 +8,8 @@ import Image from "next/image";
 import styles from "@/styles/Common/Navbar.module.css";
 import AnimatedLogo from "../AnimatedLogo";
 
-// Custom component definitions
+
+// Custom component definitions with improved props handling
 const Navbar = ({ expand, className, children }) => (
   <nav
     className={`${styles.navbar} ${
@@ -56,18 +58,51 @@ const Header = () => {
     dropdown6: false,
   });
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  // Track which mobile dropdown is open
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState(null);
-
-  // Add these state variables for touch gestures
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchMoveX, setTouchMoveX] = useState(null);
   const [sidebarClass, setSidebarClass] = useState("");
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
   const sidebarRef = useRef(null);
+  const navbarRef = useRef(null);
+
+  // Set active link based on current pathname
+  useEffect(() => {
+    if (pathname) {
+      // Logic to determine active link based on pathname
+      if (pathname.includes("sap")) {
+        setActiveLink("dropdown2");
+      } else if (pathname.includes("it-course")) {
+        setActiveLink("dropdown3");
+      } else if (pathname.includes("data-visualisation")) {
+        setActiveLink("dropdown4");
+      } else if (pathname.includes("digital-marketing")) {
+        setActiveLink("dropdown5");
+      } else if (pathname.includes("hr")) {
+        setActiveLink("dropdown6");
+      } else if (pathname.includes("aboutus")) {
+        setActiveLink("aboutus");
+      }
+    }
+  }, [pathname]);
+
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Handle click outside sidebar to close it
   useEffect(() => {
@@ -79,9 +114,7 @@ const Header = () => {
         !event.target.classList.contains(styles.navbarToggler) &&
         !event.target.classList.contains(styles.navbarTogglerIcon)
       ) {
-        setIsSidebarVisible(false);
-        // Reset all mobile dropdowns when closing sidebar
-        setMobileOpenDropdown(null);
+        closeSidebar();
       }
     }
 
@@ -102,8 +135,7 @@ const Header = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 992 && isSidebarVisible) {
-        setIsSidebarVisible(false);
-        setMobileOpenDropdown(null);
+        closeSidebar();
       }
     };
 
@@ -127,10 +159,26 @@ const Header = () => {
     };
   }, [isSidebarVisible]);
 
-  const handleNavClick = (link) => {
-    setActiveLink(link);
+  // Add keyboard navigation support
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isSidebarVisible) {
+        closeSidebar();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSidebarVisible]);
+
+  const closeSidebar = () => {
     setIsSidebarVisible(false);
     setMobileOpenDropdown(null);
+  };
+
+  const handleNavClick = (link) => {
+    setActiveLink(link);
+    closeSidebar();
   };
 
   const handleMouseEnter = (dropdown) => {
@@ -159,13 +207,11 @@ const Header = () => {
       router.push(link);
       setTimeout(() => {
         window.location.hash = section;
-        setIsSidebarVisible(false);
-        setMobileOpenDropdown(null);
+        closeSidebar();
       }, 100);
     } else {
       window.location.hash = section;
-      setIsSidebarVisible(false);
-      setMobileOpenDropdown(null);
+      closeSidebar();
     }
   };
 
@@ -217,8 +263,7 @@ const Header = () => {
 
     if (deltaX > threshold) {
       // User swiped right enough to close sidebar
-      setIsSidebarVisible(false);
-      setMobileOpenDropdown(null);
+      closeSidebar();
 
       // Reset sidebar transform
       if (sidebarElement) {
@@ -261,9 +306,10 @@ const Header = () => {
               ? "true"
               : "false"
           }
+          aria-haspopup="true"
         >
-          SAP S/4 HANA
-          {!isMobile && <span className={styles.desktopDropdownArrow}>▼</span>}
+          <span>SAP S/4 HANA</span>
+          {!isMobile && <span className={styles.desktopDropdownArrow}></span>}
         </Link>
         {isMobile && (
           <button
@@ -296,6 +342,7 @@ const Header = () => {
                 { name: "SAP MM", link: "/sap-mm-course-in-pune" },
                 { name: "SAP SD", link: "/sap-sd-course-in-pune" },
                 { name: "SAP HR/HCM", link: "/sap-hr-hcm-course-in-pune" },
+
                 { name: "SAP PP", link: "/sap-pp-course-in-pune" },
                 { name: "SAP QM", link: "/sap-qm-course-in-pune" },
                 { name: "SAP PM", link: "/sap-pm-course-in-pune" },
@@ -318,11 +365,10 @@ const Header = () => {
               ],
             },
           ].map((submenu, index) => (
-            <li key={index}>
+            <li key={index} className={styles.megaMenuItem}>
               <div className={styles.subMenuHeader}>
                 <span className={styles.subMenuTitle}>{submenu.title}</span>
-                {/* Add arrows for both mobile and desktop */}
-                <span className={styles.subMenuArrow}>&raquo;</span>
+                <span className={styles.subMenuArrow}></span>
               </div>
               <ul
                 className={`${styles.dropdownMenu} ${
@@ -347,6 +393,7 @@ const Header = () => {
       )}
     </div>
   );
+
   const renderDropdownITCourses = (isMobile = false) => (
     <div
       className={styles.dropdown}
@@ -372,9 +419,10 @@ const Header = () => {
               ? "true"
               : "false"
           }
+          aria-haspopup="true"
         >
-          IT Courses
-          {!isMobile && <span className={styles.desktopDropdownArrow}>▼</span>}
+          <span>IT Courses</span>
+          {!isMobile && <span className={styles.desktopDropdownArrow}></span>}
         </Link>
         {isMobile && (
           <button
@@ -442,13 +490,12 @@ const Header = () => {
               link: "/salesforce-training-in-pune",
             },
           ].map((submenu, index) => (
-            <li key={index}>
+            <li key={index} className={styles.megaMenuItem}>
               {submenu.items ? (
                 <>
                   <div className={styles.subMenuHeader}>
                     <span className={styles.subMenuTitle}>{submenu.title}</span>
-                    {/* Removed the !isMobile condition to show arrow in all views */}
-                    <span className={styles.subMenuArrow}>&raquo;</span>
+                    <span className={styles.subMenuArrow}></span>
                   </div>
                   <ul
                     className={`${styles.dropdownMenu} ${
@@ -483,6 +530,7 @@ const Header = () => {
       )}
     </div>
   );
+
   const renderDropdownDataVisualisation = (isMobile = false) => (
     <div
       className={styles.dropdown}
@@ -508,9 +556,10 @@ const Header = () => {
               ? "true"
               : "false"
           }
+          aria-haspopup="true"
         >
-          Data Visualisation
-          {!isMobile && <span className={styles.desktopDropdownArrow}>▼</span>}
+          <span>Data Visualisation</span>
+          {!isMobile && <span className={styles.desktopDropdownArrow}></span>}
         </Link>
         {isMobile && (
           <button
@@ -579,9 +628,10 @@ const Header = () => {
               ? "true"
               : "false"
           }
+          aria-haspopup="true"
         >
-          Digital Marketing
-          {!isMobile && <span className={styles.desktopDropdownArrow}>▼</span>}
+          <span>Digital Marketing</span>
+          {!isMobile && <span className={styles.desktopDropdownArrow}></span>}
         </Link>
         {isMobile && (
           <button
@@ -613,6 +663,7 @@ const Header = () => {
             {
               name: "Pay Per Click Training",
               link: "/digital-marketing-course-in-pune#pay-per-click",
+
               section: "pay-per-click",
             },
             {
@@ -675,9 +726,10 @@ const Header = () => {
               ? "true"
               : "false"
           }
+          aria-haspopup="true"
         >
-          HR Courses
-          {!isMobile && <span className={styles.desktopDropdownArrow}>▼</span>}
+          <span>HR Courses</span>
+          {!isMobile && <span className={styles.desktopDropdownArrow}></span>}
         </Link>
         {isMobile && (
           <button
@@ -726,18 +778,24 @@ const Header = () => {
 
   return (
     <>
-      <Navbar expand="lg" className={styles.headerNav}>
+      <Navbar
+        expand="lg"
+        className={`${styles.headerNav} ${scrolled ? styles.scrolled : ""}`}
+        ref={navbarRef}
+      >
         <Container fluid className={styles.navContainer}>
           <div className={styles.logo}>
             <Link href="/" className={styles.logoLink}>
               <AnimatedLogo className={styles.animatedLogo} />
-              <Image
-                src="/Navbar/logo.png"
-                alt="Logo of Connecting Dots ERP, featuring interconnected dots symbolizing integration and collaboration in enterprise resource planning."
-                width={150}
-                height={120}
-                loading="lazy"
-              />
+              <div className={styles.logoWrapper}>
+                <Image
+                  src="/Navbar/logo.png"
+                  alt="Logo of Connecting Dots ERP, featuring interconnected dots symbolizing integration and collaboration in enterprise resource planning."
+                  fill
+                  priority
+                  className={styles.logoImage}
+                />
+              </div>
             </Link>
           </div>
 
@@ -760,11 +818,16 @@ const Header = () => {
             {renderDropdownHRCourses()}
             <div className={styles.navItem}>
               <Link
-                className={styles.navLink}
+                className={`${styles.navLink} ${activeLink === "aboutus" ? styles.active : ""}`}
                 href="/aboutus"
-                onClick={() => handleNavClick("link1")}
+                onClick={() => handleNavClick("aboutus")}
               >
                 About us
+              </Link>
+            </div>
+            <div className={styles.navAction}>
+              <Link href="/contactus" className={styles.ctaButton}>
+                Contact Us
               </Link>
             </div>
           </Nav>
@@ -778,50 +841,83 @@ const Header = () => {
             className={`${styles.sidebarOverlay} ${
               overlayVisible ? styles.visible : ""
             }`}
-            onClick={() => {
-              setIsSidebarVisible(false);
-              setMobileOpenDropdown(null);
-            }}
+            onClick={closeSidebar}
+            aria-hidden="true"
           />
-          <div
+          <aside
             className={`${styles.sidebar} ${styles.visible} ${styles[sidebarClass]}`}
             ref={sidebarRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
             <div className={styles.sidebarHeader}>
+              <div className={styles.mobileLogoContainer}>
+                <Link
+                  href="/"
+                  className={styles.mobileLogo}
+                  onClick={closeSidebar}
+                >
+                  <AnimatedLogo className={styles.sidebarLogo} />
+                  <Image
+                    src="/Navbar/logo.png"
+                    alt="Connecting Dots ERP Logo"
+                    width={130}
+                    height={100}
+                    loading="eager"
+                  />
+                </Link>
+              </div>
               <Button
                 className={styles.btnClose}
-                onClick={() => {
-                  setIsSidebarVisible(false);
-                  setMobileOpenDropdown(null);
-                }}
+                onClick={closeSidebar}
+                aria-label="Close navigation menu"
               />
             </div>
-            <Nav className={styles.sidebarNav}>
-              <Link
-                className={styles.navLink}
-                href="/contactus"
-                onClick={() => handleNavClick("link1")}
-              >
-                Contact us
-              </Link>
-              <Link
-                className={styles.navLink}
-                href="/aboutus"
-                onClick={() => handleNavClick("link1")}
-              >
-                About us
-              </Link>
 
+            <Nav className={styles.sidebarNav}>
               {renderDropdownSAP(true)}
+
               {renderDropdownITCourses(true)}
               {renderDropdownDataVisualisation(true)}
               {renderDropdownDigitalMarketing(true)}
               {renderDropdownHRCourses(true)}
+
+              <div className="flex mt-4 gap-4">
+                <Link
+                  href="/aboutus"
+                  onClick={() => handleNavClick("aboutus")}
+                  className={`nav-link px-3 py-2 fw-semibold text-dark border rounded-pill me-2 ${
+                    activeLink === "aboutus"
+                      ? "text-primary border-primary bg-light"
+                      : "text-muted border-secondary"
+                  }`}
+                >
+                  About us
+                </Link>
+
+                <Link
+                  href="/contactus"
+                  onClick={() => handleNavClick("contact")}
+                  className="nav-link px-3 py-2 fw-semibold text-muted border border-secondary rounded-pill hover:text-primary hover:border-primary"
+                >
+                  Contact us
+                </Link>
+              </div>
             </Nav>
-          </div>
+            <div className={styles.mobileCtaContainer}>
+              <Link
+                href="/contactus"
+                className={styles.mobileCta}
+                onClick={closeSidebar}
+              >
+                Contact Us Now
+              </Link>
+            </div>
+          </aside>
         </>
       )}
     </>
