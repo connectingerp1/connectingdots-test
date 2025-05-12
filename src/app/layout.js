@@ -14,6 +14,7 @@ import Chatbot from "@/components/Chatbot";
 import Whatsapp from "@/components/Whatsapp";
 import Floatingcontact from "@/components/Floatingcontact";
 import BottomMenu from "@/components/BottomMenu";
+import ScrollToTop from "@/components/ScrollToTop";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -117,6 +118,7 @@ export default function RootLayout({ children }) {
         <Marquee />
         <Navbar />
         <CityProvider>{children}</CityProvider>
+        <ScrollToTop />
         <Floatingcontact phoneNumber="+919004002958" />
         <Whatsapp phoneNumber="+919004002958" />
         <Chatbot />
