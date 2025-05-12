@@ -180,7 +180,7 @@ const SContactForm = () => {
       countryCode: formData.countryCode,
       email: formData.email.trim(),
       coursename: formData.course,
-      location: "Sticky Form Submission", // Optional; add real location if needed
+      location: "", // Optional; add real location if needed
     };
 
     try {

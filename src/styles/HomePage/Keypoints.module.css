@@ -81,7 +81,9 @@
   /* Start completely behind the keypoints circle */
   transform: translate(-50%, -50%) scale(0); /* Scale down initially */
   opacity: 2; /* Make the circles invisible initially */
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
 }
 
 .feature:hover {
@@ -245,12 +247,6 @@
   text-align: justify;
 }
 
-@media (min-width: 1024px) {
-  .keyNotes {
-    margin-left: 630px;
-  }
-}
-
 @media (max-width: 1024px) {
   .keyCoursesContainer {
     background-color: #ffffff;
@@ -316,7 +312,9 @@
     font-size: 1.1rem;
     transform: translate(-50%, -50%) scale(0);
     opacity: 2;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
   }
 
   .centerFeature {
