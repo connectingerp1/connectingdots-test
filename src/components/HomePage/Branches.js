@@ -295,15 +295,42 @@ const BranchesComponent = () => {
           </div>
         </div>
 
-        {/* Map View - more compact */}
+        {/* Map View - with integrated city tabs */}
         {activeView === "map" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-            {" "}
-            {/* Reduced gap */}
-            {/* Map Container - reduced height */}
-            <div className="lg:col-span-8 h-[320px] md:h-[360px] relative overflow-hidden rounded-xl shadow-lg border border-gray-200">
-              {" "}
-              {/* Reduced height */}
+            {/* Map Container with integrated city tabs */}
+            <div className="lg:col-span-8 h-[320px] md:h-[390px] relative overflow-hidden rounded-xl shadow-lg border border-gray-200">
+              {/* City Navigation Tabs - MOVED INSIDE MAP CONTAINER */}
+              <div className="absolute top-0 left-0 right-0 z-10 bg-opacity-90 backdrop-blur-sm px-2 py-1 rounded-b-lg flex justify-center lg:justify-end items-center gap-1 border-b border-gray-200">
+                {branches.map((branch, index) => (
+                  <button
+                    key={`city-tab-${index}`}
+                    onClick={() =>
+                      changeBranch(
+                        index,
+                        index > selectedBranch ? "right" : "left"
+                      )
+                    }
+                    className={`px-2 py-1 rounded-lg text-xs font-medium transition-all duration-300 flex items-center ${
+                      selectedBranch === index
+                        ? "text-white shadow-md"
+                        : "bg-white text-gray-700 hover:bg-gray-100"
+                    }`}
+                    style={{
+                      backgroundColor:
+                        selectedBranch === index ? branch.color : "",
+                      border: `1px solid ${selectedBranch === index ? branch.color : "#e5e7eb"}`,
+                    }}
+                  >
+                    <MapPin
+                      size={12}
+                      className={`mr-1 ${selectedBranch === index ? "animate-pulse" : ""}`}
+                    />
+                    {branch.city}
+                  </button>
+                ))}
+              </div>
+
               {isLoaded && (
                 <GoogleMap
                   mapContainerStyle={mapContainerStyle}
@@ -338,10 +365,9 @@ const BranchesComponent = () => {
                   ))}
                 </GoogleMap>
               )}
-              {/* Location Indicator */}
-              <div className="absolute top-3 left-3 bg-white bg-opacity-90 backdrop-blur-sm px-3 py-1 rounded-lg shadow-md">
-                {" "}
-                {/* Reduced size */}
+
+              {/* Location Indicator - moved to bottom-left for better layout with tabs */}
+              <div className="absolute bottom-3 left-3 bg-white bg-opacity-90 backdrop-blur-sm px-3 py-1 rounded-lg shadow-md">
                 <div className="flex items-center">
                   <div
                     className="w-8 h-8 rounded-full flex items-center justify-center mr-2 animate-pulse"
@@ -354,8 +380,7 @@ const BranchesComponent = () => {
                   <div>
                     <h3 className="font-bold text-base text-gray-800">
                       {branches[selectedBranch].city}
-                    </h3>{" "}
-                    {/* Smaller text */}
+                    </h3>
                     <p className="text-xs text-gray-500">
                       {branches[selectedBranch].headline}
                     </p>
@@ -363,6 +388,7 @@ const BranchesComponent = () => {
                 </div>
               </div>
             </div>
+
             {/* Branch Info Card - more compact */}
             <div className="lg:col-span-4">
               <div
@@ -513,7 +539,7 @@ const BranchesComponent = () => {
                   </div>
                 </div>
 
-                {/* Navigation Controls */}
+                {/* Navigation Controls - keeping them as a fallback but also adding quick jumps */}
                 <div className="flex justify-between p-3 border-t border-gray-100">
                   {" "}
                   {/* Reduced padding */}
@@ -523,6 +549,29 @@ const BranchesComponent = () => {
                   >
                     <ChevronLeft size={16} className="mr-1" /> Previous
                   </button>
+                  <div className="flex space-x-1">
+                    {branches.map((branch, index) => (
+                      <button
+                        key={`quick-jump-${index}`}
+                        onClick={() =>
+                          changeBranch(
+                            index,
+                            index > selectedBranch ? "right" : "left"
+                          )
+                        }
+                        className={`w-2 h-2 rounded-full transition-all duration-300`}
+                        style={{
+                          backgroundColor:
+                            selectedBranch === index ? branch.color : "#d1d5db",
+                          transform:
+                            selectedBranch === index
+                              ? "scale(1.5)"
+                              : "scale(1)",
+                        }}
+                        aria-label={`Jump to ${branch.city}`}
+                      />
+                    ))}
+                  </div>
                   <button
                     onClick={() => changeBranch(getNextBranch(), "right")}
                     className="flex items-center text-gray-600 hover:text-gray-900 text-xs font-medium transition"
