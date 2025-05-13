@@ -10,7 +10,6 @@ import {
   Clock,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
   ArrowUpRight,
   Building,
   Map,
@@ -459,10 +458,12 @@ const BranchesComponent = () => {
                         <p className="text-xs font-medium text-gray-500 mb-0.5">
                           PHONE
                         </p>
-                        <p className="text-xs text-gray-700">
+                        <a
+                          href={`tel:${branches[selectedBranch].phone}`}
+                          className="text-xs text-gray-700 no-underline hover:underline"
+                        >
                           {branches[selectedBranch].phone}
-                        </p>{" "}
-                        {/* Smaller text */}
+                        </a>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -615,12 +616,14 @@ const BranchesComponent = () => {
                       </p>{" "}
                       {/* Smaller text */}
                     </div>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <Phone size={14} className="mr-2 text-gray-500" />
-                      <p className="text-gray-700 text-xs">
+                      <a
+                        href={`tel:${branch.phone}`}
+                        className="text-gray-700 my-2 text-xs no-underline hover:underline"
+                      >
                         {branch.phone}
-                      </p>{" "}
-                      {/* Smaller text */}
+                      </a>
                     </div>
                     <div className="flex">
                       <Clock size={14} className="mr-2 text-gray-500" />
