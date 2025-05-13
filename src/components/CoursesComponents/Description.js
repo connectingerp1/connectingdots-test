@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { CityContext } from "@/context/CityContext";
 import styles from "@/styles/CoursesComponents/Description.module.css";
 import { FaCheckCircle, FaChevronRight } from "react-icons/fa";
@@ -9,11 +9,59 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
   const [content, setContent] = useState(null);
   const [error, setError] = useState("");
   const { city } = useContext(CityContext);
+  const [isVisible, setIsVisible] = useState(false);
+  const descriptionRef = useRef(null);
+  const observerRef = useRef(null);
+
+  // Setup intersection observer to detect when component is visible
+  useEffect(() => {
+    if (!descriptionRef.current || observerRef.current) return;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observerRef.current.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observerRef.current.observe(descriptionRef.current);
+
+    // Cleanup
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  // Force visibility after a timeout to ensure rendering
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isVisible) {
+        setIsVisible(true);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [isVisible]);
 
   useEffect(() => {
     const fetchData = async () => {
       setError("");
       try {
+        // Create a cache key for this specific page and city
+        const cacheKey = `description_${pageId}_${city}`;
+        const cachedData = localStorage.getItem(cacheKey);
+        
+        if (cachedData) {
+          setContent(JSON.parse(cachedData));
+          return;
+        }
+        
         const response = await fetch("/Jsonfolder/Descriptiondata.json");
         const data = await response.json();
         const pageContent = data.find((item) => item.pageId === pageId);
@@ -45,12 +93,16 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
                 ? pageContent.listItemAfterIndex
                 : undefined,
           };
+          
+          // Cache the processed content
+          localStorage.setItem(cacheKey, JSON.stringify(updatedContent));
           setContent(updatedContent);
         } else {
           setError("Course info not found.");
           setContent(null);
         }
       } catch (err) {
+        console.error("Failed to load description data:", err);
         setError("Failed to load course info.");
         setContent(null);
       }
@@ -118,6 +170,7 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
 
   return (
     <section
+      ref={descriptionRef}
       className={`${styles.descriptionContainer} ${
         sectionIndex % 2 === 0 ? styles.videoLeft : styles.videoRight
       }`}

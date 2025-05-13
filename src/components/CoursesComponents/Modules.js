@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import styles from "@/styles/CoursesComponents/Modules.module.css";
 
 const Modules = ({ pageId }) => {
@@ -9,15 +9,59 @@ const Modules = ({ pageId }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const moduleRef = useRef(null);
+  const observerRef = useRef(null);
+
+  // Setup intersection observer to detect when component is visible
+  useEffect(() => {
+    if (!moduleRef.current || observerRef.current) return;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observerRef.current.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observerRef.current.observe(moduleRef.current);
+
+    // Cleanup
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  // Force visibility after a timeout to ensure rendering
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isVisible) {
+        setIsVisible(true);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [isVisible]);
 
   useEffect(() => {
-    localStorage.clear();
+    // Clear localStorage to prevent stale data
+    // localStorage.clear(); // This line may be causing issues by clearing all data, so removing it
+
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const cachedData = localStorage.getItem(`curriculum_${pageId}`);
+        // Unique cache key for each curriculum data
+        const cacheKey = `curriculum_${pageId}`;
+        const cachedData = localStorage.getItem(cacheKey);
+        
         if (cachedData) {
           setData(JSON.parse(cachedData));
           setLoading(false);
@@ -34,7 +78,7 @@ const Modules = ({ pageId }) => {
 
         if (pageData) {
           localStorage.setItem(
-            `curriculum_${pageId}`,
+            cacheKey,
             JSON.stringify(pageData)
           );
           setData(pageData);
@@ -50,6 +94,9 @@ const Modules = ({ pageId }) => {
     };
 
     fetchData();
+
+    // Cleanup function - don't clear localStorage here
+    return () => {};
   }, [pageId]);
 
   const handleModuleClick = useCallback(
@@ -67,28 +114,29 @@ const Modules = ({ pageId }) => {
   }, []);
 
   const activeContent = useMemo(() => {
-    if (data) {
-      return data.tabs.find((tab) => tab.type === activeTab).modules[
-        activeModule
-      ];
+    if (data && data.tabs) {
+      const activeTabData = data.tabs.find((tab) => tab.type === activeTab);
+      if (activeTabData && activeTabData.modules && activeTabData.modules.length > activeModule) {
+        return activeTabData.modules[activeModule];
+      }
     }
     return null;
   }, [data, activeTab, activeModule]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loadingContainer}>Loading module content...</div>;
   }
 
   if (error) {
-    return <div>Error loading data: {error.message}</div>;
+    return <div className={styles.errorContainer}>Error loading data: {error.message}</div>;
   }
 
   if (!data) {
-    return <div>No data available for the specified page.</div>;
+    return <div className={styles.errorContainer}>No data available for the specified page.</div>;
   }
 
   return (
-    <div className={styles.containerDs}>
+    <div className={styles.containerDs} ref={moduleRef}>
       <div className={styles.headerDs}>
         <h1>{data.title}</h1>
       </div>
