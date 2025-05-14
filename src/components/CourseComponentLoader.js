@@ -235,7 +235,7 @@ const CourseComponentLoader = ({ formattedCourse, city, course }) => {
           loading: () => <Loader />,
         }
       );
-    } else if (formattedCourse === "FULL-STACK") {
+    } else if (formattedCourse === "FULL-STACK") {  
       CourseComponent = dynamic(
         () => import("@/app/(routes)/IT-Courses/FullStack/page.js"),
         {

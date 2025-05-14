@@ -12,7 +12,7 @@ const Loader = () => {
     // Fade in the scroll down message after a delay
     const fadeInTimeout = setTimeout(() => {
       setScrollOpacity(1);
-    }, 2000);
+    }, 200);
 
     return () => clearTimeout(fadeInTimeout);
   }, []);
