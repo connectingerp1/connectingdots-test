@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react"; // ✅ added Suspense
 import "./globals.css";
 import { CityProvider } from "@/context/CityContext";
 import Navbar from "@/components/Common/Navbar";
@@ -15,7 +15,7 @@ import Whatsapp from "@/components/Whatsapp";
 import Floatingcontact from "@/components/Floatingcontact";
 import BottomMenu from "@/components/BottomMenu";
 import ScrollToTop from "@/components/ScrollToTop";
-import CourseLoader from "@/components/CourseLoader";
+import CourseLoader from "@/components/CourseLoader"; // ✅ contains useSearchParams
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="Lvg8yXKWB+tW+q2A0zb0LQ"
           async
-        ></Script>
+        />
 
         {/* Google Tag Manager - HEAD */}
         <Script
@@ -97,6 +97,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
+
       <body className="body">
         <noscript
           dangerouslySetInnerHTML={{
@@ -106,6 +107,7 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+
         <div className="background-animation">
           <div className="starsec"></div>
           <div className="starthird"></div>
@@ -116,7 +118,12 @@ export default function RootLayout({ children }) {
         <CallAdvisorsStrip />
         <Marquee />
         <Navbar />
-        <CourseLoader />
+        
+        {/* ✅ Wrap CourseLoader inside Suspense */}
+        <Suspense fallback={null}>
+          <CourseLoader />
+        </Suspense>
+
         <CityProvider>{children}</CityProvider>
         <ScrollToTop />
         <Floatingcontact phoneNumber="+919004002958" />
