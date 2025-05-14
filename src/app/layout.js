@@ -15,6 +15,7 @@ import Whatsapp from "@/components/Whatsapp";
 import Floatingcontact from "@/components/Floatingcontact";
 import BottomMenu from "@/components/BottomMenu";
 import ScrollToTop from "@/components/ScrollToTop";
+import CourseLoader from "@/components/CourseLoader";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -38,8 +39,6 @@ export default function RootLayout({ children }) {
         <link
           href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap"
           rel="stylesheet"
-          media="print"
-          onLoad="this.media='all'"
         />
 
         <meta
@@ -117,6 +116,7 @@ export default function RootLayout({ children }) {
         <CallAdvisorsStrip />
         <Marquee />
         <Navbar />
+        <CourseLoader />
         <CityProvider>{children}</CityProvider>
         <ScrollToTop />
         <Floatingcontact phoneNumber="+919004002958" />
