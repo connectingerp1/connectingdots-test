@@ -4,40 +4,17 @@ import { useState, useEffect } from "react";
 import AnimatedLogo from "./AnimatedLogo";
 import styles from "@/styles/Loader.module.css";
 
-const loadingMessages = [
-  "Loading your course content...",
-  "Preparing learning materials...",
-  "Setting up your learning environment...",
-  "Getting the latest content for you...",
-  "Almost there...",
-  "Connecting to the knowledge base...",
-  "Personalizing your experience...",
-];
-
 const Loader = () => {
-  const [currentMessage, setCurrentMessage] = useState(loadingMessages[0]);
-  const [messageKey, setMessageKey] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [scrollOpacity, setScrollOpacity] = useState(0);
 
   useEffect(() => {
-    // Change the message every 2.5 seconds
-    const messageInterval = setInterval(() => {
-      setCurrentMessage((prev) => {
-        const currentIndex = loadingMessages.indexOf(prev);
-        const nextIndex = (currentIndex + 1) % loadingMessages.length;
-        return loadingMessages[nextIndex];
-      });
-      setMessageKey(prevKey => prevKey + 1);
-      
-      // Update progress based on message index
-      setProgress(prev => {
-        const increment = 100 / loadingMessages.length;
-        return (prev + increment) % 100;
-      });
-    }, 2500);
+    // Fade in the scroll down message after a delay
+    const fadeInTimeout = setTimeout(() => {
+      setScrollOpacity(1);
+    }, 2000);
 
-    return () => clearInterval(messageInterval);
+    return () => clearTimeout(fadeInTimeout);
   }, []);
   
   // Mouse interaction effects
@@ -65,15 +42,13 @@ const Loader = () => {
           <AnimatedLogo />
         </div>
         
-        <div className={styles.messageContainer}>
-          <p key={messageKey} className={styles.message}>{currentMessage}</p>
-        </div>
-        
-        <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill} 
-            style={{ width: `${progress}%` }}
-          ></div>
+        <div className={styles.scrollMessage} style={{ opacity: scrollOpacity }}>
+          <p>Scroll down if content is not loading</p>
+          <div className={styles.scrollArrow}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
         
         <div className={styles.loadingDots}>
