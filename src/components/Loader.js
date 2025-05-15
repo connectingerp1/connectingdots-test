@@ -43,7 +43,7 @@ const Loader = () => {
         </div>
         
         <div className={styles.scrollMessage} style={{ opacity: scrollOpacity }}>
-          <p>Scroll down if content is not loading</p>
+          <p>Scroll down if page is not loading...</p>
           <div className={styles.scrollArrow}>
             <span></span>
             <span></span>
