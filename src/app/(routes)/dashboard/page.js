@@ -228,6 +228,7 @@ const Dashboard = () => {
     }
   };
 
+  // Updated format for CSV export to include time
   const downloadCSV = () => {
     if (leads.length === 0) {
       alert("No data available for download");
@@ -240,7 +241,7 @@ const Dashboard = () => {
       "Course Name",
       "Email ID",
       "Location",
-      "Date",
+      "Date & Time",
     ];
     const csvRows = leads.map((lead) => [
       lead.name,
@@ -248,7 +249,7 @@ const Dashboard = () => {
       lead.coursename,
       lead.email,
       lead.location,
-      new Date(lead.createdAt).toLocaleDateString("en-US", { timeZone: "UTC" }),
+      new Date(lead.createdAt).toLocaleString("en-US", { timeZone: "UTC" }),
     ]);
 
     const csvContent = [
@@ -347,7 +348,7 @@ const Dashboard = () => {
                     <th>Mobile Number</th>
                     <th>Course Name</th>
                     <th>Email ID</th>
-                    <th>Date</th>
+                    <th>Date & Time</th>
                     <th>Location</th>
                     <th>Actions</th>
                   </tr>
@@ -378,8 +379,8 @@ const Dashboard = () => {
                         <td data-label="Mobile Number">{lead.contact}</td>
                         <td data-label="Course Name">{lead.coursename}</td>
                         <td data-label="Email ID">{lead.email}</td>
-                        <td data-label="Date">
-                          {new Date(lead.createdAt).toLocaleDateString(
+                        <td data-label="Date & Time">
+                          {new Date(lead.createdAt).toLocaleString(
                             "en-US",
                             {
                               timeZone: "UTC",
