@@ -11,6 +11,7 @@
   position: relative;
   padding: 0;
   align-items: stretch;
+  gap: 1rem;
 }
 
 .descriptionVideo {
@@ -26,7 +27,6 @@
   top: 20px;
   align-self: flex-start;
 }
-
 
 .descriptionVideo video {
   width: 90%;
@@ -49,29 +49,6 @@
   flex-direction: column;
   justify-content: center;
 }
-@media (max-width: 900px) {
-  .descriptionContainer {
-    flex-direction: column;
-  }
-  .descriptionContent {
-    padding: 24px;
-    min-width: unset;
-  }
-  .descriptionVideo video {
-    width: 96%;
-    max-width: 380px;
-    height: 210px;
-  }
-}
-@media (max-width: 600px) {
-  .descriptionContainer {
-    margin: 10px;
-    border-radius: 8px;
-  }
-  .descriptionContent {
-    padding: 12px 8px;
-  }
-}
 
 /* Modern title */
 .descriptionTitle {
@@ -88,7 +65,7 @@
   font-weight: bold;
 }
 
-/* Paragraph & Alt Paragraph */
+/* Paragraphs */
 .descriptionParagraph,
 .descriptionParagraphAlt {
   font-size: 1.13rem;
@@ -145,9 +122,10 @@
   color: #a87b00;
 }
 
+/* Feature List */
 .featureList {
   list-style: none;
-  margin: 0 0 0 0;
+  margin: 0;
   padding: 0;
 }
 .featureList li {
@@ -163,6 +141,7 @@
   margin-top: 3px;
   font-size: 1.15em;
 }
+
 .listItem2 li {
   font-size: 1.05rem;
   color: #175f4b;
@@ -192,6 +171,34 @@
   font-size: 1.19rem;
   padding: 16px 10px;
 }
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 900px) {
+  .descriptionContainer {
+    flex-direction: column;
+  }
+
+  .descriptionVideo {
+    position: static;
+    width: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid #e6eef7;
+  }
+
+  .descriptionVideo video {
+    width: 96%;
+    max-width: 380px;
+    height: 210px;
+  }
+
+  .descriptionContent {
+    padding: 24px;
+    min-width: unset;
+  }
+}
+
+/* Smaller Devices */
 @media (max-width: 700px) {
   .sectionCard,
   .sectionCardAlt {
@@ -199,11 +206,24 @@
     border-radius: 8px;
     padding: 11px 9px;
   }
+
   .cardHeader,
   .secondTitle {
     font-size: 1.05rem;
   }
+
   .descriptionTitle {
     font-size: 1.18rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .descriptionContainer {
+    margin: 10px;
+    border-radius: 8px;
+  }
+
+  .descriptionContent {
+    padding: 12px 8px;
   }
 }
