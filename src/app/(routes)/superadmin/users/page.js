@@ -21,6 +21,30 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 
+// Array of 20 distinct colors for admin users
+const COLOR_OPTIONS = [
+  '#4299e1', // Blue
+  '#48bb78', // Green
+  '#ed8936', // Orange
+  '#f56565', // Red
+  '#9f7aea', // Purple
+  '#667eea', // Indigo
+  '#f687b3', // Pink
+  '#ecc94b', // Yellow
+  '#38b2ac', // Teal
+  '#fc8181', // Light Red
+  '#68d391', // Light Green
+  '#63b3ed', // Light Blue
+  '#4c51bf', // Dark Blue
+  '#6b46c1', // Dark Purple
+  '#dd6b20', // Dark Orange
+  '#805ad5', // Medium Purple
+  '#b794f4', // Light Purple
+  '#9ae6b4', // Light Mint
+  '#f6ad55', // Light Orange
+  '#feb2b2'  // Light Coral
+];
+
 // Authenticated fetch utility
 const fetchWithAuth = async (url, options = {}) => {
   const token = localStorage.getItem("adminToken");
@@ -170,15 +194,33 @@ const UserManagement = () => {
     password: "",
     confirmPassword: "",
     role: "Admin",
+    location: "Other",
+    color: "#4299e1",
   });
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [userRole, setUserRole] = useState(null); // Store current user's role
+
+  // Get a list of colors already in use by other admins
+  const getUsedColors = (currentAdminId = null) => {
+    return admins
+      .filter(admin => currentAdminId ? admin._id !== currentAdminId : true)
+      .map(admin => admin.color)
+      .filter(Boolean); // Remove undefined/null values
+  };
+
+  // Get available colors (not used by other admins)
+  const getAvailableColors = (currentAdminId = null) => {
+    const usedColors = getUsedColors(currentAdminId);
+    return COLOR_OPTIONS.filter(color => !usedColors.includes(color));
+  };
 
   // Authentication check
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
     const role = localStorage.getItem("adminRole");
+    setUserRole(role);
 
     if (!token) {
       router.push("/AdminLogin");
@@ -190,7 +232,7 @@ const UserManagement = () => {
       return;
     }
 
-    // Fetch users
+    // Fetch admins data (will be used if SuperAdmin, and for filtering available colors)
     fetchAdmins();
   }, [router]);
 
@@ -271,6 +313,8 @@ const UserManagement = () => {
       password: "",
       confirmPassword: "",
       role: "Admin",
+      location: "Other",
+      color: "#4299e1",
     });
     setFormErrors({});
     setModalType("create");
@@ -284,6 +328,8 @@ const UserManagement = () => {
       email: admin.email || "",
       role: admin.role,
       active: admin.active,
+      location: admin.location || "Other",
+      color: admin.color || "#4299e1",
       password: "",
       confirmPassword: "",
     });
@@ -360,6 +406,8 @@ const UserManagement = () => {
             email: formData.email,
             password: formData.password,
             role: formData.role,
+            location: formData.location,
+            color: formData.color,
           }),
         }
       );
@@ -384,6 +432,8 @@ const UserManagement = () => {
         role: formData.role,
         active: formData.active,
         email: formData.email,
+        location: formData.location,
+        color: formData.color,
       };
 
       const response = await fetchWithAuth(
@@ -509,6 +559,29 @@ const UserManagement = () => {
     );
   }
 
+  // If Admin role, show restricted message
+  if (userRole === "Admin") {
+    return (
+      <SuperAdminLayout activePage="users">
+        <div style={{
+          padding: "2rem",
+          textAlign: "center",
+          backgroundColor: "#fff5f5",
+          borderRadius: "8px",
+          border: "1px solid #fc8181",
+          margin: "2rem auto",
+          maxWidth: "800px"
+        }}>
+          <h2 style={{ color: "#e53e3e", marginBottom: "1rem" }}>Access Restricted</h2>
+          <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
+            You do not have access to the User Management section. Please contact a SuperAdmin for assistance.
+          </p>
+          <p>Your current role permissions do not allow access to this functionality.</p>
+        </div>
+      </SuperAdminLayout>
+    );
+  }
+
   return (
     <SuperAdminLayout activePage="users">
       <div className={styles.pageHeader}>
@@ -537,6 +610,8 @@ const UserManagement = () => {
                 <th>Username</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Location</th>
+                <th>Color</th>
                 <th>Status</th>
                 <th>Created At</th>
                 <th>Actions</th>
@@ -556,6 +631,20 @@ const UserManagement = () => {
                     }`}>
                       {admin.role}
                     </span>
+                  </td>
+                  <td data-label="Location">{admin.location || "Other"}</td>
+                  <td data-label="Color">
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "4px",
+                        backgroundColor: admin.color || "#4299e1",
+                        display: "inline-block",
+                        border: "1px solid #ddd"
+                      }}></div>
+                      <span>{admin.color || "#4299e1"}</span>
+                    </div>
                   </td>
                   <td data-label="Status">
                     <span className={admin.active ? styles.badgeGreen : styles.badgeRed}>
@@ -606,7 +695,7 @@ const UserManagement = () => {
               ))}
               {admins.length === 0 && (
                 <tr>
-                  <td colSpan="6" className={styles.errorMessage}>
+                  <td colSpan="8" className={styles.errorMessage}>
                     No admin users found
                   </td>
                 </tr>
@@ -678,6 +767,71 @@ const UserManagement = () => {
                         <p className={styles.errorMessage}>{formErrors.email}</p>
                       )}
                     </div>
+
+                    {/* Location field */}
+                    {(modalType === "create" || modalType === "edit") && (
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel} htmlFor="location">
+                          Location
+                        </label>
+                        <select
+                          id="location"
+                          name="location"
+                          value={formData.location}
+                          onChange={handleInputChange}
+                          className={styles.formSelect}
+                        >
+                          <option value="Pune">Pune</option>
+                          <option value="Mumbai">Mumbai</option>
+                          <option value="Raipur">Raipur</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                    )}
+
+                    {/* Color field */}
+                    {(modalType === "create" || modalType === "edit") && (
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel} htmlFor="color">
+                          Color
+                        </label>
+                        <select
+                          id="color"
+                          name="color"
+                          value={formData.color}
+                          onChange={handleInputChange}
+                          className={styles.formSelect}
+                        >
+                          {/* Include current color if editing even if used elsewhere */}
+                          {modalType === "edit" && formData.color &&
+                            !getAvailableColors(selectedAdmin?._id).includes(formData.color) && (
+                            <option value={formData.color}>{formData.color} (Current)</option>
+                          )}
+
+                          {/* List available colors */}
+                          {getAvailableColors(selectedAdmin?._id).map((color, index) => (
+                            <option key={index} value={color}>
+                              {color}
+                            </option>
+                          ))}
+                        </select>
+                        <div style={{
+                          marginTop: "0.5rem",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem"
+                        }}>
+                          <div style={{
+                            width: "20px",
+                            height: "20px",
+                            backgroundColor: formData.color || "#4299e1",
+                            borderRadius: "4px",
+                            border: "1px solid #ddd"
+                          }} />
+                          <span>Color Preview</span>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Password fields - only for create and reset */}
                     {(modalType === "create" || modalType === "reset") && (

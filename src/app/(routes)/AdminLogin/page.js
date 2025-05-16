@@ -15,7 +15,7 @@ const AdminLogin = () => {
     const token = localStorage.getItem("adminToken");
     if (token) {
       const role = localStorage.getItem("adminRole");
-      if (role === "SuperAdmin") {
+      if (role === "SuperAdmin" || role === "Admin") {
         router.push("/superadmin");
       } else {
         router.push("/dashboard");
@@ -46,7 +46,7 @@ const AdminLogin = () => {
         localStorage.setItem("isAdminLoggedIn", "true");
 
         // Redirect based on role
-        if (data.role === "SuperAdmin") {
+        if (data.role === "SuperAdmin" || data.role === "Admin") {
           router.push("/superadmin");
         } else if (targetPage.startsWith("http")) {
           window.location.href = targetPage;
@@ -79,7 +79,7 @@ const AdminLogin = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-            <label htmlFor="admin_username">Username</label>
+            <label htmlFor="admin_username">Username or Email</label>
           </div>
 
           <div className={styles.input_box}>

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/dashboard/Dashboard.module.css";
 import {
@@ -15,7 +15,8 @@ import {
   FaSignOutAlt,
   FaKey,
   FaSpinner,
-  FaArrowUp,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -53,6 +54,14 @@ const fetchWithAuth = async (url, options = {}) => {
 // SuperAdmin Layout Component
 const SuperAdminLayout = ({ children, activePage }) => {
   const router = useRouter();
+  const [role, setRole] = useState(null);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("adminRole");
+    setRole(storedRole);
+    setChecked(true);
+  }, []);
 
   const handleLogout = () => {
     // Clear all auth data
@@ -63,6 +72,57 @@ const SuperAdminLayout = ({ children, activePage }) => {
     localStorage.removeItem("isAdminLoggedIn");
     router.push("/AdminLogin");
   };
+
+  if (!checked) {
+    // Wait for role to be loaded from localStorage
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loader}></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (role !== "SuperAdmin") {
+    // Show restricted message for non-SuperAdmin users
+    return (
+      <div className={styles.adminPanelContainer}>
+        <aside className={styles.sidebar}>
+          <div className={styles.sidebarHeader}>
+            <h2 className={styles.sidebarTitle}>Super Admin</h2>
+          </div>
+          <nav>
+            <ul className={styles.sidebarNav}>
+              <li>
+                <Link
+                  href="/dashboard"
+                  className={styles.sidebarLink}
+                >
+                  <FaClipboardList className={styles.sidebarIcon} />
+                  Go to Dashboard
+                </Link>
+              </li>
+              <li>
+                <a href="#"
+                  onClick={handleLogout}
+                  className={styles.sidebarLink}
+                >
+                  <FaSignOutAlt className={styles.sidebarIcon} />
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <main className={styles.mainContent}>
+          <div className={styles.errorMessage} style={{ marginTop: "2rem", fontSize: "1.2rem" }}>
+            <FaUserShield style={{ marginRight: "0.5rem", fontSize: "1.5rem" }} />
+            Access Restricted: Only Super Admins can view this page.
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.adminPanelContainer}>
@@ -169,27 +229,29 @@ const formatDateTime = (dateString) => {
 
 // Audit Logs Page
 const AuditLogsPage = () => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [auditLogs, setAuditLogs] = useState([]);
-  const [loginHistory, setLoginHistory] = useState([]);
+  const [logs, setLogs] = useState([]);
   const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("audit");
+  const [activeTab, setActiveTab] = useState("audit"); // "audit" or "login"
   const [filters, setFilters] = useState({
-    adminId: "",
-    action: "",
     startDate: "",
     endDate: "",
+    adminId: "",
+    action: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(15);
-  const contentRef = useRef(null);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [userRole, setUserRole] = useState(null); // To track current user role
+  const logsPerPage = 10;
+  const router = useRouter();
 
   // Authentication check
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
     const role = localStorage.getItem("adminRole");
+    setUserRole(role);
 
     if (!token) {
       router.push("/AdminLogin");
@@ -201,43 +263,55 @@ const AuditLogsPage = () => {
       return;
     }
 
-    // Fetch audit logs and admins
-    fetchData();
+    // Fetch initial data
+    if (activeTab === "audit") {
+      fetchAuditLogs(1, filters);
+    } else {
+      fetchLoginHistory(1, filters);
+    }
+    // eslint-disable-next-line
   }, [router]);
 
-  const fetchData = async () => {
+  // Fetch data when page or tab changes
+  useEffect(() => {
+    if (userRole !== "SuperAdmin" && userRole !== "Admin") return;
+    if (activeTab === "audit") {
+      fetchAuditLogs(currentPage, filters);
+    } else {
+      fetchLoginHistory(currentPage, filters);
+    }
+    // eslint-disable-next-line
+  }, [currentPage, activeTab]);
+
+  // Fetch admins for filter dropdown
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      try {
+        const adminsResponse = await fetchWithAuth(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/admins`
+        );
+        if (adminsResponse.ok) {
+          const adminsData = await adminsResponse.json();
+          setAdmins(adminsData);
+        }
+      } catch (err) {
+        // ignore
+      }
+    };
+    fetchAdmins();
+  }, []);
+
+  const fetchAuditLogs = async (page = 1, filterObj = filters) => {
     setLoading(true);
     setError(null);
-
-    try {
-      // Fetch admins for filter dropdown
-      const adminsResponse = await fetchWithAuth(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/admins`
-      );
-
-      if (adminsResponse.ok) {
-        const adminsData = await adminsResponse.json();
-        setAdmins(adminsData);
-      }
-
-      // Fetch audit logs
-      await fetchAuditLogs();
-
-      // Fetch login history
-      await fetchLoginHistory();
-
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchAuditLogs = async () => {
     try {
       const queryParams = new URLSearchParams();
-      if (filters.adminId) queryParams.append('adminId', filters.adminId);
+      if (filterObj.adminId) queryParams.append('adminId', filterObj.adminId);
+      if (filterObj.action) queryParams.append('action', filterObj.action);
+      if (filterObj.startDate) queryParams.append('startDate', filterObj.startDate);
+      if (filterObj.endDate) queryParams.append('endDate', filterObj.endDate);
+      queryParams.append('page', page);
+      queryParams.append('limit', logsPerPage);
 
       const response = await fetchWithAuth(
         `${process.env.NEXT_PUBLIC_API_URL}/api/audit-logs?${queryParams.toString()}`
@@ -248,18 +322,29 @@ const AuditLogsPage = () => {
       }
 
       const data = await response.json();
-      setAuditLogs(data);
-
+      setLogs(data.logs || []);
+      setTotalItems(data.totalItems || 0);
+      setTotalPages(data.totalPages || 1);
     } catch (err) {
-      console.error("Error fetching audit logs:", err);
       setError(err.message);
+      setLogs([]);
+      setTotalItems(0);
+      setTotalPages(1);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const fetchLoginHistory = async () => {
+  const fetchLoginHistory = async (page = 1, filterObj = filters) => {
+    setLoading(true);
+    setError(null);
     try {
       const queryParams = new URLSearchParams();
-      if (filters.adminId) queryParams.append('adminId', filters.adminId);
+      if (filterObj.adminId) queryParams.append('adminId', filterObj.adminId);
+      if (filterObj.startDate) queryParams.append('startDate', filterObj.startDate);
+      if (filterObj.endDate) queryParams.append('endDate', filterObj.endDate);
+      queryParams.append('page', page);
+      queryParams.append('limit', logsPerPage);
 
       const response = await fetchWithAuth(
         `${process.env.NEXT_PUBLIC_API_URL}/api/login-history?${queryParams.toString()}`
@@ -270,11 +355,16 @@ const AuditLogsPage = () => {
       }
 
       const data = await response.json();
-      setLoginHistory(data);
-
+      setLogs(data.logs || []);
+      setTotalItems(data.totalItems || 0);
+      setTotalPages(data.totalPages || 1);
     } catch (err) {
-      console.error("Error fetching login history:", err);
       setError(err.message);
+      setLogs([]);
+      setTotalItems(0);
+      setTotalPages(1);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -287,16 +377,16 @@ const AuditLogsPage = () => {
   };
 
   const applyFilters = async () => {
+    setCurrentPage(1); // Reset to first page when applying filters
     setLoading(true);
 
     try {
       if (activeTab === "audit") {
-        await fetchAuditLogs();
+        await fetchAuditLogs(1, filters);
       } else {
-        await fetchLoginHistory();
+        await fetchLoginHistory(1, filters);
       }
     } catch (err) {
-      console.error("Error applying filters:", err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -304,56 +394,58 @@ const AuditLogsPage = () => {
   };
 
   const resetFilters = async () => {
-    setFilters({
+    const reset = {
       adminId: "",
       action: "",
       startDate: "",
       endDate: "",
-    });
+    };
+    setFilters(reset);
+    setCurrentPage(1);
 
-    // Fetch data with reset filters
     setLoading(true);
 
     try {
       if (activeTab === "audit") {
-        await fetchAuditLogs();
+        await fetchAuditLogs(1, reset);
       } else {
-        await fetchLoginHistory();
+        await fetchLoginHistory(1, reset);
       }
     } catch (err) {
-      console.error("Error resetting filters:", err);
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const scrollToTop = () => {
-    if (contentRef.current) {
-      contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   const changeTab = async (tab) => {
     setActiveTab(tab);
     setCurrentPage(1);
-    scrollToTop();
+    setLoading(true);
+    try {
+      if (tab === "audit") {
+        await fetchAuditLogs(1, filters);
+      } else {
+        await fetchLoginHistory(1, filters);
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Handle pagination
-  const goToPage = (page) => {
-    setCurrentPage(page);
-    scrollToTop();
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
-  // Calculate pagination for current tab data
-  const activeData = activeTab === "audit" ? auditLogs : loginHistory;
-  const totalPages = Math.ceil(activeData.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = activeData.slice(indexOfFirstItem, indexOfLastItem);
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   if (loading) {
     return (
@@ -361,6 +453,29 @@ const AuditLogsPage = () => {
         <div className={styles.loadingContainer}>
           <div className={styles.loader}></div>
           <p>Loading audit logs...</p>
+        </div>
+      </SuperAdminLayout>
+    );
+  }
+
+  // If Admin role, show restricted message
+  if (userRole === "Admin") {
+    return (
+      <SuperAdminLayout activePage="audit-logs">
+        <div style={{
+          padding: "2rem",
+          textAlign: "center",
+          backgroundColor: "#fff5f5",
+          borderRadius: "8px",
+          border: "1px solid #fc8181",
+          margin: "2rem auto",
+          maxWidth: "800px"
+        }}>
+          <h2 style={{ color: "#e53e3e", marginBottom: "1rem" }}>Access Restricted</h2>
+          <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
+            You do not have access to the Audit Logs section. Please contact a SuperAdmin for assistance.
+          </p>
+          <p>Your current role permissions do not allow access to this functionality.</p>
         </div>
       </SuperAdminLayout>
     );
@@ -375,9 +490,20 @@ const AuditLogsPage = () => {
         </p>
       </div>
 
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {error && (
+        <div style={{
+          padding: "1rem",
+          backgroundColor: "#fff5f5",
+          borderRadius: "8px",
+          border: "1px solid #fc8181",
+          margin: "1rem 0",
+          color: "#e53e3e"
+        }}>
+          {error}
+        </div>
+      )}
 
-      <div className={styles.tabsContainer} ref={contentRef}>
+      <div className={styles.tabsContainer}>
         <div className={styles.tabsList}>
           <button
             className={`${styles.tabButton} ${activeTab === 'audit' ? styles.activeTab : ''}`}
@@ -413,6 +539,29 @@ const AuditLogsPage = () => {
                 ))}
               </select>
             </div>
+
+            {activeTab === "audit" && (
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>
+                  <FaFilter style={{ marginRight: "0.5rem" }} /> Action Type
+                </label>
+                <select
+                  name="action"
+                  value={filters.action}
+                  onChange={handleFilterChange}
+                  className={styles.formSelect}
+                >
+                  <option value="">All Actions</option>
+                  <option value="create_lead">Create Lead</option>
+                  <option value="update_lead">Update Lead</option>
+                  <option value="delete_lead">Delete Lead</option>
+                  <option value="login">Login</option>
+                  <option value="create_admin">Create Admin</option>
+                  <option value="update_admin">Update Admin</option>
+                  <option value="delete_admin">Delete Admin</option>
+                </select>
+              </div>
+            )}
 
             <div className={styles.formGroup}>
               <label className={styles.formLabel}>
@@ -468,13 +617,13 @@ const AuditLogsPage = () => {
                         <th>Role</th>
                         <th>Action</th>
                         <th>Target</th>
-                        <th>Timestamp</th>
                         <th>Details</th>
+                        <th>Timestamp</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {currentItems.length > 0 ? (
-                        currentItems.map((log) => (
+                      {logs.length > 0 ? (
+                        logs.map((log) => (
                           <tr key={log._id}>
                             <td data-label="Admin">
                               {log.adminId?.username || "Unknown"}
@@ -495,14 +644,11 @@ const AuditLogsPage = () => {
                               </span>
                             </td>
                             <td data-label="Target">{log.target}</td>
-                            <td data-label="Timestamp">
-                              {formatDateTime(log.createdAt)}
-                            </td>
                             <td data-label="Details">
                               {log.metadata && (
                                 <details>
                                   <summary>View Details</summary>
-                                  <pre style={{
+                                  <div style={{
                                     whiteSpace: "pre-wrap",
                                     fontSize: "0.75rem",
                                     margin: "0.5rem 0",
@@ -510,10 +656,41 @@ const AuditLogsPage = () => {
                                     backgroundColor: "#f7fafc",
                                     borderRadius: "0.25rem"
                                   }}>
-                                    {JSON.stringify(log.metadata, null, 2)}
-                                  </pre>
+                                    {log.metadata.userId && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Lead ID:</strong> {log.metadata.userId}
+                                      </div>
+                                    )}
+                                    {log.metadata.leadName && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Name:</strong> {log.metadata.leadName}
+                                      </div>
+                                    )}
+                                    {log.metadata.leadEmail && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Email:</strong> {log.metadata.leadEmail}
+                                      </div>
+                                    )}
+                                    {log.metadata.leadContact && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Contact:</strong> {log.metadata.leadContact}
+                                      </div>
+                                    )}
+                                    {log.metadata.updateFields && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Updated Fields:</strong>
+                                        <pre>{JSON.stringify(log.metadata.updateFields, null, 2)}</pre>
+                                      </div>
+                                    )}
+                                    {!log.metadata.userId && !log.metadata.updateFields && (
+                                      <pre>{JSON.stringify(log.metadata, null, 2)}</pre>
+                                    )}
+                                  </div>
                                 </details>
                               )}
+                            </td>
+                            <td data-label="Timestamp">
+                              {formatDateTime(log.createdAt)}
                             </td>
                           </tr>
                         ))
@@ -527,41 +704,6 @@ const AuditLogsPage = () => {
                     </tbody>
                   </table>
                 </div>
-                {totalPages > 1 && (
-                  <div className={styles.pagination}>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(1)}
-                      disabled={currentPage === 1}
-                    >
-                      {"<<"}
-                    </button>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(currentPage - 1)}
-                      disabled={currentPage === 1}
-                    >
-                      {"<"}
-                    </button>
-                    <span className={styles.pageInfo}>
-                      Page {currentPage} of {totalPages}
-                    </span>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                    >
-                      {">"}
-                    </button>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(totalPages)}
-                      disabled={currentPage === totalPages}
-                    >
-                      {">>"}
-                    </button>
-                  </div>
-                )}
               </div>
             </>
           ) : (
@@ -581,8 +723,8 @@ const AuditLogsPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {currentItems.length > 0 ? (
-                        currentItems.map((log) => (
+                      {logs.length > 0 ? (
+                        logs.map((log) => (
                           <tr key={log._id}>
                             <td data-label="Admin">
                               {log.adminId?.username || "Unknown"}
@@ -630,44 +772,30 @@ const AuditLogsPage = () => {
                     </tbody>
                   </table>
                 </div>
-                {totalPages > 1 && (
-                  <div className={styles.pagination}>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(1)}
-                      disabled={currentPage === 1}
-                    >
-                      {"<<"}
-                    </button>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(currentPage - 1)}
-                      disabled={currentPage === 1}
-                    >
-                      {"<"}
-                    </button>
-                    <span className={styles.pageInfo}>
-                      Page {currentPage} of {totalPages}
-                    </span>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                    >
-                      {">"}
-                    </button>
-                    <button
-                      className={styles.pageButton}
-                      onClick={() => goToPage(totalPages)}
-                      disabled={currentPage === totalPages}
-                    >
-                      {">>"}
-                    </button>
-                  </div>
-                )}
               </div>
             </>
           )}
+
+          {/* Pagination controls */}
+          <div className={styles.paginationControls}>
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className={styles.paginationButton}
+            >
+              <FaChevronLeft /> Previous
+            </button>
+            <span className={styles.pageIndicator}>
+              Page {currentPage} of {totalPages || 1}
+            </span>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages || totalItems === 0}
+              className={styles.paginationButton}
+            >
+              Next <FaChevronRight />
+            </button>
+          </div>
         </div>
       </div>
     </SuperAdminLayout>
