@@ -15,6 +15,8 @@ import {
   FaSignOutAlt,
   FaKey,
   FaSpinner,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -181,6 +183,10 @@ const AuditLogsPage = () => {
     startDate: "",
     endDate: "",
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const logsPerPage = 10;
 
   // Authentication check
   useEffect(() => {
@@ -199,7 +205,7 @@ const AuditLogsPage = () => {
 
     // Fetch audit logs and admins
     fetchData();
-  }, [router]);
+  }, [router, currentPage]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -234,6 +240,11 @@ const AuditLogsPage = () => {
     try {
       const queryParams = new URLSearchParams();
       if (filters.adminId) queryParams.append('adminId', filters.adminId);
+      if (filters.action) queryParams.append('action', filters.action);
+      if (filters.startDate) queryParams.append('startDate', filters.startDate);
+      if (filters.endDate) queryParams.append('endDate', filters.endDate);
+      queryParams.append('page', currentPage);
+      queryParams.append('limit', logsPerPage);
 
       const response = await fetchWithAuth(
         `${process.env.NEXT_PUBLIC_API_URL}/api/audit-logs?${queryParams.toString()}`
@@ -244,8 +255,9 @@ const AuditLogsPage = () => {
       }
 
       const data = await response.json();
-      setAuditLogs(data);
-
+      setAuditLogs(data.logs || []);
+      setTotalItems(data.totalItems || 0);
+      setTotalPages(data.totalPages || 1);
     } catch (err) {
       console.error("Error fetching audit logs:", err);
       setError(err.message);
@@ -256,6 +268,10 @@ const AuditLogsPage = () => {
     try {
       const queryParams = new URLSearchParams();
       if (filters.adminId) queryParams.append('adminId', filters.adminId);
+      if (filters.startDate) queryParams.append('startDate', filters.startDate);
+      if (filters.endDate) queryParams.append('endDate', filters.endDate);
+      queryParams.append('page', currentPage);
+      queryParams.append('limit', logsPerPage);
 
       const response = await fetchWithAuth(
         `${process.env.NEXT_PUBLIC_API_URL}/api/login-history?${queryParams.toString()}`
@@ -266,8 +282,9 @@ const AuditLogsPage = () => {
       }
 
       const data = await response.json();
-      setLoginHistory(data);
-
+      setLoginHistory(data.logs || []);
+      setTotalItems(data.totalItems || 0);
+      setTotalPages(data.totalPages || 1);
     } catch (err) {
       console.error("Error fetching login history:", err);
       setError(err.message);
@@ -283,6 +300,7 @@ const AuditLogsPage = () => {
   };
 
   const applyFilters = async () => {
+    setCurrentPage(1); // Reset to first page when applying filters
     setLoading(true);
 
     try {
@@ -306,6 +324,7 @@ const AuditLogsPage = () => {
       startDate: "",
       endDate: "",
     });
+    setCurrentPage(1);
 
     // Fetch data with reset filters
     setLoading(true);
@@ -326,6 +345,32 @@ const AuditLogsPage = () => {
 
   const changeTab = async (tab) => {
     setActiveTab(tab);
+    setCurrentPage(1);
+    setLoading(true);
+    try {
+      if (tab === "audit") {
+        await fetchAuditLogs();
+      } else {
+        await fetchLoginHistory();
+      }
+    } catch (err) {
+      console.error(`Error changing to ${tab} tab:`, err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   if (loading) {
@@ -387,6 +432,29 @@ const AuditLogsPage = () => {
               </select>
             </div>
 
+            {activeTab === "audit" && (
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>
+                  <FaFilter style={{ marginRight: "0.5rem" }} /> Action Type
+                </label>
+                <select
+                  name="action"
+                  value={filters.action}
+                  onChange={handleFilterChange}
+                  className={styles.formSelect}
+                >
+                  <option value="">All Actions</option>
+                  <option value="create_lead">Create Lead</option>
+                  <option value="update_lead">Update Lead</option>
+                  <option value="delete_lead">Delete Lead</option>
+                  <option value="login">Login</option>
+                  <option value="create_admin">Create Admin</option>
+                  <option value="update_admin">Update Admin</option>
+                  <option value="delete_admin">Delete Admin</option>
+                </select>
+              </div>
+            )}
+
             <div className={styles.formGroup}>
               <label className={styles.formLabel}>
                 <FaCalendarAlt style={{ marginRight: "0.5rem" }} /> Date Range (Start)
@@ -441,8 +509,8 @@ const AuditLogsPage = () => {
                         <th>Role</th>
                         <th>Action</th>
                         <th>Target</th>
-                        <th>Timestamp</th>
                         <th>Details</th>
+                        <th>Timestamp</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -468,14 +536,11 @@ const AuditLogsPage = () => {
                               </span>
                             </td>
                             <td data-label="Target">{log.target}</td>
-                            <td data-label="Timestamp">
-                              {formatDateTime(log.createdAt)}
-                            </td>
                             <td data-label="Details">
                               {log.metadata && (
                                 <details>
                                   <summary>View Details</summary>
-                                  <pre style={{
+                                  <div style={{
                                     whiteSpace: "pre-wrap",
                                     fontSize: "0.75rem",
                                     margin: "0.5rem 0",
@@ -483,10 +548,41 @@ const AuditLogsPage = () => {
                                     backgroundColor: "#f7fafc",
                                     borderRadius: "0.25rem"
                                   }}>
-                                    {JSON.stringify(log.metadata, null, 2)}
-                                  </pre>
+                                    {log.metadata.userId && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Lead ID:</strong> {log.metadata.userId}
+                                      </div>
+                                    )}
+                                    {log.metadata.leadName && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Name:</strong> {log.metadata.leadName}
+                                      </div>
+                                    )}
+                                    {log.metadata.leadEmail && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Email:</strong> {log.metadata.leadEmail}
+                                      </div>
+                                    )}
+                                    {log.metadata.leadContact && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Contact:</strong> {log.metadata.leadContact}
+                                      </div>
+                                    )}
+                                    {log.metadata.updateFields && (
+                                      <div className={styles.auditDetail}>
+                                        <strong>Updated Fields:</strong>
+                                        <pre>{JSON.stringify(log.metadata.updateFields, null, 2)}</pre>
+                                      </div>
+                                    )}
+                                    {!log.metadata.userId && !log.metadata.updateFields && (
+                                      <pre>{JSON.stringify(log.metadata, null, 2)}</pre>
+                                    )}
+                                  </div>
                                 </details>
                               )}
+                            </td>
+                            <td data-label="Timestamp">
+                              {formatDateTime(log.createdAt)}
                             </td>
                           </tr>
                         ))
@@ -571,6 +667,27 @@ const AuditLogsPage = () => {
               </div>
             </>
           )}
+
+          {/* Pagination controls */}
+          <div className={styles.paginationControls}>
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className={styles.paginationButton}
+            >
+              <FaChevronLeft /> Previous
+            </button>
+            <span className={styles.pageIndicator}>
+              Page {currentPage} of {totalPages || 1}
+            </span>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages || totalItems === 0}
+              className={styles.paginationButton}
+            >
+              Next <FaChevronRight />
+            </button>
+          </div>
         </div>
       </div>
     </SuperAdminLayout>
