@@ -65,35 +65,106 @@
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   overflow: hidden;
   margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Responsive table improvements */
 .tableResponsive {
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  display: block;
+  width: 100%;
+  scrollbar-width: thin;
+}
+
+.tableResponsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableResponsive::-webkit-scrollbar-track {
+  background-color: #f7fafc;
+  border-radius: 4px;
+}
+
+.tableResponsive::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+  border-radius: 4px;
+}
+
+.tableResponsive::-webkit-scrollbar-thumb:hover {
+  background-color: #a0aec0;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 800px;
 }
 
-.table th, .table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-}
-
+/* Table header styles */
 .table th {
   background-color: #f7fafc;
   font-weight: 600;
   color: #4a5568;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .table tr:hover {
   background-color: #f7fafc;
 }
 
+/* Better control of cell widths */
+.table th, .table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* Maximum width for content cells */
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+/* Special widths for common columns */
+.table th:nth-child(2), .table td:nth-child(2) {
+  min-width: 50px; /* Name column */
+  max-width: 200px;
+}
+
+.table th:nth-child(3), .table td:nth-child(3),
+.table th:nth-child(4), .table td:nth-child(4) {
+  min-width: 80px; /* Contact and Email columns */
+  max-width: 180px;
+}
+
+.table th:nth-child(5), .table td:nth-child(5),
+.table th:nth-child(6), .table td:nth-child(6) {
+  min-width: 100px; /* Course and Location columns */
+  max-width: 150px;
+}
+
+/* Container for the actions column buttons */
+.actionButtonsContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  justify-content: center; /* Center align the buttons */
+  min-width: 120px; /* Ensure minimum width for action buttons */
+}
+
 .checkboxColumn {
   width: 3rem;
+}
+
+.viewColumn {
+  width: 3rem;
+  text-align: center;
 }
 
 .checkboxWrapper {
@@ -226,6 +297,8 @@
   display: grid;
   grid-template-columns: 250px 1fr;
   min-height: 100vh;
+  max-width: 100vw; /* Ensure it doesn't exceed viewport width */
+  overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .sidebar {
@@ -278,6 +351,9 @@
 .mainContent {
   padding: 1.5rem;
   background-color: #f7fafc;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  max-width: 100%; /* Ensure it doesn't exceed parent width */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .pageHeader {
@@ -357,8 +433,10 @@
 /* Forms */
 .formGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .formGroup {
@@ -466,11 +544,14 @@
 
 /* Charts */
 .chartContainer {
-  background-color: white;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .chartTitle {
@@ -654,10 +735,19 @@
     grid-template-columns: 1fr;
   }
 
-  .table th, .table td {
-    padding: 0.5rem;
+  /* Make tables responsive on mobile but maintain horizontal scroll instead of stacking */
+  .tableResponsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 5px;
   }
 
+  /* Keep the table structure on mobile for better consistency */
+  .table {
+    min-width: 800px; /* Keep minimum width for horizontal scrolling */
+  }
+
+  /* Original responsive stacking styles are commented out
   .table td {
     display: flex;
     text-align: right;
@@ -682,6 +772,62 @@
   .table thead {
     display: none;
   }
+  */
+
+  /* Smaller padding on mobile */
+  .table th, .table td {
+    padding: 0.5rem;
+  }
+
+  /* Add a hint for mobile users about scrolling */
+  .tableCard::before {
+    content: "Swipe horizontally to view more →";
+    display: block;
+    padding: 0.5rem;
+    background-color: #ebf8ff;
+    color: #3182ce;
+    font-size: 0.8rem;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+  }
+}
+
+/* Lead details view modal styles */
+.leadDetailsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .leadDetailsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Make some items span full width */
+  .leadDetailsGrid > div:nth-child(3), /* Email */
+  .leadDetailsGrid > div:nth-child(9) { /* Contacted Comment */
+    grid-column: span 2;
+  }
+}
+
+.leadDetailItem {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+}
+
+.leadDetailLabel {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+}
+
+.leadDetailValue {
+  font-size: 1rem;
+  color: #2d3748;
+  margin: 0;
+  word-break: break-word;
 }
 
 /* Add the following CSS classes to the existing Dashboard.module.css */
@@ -718,7 +864,7 @@
   justify-content: center;
 }
 
-.editButton, .saveButton, .cancelButton {
+.editButton, .saveButton, .cancelButton, .viewButton {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -731,6 +877,10 @@
   transition: all 0.2s;
 }
 
+.viewButton {
+  color: #805ad5; /* Purple color for view button */
+}
+
 .editButton {
   color: #4299e1;
 }
@@ -741,6 +891,10 @@
 
 .cancelButton {
   color: #f56565;
+}
+
+.viewButton:hover {
+  background-color: rgba(128, 90, 213, 0.1);
 }
 
 .editButton:hover {
@@ -822,4 +976,155 @@
 .colorSelectContainer {
   position: relative;
   width: 100%;
+}
+
+/* Settings page styles */
+.settingsContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.settingItem:last-child {
+  border-bottom: none;
+}
+
+.settingInfo {
+  flex: 1;
+}
+
+.settingTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+}
+
+.settingDescription {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.settingStatus {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.statusIconActive {
+  color: #48bb78;
+  margin-right: 0.5rem;
+}
+
+.statusIconInactive {
+  color: #f56565;
+  margin-right: 0.5rem;
+}
+
+.statusTextActive {
+  color: #48bb78;
+  font-weight: 500;
+}
+
+.statusTextInactive {
+  color: #f56565;
+  font-weight: 500;
+}
+
+.settingAction {
+  margin-left: 1.5rem;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.toggleButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toggleIconOn {
+  color: #4299e1;
+  font-size: 2.5rem;
+}
+
+.toggleIconOff {
+  color: #a0aec0;
+  font-size: 2.5rem;
+}
+
+.headerIcon {
+  margin-right: 0.5rem;
+}
+
+.noSettings {
+  text-align: center;
+  padding: 2rem 0;
+  color: #718096;
+}
+
+.savingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.savingContent {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.successMessage {
+  background-color: #f0fff4;
+  border-left: 4px solid #48bb78;
+  color: #2f855a;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.successIcon {
+  margin-right: 0.5rem;
+}
+
+.settingValue {
+  background-color: #f7fafc;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  max-width: 100%;
+  color: #4a5568;
 }
