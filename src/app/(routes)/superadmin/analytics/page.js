@@ -19,6 +19,7 @@ import {
   FaCheck,
   FaPhoneAlt,
   FaBan,
+  FaCog,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -127,6 +128,15 @@ const SuperAdminLayout = ({ children, activePage }) => {
               >
                 <FaKey className={styles.sidebarIcon} />
                 Role Permissions
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/superadmin/settings"
+                className={`${styles.sidebarLink} ${activePage === 'settings' ? styles.activeLink : ''}`}
+              >
+                <FaCog className={styles.sidebarIcon} />
+                Settings
               </Link>
             </li>
             <li>
