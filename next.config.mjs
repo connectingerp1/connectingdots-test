@@ -49,6 +49,16 @@ const nextConfig = {
         source: "/robots.txt",
         destination: "/api/robots.txt",
       },
+      {
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "dashboard.connectingdotserp.com",
+          },
+        ],
+        destination: "/superadmin",
+      },
     ];
   },
   async redirects() {
