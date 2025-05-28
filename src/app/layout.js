@@ -15,7 +15,7 @@ import Whatsapp from "@/components/Whatsapp";
 import Floatingcontact from "@/components/Floatingcontact";
 import BottomMenu from "@/components/BottomMenu";
 import ScrollToTop from "@/components/ScrollToTop";
-import CourseLoader from "@/components/CourseLoader"; // ✅ contains useSearchParams 
+import CourseLoader from "@/components/CourseLoader"; // ✅ contains useSearchParams
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -25,6 +25,11 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
     fetch(`${apiBaseUrl}/api/ping`).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const apiBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    fetch(`${apiBaseUrl}/api/blogs/ping`).catch(() => {});
   }, []);
 
   return (
@@ -118,7 +123,7 @@ export default function RootLayout({ children }) {
         <CallAdvisorsStrip />
         <Marquee />
         <Navbar />
-        
+
         {/* ✅ Wrap CourseLoader inside Suspense */}
         <Suspense fallback={null}>
           <CourseLoader />
