@@ -57,7 +57,7 @@ const nextConfig = {
             value: "dashboard.connectingdotserp.com",
           },
         ],
-        destination: "/superadmin",
+        destination: "/dashboard",
       },
     ];
   },
