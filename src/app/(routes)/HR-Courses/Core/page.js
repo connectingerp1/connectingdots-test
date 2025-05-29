@@ -22,7 +22,7 @@ export default function CORE() {
         <TrustUs />
         <Program />
         <Certificate pageId="HRCoreCERT" />
-        <Description pageId="core" />
+        <Description pageId="Core" />
         <FAQ pageId="COREFAQ" pageType="corefaq" />
         <CoursesRelated pageId="CORErelated" />
       
