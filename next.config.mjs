@@ -51,7 +51,7 @@ const nextConfig = {
       },
       {
         source: "/",
-        has: [ 
+        has: [
           {
             type: "host",
             value: "dashboard.connectingdotserp.com",
