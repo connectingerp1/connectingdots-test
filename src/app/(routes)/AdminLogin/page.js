@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaUser, FaLock, FaSpinner, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons, including eye icons
 
-
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -214,6 +213,5 @@ const AdminLogin = () => {
     </section>
   );
 };
-
 
 export default AdminLogin;
