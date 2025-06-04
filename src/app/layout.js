@@ -120,7 +120,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className="body">
+      <body className="body bg-black">
         <noscript
           dangerouslySetInnerHTML={{
             __html: `

@@ -7,6 +7,7 @@ import styles from "@/styles/HomePage/HeaderCarousel.module.css";
 import Btnform from "./Btnform";
 import Image from "next/image";
 import Link from "next/link";
+import LogoSphere from "./LogoSphere";
 
 // Constants moved outside component to avoid re-creation on render
 const TEXTS = [
@@ -25,15 +26,18 @@ const IMAGES = [
 
 const QUESTION_DATA = {
   Q1: {
-    title: "What is the function of an <span class='text-primary font-bold'>HR Payroll</span> system?",
+    title:
+      "What is the function of an <span class='text-primary font-bold'>HR Payroll</span> system?",
     text: "The function of an <span class='text-primary font-bold'>HR payroll system</span> is to automate and manage employee compensation processes, including calculating wages, withholding taxes, and ensuring compliance with labor laws. It streamlines payroll operations, reduces errors, and provides accurate and timely payments to employees.",
   },
   Q2: {
-    title: "What is the purpose of the <span class='text-primary font-bold'>CO</span> module in <span class='text-primary font-bold'>SAP FICO</span>?",
+    title:
+      "What is the purpose of the <span class='text-primary font-bold'>CO</span> module in <span class='text-primary font-bold'>SAP FICO</span>?",
     text: "The <span class='text-primary font-bold'>CO (Controlling)</span> module in <span class='text-primary font-bold'>SAP FICO</span> helps manage and monitor internal costs. It supports internal reporting by tracking and analyzing costs and revenues, aiding in budgeting, planning, and controlling operations to ensure effective cost management within an organization.",
   },
   Q3: {
-    title: "What is the role of <span class='text-primary font-bold'>Express.js</span> in the <span class='text-primary font-bold'>MERN</span> stack?",
+    title:
+      "What is the role of <span class='text-primary font-bold'>Express.js</span> in the <span class='text-primary font-bold'>MERN</span> stack?",
     text: "<span class='text-primary font-bold'>Express.js</span> is a lightweight web application framework for Node.js, used in the <span class='text-primary font-bold'>MERN</span> stack. It simplifies the development of server-side applications by providing robust features for web and mobile applications, such as routing, middleware integration, and handling HTTP requests and responses.",
   },
 };
@@ -51,28 +55,27 @@ const CompanyLogos = memo(() => (
   </div>
 ));
 
-CompanyLogos.displayName = 'CompanyLogos';
+CompanyLogos.displayName = "CompanyLogos";
 
 // Split into smaller components to reduce nesting
 const CareerSlide = ({ onButtonClick }) => (
   <div className={styles.carouselSlide}>
     <div className={styles.carouselText}>
       <h1>
-        Unlock your <span className={styles.highlight}>Career</span>{" "}
-        potential
+        Unlock your <span className={styles.highlight}>Career</span> potential
       </h1>
       <h2>
-        <span className={styles.highlight}>No.1 Training &</span>{" "}
-        Placement Center
+        <span className={styles.highlight}>No.1 Training &</span> Placement
+        Center
       </h2>
       <p>
-        For more than 10 years, we've been passionate about providing
-        engaging, instructor-led training that helps professionals
-        around the world grow and succeed.
+        For more than 10 years, we've been passionate about providing engaging,
+        instructor-led training that helps professionals around the world grow
+        and succeed.
       </p>
       <p>
-        Est. 2013 Trusted by{" "}
-        <span className={styles.highlight}>5000+</span> Students
+        Est. 2013 Trusted by <span className={styles.highlight}>5000+</span>{" "}
+        Students
       </p>
       <Button
         className={`${styles.customBtn} ${styles.btn3}`}
@@ -83,11 +86,26 @@ const CareerSlide = ({ onButtonClick }) => (
       <CompanyLogos />
     </div>
     <div className={styles.carouselImage}>
-      <img
+      <div
+        className="absolute mt-4 top-34 w-[340px] h-[340px] rounded-full bg-gradient-to-br from-blue-200/20 to-blue-400/20 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
+            <div
+        className="absolute top-40 w-[260px] h-[260px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/20 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
+      
+      <div
+        className="absolute mt-3 top-44 w-[200px] h-[200px] rounded-full bg-gradient-to-br from-blue-500/20 to-blue-700/20 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
+
+      <LogoSphere className="rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/20" />
+      {/* <img
             src="/Navbar/Connecting Logo New.png"
             alt="Connecting Dots ERP Logo"
             className={styles.logo}
-          />
+          /> */}
     </div>
   </div>
 );
@@ -96,17 +114,15 @@ const AISlide = ({ index, onClick }) => (
   <div className={styles.carouselSlide2}>
     <div className={styles.carouselText2}>
       <h2>
-        All Our <span className={styles.highlight}>Top Programs</span>{" "}
-        Include <br />
+        All Our <span className={styles.highlight}>Top Programs</span> Include{" "}
+        <br />
         <span className={styles.highlight}>Generative AI </span>
         Components
       </h2>
       <h3>
         Be a Leader in your field <br />
-        <span className={styles.highlight}>
-          Change, Adapt, and Build
-        </span>{" "}
-        with AI.
+        <span className={styles.highlight}>Change, Adapt, and Build</span> with
+        AI.
       </h3>
       <div className={styles.expPgBtn}>
         <Button
@@ -136,14 +152,12 @@ const ExpertsSlide = () => (
   <div className={styles.carouselSlide3}>
     <div className={styles.leftSideH3}>
       <h2>
-        Secure your{" "}
-        <span className={styles.highlight}>Dream Career</span> with{" "}
-        <span className="font-bold">Live Classes</span> From Industry
-        Experts.
+        Secure your <span className={styles.highlight}>Dream Career</span> with{" "}
+        <span className="font-bold">Live Classes</span> From Industry Experts.
       </h2>
       <h3>
-        Our <span className={styles.highlight}>Mentors</span> Come
-        From Top <span className={styles.highlight}>MNCs</span>
+        Our <span className={styles.highlight}>Mentors</span> Come From Top{" "}
+        <span className={styles.highlight}>MNCs</span>
       </h3>
       <div className="d-flex items-center">
         <Image
@@ -162,18 +176,66 @@ const ExpertsSlide = () => (
         <div className={styles.content3}>
           <div className={styles.imageGrid}>
             {[
-              { src: "/Headercarousel/ibm1.avif", name: "IBM", className: styles.gridImageIbm },
-              { src: "/Headercarousel/tcs1.avif", name: "TCS", className: styles.gridImageTcs },
-              { src: "/Headercarousel/LnT.avif", name: "L&T", className: styles.gridImageLnt },
-              { src: "/Headercarousel/amdocs1.avif", name: "Amdocs", className: styles.gridImageAmd },
-              { src: "/Headercarousel/infosys2.avif", name: "Infosys", className: styles.gridImageInfo },
-              { src: "/Headercarousel/wipro.avif", name: "Wipro", className: styles.gridImageWip },
-              { src: "/Headercarousel/deloitte.avif", name: "Deloitte", className: styles.gridImageDel },
-              { src: "/Headercarousel/accenture1.avif", name: "Accenture", className: styles.gridImageAcc },
-              { src: "/Headercarousel/BMW.avif", name: "BMW", className: styles.gridImageBmw },
-              { src: "/Headercarousel/cognizant1.avif", name: "Cognizant", className: styles.gridImageCog },
-              { src: "/Headercarousel/Cisco.avif", name: "Cisco", className: styles.gridImageCis },
-              { src: "/Headercarousel/TechM.avif", name: "Tech Mahindra", className: styles.gridImageTec },
+              {
+                src: "/Headercarousel/ibm1.avif",
+                name: "IBM",
+                className: styles.gridImageIbm,
+              },
+              {
+                src: "/Headercarousel/tcs1.avif",
+                name: "TCS",
+                className: styles.gridImageTcs,
+              },
+              {
+                src: "/Headercarousel/LnT.avif",
+                name: "L&T",
+                className: styles.gridImageLnt,
+              },
+              {
+                src: "/Headercarousel/amdocs1.avif",
+                name: "Amdocs",
+                className: styles.gridImageAmd,
+              },
+              {
+                src: "/Headercarousel/infosys2.avif",
+                name: "Infosys",
+                className: styles.gridImageInfo,
+              },
+              {
+                src: "/Headercarousel/wipro.avif",
+                name: "Wipro",
+                className: styles.gridImageWip,
+              },
+              {
+                src: "/Headercarousel/deloitte.avif",
+                name: "Deloitte",
+                className: styles.gridImageDel,
+              },
+              {
+                src: "/Headercarousel/accenture1.avif",
+                name: "Accenture",
+                className: styles.gridImageAcc,
+              },
+              {
+                src: "/Headercarousel/BMW.avif",
+                name: "BMW",
+                className: styles.gridImageBmw,
+              },
+              {
+                src: "/Headercarousel/cognizant1.avif",
+                name: "Cognizant",
+                className: styles.gridImageCog,
+              },
+              {
+                src: "/Headercarousel/Cisco.avif",
+                name: "Cisco",
+                className: styles.gridImageCis,
+              },
+              {
+                src: "/Headercarousel/TechM.avif",
+                name: "Tech Mahindra",
+                className: styles.gridImageTec,
+              },
             ].map((company, idx) => (
               <Image
                 key={idx}
@@ -282,7 +344,10 @@ const HeaderCarousel = () => {
   const handleCloseForm = useCallback(() => setShowForm(false), []);
 
   return (
-    <section aria-label="Featured Programs and Training Information" className={styles.carouselWrapper}>
+    <section
+      aria-label="Featured Programs and Training Information"
+      className={styles.carouselWrapper}
+    >
       <Carousel className={styles.carousel} indicators={true} controls={true}>
         {/* First Slide - Career Potential */}
         <Carousel.Item>
