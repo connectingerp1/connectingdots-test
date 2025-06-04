@@ -92,6 +92,11 @@
   text-align: justify;
 }
 
+.btnContainer{
+  display: flex;
+  justify-content: left;
+}
+
 .outlineBtn {
   margin-left: 65px;
   border: 2px solid #007bff;
@@ -160,7 +165,8 @@
 
   
 .outlineBtn {
-  margin-left: 65px;
+  margin-left: 0px;
+  justify-content: center;
   border: 2px solid #007bff;
   color: #007bff;
   background-color: transparent;

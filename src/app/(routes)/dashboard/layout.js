@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, createContext, useContext } from "react"; 
 import { useRouter, usePathname } from "next/navigation";
 import InactivityWarningModal from "@/components/superadmin/InactivityWarningModal";
 import { FaSignOutAlt, FaSpinner } from "react-icons/fa"; // Import FaSpinner
+import FixedLogo from "@/components/superadmin/FixedLogo";
 
 // --- Configuration ---
 // You might fetch these values from settings API in a real app
@@ -261,7 +262,8 @@ const DashboardLayout = ({ children }) => {
     <ActivityLogContext.Provider value={logActivityEvent}>
       <div className="flex flex-col min-h-screen bg-gray-100">
         {/* Main Content Area */}
-        <main className="flex-1 p-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 p-6 mt-10 mx-auto w-full">
+          <FixedLogo />
           {/* children will be dashboard/page.js */}
           {children}
         </main>

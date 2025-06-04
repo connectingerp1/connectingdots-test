@@ -16,10 +16,10 @@ import {
   FaExclamationTriangle,
   FaClock, // Icon for time/duration
 } from "react-icons/fa";
-
 import Sidebar from "@/components/superadmin/Sidebar";
 import AccessControl from "@/components/superadmin/AccessControl";
 import { fetchWithAuth } from "@/utils/auth";
+import FixedLogo from "@/components/superadmin/FixedLogo";
 
 // Format date with time
 const formatDateTime = (dateString) => {
@@ -318,7 +318,7 @@ const AdminActivityLogsPage = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar activePage="activity" />
-
+      <FixedLogo />
       <main className="flex-1 pt-16 lg:pt-0 overflow-auto">
         <AccessControl section="activity">
           <div className="p-6 max-w-7xl mx-auto">

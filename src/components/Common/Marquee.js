@@ -1,24 +1,40 @@
-"use client"  
+"use client";
 
 import { useEffect, useState } from "react";
 import styles from "@/styles/Common/Marquee.module.css";
 
 // Helper function to get the ordinal suffix (st, nd, rd, th)
 const getOrdinalSuffix = (day) => {
-  if (day > 3 && day < 21) return 'th'; // Covers 4th to 20th
+  if (day > 3 && day < 21) return "th"; // Covers 4th to 20th
   switch (day % 10) {
-    case 1: return 'st';
-    case 2: return 'nd';
-    case 3: return 'rd';
-    default: return 'th';
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
   }
 };
 
 // Helper function to format the date
 const formatDate = (date) => {
   const day = date.getDate();
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-                     "July", "August", "September", "October", "November", "December"];
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const suffix = getOrdinalSuffix(day);
   return `${day}${suffix} ${monthNames[date.getMonth()]}`;
 };
@@ -53,7 +69,6 @@ const getNextTargetDate = () => {
   return nextDate;
 };
 
-
 const Marquee = () => {
   const [displayDate, setDisplayDate] = useState("");
 
@@ -83,7 +98,6 @@ const Marquee = () => {
   return (
     <div className={styles.mainContainerMarquee}>
       <div className={styles.mainContainerMarqueeTrack}>
-
         {/* First Set of Items */}
         <div className={styles.mainContainerMarqueeItems}>
           <span className={styles.mainContainerMarqueeItem}>

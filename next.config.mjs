@@ -1159,6 +1159,16 @@ const nextConfig = {
         destination: "/hr-analytics-course-in-koregaon-park",
         permanent: true,
       },
+      {
+        source: "/sap-mm-course-in-Pune",
+        destination: "/sap-mm-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Raipur",
+        destination: "/sap-course-in-raipur",
+        permanent: true,
+      },
     ];
   },
 };

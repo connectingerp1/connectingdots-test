@@ -18,6 +18,7 @@ import Sidebar from "@/components/superadmin/Sidebar";
 import AccessControl from "@/components/superadmin/AccessControl";
 import { fetchWithAuth } from "@/utils/auth";
 import AuditLogDetailsModal from "@/components/superadmin/AuditLogDetailsModal";
+import FixedLogo from "@/components/superadmin/FixedLogo";
 
 // Format date with time
 const formatDateTime = (dateString) => {
@@ -400,6 +401,7 @@ const AuditLogsPage = () => {
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar is always present */}
       <Sidebar activePage="audit-logs" /> {/* Pass activePage prop */}
+      <FixedLogo />
       {/* Main content area - takes remaining space */}
       <main className="flex-1 lg:ml-0 pt-16 lg:pt-0 overflow-auto">
         {/* AccessControl handles the overall access to this page's content */}

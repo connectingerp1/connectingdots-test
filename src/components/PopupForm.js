@@ -29,20 +29,20 @@ const PopupForm = ({ onSubmitData }) => {
       "/adminlogin",
       "/dashboard",
       "/blogsadmin",
-      "/superadmin"
+      "/superadmin",
     ];
 
     const currentPath = pathname?.toLowerCase() || "";
 
     // Check if the current path starts with any of the hidden pages
-    if (hiddenPages.some(page => currentPath.startsWith(page))) {
+    if (hiddenPages.some((page) => currentPath.startsWith(page))) {
       setIsVisible(false);
       return;
     }
 
     const showTimer = setTimeout(() => {
       if (!document.body.classList.contains(styles.popupClosedManually)) {
-          setIsVisible(true);
+        setIsVisible(true);
       }
     }, 5000);
 
@@ -73,8 +73,8 @@ const PopupForm = ({ onSubmitData }) => {
   // --- Original Frontend Validation (using statusMessage) ---
   // Note: This validation only shows the *first* error found.
   const validateForm = () => {
-     // Basic required field checks (trimming values)
-     if (!name.trim()) {
+    // Basic required field checks (trimming values)
+    if (!name.trim()) {
       setStatusMessage({ text: "Name is required.", type: "error" });
       return false;
     }
@@ -82,42 +82,59 @@ const PopupForm = ({ onSubmitData }) => {
       setStatusMessage({ text: "Email is required.", type: "error" });
       return false;
     }
-     if (!mobile.trim()) {
+    if (!mobile.trim()) {
       setStatusMessage({ text: "Mobile number is required.", type: "error" });
       return false;
     }
     if (!course.trim()) {
-      setStatusMessage({ text: "Course selection is required.", type: "error" });
+      setStatusMessage({
+        text: "Course selection is required.",
+        type: "error",
+      });
       return false;
     }
-     if (!location.trim()) {
+    if (!location.trim()) {
       setStatusMessage({ text: "Location is required.", type: "error" });
       return false;
     }
 
     // Specific format/length checks
     if (name.length > 50) {
-      setStatusMessage({ text: "Name should be less than 50 characters.", type: "error" });
+      setStatusMessage({
+        text: "Name should be less than 50 characters.",
+        type: "error",
+      });
       return false;
     }
-    if (!/^\d{10}$/.test(mobile.replace(/\D/g, ''))) {
-      setStatusMessage({ text: "Please enter a valid 10-digit mobile number.", type: "error" });
+    if (!/^\d{10}$/.test(mobile.replace(/\D/g, ""))) {
+      setStatusMessage({
+        text: "Please enter a valid 10-digit mobile number.",
+        type: "error",
+      });
       return false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setStatusMessage({ text: "Please enter a valid email address.", type: "error" });
+      setStatusMessage({
+        text: "Please enter a valid email address.",
+        type: "error",
+      });
       return false;
     }
-    if (course.length > 100) { // Increased limit
+    if (course.length > 100) {
+      // Increased limit
       setStatusMessage({ text: "Course name seems too long.", type: "error" });
       return false;
     }
-     if (location.length > 100) { // Increased limit
+    if (location.length > 100) {
+      // Increased limit
       setStatusMessage({ text: "Location seems too long.", type: "error" });
       return false;
     }
     if (!isChecked) {
-      setStatusMessage({ text: "Please accept the terms and conditions.", type: "error" });
+      setStatusMessage({
+        text: "Please accept the terms and conditions.",
+        type: "error",
+      });
       return false;
     }
 
@@ -125,7 +142,6 @@ const PopupForm = ({ onSubmitData }) => {
     setStatusMessage({ text: "", type: "" });
     return true;
   };
-
 
   // --- Form Submission Handler (using alert for backend errors) ---
   const handleSubmit = async (e) => {
@@ -145,7 +161,7 @@ const PopupForm = ({ onSubmitData }) => {
     const formData = {
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      contact: mobile.replace(/\D/g, ''), // Ensure only digits
+      contact: mobile.replace(/\D/g, ""), // Ensure only digits
       countryCode: countryCode, // <<< Included default country code
       coursename: course.trim(),
       location: location.trim(),
@@ -170,7 +186,10 @@ const PopupForm = ({ onSubmitData }) => {
       // --- Handle Success (Backend responded with 2xx) ---
       console.log("PopupForm submitted successfully:", response.data);
       // Use status message for success
-      setStatusMessage({ text: response.data.message || "Registration complete!", type: "success" });
+      setStatusMessage({
+        text: response.data.message || "Registration complete!",
+        type: "success",
+      });
 
       if (typeof onSubmitData === "function") {
         onSubmitData(formData);
@@ -187,41 +206,43 @@ const PopupForm = ({ onSubmitData }) => {
         setIsVisible(false);
         document.body.classList.add(styles.popupClosedManually);
       }, 2500);
-
     } catch (error) {
-        // --- Handle Errors (Uses alert for feedback) ---
-        console.error("--- Error During PopupForm Submission ---");
-        console.error("Raw Error Object:", error);
+      // --- Handle Errors (Uses alert for feedback) ---
+      console.error("--- Error During PopupForm Submission ---");
+      console.error("Raw Error Object:", error);
 
-        let alertMessage = "An error occurred while submitting. Please try again."; // Default
+      let alertMessage =
+        "An error occurred while submitting. Please try again."; // Default
 
-        if (axios.isAxiosError(error)) {
-            if (error.response) {
-                const status = error.response.status;
-                const responseData = error.response.data;
-                console.error(`Response Status: ${status}`);
-                console.error("Raw Response Data:", responseData);
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          const status = error.response.status;
+          const responseData = error.response.data;
+          console.error(`Response Status: ${status}`);
+          console.error("Raw Response Data:", responseData);
 
-                if (status === 400) {
-                     // Use the specific backend message for 400 errors
-                    alertMessage = responseData?.message || "Submission failed. Please check your input.";
-                    console.log("Backend 400 message for alert:", alertMessage);
-                } else {
-                    alertMessage = `Submission failed due to a server issue (Status: ${status}). Please try again later.`;
-                }
-            } else if (error.request) {
-                alertMessage = "Cannot reach the server. Check connection or try again later.";
-            } else {
-                alertMessage = `Application error before sending: ${error.message}`;
-            }
+          if (status === 400) {
+            // Use the specific backend message for 400 errors
+            alertMessage =
+              responseData?.message ||
+              "Submission failed. Please check your input.";
+            console.log("Backend 400 message for alert:", alertMessage);
+          } else {
+            alertMessage = `Submission failed due to a server issue (Status: ${status}). Please try again later.`;
+          }
+        } else if (error.request) {
+          alertMessage =
+            "Cannot reach the server. Check connection or try again later.";
         } else {
-            alertMessage = `Unexpected application error: ${error.message || 'Unknown error'}`;
+          alertMessage = `Application error before sending: ${error.message}`;
         }
-        // Display the determined error message using alert()
-        alert(alertMessage);
-        // Optionally set status message as well if you want redundancy
-        // setStatusMessage({ text: alertMessage, type: "error" });
-
+      } else {
+        alertMessage = `Unexpected application error: ${error.message || "Unknown error"}`;
+      }
+      // Display the determined error message using alert()
+      alert(alertMessage);
+      // Optionally set status message as well if you want redundancy
+      // setStatusMessage({ text: alertMessage, type: "error" });
     } finally {
       // Ensure loading state is turned off regardless of success or failure
       setIsSubmitting(false);
@@ -230,9 +251,9 @@ const PopupForm = ({ onSubmitData }) => {
 
   // Handle manual close button click
   const handleClose = () => {
-      setIsVisible(false);
-      document.body.classList.add(styles.popupClosedManually);
-  }
+    setIsVisible(false);
+    document.body.classList.add(styles.popupClosedManually);
+  };
 
   // --- JSX Rendering (Original Structure) ---
   if (!isVisible) return null;
@@ -258,7 +279,7 @@ const PopupForm = ({ onSubmitData }) => {
         </button>
         <div className={styles.headerContainer}>
           <img
-            src="https://i.imgur.com/zQll9tI.png"
+            src="/Navbar/Connecting Logo.png"
             alt="Connecting Dots ERP Logo"
             className={styles.logo}
           />
@@ -270,9 +291,9 @@ const PopupForm = ({ onSubmitData }) => {
           <div
             id="popup-status"
             className={`${styles.statusMessage} ${styles[statusMessage.type]}`}
-            role={statusMessage.type === 'error' ? 'alert' : 'status'}
+            role={statusMessage.type === "error" ? "alert" : "status"}
             aria-live="polite"
-            >
+          >
             {statusMessage.text}
           </div>
         )}
@@ -304,8 +325,10 @@ const PopupForm = ({ onSubmitData }) => {
             placeholder="Mobile Number*"
             value={mobile}
             onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, '');
-              if (value.length <= 10) { setMobile(value); }
+              const value = e.target.value.replace(/\D/g, "");
+              if (value.length <= 10) {
+                setMobile(value);
+              }
             }}
             required
             pattern="\d{10}"
@@ -357,7 +380,7 @@ const PopupForm = ({ onSubmitData }) => {
               </a>{" "}
               of Connecting Dots ERP.
             </label>
-             {/* No inline error span for terms */}
+            {/* No inline error span for terms */}
           </div>
           {/* Submit Button */}
           <button

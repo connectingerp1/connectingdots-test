@@ -49,10 +49,6 @@ const Dashboard = () => {
 
   // Consume the activity logger from context
   const logActivityEvent = useActivityLogger();
-  console.log(
-    "Dashboard Page: logActivityEvent function obtained:",
-    typeof logActivityEvent
-  ); // Check if it's a function
 
   const leadsPerPage = 30;
 
@@ -201,13 +197,11 @@ const Dashboard = () => {
     setShowModal(true);
     setError(null);
 
-    console.log("Dashboard Page: Calling logActivityEvent for OPEN_EDIT_MODAL"); // Log BEFORE
     logActivityEvent(
       "OPEN_EDIT_MODAL",
       pathname,
       `Opened edit modal for Lead ID: ${lead._id}`
     );
-    console.log("Dashboard Page: Called logActivityEvent for OPEN_EDIT_MODAL"); // Log AFTER
   };
 
   const openViewModal = (lead) => {
@@ -215,17 +209,11 @@ const Dashboard = () => {
     setShowViewModal(true);
     setError(null);
 
-    console.log(
-      "Dashboard Page: Calling logActivityEvent for VIEW_LEAD_DETAILS"
-    ); // Log BEFORE
     logActivityEvent(
       "VIEW_LEAD_DETAILS",
       pathname,
       `Viewed details for Lead ID: ${lead._id}`
     );
-    console.log(
-      "Dashboard Page: Called logActivityEvent for VIEW_LEAD_DETAILS"
-    ); // Log AFTER
   };
 
   const closeModal = () => {
@@ -298,17 +286,11 @@ const Dashboard = () => {
 
       closeModal();
 
-      console.log(
-        "Dashboard Page: Calling logActivityEvent for UPDATE_LEAD_CONTACT_STATUS"
-      ); // Log BEFORE
       logActivityEvent(
         "UPDATE_LEAD_CONTACT_STATUS",
         pathname,
         `Updated status/contact info for Lead ID: ${selectedLeadForModal._id}`
       );
-      console.log(
-        "Dashboard Page: Called logActivityEvent for UPDATE_LEAD_CONTACT_STATUS"
-      ); // Log AFTER
     } catch (error) {
       console.error("Error updating lead:", error);
       alert(`Error updating lead: ${error.message || error}`);
@@ -351,9 +333,7 @@ const Dashboard = () => {
         setSelectedLeads((prev) => prev.filter((leadId) => leadId !== id));
       }
 
-      console.log("Dashboard Page: Calling logActivityEvent for DELETE_LEAD"); // Log BEFORE
       logActivityEvent("DELETE_LEAD", pathname, `Deleted Lead ID: ${id}`);
-      console.log("Dashboard Page: Called logActivityEvent for DELETE_LEAD"); // Log AFTER
     } catch (error) {
       console.error("Error deleting lead:", error.message);
       alert(`Error deleting lead: ${error.message}`);
@@ -407,17 +387,11 @@ const Dashboard = () => {
         );
         setSelectedLeads([]);
 
-        console.log(
-          "Dashboard Page: Calling logActivityEvent for BULK_DELETE_LEADS"
-        ); // Log BEFORE
         logActivityEvent(
           "BULK_DELETE_LEADS",
           pathname,
           `Deleted ${selectedLeads.length} selected leads`
         );
-        console.log(
-          "Dashboard Page: Called logActivityEvent for BULK_DELETE_LEADS"
-        ); // Log AFTER
       } else {
         const errorText = await response.text();
         throw new Error(
@@ -438,17 +412,12 @@ const Dashboard = () => {
       alert("No data to download");
       return;
     }
-    console.log(
-      "Dashboard Page: Calling logActivityEvent for EXPORT_LEADS_EXCEL"
-    ); // Log BEFORE
+
     logActivityEvent(
       "EXPORT_LEADS_EXCEL",
       pathname,
       `Exported ${leads.length} leads to Excel`
     );
-    console.log(
-      "Dashboard Page: Called logActivityEvent for EXPORT_LEADS_EXCEL"
-    ); // Log AFTER
 
     try {
       const headers = [
@@ -576,8 +545,6 @@ const Dashboard = () => {
         blob,
         `leads_export_${new Date().toISOString().slice(0, 10)}.xlsx`
       );
-
-      console.log("Excel file exported with row colors based on status");
     } catch (error) {
       console.error("Error exporting Excel file:", error);
       alert(
@@ -593,17 +560,11 @@ const Dashboard = () => {
       return;
     }
 
-    console.log(
-      "Dashboard Page: Calling logActivityEvent for EXPORT_LEADS_CSV_FALLBACK"
-    ); // Log BEFORE
     logActivityEvent(
       "EXPORT_LEADS_CSV_FALLBACK",
       pathname,
       `Exported ${leads.length} leads to CSV (fallback)`
     );
-    console.log(
-      "Dashboard Page: Called logActivityEvent for EXPORT_LEADS_CSV_FALLBACK"
-    ); // Log AFTER
 
     const headers = [
       "Sr. No.",
@@ -686,17 +647,11 @@ const Dashboard = () => {
         ? prev.filter((leadId) => leadId !== id)
         : [...prev, id];
 
-      console.log(
-        "Dashboard Page: Calling logActivityEvent for TOGGLE_LEAD_SELECTION"
-      ); // Log BEFORE
       logActivityEvent(
         "TOGGLE_LEAD_SELECTION",
         pathname,
         `Lead ID: ${id}, Selected: ${!isSelected ? "true" : "false"}`
       );
-      console.log(
-        "Dashboard Page: Called logActivityEvent for TOGGLE_LEAD_SELECTION"
-      ); // Log AFTER
 
       return newState;
     });
@@ -714,17 +669,11 @@ const Dashboard = () => {
       setSelectedLeads([]);
     }
 
-    console.log(
-      "Dashboard Page: Calling logActivityEvent for TOGGLE_SELECT_ALL_LEADS"
-    ); // Log BEFORE
     logActivityEvent(
       "TOGGLE_SELECT_ALL_LEADS",
       pathname,
       `Selected All: ${isSelectingAll ? "true" : "false"} on Page ${currentPage}`
     );
-    console.log(
-      "Dashboard Page: Called logActivityEvent for TOGGLE_SELECT_ALL_LEADS"
-    ); // Log AFTER
 
     setSelectAll(isSelectingAll);
   };
@@ -736,9 +685,7 @@ const Dashboard = () => {
       setSelectedLeads([]);
       setSelectAll(false);
 
-      console.log("Dashboard Page: Calling logActivityEvent for CHANGE_PAGE"); // Log BEFORE
       logActivityEvent("CHANGE_PAGE", pathname, `Navigated to Page ${newPage}`);
-      console.log("Dashboard Page: Called logActivityEvent for CHANGE_PAGE"); // Log AFTER
     }
   };
 
@@ -749,25 +696,17 @@ const Dashboard = () => {
       setSelectedLeads([]);
       setSelectAll(false);
 
-      console.log("Dashboard Page: Calling logActivityEvent for CHANGE_PAGE"); // Log BEFORE
       logActivityEvent("CHANGE_PAGE", pathname, `Navigated to Page ${newPage}`);
-      console.log("Dashboard Page: Called logActivityEvent for CHANGE_PAGE"); // Log AFTER
     }
   };
 
   const goToSuperAdmin = () => {
     if (userRole === "SuperAdmin" || userRole === "Admin") {
-      console.log(
-        "Dashboard Page: Calling logActivityEvent for GO_TO_ADMIN_PANEL"
-      ); // Log BEFORE
       logActivityEvent(
         "GO_TO_ADMIN_PANEL",
         pathname,
         "Navigated from Dashboard to SuperAdmin Dashboard"
       );
-      console.log(
-        "Dashboard Page: Called logActivityEvent for GO_TO_ADMIN_PANEL"
-      ); // Log AFTER
 
       router.push("/superadmin/dashboard");
     } else {
@@ -787,13 +726,11 @@ const Dashboard = () => {
   };
 
   const handleRefresh = () => {
-    console.log("Dashboard Page: Calling logActivityEvent for REFRESH_LEADS"); // Log BEFORE
     logActivityEvent(
       "REFRESH_LEADS",
       pathname,
       "Manually refreshed leads data"
     );
-    console.log("Dashboard Page: Called logActivityEvent for REFRESH_LEADS"); // Log AFTER
 
     fetchLeads();
   };

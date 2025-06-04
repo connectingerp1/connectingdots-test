@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from "react"; // ✅ added Suspense
+import { useEffect, Suspense } from "react";
 import "./globals.css";
 import { CityProvider } from "@/context/CityContext";
 import Navbar from "@/components/Common/Navbar";
@@ -15,13 +15,30 @@ import Whatsapp from "@/components/Whatsapp";
 import Floatingcontact from "@/components/Floatingcontact";
 import BottomMenu from "@/components/BottomMenu";
 import ScrollToTop from "@/components/ScrollToTop";
-import CourseLoader from "@/components/CourseLoader"; // ✅ contains useSearchParams
+import CourseLoader from "@/components/CourseLoader";
 import Script from "next/script";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { usePathname } from "next/navigation";
 
 const GTM_ID = "GTM-MB68QM2V";
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const hiddenRoutes = [
+    "/dashboard",
+    "/AdminLogin",
+    "/superadmin",
+    "/superadmin/dashboard",
+    "/superadmin/users",
+    "/superadmin/leads",
+    "/superadmin/analytics",
+    "/superadmin/activity",
+    "/superadmin/audit-logs",
+    "/superadmin/roles",
+    "/superadmin/settings",
+  ];
+  const shouldHideComponent = hiddenRoutes.includes(pathname);
+
   useEffect(() => {
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
     fetch(`${apiBaseUrl}/api/ping`).catch(() => {});
@@ -120,9 +137,9 @@ export default function RootLayout({ children }) {
           <div className="starfifth"></div>
         </div>
 
-        <CallAdvisorsStrip />
-        <Marquee />
-        <Navbar />
+        {!shouldHideComponent && <CallAdvisorsStrip />}
+        {!shouldHideComponent && <Marquee />}
+        {!shouldHideComponent && <Navbar />}
 
         {/* ✅ Wrap CourseLoader inside Suspense */}
         <Suspense fallback={null}>
@@ -136,8 +153,8 @@ export default function RootLayout({ children }) {
         <Chatbot />
         <Stickyform />
         <PopupForm />
-        <WaveComponent />
-        <Footer />
+        {!shouldHideComponent && <WaveComponent />}
+        {!shouldHideComponent && <Footer />}
         <BottomMenu />
       </body>
     </html>

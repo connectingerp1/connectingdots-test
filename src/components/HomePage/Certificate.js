@@ -87,8 +87,7 @@ const Certificate = ({ pageId }) => {
           <p>{certificateInfo.completionText}</p>
           <p>{certificateInfo.description}</p>
           <div
-            className="mb-3"
-            style={{ display: "flex", justifyContent: "left" }}
+            className="mb-3 btnContainer"
           >
             <Button className={styles.outlineBtn} onClick={handleButtonClick}>
               Get your Certificate

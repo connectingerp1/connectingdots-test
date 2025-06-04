@@ -15,6 +15,7 @@ import Link from "next/link";
 import Sidebar from "@/components/superadmin/Sidebar";
 import AccessControl from "@/components/superadmin/AccessControl";
 import { fetchWithAuth } from "@/utils/auth";
+import FixedLogo from "@/components/superadmin/FixedLogo";
 
 const SuperAdminDashboard = () => {
   const router = useRouter();
@@ -153,6 +154,7 @@ const SuperAdminDashboard = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar activePage="dashboard" />
+      <FixedLogo />
       {/* Add padding-top for mobile menu button */}
       <main className="flex-1 lg:ml-0 pt-16 lg:pt-0 overflow-auto">
         <AccessControl section="dashboard">

@@ -7,7 +7,6 @@ import styles from "@/styles/HomePage/HeaderCarousel.module.css";
 import Btnform from "./Btnform";
 import Image from "next/image";
 import Link from "next/link";
-import AnimatedLogo2 from "@/components/AnimatedLogo2";
 
 // Constants moved outside component to avoid re-creation on render
 const TEXTS = [
@@ -84,7 +83,11 @@ const CareerSlide = ({ onButtonClick }) => (
       <CompanyLogos />
     </div>
     <div className={styles.carouselImage}>
-      <AnimatedLogo2 />
+      <img
+            src="/Navbar/Connecting Logo New.png"
+            alt="Connecting Dots ERP Logo"
+            className={styles.logo}
+          />
     </div>
   </div>
 );
