@@ -4,7 +4,7 @@ import styles from '@/styles/CoursesComponents/Learningpath.module.css';
 const LearningPath = () => {
   return (
     <div className={styles.container}>
-      <h2>LEARNING PATH</h2>
+      <h2>Learning Path</h2>
       <ul className={styles.infoWrapper}>
         {[
           { id: 1, text: 'Get Trained' },

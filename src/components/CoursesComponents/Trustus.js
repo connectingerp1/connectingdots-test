@@ -89,11 +89,11 @@ const TrustUs = () => {
       {/* Information Section */}
       <div className={styles.infoItDs}>
         <div className={styles.containerItDsTitle}>
-          <h2>ORGANISATIONS TRUST US</h2>
+          <h2>Organisations Trust Us</h2>
         </div>
         <h2 className={styles.titleItDs}>
           <span className={styles.highlightSpan}>1000+</span> Organizations
-          <br /> TRUST US WITH THEIR <br /> Openings
+          <br /> Trust Us With Their <br /> Openings
         </h2>
         <p className={styles.descriptionItDs}>
           <span className={styles.highlightSpan}>Organizations</span>, across

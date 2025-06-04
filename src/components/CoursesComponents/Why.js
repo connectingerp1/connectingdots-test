@@ -103,9 +103,9 @@ const SectionComponent = ({ section }) => {
 
   return (
     <>
-      <h1 ref={titleRef} className={styles.title}>
+      <h2 ref={titleRef} className={styles.title}>
         <span className={styles.accent}>{section.title}</span>
-      </h1>
+      </h2>
       <div className={styles.cardsContainerYds}>
         {section.cards && section.cards.length > 0 ? (
           section.cards.map((card, index) => (

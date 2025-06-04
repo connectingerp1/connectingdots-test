@@ -22,7 +22,6 @@
   justify-content: center;
   align-items: center;
   border-right: 1px solid #e6eef7;
-
   position: sticky;
   top: 60px;
   align-self: flex-start;
@@ -52,17 +51,22 @@
 
 /* Modern title */
 .descriptionTitle {
-  font-size: 2.2rem;
-  font-family: "Montserrat", "Lato", sans-serif;
-  margin: 0 0 22px 0;
-  line-height: 1.2;
-  letter-spacing: -1px;
-  text-align: center;
-  background: linear-gradient(96deg, #082d68 30%, #2189ed 55%, #07409b 96%);
-  background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: rgb(1, 1, 98);
+  background: linear-gradient(
+    90deg,
+    rgba(1, 1, 98, 1) 35%,
+    rgb(3, 111, 133) 49%,
+    rgba(2, 2, 85, 1) 62%
+  );
   -webkit-background-clip: text;
   color: transparent;
-  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 /* Paragraphs */

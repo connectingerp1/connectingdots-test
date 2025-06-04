@@ -158,7 +158,7 @@ const CoursesRelated = ({ pageId }) => {
   return (
     <div className={styles.relatedCoursesContainer}>
       <div className={styles.relatedCoursesTitle}>
-        <h2 className={styles.relatedCoursesTitleh2}>RELATED COURSES</h2>
+        <h2 className={styles.relatedCoursesTitleh2}>Relates Courses</h2>
       </div>
       <Carousel
         activeIndex={activeIndex}

@@ -180,7 +180,7 @@ const DSHeader = ({ pageId, pageType }) => {
       return false;
     }
 
-    // Validate email format
+    // Validate email format 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setStatusMessage({

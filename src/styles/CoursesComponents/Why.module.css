@@ -1,6 +1,6 @@
 /* Main Container */
 .containerYds {
-  width: 97.50%;
+  width: 97.5%;
   max-width: 1800px;
   margin: 20px auto;
   background-color: #ffffff;
@@ -24,32 +24,27 @@
 
 /* Title */
 .title {
-  text-align: center;
-  margin-bottom: 3rem;
   font-size: 2.5rem;
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  position: relative;
-  padding-bottom: 1rem;
-}
-
-.title:after {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: rgb(1, 1, 98);
   background: linear-gradient(
     90deg,
-    rgba(1, 1, 98, 1) 0%,
-    rgba(3, 163, 196, 1) 50%,
-    rgba(2, 2, 85, 1) 100%
+    rgba(1, 1, 98, 1) 35%,
+    rgb(3, 111, 133) 49%,
+    rgba(2, 2, 85, 1) 62%
   );
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 40px;
+  text-align: center;
+  line-height: 1.2; 
+  overflow: visible;
 }
+
 
 .titleAnimation {
   animation: slideInFromTop 1s forwards;

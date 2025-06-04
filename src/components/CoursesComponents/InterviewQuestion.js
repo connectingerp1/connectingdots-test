@@ -12,7 +12,7 @@ const InterviewQuestion = () => {
   return (
     <div className={styles.container}>
       <div className={styles.accordionOption}>
-        <h3 className={styles.title}>Interview Questions</h3>
+        <h2 className={styles.title}>Interview Questions</h2>
       </div>
       <div className={styles.clearfix}></div>
       <div className={styles.panelGroup} role="tablist" aria-multiselectable="true">

@@ -45,7 +45,7 @@ const Prgrm = () => {
 
   return (
     <div className={styles.containerItDsPrgrm}>
-      <h2>PROGRAM HIGHLIGHTS</h2>
+      <h2>Program Highlights</h2>
       <div className={styles.progressBarItDs}>
         <div
           className={styles.progressItDs}

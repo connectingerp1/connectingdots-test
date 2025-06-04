@@ -22,17 +22,18 @@
     rgba(2, 2, 85, 1) 62%
   );
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
   position: relative;
   z-index: 1;
-  margin-bottom: 0;
+  text-align: center;
 }
 
 .titleUnderline {
   width: 80px;
   height: 4px;
   background: linear-gradient(90deg, #182848, #4776E6);
-  margin: 15px auto 25px;
+  margin: 0px auto 25px;
   border-radius: 2px;
 }
 

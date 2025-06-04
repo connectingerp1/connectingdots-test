@@ -12,19 +12,24 @@
 .containerCH h2 {
   font-size: 2.5rem;
   font-weight: 700;
-/* font-family: "Lato", sans-serif; */
-letter-spacing: 4px;
-text-shadow: 0 0 0px #fff, 0 0 10px #fff, 0 0 10px #0073e6, 0 0 20px #182e4a,
-  0 0 20px #182e4a, 0 0 30px #182e4a, 0 0 30px #182e4a;
-background: linear-gradient(
-  90deg,
-  #fff 35%,
-  rgba(3, 163, 196, 1) 49%,
-  #fff 62%
-);
--webkit-background-clip: text;
-color: transparent;
-text-align: center;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 0px #fff,
+    0 0 10px #fff,
+    0 0 10px #0073e6,
+    0 0 20px #182e4a,
+    0 0 20px #182e4a,
+    0 0 30px #182e4a,
+    0 0 30px #182e4a;
+  background: linear-gradient(
+    90deg,
+    #fff 35%,
+    rgba(3, 163, 196, 1) 49%,
+    #fff 62%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
 }
 
 .titleUnderline {
@@ -151,7 +156,6 @@ text-align: center;
   .phases ul li a {
     width: 190px;
   }
-  
 }
 
 /* Responsive styles for mobile screens */
@@ -222,7 +226,7 @@ text-align: center;
     border-left: 40px solid #5aadd3; /* Keep chevron direction consistent */
     position: absolute;
     right: 45px;
-    transform:rotate(90deg); /* Rotated 90 degrees */
+    transform: rotate(90deg); /* Rotated 90 degrees */
     top: 108px;
     z-index: 1;
   }
@@ -233,12 +237,11 @@ text-align: center;
     border-bottom: 65px solid transparent;
     border-left: 40px solid white; /* White separator */
     position: absolute;
-    transform:rotate(90deg); /* Rotated 90 degrees */
+    transform: rotate(90deg); /* Rotated 90 degrees */
     left: 45px;
     top: -46px;
   }
 }
-
 
 @media (max-width: 576px) {
   .containerCH h2 {
@@ -251,7 +254,7 @@ text-align: center;
     padding: 8px 10px;
   }
 }
-@media (max-width: 480px){
+@media (max-width: 480px) {
   .containerCH h2 {
     font-size: 1.8rem;
     margin-top: 0;
