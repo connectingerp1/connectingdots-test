@@ -1,55 +1,47 @@
+"use client";
+
 import Image from "next/image";
 import { useMemo } from "react";
-import styles from "@/styles/HomePage/OurClients.module.css";
 
-const clientLogos = [
-  "airmeet.avif",
-  "aruba.avif",
-  "ask.avif",
-  "bharatgri.avif",
-  "bharatpe.avif",
-  "capita.avif",
-  "crisi.avif",
-  "cummins.avif",
-  "dream11.avif",
-  "eatfit.avif",
-  "exl.avif",
-  "genius.avif",
-  "godrej.avif",
-  "hdfc.avif",
-  "homelane.avif",
+// Organized clients by tier for better visual hierarchy
+const premiumClients = [
   "ibm.avif",
-  "iss.avif",
-  "jindal.avif",
-  "john-deere.avif",
-  "kelly.avif",
-  "leapfinance.avif",
-  "moneytap.avif",
-  "monginis.avif",
   "paytm.avif",
-  "pizza-hut.avif",
-  "sharechat.avif",
   "swiggy.avif",
-  "syntel.avif",
-  "volkswagon.avif",
-  "vyapar.avif",
-  "weber.avif",
-  "whitehat.avif",
-  "zenser.avif",  
+  "dream11.avif",
+  "hdfc.avif",
+  "godrej.avif",
+  "bharatpe.avif",
+  "pizza-hut.avif",
+  "cummins.avif",
   "BAJAJ.avif",
-  "BIG.avif",
-  "BOSTON.avif",
-  "CAP.avif",
-  "FIRST.avif",
-  "GNS.avif",
-  "INTE.avif",
-  "ZELI.avif",
-  "DCT.avif",
-  "NA.avif",
-  "KOHLER.avif",
 ];
 
-// Fisher-Yates shuffle algorithm
+const enterpriseClients = [
+  "exl.avif",
+  "volkswagon.avif",
+  "jindal.avif",
+  "john-deere.avif",
+  "BOSTON.avif",
+  "sharechat.avif",
+  "leapfinance.avif",
+  "moneytap.avif",
+  "whitehat.avif",
+];
+
+const growingClients = [
+  "airmeet.avif",
+  "ask.avif",
+  "bharatgri.avif",
+  "capita.avif",
+  "crisi.avif",
+  "eatfit.avif",
+  "genius.avif",
+  "homelane.avif",
+  "iss.avif",
+  "kelly.avif",
+];
+
 const shuffleArray = (array) => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -59,39 +51,78 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-const Marquee = ({ reverse = false, shuffle = false }) => {
-  // Memoize the shuffled array to prevent re-shuffling on each render
+const MarqueeRow = ({
+  logos,
+  direction = "left",
+  speed = "normal",
+  shuffle = false,
+  size = "normal",
+}) => {
   const logosToUse = useMemo(() => {
-    return shuffle ? shuffleArray(clientLogos) : clientLogos;
-  }, [shuffle]);
+    return shuffle ? shuffleArray(logos) : logos;
+  }, [logos, shuffle]);
+
+  // Define animation classes
+  const getAnimationClass = () => {
+    const baseAnimation =
+      direction === "right" ? "animate-marquee-reverse" : "animate-marquee";
+    const speedMultiplier = {
+      slow: "40s",
+      normal: "30s",
+      fast: "20s",
+    }[speed];
+
+    return `${baseAnimation} [animation-duration:${speedMultiplier}]`;
+  };
+
+  // Define size dimensions for width and height
+  const getSizeDimensions = () => {
+    switch (size) {
+      case "small":
+        return { width: 80, height: 20 };
+      case "normal":
+        return { width: 90, height: 40 };
+      case "large":
+        return { width: 100, height: 60 };
+      default:
+        return { width: 120, height: 60 };
+    }
+  };
+
+  const dimensions = getSizeDimensions();
 
   return (
-    <div
-      className={`${styles.marquee} ${reverse ? styles.marqueeReverse : ""}`}
-    >
-      <div className={styles.marqueeContent}>
-        {/* First set of logos */}
+    <div className="relative overflow-hidden">
+      <div
+        className={`flex gap-4 sm:gap-6 md:gap-8 ${getAnimationClass()}`}
+        style={{ width: "max-content" }}
+      >
+        {/* First set */}
         {logosToUse.map((logo, index) => (
-          <div key={`first-${index}`} className={styles.clientLogoContainer}>
+          <div key={`first-${index}`} className="flex-shrink-0 group">
             <Image
               src={`/Ourclients/${logo}`}
-              alt={`Client ${index + 1}`}
-              width={180}
-              height={90}
-              className={styles.clientLogo}
+              alt={`Client logo`}
+              width={dimensions.width}
+              height={dimensions.height}
+              className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300 rounded-xl"
+              loading="lazy"
+              quality={75}
             />
           </div>
         ))}
 
-        {/* Second set of logos for seamless looping */}
+        {/* Second set for seamless loop */}
         {logosToUse.map((logo, index) => (
-          <div key={`second-${index}`} className={styles.clientLogoContainer}>
+          <div key={`second-${index}`} className="flex-shrink-0 group">
             <Image
               src={`/Ourclients/${logo}`}
-              alt={`Client ${index + 1}`}
-              width={180}
-              height={90}
-              className={styles.clientLogo}
+              alt={`Client logo`}
+              width={dimensions.width}
+              height={dimensions.height}
+              className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300 rounded-xl"
+              loading="lazy"
+              quality={75}
             />
           </div>
         ))}
@@ -100,16 +131,98 @@ const Marquee = ({ reverse = false, shuffle = false }) => {
   );
 };
 
-const OurClients = () => (
-  <section className={styles.ourClientsSection}>
-    <h2 className={styles.sectionTitle}>Our Clients</h2>
-    <div className={styles.titleUnderline}></div>
-    <div className={styles.marqueeContainer}>
-      <Marquee shuffle={true} /> {/* Shuffled, normal direction */}
-      <Marquee reverse /> {/* Original order, reversed direction */}
-      <Marquee shuffle={true} /> {/* Shuffled, normal direction */}
-    </div>
-  </section>
-);
+const OurClients = () => {
+  return (
+    <section className="py-6 sm:py-8 md:py-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Custom Header */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
+            style={{
+              fontSize: '2.5rem',
+              fontWeight: 700,
+              letterSpacing: '4px',
+              textShadow: `
+                0 0 0px #fff,
+                0 0 10px #fff,
+                0 0 10px #0073e6,
+                0 0 20px #182e4a,
+                0 0 20px #182e4a,
+                0 0 30px #182e4a,
+                0 0 30px #182e4a
+              `,
+              background: 'linear-gradient(90deg, #fff 35%, rgba(3, 163, 196, 1) 49%, #fff 62%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent',
+              textAlign: 'center'
+            }}
+          >
+            Our Clients
+          </h2>
+          
+          {/* Custom Underline */}
+          <div 
+            style={{
+              width: '80px',
+              height: '4px',
+              background: 'linear-gradient(90deg, #a76b2e, #f18436)',
+              margin: '5px auto 10px',
+              borderRadius: '2px',
+              marginBottom: '1rem'
+            }}
+          />
+          
+          <p className="text-gray-400 text-sm sm:text-base">
+            Trusted by industry leaders worldwide
+          </p>
+        </div>
+
+        {/* Client Marquees */}
+        <div className="space-y-6 sm:space-y-8">
+          {/* First Row - Premium Clients */}
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+            <MarqueeRow
+              logos={premiumClients}
+              direction="left"
+              speed="slow"
+              size="large"
+              shuffle={true}
+            />
+          </div>
+
+          {/* Second Row - Enterprise Clients */}
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+            <MarqueeRow
+              logos={enterpriseClients}
+              direction="right"
+              speed="normal"
+              size="normal"
+              shuffle={false}
+            />
+          </div>
+
+          {/* Third Row - Growing Clients */}
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+            <MarqueeRow
+              logos={growingClients}
+              direction="left"
+              speed="fast"
+              size="small"
+              shuffle={true}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default OurClients;

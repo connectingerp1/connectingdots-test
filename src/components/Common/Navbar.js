@@ -789,8 +789,8 @@ const Header = () => {
               <AnimatedLogo className={styles.animatedLogo} />
               <div className={styles.logoWrapper}>
                 <Image
-                  src="/Navbar/logo.png"
-                  alt="Logo of Connecting Dots ERP, featuring interconnected dots symbolizing integration and collaboration in enterprise resource planning."
+                  src="/Navbar/logo.webp"
+                  alt="Logo of Connecting Dots ERP"
                   fill
                   priority
                   className={styles.logoImage}

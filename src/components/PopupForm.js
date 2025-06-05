@@ -279,7 +279,7 @@ const PopupForm = ({ onSubmitData }) => {
         </button>
         <div className={styles.headerContainer}>
           <img
-            src="/Navbar/Connecting Logo.png"
+            src="/Navbar/Connecting Logo.webp"
             alt="Connecting Dots ERP Logo"
             className={styles.logo}
           />
