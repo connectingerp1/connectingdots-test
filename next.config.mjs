@@ -64,6 +64,116 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/sap-functional-courses",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/hr-courses-training-institute-in-pune",
+        destination: "/hr-training-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-courses-training-institute-in-mumbai",
+        destination: "/sap-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/software-courses-training-institute-in-mumbai",
+        destination: "/it-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/software-courses-training-institute-in-pune",
+        destination: "/it-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap/page-6880537",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/hr-courses",
+        destination: "/hr-training-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/powerbi-course-in-mumbai",
+        destination: "/power-bi-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/best-data-science-course-in-mumbai",
+        destination: "/data-science-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/best-sap-course-in-Mumbai",
+        destination: "/sap-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-courses-training-institute-in-Mumbai",
+        destination: "/sap-successfactors-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-successfactor-course-in-mumbai",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-technical-courses",
+        destination: "/sap-hr-hcm-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-mumbai",
+        destination: "/sap-hr-hcm-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-pune",
+        destination: "/sap-ewm-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-ewm-course-in-Mumbai",
+        destination: "/hr-analytics-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/advance-hr-analytics-course-in-pune",
+        destination: "/data-science-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/data-science-course-in-Mumbai",
+        destination: "/hr-training-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/hr-training-course-in-Mumbai",
+        destination: "/hr-training-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/hr-training-course-in-Pune",
+        destination: "/power-bi-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/powerbi-course-in-pune",
+        destination: "/hr-training-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/hr-courses-training-institute-in-mumbai",
+        destination: "/hr-training-course-in-mumbai",
+        permanent: true,
+      },
+      {
         source: "/sap-fico-course-in-Pune",
         destination: "/sap-fico-course-in-pune",
         permanent: true,
