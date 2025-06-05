@@ -84,7 +84,7 @@ export default function LogoSphere() {
 
     // Load Atorix logo texture
     const textureLoader = new THREE.TextureLoader();
-    const logoTexture = textureLoader.load("/Navbar/arrow.png");
+    const logoTexture = textureLoader.load("/Navbar/arrow.avif");
     logoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Create a canvas to modify the texture

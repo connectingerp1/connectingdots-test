@@ -63,6 +63,77 @@ const nextConfig = {
   },
   async redirects() {
     return [
+
+      {
+    source: "/sap-training-in-pune",
+    destination: "/sap-course-in-pune",
+    permanent: true,
+  },
+  {
+    source: "/sap-sd-course-in-Mumbai",
+    destination: "/sap-sd-course-in-mumbai",
+    permanent: true,
+  },
+  {
+    source: "/sap-sd-course-in-Pune",
+    destination: "/sap-sd-course-in-pune",
+    permanent: true,
+  },
+  {
+    source: "/hr-analytics-course-in-mumbai",
+    destination: "/hr-analytics-course-in-mumbai",
+    permanent: true,
+  },
+  {
+    source: "/sap-course-in-Mumbai",
+    destination: "/sap-course-in-mumbai",
+    permanent: true,
+  },
+  {
+    source: "/sap-course-in-Pune",
+    destination: "/sap-course-in-pune",
+    permanent: true,
+  },
+  {
+    source: "/sap-sd-course-in-Mumbai",
+    destination: "/sap-sd-course-in-mumbai",
+    permanent: true,
+  },
+  {
+    source: "/sap-courses-training-institute-in-Pune",
+    destination: "/sap-course-in-pune",
+    permanent: true,
+  },
+  {
+    source: "/sap-mm-course-in-Pune",
+    destination: "/sap-mm-course-in-pune",
+    permanent: true,
+  },
+  {
+    source: "/sap-courses",
+    destination: "/sap-course-in-pune",
+    permanent: true,
+  },
+  {
+    source: "/sap-course-in-Raipur",
+    destination: "/sap-course-in-raipur",
+    permanent: true,
+  },
+    {
+    source: "/blog.html",
+    destination: "/blog",
+    permanent: true,
+  },
+  {
+    source: "/best-data-science-course-in-mumbai",
+    destination: "/data-science-course-in-mumbai",
+    permanent: true,
+  },
+  {
+    source: "/sap-ewm-course-in-Mumbai",
+    destination: "/sap-ewm-course-in-mumbai",
+    permanent: true,
+  },
       {
         source: "/sap-functional-courses",
         destination: "/sap-course-in-pune",
