@@ -180,7 +180,7 @@ const OurClients = () => {
         </div>
 
         {/* Client Marquees */}
-        <div className="space-y-6 sm:space-y-8">
+        <div className="space-y-2 sm:space-y-8">
           {/* First Row - Premium Clients */}
           <div className="relative">
             <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-gray-900 to-transparent z-10"></div>

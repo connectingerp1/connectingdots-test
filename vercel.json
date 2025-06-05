@@ -6,6 +6,11 @@
       "permanent": true
     },
     {
+      "source": "/hr-courses-training-institute-in-pune",
+      "destination": "/hr-training-course-in-pune",
+      "permanent": true
+    },
+    {
       "source": "/(:path<.*>[A-Z].*)",
       "destination": "/$path",
       "permanent": true
