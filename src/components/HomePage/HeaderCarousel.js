@@ -147,7 +147,7 @@ const CareerSlide = ({ onButtonClick }) => (
           src="/Navbar/3d-logo.webp"
           alt="Hero Section Image"
           fill
-          className="object-contain relative scale-150"
+          className="object-contain relative"
           style={{
             filter:
               "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.2))",
