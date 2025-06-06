@@ -574,3 +574,12 @@ input:-webkit-autofill:active {
   caret-color: #facc15 !important; /* optional: match caret */
   transition: background-color 5000s ease-in-out 0s;
 }
+
+@keyframes pulse-bg {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 130, 204, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(102, 130, 204, 0);
+  }
+}

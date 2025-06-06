@@ -1,49 +1,63 @@
-// home/page.js
 import "@/app/globals.css";
 import { getStaticHtml } from "@/lib/staticHtml";
+import dynamic from "next/dynamic";
+
+// Critical above-the-fold component - load immediately
 import HeaderCarousel from "@/components/HomePage/HeaderCarousel";
-import Marquee from "@/components/HomePage/Marquee2";
-import Chevron from "@/components/HomePage/Chevron";
-import Keypoints from "@/components/HomePage/Keypoints";
-import OurClients from "@/components/HomePage/OurClients";
-import PlacementSection from "@/components/HomePage/PlacementSection";
-import OurStats from "@/components/HomePage/OurStats";
-import Achievements from "@/components/HomePage/Achievements";
-import FeedbackAndReviews from "@/components/HomePage/FeedbackandReviews";
-import Certificate from "@/components/HomePage/Certificate";
-import Branches from "@/components/HomePage/Branches";
-import Courses from "@/components/HomePage/PopCourses";
-import Script from "next/script";
+
+// Lazy load below-the-fold components
+const Marquee = dynamic(() => import("@/components/HomePage/Marquee2"), {
+  loading: () => <div style={{ height: '60px' }} />,
+});
+
+const Chevron = dynamic(() => import("@/components/HomePage/Chevron"));
+const Keypoints = dynamic(() => import("@/components/HomePage/Keypoints"));
+const OurClients = dynamic(() => import("@/components/HomePage/OurClients"));
+const PlacementSection = dynamic(() => import("@/components/HomePage/PlacementSection"));
+const OurStats = dynamic(() => import("@/components/HomePage/OurStats"));
+const Achievements = dynamic(() => import("@/components/HomePage/Achievements"));
+const FeedbackAndReviews = dynamic(() => import("@/components/HomePage/FeedbackandReviews"));
+const Certificate = dynamic(() => import("@/components/HomePage/Certificate"));
+const Branches = dynamic(() => import("@/components/HomePage/Branches"));
+const Courses = dynamic(() => import("@/components/HomePage/PopCourses"));
 
 // Get static HTML content
 const staticHtml = getStaticHtml('home-page');
 
-// Home page specific metadata (overrides the default from layout.js)
+// Optimized metadata
 export const metadata = {
   title: 'Connecting Dots ERP | SAP Training Institute In Pune',
-  description: 'We offer Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.',
-  keywords: 'SAP Certification Courses, SAP Course, Data Science Course, Power Bi Course, Digital Marketing Course, HR Training Institute, SAP Training Institute, Python Course, Software Course, Training, Education',
-  author: 'Connecting Dots ERP | Software and SAP Training Institute'
-}
+  description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.',
+  keywords: 'SAP Certification Courses, SAP Course, Data Science Course, Power BI Course, Digital Marketing Course, HR Training Institute, SAP Training Institute, Python Course, Software Course, Training, Education',
+  author: 'Connecting Dots ERP | Software and SAP Training Institute',
+  openGraph: {
+    title: 'Connecting Dots ERP | SAP Training Institute In Pune',
+    description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Connecting Dots ERP | SAP Training Institute In Pune',
+    description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses.',
+  },
+};
 
 export default function HomePage() {
   return (
     <>
-      {/* Static HTML content for SEO (will be visible in page source) */}
-      <div id="seo-content" dangerouslySetInnerHTML={{ __html: staticHtml }} />
+      {/* SEO content - hidden when JS loads */}
+      <div 
+        id="seo-content" 
+        dangerouslySetInnerHTML={{ __html: staticHtml }}
+        style={{ display: 'none' }} // Hide by default, show only for crawlers
+      />
       
-      {/* Script to hide the static content when JavaScript is enabled */}
-      <Script id="hide-seo-content" strategy="beforeInteractive">
-        {`
-          document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('seo-content').style.display = 'none';
-          });
-        `}
-      </Script>
-      
-      {/* Regular dynamic content */}
+      {/* Main content */}
       <main className="flex-col justify-center">
+        {/* Critical - loads immediately */}
         <HeaderCarousel />
+        
+        {/* Below-the-fold - lazy loaded */}
         <Marquee />
         <Chevron />
         <Keypoints />
