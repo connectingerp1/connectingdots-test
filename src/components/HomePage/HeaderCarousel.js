@@ -151,7 +151,7 @@ const CareerSlide = ({ onButtonClick }) => (
           className="object-contain relative"
           style={{
             filter:
-              "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.2))",
+              "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.1))",
             zIndex: 1,
           }}
           priority={true}
