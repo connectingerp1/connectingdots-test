@@ -112,7 +112,7 @@ const CareerSlide = ({ onButtonClick }) => (
     <div className={styles.carouselImage}>
       {/* Updated container with intensified shadow */}
       <div className="relative w-42 sm:w-60 md:w-80 lg:w-96 aspect-square">
-        {/* Primary less intense shadow */}
+        {/* Primary 50% less intense shadow */}
         <div
           className="absolute"
           style={{
@@ -122,13 +122,13 @@ const CareerSlide = ({ onButtonClick }) => (
             width: "90%",
             height: "50px",
             background:
-              "radial-gradient(ellipse, rgba(0, 0, 0, 0.343) 0%, rgba(0, 0, 0, 0.196) 30%, rgba(0, 0, 0, 0.098) 60%, transparent 80%)",
+              "radial-gradient(ellipse, rgba(0, 0, 0, 0.245) 0%, rgba(0, 0, 0, 0.14) 30%, rgba(0, 0, 0, 0.07) 60%, transparent 80%)",
             filter: "blur(25px)",
             zIndex: 0,
           }}
         />
 
-        {/* Secondary less intense shadow */}
+        {/* Secondary 50% less intense shadow */}
         <div
           className="absolute"
           style={{
@@ -138,7 +138,7 @@ const CareerSlide = ({ onButtonClick }) => (
             width: "65%",
             height: "30px",
             background:
-              "radial-gradient(ellipse, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.21) 50%, transparent 70%)",
+              "radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.15) 50%, transparent 70%)",
             filter: "blur(12px)",
             zIndex: 0,
           }}
