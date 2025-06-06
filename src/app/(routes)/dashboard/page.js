@@ -1588,7 +1588,7 @@ const Dashboard = () => {
                                 : "bg-gray-100 text-gray-800 border-gray-200"
                     }`}
                   >
-                    {selectedLeadForModal.status || "New"}
+                    {selectedLeadForModal.status || "New"} 
                   </span>
                 </div>
               </div>
