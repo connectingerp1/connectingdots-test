@@ -63,77 +63,76 @@ const nextConfig = {
   },
   async redirects() {
     return [
-
       {
-    source: "/sap-training-in-pune",
-    destination: "/sap-course-in-pune",
-    permanent: true,
-  },
-  {
-    source: "/sap-sd-course-in-Mumbai",
-    destination: "/sap-sd-course-in-mumbai",
-    permanent: true,
-  },
-  {
-    source: "/sap-sd-course-in-Pune",
-    destination: "/sap-sd-course-in-pune",
-    permanent: true,
-  },
-  {
-    source: "/hr-analytics-course-in-mumbai",
-    destination: "/hr-analytics-course-in-mumbai",
-    permanent: true,
-  },
-  {
-    source: "/sap-course-in-Mumbai",
-    destination: "/sap-course-in-mumbai",
-    permanent: true,
-  },
-  {
-    source: "/sap-course-in-Pune",
-    destination: "/sap-course-in-pune",
-    permanent: true,
-  },
-  {
-    source: "/sap-sd-course-in-Mumbai",
-    destination: "/sap-sd-course-in-mumbai",
-    permanent: true,
-  },
-  {
-    source: "/sap-courses-training-institute-in-Pune",
-    destination: "/sap-course-in-pune",
-    permanent: true,
-  },
-  {
-    source: "/sap-mm-course-in-Pune",
-    destination: "/sap-mm-course-in-pune",
-    permanent: true,
-  },
-  {
-    source: "/sap-courses",
-    destination: "/sap-course-in-pune",
-    permanent: true,
-  },
-  {
-    source: "/sap-course-in-Raipur",
-    destination: "/sap-course-in-raipur",
-    permanent: true,
-  },
-    {
-    source: "/blog.html",
-    destination: "/blog",
-    permanent: true,
-  },
-  {
-    source: "/best-data-science-course-in-mumbai",
-    destination: "/data-science-course-in-mumbai",
-    permanent: true,
-  },
-  {
-    source: "/sap-ewm-course-in-Mumbai",
-    destination: "/sap-ewm-course-in-mumbai",
-    permanent: true,
-  },
+        source: "/sap-training-in-pune",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Mumbai",
+        destination: "/sap-sd-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Pune",
+        destination: "/sap-sd-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-mumbai",
+        destination: "/hr-analytics-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Mumbai",
+        destination: "/sap-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Pune",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Mumbai",
+        destination: "/sap-sd-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-courses-training-institute-in-Pune",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-mm-course-in-Pune",
+        destination: "/sap-mm-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-courses",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Raipur",
+        destination: "/sap-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/blog.html",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/best-data-science-course-in-mumbai",
+        destination: "/data-science-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-ewm-course-in-Mumbai",
+        destination: "/sap-ewm-course-in-mumbai",
+        permanent: true,
+      },
       {
         source: "/sap-functional-courses",
         destination: "/sap-course-in-pune",
@@ -1348,6 +1347,1202 @@ const nextConfig = {
       {
         source: "/sap-course-in-Raipur",
         destination: "/sap-course-in-raipur",
+        permanent: true,
+      },
+
+      {
+        source: "/sap-hcm-course-in-Agra",
+        destination: "/sap-hcm-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Cochin",
+        destination: "/python-course-in-cochin",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-indore",
+        destination: "/java-course-in-indore",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Vadodara",
+        destination: "/python-course-in-vadodara",
+        permanent: true,
+      },
+      {
+        source: "/sap-ewm-course-in-Chandigarh",
+        destination: "/sap-ewm-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/chatgpt-course-in-Kanpur/",
+        destination: "/chatgpt-course-in-kanpur/",
+        permanent: true,
+      },
+      {
+        source: "/mumbai/",
+        destination: "/mumbai/",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Lucknow",
+        destination: "/core-hr-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Bhubaneswar",
+        destination: "/digital-marketing-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/sap-fico-course-in-Agra",
+        destination: "/sap-fico-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Tirupati",
+        destination: "/mern-stack-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Raipur",
+        destination: "/sap-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/business-analytics-course-in-Kerala",
+        destination: "/business-analytics-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Raipur",
+        destination: "/hr-management-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/data-science-course-in-Mumbai",
+        destination: "/data-science-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Ahmedabad",
+        destination: "/ui-ux-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Ranchi",
+        destination: "/python-course-in-ranchi",
+        permanent: true,
+      },
+      {
+        source: "/sap-mm-course-in-Mangalore",
+        destination: "/sap-mm-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/sap-ewm-course-in-Agra",
+        destination: "/sap-ewm-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Bangalore",
+        destination: "/sql-course-in-bangalore",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Agra",
+        destination: "/sap-sd-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Chandigarh",
+        destination: "/hr-analytics-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Vizag",
+        destination: "/core-hr-course-in-vizag",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Chennai",
+        destination: "/sql-course-in-chennai",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Jalandhar",
+        destination: "/ui-ux-course-in-jalandhar",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Patna",
+        destination: "/hr-management-course-in-patna",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Tirupati",
+        destination: "/hr-management-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-tirupati",
+        destination: "/java-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Surat",
+        destination: "/hr-management-course-in-surat",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Indore",
+        destination: "/mern-stack-course-in-indore",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Ranchi",
+        destination: "/sql-course-in-ranchi",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Lucknow",
+        destination: "/mern-stack-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Bangalore",
+        destination: "/python-course-in-bangalore",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Raipur",
+        destination: "/mern-stack-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Chennai",
+        destination: "/ui-ux-course-in-chennai",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Chennai",
+        destination: "/mern-stack-course-in-chennai",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-lucknow",
+        destination: "/java-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Varanasi",
+        destination: "/hr-analytics-course-in-varanasi",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Jaipur",
+        destination: "/hr-analytics-course-in-jaipur",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Delhi",
+        destination: "/sql-course-in-delhi",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Delhi",
+        destination: "/python-course-in-delhi",
+        permanent: true,
+      },
+      {
+        source: "/sap-scm-course-in-Mangalore",
+        destination: "/sap-scm-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Chandigarh",
+        destination: "/ui-ux-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Nashik",
+        destination: "/python-course-in-nashik",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Coimbatore",
+        destination: "/python-course-in-coimbatore",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Mysore",
+        destination: "/digital-marketing-course-in-mysore",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Pune",
+        destination: "/python-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-scm-course-in-Ahmedabad",
+        destination: "/sap-scm-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/hr-training-course-in-Raipur",
+        destination: "/hr-training-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Agra",
+        destination: "/mern-stack-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/sap-ewm-course-in-Bhubaneswar",
+        destination: "/sap-ewm-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Ludhiana",
+        destination: "/ui-ux-course-in-ludhiana",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Bhubaneswar",
+        destination: "/sap-sd-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Madurai",
+        destination: "/sql-course-in-madurai",
+        permanent: true,
+      },
+      {
+        source: "/sap-basis-course-in-Mangalore",
+        destination: "/sap-basis-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/sap-basis-course-in-Ahmedabad",
+        destination: "/sap-basis-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Patna",
+        destination: "/mern-stack-course-in-patna",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Surat",
+        destination: "/mern-stack-course-in-surat",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Trivandrum",
+        destination: "/digital-marketing-course-in-trivandrum",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Mysore",
+        destination: "/core-hr-course-in-mysore",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Bhopal",
+        destination: "/digital-marketing-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Coimbatore",
+        destination: "/core-hr-course-in-coimbatore",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Ranchi",
+        destination: "/digital-marketing-course-in-ranchi",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Coimbatore",
+        destination: "/ui-ux-course-in-coimbatore",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-madurai",
+        destination: "/java-course-in-madurai",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Trivandrum",
+        destination: "/hr-management-course-in-trivandrum",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Kanpur",
+        destination: "/ui-ux-course-in-kanpur",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Bhopal",
+        destination: "/sap-sd-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Agra",
+        destination: "/hr-management-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Bangalore",
+        destination: "/mern-stack-course-in-bangalore",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Jaipur",
+        destination: "/digital-marketing-course-in-jaipur",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-coimbatore",
+        destination: "/java-course-in-coimbatore",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Ranchi",
+        destination: "/hr-management-course-in-ranchi",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Kanpur",
+        destination: "/mern-stack-course-in-kanpur",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Bhopal",
+        destination: "/hr-management-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Madurai",
+        destination: "/digital-marketing-course-in-madurai",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Hyderabad",
+        destination: "/core-hr-course-in-hyderabad",
+        permanent: true,
+      },
+      {
+        source: "/sap-pm-course-in-Bhopal",
+        destination: "/sap-pm-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/sap-fico-course-in-Mysore",
+        destination: "/sap-fico-course-in-mysore",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Mohali",
+        destination: "/ui-ux-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/sap-scm-course-in-Chandigarh",
+        destination: "/sap-scm-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Lucknow",
+        destination: "/hr-management-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-jaipur",
+        destination: "/java-course-in-jaipur",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Mangalore",
+        destination: "/digital-marketing-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Ahmedabad",
+        destination: "/mern-stack-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Trivandrum",
+        destination: "/python-course-in-trivandrum",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Rajkot",
+        destination: "/sql-course-in-rajkot",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Pondicherry",
+        destination: "/digital-marketing-course-in-pondicherry",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Kanpur",
+        destination: "/digital-marketing-course-in-kanpur",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Tirupati",
+        destination: "/hr-analytics-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/Java-course-in-dehradun",
+        destination: "/java-course-in-dehradun",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Raipur",
+        destination: "/sql-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/business-analytics-course-in-Pondicherry/",
+        destination: "/business-analytics-course-in-pondicherry/",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Vadodara/",
+        destination: "/core-hr-course-in-vadodara/",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Dehradun",
+        destination: "/mern-stack-course-in-dehradun",
+        permanent: true,
+      },
+      {
+        source: "/data-analytics-course-in-Agra/",
+        destination: "/data-analytics-course-in-agra/",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Agra",
+        destination: "/python-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Chennai",
+        destination: "/python-course-in-chennai",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Vizag",
+        destination: "/sql-course-in-vizag",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Pondicherry",
+        destination: "/python-course-in-pondicherry",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Nashik",
+        destination: "/hr-analytics-course-in-nashik",
+        permanent: true,
+      },
+      {
+        source: "/sap-successfactors-course-in-Agra",
+        destination: "/sap-successfactors-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/sap-fico-course-in-Mohali",
+        destination: "/sap-fico-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/sap-PP-course-in-Lucknow",
+        destination: "/sap-pp-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Bangalore",
+        destination: "/hr-management-course-in-bangalore",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Mohali",
+        destination: "/digital-marketing-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Kerala/",
+        destination: "/core-hr-course-in-kerala/",
+        permanent: true,
+      },
+      {
+        source: "/salesforce-training-in-Pune",
+        destination: "/salesforce-training-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Mohali",
+        destination: "/core-hr-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/sap-successfactors-course-in-Bhubaneswar",
+        destination: "/sap-successfactors-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Chandigarh",
+        destination: "/python-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Ludhiana",
+        destination: "/digital-marketing-course-in-ludhiana",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Rajkot",
+        destination: "/mern-stack-course-in-rajkot",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Surat",
+        destination: "/sql-course-in-surat",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Madurai",
+        destination: "/hr-analytics-course-in-madurai",
+        permanent: true,
+      },
+      {
+        source: "/aboutus.html",
+        destination: "/aboutus",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Raipur",
+        destination: "/digital-marketing-course-in-raipur",
+        permanent: true,
+      },
+      {
+        source: "/sap-fico-course-in-Bhubaneswar",
+        destination: "/sap-fico-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/contact.html",
+        destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-Bhubaneswar",
+        destination: "/sap-hcm-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Kerala",
+        destination: "/digital-marketing-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/sap-mm-course-in-Bhubaneswar",
+        destination: "/sap-mm-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Ludhiana",
+        destination: "/core-hr-course-in-ludhiana",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-Bhopal",
+        destination: "/sap-hcm-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Coimbatore",
+        destination: "/hr-analytics-course-in-coimbatore",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Ahmedabad",
+        destination: "/hr-analytics-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Ahmedabad",
+        destination: "/hr-management-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Hyderabad",
+        destination: "/hr-analytics-course-in-hyderabad",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Jalandhar",
+        destination: "/digital-marketing-course-in-jalandhar",
+        permanent: true,
+      },
+      {
+        source: "/sap-basis-course-in-Bhopal",
+        destination: "/sap-basis-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Tirupati",
+        destination: "/core-hr-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Chandigarh",
+        destination: "/digital-marketing-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Agra",
+        destination: "/ui-ux-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Patna",
+        destination: "/sql-course-in-patna",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Mangalore",
+        destination: "/ui-ux-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Rajkot",
+        destination: "/python-course-in-rajkot",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-mumbai",
+        destination: "/sap-hcm-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Madurai",
+        destination: "/hr-management-course-in-madurai",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Jalandhar",
+        destination: "/python-course-in-jalandhar",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Surat",
+        destination: "/digital-marketing-course-in-surat",
+        permanent: true,
+      },
+      {
+        source: "/sap-successfactors-course-in-Lucknow",
+        destination: "/sap-successfactors-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-Mohali",
+        destination: "/sap-hcm-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Nashik",
+        destination: "/core-hr-course-in-nashik",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Kolkata",
+        destination: "/ui-ux-course-in-kolkata",
+        permanent: true,
+      },
+      {
+        source: "/sap-PP-course-in-Bhopal",
+        destination: "/sap-pp-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/sap-bwbi-course-in-Lucknow",
+        destination: "/sap-bwbi-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/sap-courses-in-pune",
+        destination: "/sap-courses-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/sap-scm-course-in-Mysore",
+        destination: "/sap-scm-course-in-mysore",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Tirupati",
+        destination: "/python-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Mumbai",
+        destination: "/core-hr-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-mm-course-in-Mohali",
+        destination: "/sap-mm-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Bhubaneswar",
+        destination: "/hr-management-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/Navbar/connecting-dot-erp-logo.avif",
+        destination: "/navbar/connecting-dot-erp-logo.avif",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-pune",
+        destination: "/sap-hcm-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Bhubaneswar",
+        destination: "/mern-stack-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Vizag",
+        destination: "/hr-management-course-in-vizag",
+        permanent: true,
+      },
+      {
+        source: "/hr-training-course-in-Pune",
+        destination: "/hr-training-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Chandigarh",
+        destination: "/hr-management-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/hr-course-in-pune",
+        destination: "/hr-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/hr-course-in-mumbai",
+        destination: "/hr-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/chatgpt-course-in-Vizag/",
+        destination: "/chatgpt-course-in-vizag/",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Mumbai",
+        destination: "/sap-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-course-in-Pune",
+        destination: "/sap-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/tableau-training-in-Bhopal",
+        destination: "/tableau-training-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/sap-s4-hana-course-in-Bhubaneswar",
+        destination: "/sap-s4-hana-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/sap-hr-hcm-course-in-Mumbai",
+        destination: "/sap-hr-hcm-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Tirupati",
+        destination: "/digital-marketing-course-in-tirupati",
+        permanent: true,
+      },
+      {
+        source: "/powerbi-course-in-pune",
+        destination: "/powerbi-course-in-pune",
+        permanent: true,
+      },
+      {
+        source: "/tableau-training-in-Kolkata",
+        destination: "/tableau-training-in-kolkata",
+        permanent: true,
+      },
+      {
+        source: "/sap-s4-hana-course-in-Ahmedabad",
+        destination: "/sap-s4-hana-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/salesforce-training-in-Hyderabad",
+        destination: "/salesforce-training-in-hyderabad",
+        permanent: true,
+      },
+      {
+        source: "/hr-training-course-in-Bangalore",
+        destination: "/hr-training-course-in-bangalore",
+        permanent: true,
+      },
+      {
+        source: "/hr-training-course-in-Bangalore/",
+        destination: "/hr-training-course-in-bangalore/",
+        permanent: true,
+      },
+      {
+        source: "/chatgpt-course-in-Patna/",
+        destination: "/chatgpt-course-in-patna/",
+        permanent: true,
+      },
+      {
+        source: "/chatgpt-course-in-Vizag",
+        destination: "/chatgpt-course-in-vizag",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Jalandhar",
+        destination: "/hr-management-course-in-jalandhar",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-Chandigarh",
+        destination: "/sap-hcm-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/chatgpt-course-in-Vadodara/",
+        destination: "/chatgpt-course-in-vadodara/",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Chennai",
+        destination: "/hr-analytics-course-in-chennai",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Mysore/",
+        destination: "/core-hr-course-in-mysore/",
+        permanent: true,
+      },
+      {
+        source: "/chatgpt-course-in-Kolkata/",
+        destination: "/chatgpt-course-in-kolkata/",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Lucknow",
+        destination: "/sql-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/sap-ariba-course-in-Pune/",
+        destination: "/sap-ariba-course-in-pune/",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-course-in-Kolkata",
+        destination: "/digital-marketing-course-in-kolkata",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Cochin",
+        destination: "/mern-stack-course-in-cochin",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Nagpur",
+        destination: "/hr-analytics-course-in-nagpur",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Ranchi",
+        destination: "/ui-ux-course-in-ranchi",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Lucknow/",
+        destination: "/core-hr-course-in-lucknow/",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Nagpur",
+        destination: "/ui-ux-course-in-nagpur",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Indore",
+        destination: "/python-course-in-indore",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Kolkata",
+        destination: "/hr-analytics-course-in-kolkata",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Nashik/",
+        destination: "/core-hr-course-in-nashik/",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Ludhiana",
+        destination: "/python-course-in-ludhiana",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Bhubaneswar",
+        destination: "/ui-ux-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Cochin",
+        destination: "/ui-ux-course-in-cochin",
+        permanent: true,
+      },
+      {
+        source: "/sap-pm-course-in-Bhubaneswar",
+        destination: "/sap-pm-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/sap-basis-course-in-Agra",
+        destination: "/sap-basis-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Mumbai",
+        destination: "/hr-analytics-course-in-mumbai",
+        permanent: true,
+      },
+      {
+        source: "/sap-pm-course-in-Lucknow",
+        destination: "/sap-pm-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Agra",
+        destination: "/hr-analytics-course-in-agra",
+        permanent: true,
+      },
+      {
+        source: "/mern-stack-course-in-Hyderabad",
+        destination: "/mern-stack-course-in-hyderabad",
+        permanent: true,
+      },
+      {
+        source: "/sap-successfactors-course-in-Bhopal",
+        destination: "/sap-successfactors-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/sap-sd-course-in-Mohali",
+        destination: "/sap-sd-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Kerala",
+        destination: "/core-hr-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Jaipur",
+        destination: "/hr-management-course-in-jaipur",
+        permanent: true,
+      },
+      {
+        source: "/sap-bwbi-course-in-Bhopal",
+        destination: "/sap-bwbi-course-in-bhopal",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Nagpur",
+        destination: "/hr-management-course-in-nagpur",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Mangalore",
+        destination: "/python-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Mohali",
+        destination: "/hr-analytics-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/sap-bwbi-course-in-Bhubaneswar",
+        destination: "/sap-bwbi-course-in-bhubaneswar",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Vadodara",
+        destination: "/core-hr-course-in-vadodara",
+        permanent: true,
+      },
+      {
+        source: "/sap-mm-course-in-Lucknow",
+        destination: "/sap-mm-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Kerala",
+        destination: "/hr-analytics-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Delhi",
+        destination: "/ui-ux-course-in-delhi",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Indore",
+        destination: "/core-hr-course-in-indore",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Mohali",
+        destination: "/python-course-in-mohali",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Indore",
+        destination: "/hr-management-course-in-indore",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Lucknow",
+        destination: "/ui-ux-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/sap-fico-course-in-Mangalore",
+        destination: "/sap-fico-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Chennai",
+        destination: "/core-hr-course-in-chennai",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Vadodhara",
+        destination: "/sql-course-in-vadodhara",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Ludhiana",
+        destination: "/hr-management-course-in-ludhiana",
+        permanent: true,
+      },
+      {
+        source: "/sql-course-in-Kerala",
+        destination: "/sql-course-in-kerala",
+        permanent: true,
+      },
+      {
+        source: "/sap-qm-course-in-Mangalore",
+        destination: "/sap-qm-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/sap-PP-course-in-Ahmedabad",
+        destination: "/sap-pp-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/sap-pm-course-in-Chandigarh",
+        destination: "/sap-pm-course-in-chandigarh",
+        permanent: true,
+      },
+      {
+        source: "/hr-management-course-in-Delhi",
+        destination: "/hr-management-course-in-delhi",
+        permanent: true,
+      },
+      {
+        source: "/sap-netweaver-course-in-Mangalore",
+        destination: "/sap-netweaver-course-in-mangalore",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Rajkot",
+        destination: "/ui-ux-course-in-rajkot",
+        permanent: true,
+      },
+      {
+        source: "/sap-qm-course-in-Ahmedabad",
+        destination: "/sap-qm-course-in-ahmedabad",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Madurai",
+        destination: "/core-hr-course-in-madurai",
+        permanent: true,
+      },
+      {
+        source: "/python-course-in-Patna",
+        destination: "/python-course-in-patna",
+        permanent: true,
+      },
+      {
+        source: "/sap-hcm-course-in-Lucknow",
+        destination: "/sap-hcm-course-in-lucknow",
+        permanent: true,
+      },
+      {
+        source: "/sap-ps-course-in-Ahemedabad",
+        destination: "/sap-ps-course-in-ahemedabad",
+        permanent: true,
+      },
+      {
+        source: "/hr-analytics-course-in-Deheradun",
+        destination: "/hr-analytics-course-in-deheradun",
+        permanent: true,
+      },
+      {
+        source: "/sap-basis-course-in-Mysore",
+        destination: "/sap-basis-course-in-mysore",
+        permanent: true,
+      },
+      {
+        source: "/ui-ux-course-in-Visakhapatnam",
+        destination: "/ui-ux-course-in-visakhapatnam",
+        permanent: true,
+      },
+      {
+        source: "/core-hr-course-in-Cochin",
+        destination: "/core-hr-course-in-cochin",
+        permanent: true,
+      },
+      {
+        source: "/sap-pm-course-in-Mangalore",
+        destination: "/sap-pm-course-in-mangalore",
         permanent: true,
       },
     ];
