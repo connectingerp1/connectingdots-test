@@ -15,16 +15,15 @@ import {
   FaTimes,
   FaCheckSquare, // For checkbox (checked)
   FaSquare, // For checkbox (unchecked)
-  FaShieldAlt, // For error state icon
+  FaShieldAlt, // For error state icon - Removed as not used, but keep if needed
 } from "react-icons/fa";
 
-import Sidebar from "@/components/superadmin/Sidebar"; // Import reusable Sidebar
-import AccessControl from "@/components/superadmin/AccessControl"; // Import reusable AccessControl
-import { fetchWithAuth } from "@/utils/auth"; // Import reusable fetch utility
+import Sidebar from "@/components/superadmin/Sidebar";
+import AccessControl from "@/components/superadmin/AccessControl";
+import { fetchWithAuth } from "@/utils/auth";
 import FixedLogo from "@/components/superadmin/FixedLogo";
 
 // Array of 20 distinct colors for admin users with names (Used for assignedTo color background)
-// Keep this array as it's likely needed for dynamic background colors
 const COLOR_OPTIONS = [
   { code: "#4299e1", name: "Blue" },
   { code: "#48bb78", name: "Green" },
@@ -67,23 +66,23 @@ const LeadManagementPage = () => {
   const [loading, setLoading] = useState(true);
   const [leads, setLeads] = useState([]);
   const [admins, setAdmins] = useState([]);
-  const [error, setError] = useState(null); // Page-level error
+  const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState("create"); // "create", "edit", "assign"
+  const [modalType, setModalType] = useState("create");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     contact: "",
-    countryCode: "", // Assuming this field exists in your leads
+    countryCode: "+91", // Default to +91 or a common code
     coursename: "",
     location: "",
     status: "New",
-    notes: "", // Assuming notes field exists
-    assignedTo: "", // Will be admin _id
+    notes: "",
+    assignedTo: "",
   });
   const [selectedLead, setSelectedLead] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [formErrors, setFormErrors] = useState({}); // Form validation errors
+  const [formErrors, setFormErrors] = useState({});
   const [filters, setFilters] = useState({
     status: "",
     assignedTo: "",
@@ -100,16 +99,15 @@ const LeadManagementPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalLeads, setTotalLeads] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const leadsPerPage = 20; // Client-side pagination limit for display
+  const leadsPerPage = 20;
   const [bulkActionModalOpen, setBulkActionModalOpen] = useState(false);
-  const [bulkActionType, setBulkActionType] = useState("status"); // "status", "assign", "delete"
+  const [bulkActionType, setBulkActionType] = useState("status");
   const [bulkFormData, setBulkFormData] = useState({
-    status: "New", // Default status for bulk update
-    assignedTo: "", // Default assignedTo for bulk assign
+    status: "New",
+    assignedTo: "",
   });
-  const [userRole, setUserRole] = useState(null); // State to store user role
+  const [userRole, setUserRole] = useState(null);
 
-  // Authentication and initial data check
   useEffect(() => {
     const token =
       typeof localStorage !== "undefined"
@@ -119,33 +117,27 @@ const LeadManagementPage = () => {
       typeof localStorage !== "undefined"
         ? localStorage.getItem("adminRole")
         : null;
-    setUserRole(role); // Set user role state
+    setUserRole(role);
 
     if (!token) {
       router.push("/AdminLogin");
-      return; // Stop further execution if not authenticated
+      return;
     }
 
-    // If role is neither SuperAdmin nor Admin, redirect
-    // The AccessControl component will handle showing the restricted message
-    // but a client-side redirect is also good for initial load
     if (
       role !== "SuperAdmin" &&
       role !== "Admin" &&
       role !== "ViewMode" &&
       role !== "EditMode"
     ) {
-      router.push("/dashboard"); // Or some other appropriate page
+      router.push("/dashboard");
       return;
     }
 
-    // Fetch necessary data (admins, initial leads, options)
     fetchData();
-  }, [router]); // Depend on router for initial check
+  }, [router]);
 
-  // Fetch leads when filters or pagination changes
   useEffect(() => {
-    // Only fetch if the user role is authorized
     if (
       userRole === "SuperAdmin" ||
       userRole === "Admin" ||
@@ -154,7 +146,6 @@ const LeadManagementPage = () => {
     ) {
       fetchLeads();
     }
-    // Added userRole as a dependency so filters apply after role check
   }, [currentPage, filters, userRole]);
 
   const fetchData = async () => {
@@ -162,7 +153,6 @@ const LeadManagementPage = () => {
     setError(null);
 
     try {
-      // Fetch admins for assign dropdown
       const adminsResponse = await fetchWithAuth(
         `${process.env.NEXT_PUBLIC_API_URL}/api/admins`
       );
@@ -170,55 +160,43 @@ const LeadManagementPage = () => {
       let adminsData = [];
       if (adminsResponse.ok) {
         adminsData = await adminsResponse.json();
-        // Filter out SuperAdmins from the assign dropdown if needed,
-        // although the backend should enforce who can be assigned leads.
-        // For now, include all admins that the API returns.
         setAdmins(adminsData);
       } else {
         console.error("Failed to fetch admins:", await adminsResponse.text());
-        // Optionally set an error specifically for admin fetch failure if leads can still load
       }
-
-      // Fetch leads is triggered by the filters state change in the useEffect after admins are set.
-      // We don't need to call fetchLeads directly here again.
     } catch (err) {
       console.error("Error fetching initial data (admins):", err);
-      setError(err.message); // Use this for critical errors preventing data fetch
-      setLoading(false); // Ensure loading is false even if initial fetch fails
+      setError(err.message);
+      setLoading(false);
     }
-    // setLoading is handled by the fetchLeads effect
   };
 
   const fetchLeads = async () => {
-    setLoading(true); // Set loading true before fetching leads
-    setError(null); // Clear previous errors
+    setLoading(true);
+    setError(null);
     try {
       const queryParams = new URLSearchParams();
 
-      // Add filters to query params
       if (filters.status) queryParams.append("status", filters.status);
 
-      // Handle 'unassigned' and 'assigned' filters
       if (filters.assignedTo === "unassigned") {
-        queryParams.append("assignedTo", "null"); // Assuming 'null' string signifies unassigned in API
+        queryParams.append("assignedTo", "null");
       } else if (filters.assignedTo === "assigned") {
-        queryParams.append("assignedTo", "notnull"); // Assuming 'notnull' signifies any assigned lead in API
+        queryParams.append("assignedTo", "notnull");
       } else if (filters.assignedTo) {
-        queryParams.append("assignedTo", filters.assignedTo); // Specific admin ID
+        queryParams.append("assignedTo", filters.assignedTo);
       }
 
       if (filters.coursename)
         queryParams.append("coursename", filters.coursename);
       if (filters.location) queryParams.append("location", filters.location);
 
-      // Format dates to ISO strings if they exist
       if (filters.startDate)
         queryParams.append(
           "startDate",
           new Date(filters.startDate).toISOString()
         );
       if (filters.endDate) {
-        // For end date, add one day to include the entire end day
         const endDate = new Date(filters.endDate);
         endDate.setDate(endDate.getDate() + 1);
         queryParams.append("endDate", endDate.toISOString());
@@ -226,11 +204,7 @@ const LeadManagementPage = () => {
 
       if (filters.search) queryParams.append("search", filters.search);
 
-      // Add pagination (if server supports it, otherwise client-side slicing)
-      // queryParams.append('page', currentPage); // Assuming server handles 1-based page number
-      // queryParams.append('limit', leadsPerPage);
-
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) {
         console.error("NEXT_PUBLIC_API_URL is not defined");
         setError("API URL is not configured.");
@@ -256,19 +230,15 @@ const LeadManagementPage = () => {
 
       const data = await response.json();
 
-      // Assuming the API returns an array of leads directly or an object with a 'leads' array and 'totalItems'/'totalPages'
-      // Adjust based on your actual API response structure
       const leadsData = Array.isArray(data) ? data : data.leads || [];
       const totalItemsData = Array.isArray(data)
         ? data.length
-        : data.totalItems || leadsData.length; // Estimate total if API doesn't provide it
+        : data.totalItems || leadsData.length;
 
       setLeads(leadsData);
       setTotalLeads(totalItemsData);
-      // Client-side pagination: totalPages is based on the total number of items fetched
       setTotalPages(Math.ceil(totalItemsData / leadsPerPage));
 
-      // Extract unique course names and locations for filters from *all* fetched data (before pagination slice)
       const courses = [
         ...new Set(leadsData.map((lead) => lead.coursename).filter(Boolean)),
       ].sort();
@@ -279,41 +249,36 @@ const LeadManagementPage = () => {
       setCourseOptions(courses);
       setLocationOptions(locations);
 
-      // Reset selected leads and selectAll when fetching new data
       setSelectedLeads([]);
       setSelectAll(false);
     } catch (err) {
       console.error("Error fetching leads:", err);
       setError(err.message);
-      setLeads([]); // Clear leads on error
-      setTotalLeads(0); // Reset total leads on error
-      setTotalPages(1); // Reset total pages on error
-      setCourseOptions([]); // Clear options on error
-      setLocationOptions([]); // Clear options on error
+      setLeads([]);
+      setTotalLeads(0);
+      setTotalPages(1);
+      setCourseOptions([]);
+      setLocationOptions([]);
     } finally {
-      setLoading(false); // Set loading false after fetch attempt
+      setLoading(false);
     }
   };
 
-  // Basic form validation for modal
   const validateModalForm = (formData, modalType) => {
     const errors = {};
-    // Basic validation rules apply to create and edit forms
     if (modalType !== "assign") {
       if (!formData.name.trim()) errors.name = "Name is required";
-      if (!formData.email.trim()) errors.email = "Email is required"; // Assume email is required based on previous code
+      if (!formData.email.trim()) errors.email = "Email is required";
       if (!formData.contact.trim())
         errors.contact = "Contact number is required";
       if (!formData.status) errors.status = "Status is required";
 
-      // Email format validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (formData.email.trim() && !emailPattern.test(formData.email.trim())) {
         errors.email = "Invalid email address";
       }
 
-      // Simple contact number validation (basic check for digits and minimum length)
-      const contactPattern = /^\d+$/; // Basic digit check
+      const contactPattern = /^\d+$/;
       if (
         formData.contact.trim() &&
         !contactPattern.test(formData.contact.trim())
@@ -323,12 +288,9 @@ const LeadManagementPage = () => {
         formData.contact.trim() &&
         formData.contact.trim().length < 5
       ) {
-        // Minimum length check (adjust as needed)
         errors.contact = "Contact number is too short";
       }
 
-      // Country Code validation (if applicable) - add logic here if countryCode is required or needs format validation
-      // Example: If countryCode is required when contact is provided
       if (formData.contact.trim() && !formData.countryCode.trim()) {
         errors.countryCode = "Country code is required for contact number";
       } else if (
@@ -338,8 +300,6 @@ const LeadManagementPage = () => {
         errors.countryCode = "Invalid country code format (e.g., +91)";
       }
     }
-    // No specific validation needed for assign modal beyond assignedTo existence (handled by backend/UI dropdown)
-
     return errors;
   };
 
@@ -350,11 +310,10 @@ const LeadManagementPage = () => {
       [name]: value,
     });
 
-    // Clear specific form error when input changes
     if (formErrors[name]) {
       setFormErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: undefined, // Or null, depending on how you check for errors
+        [name]: undefined,
       }));
     }
   };
@@ -368,8 +327,7 @@ const LeadManagementPage = () => {
   };
 
   const applyFilters = () => {
-    setCurrentPage(1); // Reset to first page when applying filters
-    // fetchLeads is triggered by the filters state change in the useEffect
+    setCurrentPage(1);
   };
 
   const resetFilters = () => {
@@ -383,7 +341,6 @@ const LeadManagementPage = () => {
       search: "",
     });
     setCurrentPage(1);
-    // fetchLeads is triggered by the filters state change in the useEffect
   };
 
   const openCreateModal = () => {
@@ -391,18 +348,18 @@ const LeadManagementPage = () => {
       name: "",
       email: "",
       contact: "",
-      countryCode: "", // Add default if needed
+      countryCode: "+91",
       coursename: "",
       location: "",
       status: "New",
       notes: "",
       assignedTo: "",
     });
-    setFormErrors({}); // Clear form errors
-    setSelectedLead(null); // Ensure selectedLead is null for create
+    setFormErrors({});
+    setSelectedLead(null);
     setModalType("create");
     setShowModal(true);
-    setError(null); // Clear previous page-level errors
+    setError(null);
   };
 
   const openEditModal = (lead) => {
@@ -411,62 +368,58 @@ const LeadManagementPage = () => {
       name: lead.name || "",
       email: lead.email || "",
       contact: lead.contact || "",
-      countryCode: lead.countryCode || "",
+      countryCode: lead.countryCode || "+91", // Default if not present
       coursename: lead.coursename || "",
       location: lead.location || "",
       status: lead.status || "New",
       notes: lead.notes || "",
-      assignedTo: lead.assignedTo?._id || "", // Use _id for the assignedTo value
+      assignedTo: lead.assignedTo?._id || "",
     });
-    setFormErrors({}); // Clear form errors
+    setFormErrors({});
     setModalType("edit");
     setShowModal(true);
-    setError(null); // Clear previous page-level errors
+    setError(null);
   };
 
   const openAssignModal = (lead) => {
     setSelectedLead(lead);
     setFormData({
-      ...formData, // Keep other formData values if needed, or just the assignedTo
+      ...formData,
       assignedTo: lead.assignedTo?._id || "",
     });
-    setFormErrors({}); // Clear form errors
+    setFormErrors({});
     setModalType("assign");
     setShowModal(true);
-    setError(null); // Clear previous page-level errors
+    setError(null);
   };
 
   const closeModal = () => {
     setShowModal(false);
     setSelectedLead(null);
-    setFormErrors({}); // Clear form errors when closing modal
-    setError(null); // Clear page-level error
+    setFormErrors({});
+    setError(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Clear previous form errors before validating
-    setFormErrors({});
+    setFormErrors({}); // Clear errors before validation
 
-    // Perform validation for modal forms (create/edit)
-    if (modalType !== "assign") {
-      const errors = validateModalForm(formData, modalType);
-      if (Object.keys(errors).length > 0) {
-        setFormErrors(errors);
-        console.warn("Modal form validation failed:", errors);
-        // Optionally, focus on the first field with an error
-        const firstErrorField = Object.keys(errors)[0];
-        const errorElement = document.getElementById(firstErrorField);
-        if (errorElement) {
-          errorElement.focus();
-        }
-        return; // Stop submission if validation fails
+    // Perform client-side validation first
+    const errors = validateModalForm(formData, modalType);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      console.warn("Client-side form validation failed:", errors);
+      const firstErrorField = Object.keys(errors)[0];
+      const errorElement = document.getElementById(firstErrorField);
+      if (errorElement) {
+        errorElement.focus();
       }
+      return; // Stop submission if validation fails
     }
 
     setSubmitting(true);
-    setError(null); // Clear previous page-level errors on submit attempt
+    setError(null); // Clear previous page-level errors
 
     try {
       if (modalType === "create") {
@@ -476,55 +429,52 @@ const LeadManagementPage = () => {
       } else if (modalType === "assign") {
         await assignLead();
       }
-      // If successful, closeModal is called inside create/update/assignLead
+      // closeModal is called inside the specific functions on success
     } catch (err) {
       console.error("Error in form submission:", err);
-      // Set page-level error to display above the table/modal
+      // Set page-level error for any unhandled or backend errors
       setError(
-        err.message || "An unexpected error occurred during form submission."
+        err.message ||
+          "An unexpected error occurred during form submission. Please check your inputs."
       );
-      // The modal remains open on error so the user can correct issues
     } finally {
       setSubmitting(false);
-      // Error is handled by the page-level error state, modal might still show.
-      // If you want the modal to close on success but stay open on error,
-      // the closeModal call needs to be conditional or moved inside create/update/assignLead on success.
     }
   };
 
   const createLead = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) throw new Error("API URL is not configured.");
 
-      const response = await fetchWithAuth(`${apiUrl}/api/leads`, {
+      // ***** CORRECTED ENDPOINT HERE *****
+      const response = await fetchWithAuth(`${apiUrl}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...formData,
-          // Ensure assignedTo is null if empty string
           assignedTo: formData.assignedTo || null,
         }),
       });
 
       if (!response.ok) {
         const data = await response.json();
-        // If backend returns validation errors, set formErrors
-        if (response.status === 400 && data.errors) {
-          setFormErrors(data.errors);
-          throw new Error("Validation failed"); // Throw a generic error to be caught by handleSubmit
-        }
-        throw new Error(data.message || "Failed to create lead");
+        console.error("Backend error during lead creation:", data);
+
+        // ***** ADJUSTED ERROR HANDLING FOR BACKEND MESSAGES *****
+        // If backend returns a general error message, set it to the page-level error.
+        // For example, if it returns a duplicate email/contact error.
+        throw new Error(
+          data.message || `Failed to create lead: ${response.statusText}`
+        );
       }
 
-      // Success
-      await fetchLeads(); // Refresh the list
-      closeModal(); // Close modal on success
+      await fetchLeads();
+      closeModal();
     } catch (err) {
       console.error("Error creating lead:", err);
-      // Error state is set in handleSubmit or here if validation failed
       throw err; // Re-throw to be caught by handleSubmit
     }
   };
@@ -532,13 +482,10 @@ const LeadManagementPage = () => {
   const updateLead = async () => {
     try {
       if (!selectedLead?._id) throw new Error("No lead selected for update.");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) throw new Error("API URL is not configured.");
 
       const leadData = { ...formData };
-
-      // Convert empty strings to null for certain fields expected by backend
-      // Ensure assignedTo is null if empty string
       leadData.assignedTo = leadData.assignedTo || null;
 
       const response = await fetchWithAuth(
@@ -559,23 +506,16 @@ const LeadManagementPage = () => {
           response.status,
           errorData
         );
-        // If backend returns validation errors, set formErrors
-        if (response.status === 400 && errorData.errors) {
-          setFormErrors(errorData.errors);
-          throw new Error("Validation failed"); // Throw a generic error to be caught by handleSubmit
-        }
         throw new Error(
           errorData.message || `Failed to update lead: ${response.statusText}`
         );
       }
 
-      // Success
-      await fetchLeads(); // Refresh the list
-      closeModal(); // Close modal on success
+      await fetchLeads();
+      closeModal();
     } catch (err) {
       console.error("Error updating lead:", err);
-      // Error state is set in handleSubmit or here if validation failed
-      throw err; // Re-throw to be caught by handleSubmit
+      throw err;
     }
   };
 
@@ -583,13 +523,13 @@ const LeadManagementPage = () => {
     try {
       if (!selectedLead?._id)
         throw new Error("No lead selected for assignment.");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) throw new Error("API URL is not configured.");
 
-      const assignedToId = formData.assignedTo || null; // Use null if empty string
+      const assignedToId = formData.assignedTo || null;
 
       const response = await fetchWithAuth(
-        `${apiUrl}/api/leads/${selectedLead._id}`, // Assuming the endpoint for assigning is part of update
+        `${apiUrl}/api/leads/${selectedLead._id}`,
         {
           method: "PUT",
           headers: {
@@ -606,13 +546,11 @@ const LeadManagementPage = () => {
         throw new Error(data.message || "Failed to assign lead");
       }
 
-      // Success
-      await fetchLeads(); // Refresh the list
-      closeModal(); // Close modal on success
+      await fetchLeads();
+      closeModal();
     } catch (err) {
       console.error("Error assigning lead:", err);
-      // Error state is set in handleSubmit
-      throw err; // Re-throw to be caught by handleSubmit
+      throw err;
     }
   };
 
@@ -620,11 +558,11 @@ const LeadManagementPage = () => {
     if (!window.confirm("Are you sure you want to delete this lead?")) {
       return;
     }
-    setLoading(true); // Show loading indicator during delete
-    setError(null); // Clear previous errors
+    setLoading(true);
+    setError(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) throw new Error("API URL is not configured.");
 
       const response = await fetchWithAuth(`${apiUrl}/api/leads/${id}`, {
@@ -636,17 +574,14 @@ const LeadManagementPage = () => {
         throw new Error(data.message || "Failed to delete lead");
       }
 
-      // Success
-      await fetchLeads(); // Refresh the list (will also turn off loading)
-      // No need to turn off loading here as fetchLeads will do it in its finally block
+      await fetchLeads();
     } catch (err) {
       console.error("Error deleting lead:", err);
       setError(err.message || "Error deleting lead. Please try again.");
-      setLoading(false); // Turn off loading on error if fetchLeads was not called
+      setLoading(false);
     }
   };
 
-  // Handle selection of leads
   const handleSelectLead = (id) => {
     setSelectedLeads((prev) => {
       if (prev.includes(id)) {
@@ -657,20 +592,16 @@ const LeadManagementPage = () => {
     });
   };
 
-  // Handle select all leads on the currently *displayed* page
   const handleSelectAll = () => {
     if (selectedLeads.length === displayedLeads.length && selectAll) {
-      // If all currently displayed are selected and selectAll is true, deselect all
       setSelectedLeads([]);
       setSelectAll(false);
     } else {
-      // Otherwise, select all currently displayed leads
       setSelectedLeads(displayedLeads.map((lead) => lead._id));
       setSelectAll(true);
     }
   };
 
-  // Open bulk action modal
   const openBulkActionModal = (actionType) => {
     if (selectedLeads.length === 0) {
       alert("Please select at least one lead.");
@@ -678,178 +609,153 @@ const LeadManagementPage = () => {
     }
 
     setBulkActionType(actionType);
-    // Reset bulk form data based on action type default
     if (actionType === "status") {
       setBulkFormData({ status: "New", assignedTo: "" });
     } else if (actionType === "assign") {
       setBulkFormData({ status: "", assignedTo: "" });
     } else if (actionType === "delete") {
-      setBulkFormData({ status: "", assignedTo: "" }); // Not needed for delete, but reset anyway
+      setBulkFormData({ status: "", assignedTo: "" });
     }
 
     setBulkActionModalOpen(true);
-    setError(null); // Clear previous page-level errors
+    setError(null);
   };
 
-  // Handle bulk action submission
   const handleBulkAction = async (e) => {
     e.preventDefault();
 
     setSubmitting(true);
-    setError(null); // Clear previous page-level errors on submit attempt
+    setError(null);
 
     try {
       if (bulkActionType === "delete") {
         await bulkDeleteLeads();
       } else {
-        // status or assign
         await bulkUpdateLeads();
       }
-      // If successful, bulkActionModalOpen is set to false inside bulkDeleteLeads/bulkUpdateLeads
     } catch (err) {
       console.error("Error in bulk action:", err);
       setError(
         err.message || "An unexpected error occurred during bulk action."
       );
-      // Modal stays open on error
     } finally {
       setSubmitting(false);
-      // Modal is closed on success or manually closed on error by user
-      // setBulkActionModalOpen(false); // Moved inside success block
     }
   };
 
-  // Bulk update leads
   const bulkUpdateLeads = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) throw new Error("API URL is not configured.");
 
       const updateData = {};
 
       if (bulkActionType === "status") {
         if (!bulkFormData.status) {
-          // Basic validation for status
           setFormErrors({ status: "Please select a status." });
           throw new Error("Status is required for bulk update.");
         }
         updateData.status = bulkFormData.status;
       } else if (bulkActionType === "assign") {
-        // assignedTo can be null/empty for unassign, so no validation needed here
-        updateData.assignedTo = bulkFormData.assignedTo || null; // Use null if empty string
+        updateData.assignedTo = bulkFormData.assignedTo || null;
       } else {
         throw new Error("Invalid bulk update action type.");
       }
 
       if (selectedLeads.length === 0) {
         console.warn("No leads selected for bulk update. Skipping.");
-        setBulkActionModalOpen(false); // Close modal if nothing was selected
-        return; // Do nothing if no leads are selected
+        setBulkActionModalOpen(false);
+        return;
       }
 
-      const response = await fetchWithAuth(
-        `${apiUrl}/api/leads/bulk-update`, // Assuming this is your bulk update endpoint
-        {
-          method: "PUT", // Or POST, depending on your API design
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            leadIds: selectedLeads,
-            updateData,
-          }),
-        }
-      );
+      const response = await fetchWithAuth(`${apiUrl}/api/leads/bulk-update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          leadIds: selectedLeads,
+          updateData,
+        }),
+      });
 
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || "Failed to update leads");
       }
 
-      // Success
-      await fetchLeads(); // Refresh the list (will also turn off loading)
-      setBulkActionModalOpen(false); // Close modal on success
+      await fetchLeads();
+      setBulkActionModalOpen(false);
     } catch (err) {
       console.error("Error in bulk update:", err);
       setError(err.message);
-      throw err; // Re-throw to be caught by handleBulkAction
+      throw err;
     }
   };
 
-  // Bulk delete leads
   const bulkDeleteLeads = async () => {
     if (selectedLeads.length === 0) {
       console.warn("No leads selected for bulk delete. Skipping.");
-      setBulkActionModalOpen(false); // Close modal if nothing was selected
-      return; // Do nothing if no leads are selected
+      setBulkActionModalOpen(false);
+      return;
     }
 
-    // Confirmation is done before opening the modal now
-
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || ""; // Use empty string as fallback
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) throw new Error("API URL is not configured.");
 
-      const response = await fetchWithAuth(
-        `${apiUrl}/api/leads/bulk-delete`, // Assuming this is your bulk delete endpoint
-        {
-          method: "POST", // Use POST for body with DELETE semantics, or DELETE if API supports body with DELETE
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            leadIds: selectedLeads,
-          }),
-        }
-      );
+      const response = await fetchWithAuth(`${apiUrl}/api/leads/bulk-delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          leadIds: selectedLeads,
+        }),
+      });
 
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || "Failed to delete leads");
       }
 
-      // Success
-      await fetchLeads(); // Refresh the list (will also turn off loading)
-      setBulkActionModalOpen(false); // Close modal on success
+      await fetchLeads();
+      setBulkActionModalOpen(false);
     } catch (err) {
       console.error("Error in bulk delete:", err);
       setError(err.message);
-      throw err; // Re-throw to be caught by handleBulkAction
+      throw err;
     }
   };
 
-  // Download CSV with enhanced formatting
   const downloadCSV = () => {
     if (leads.length === 0) {
       alert("No data available for download");
       return;
     }
 
-    // Define headers with all available fields
     const headers = [
       "Sr. No.",
       "Name",
-      "Contact", // Keep as "Contact" if country code is separate
-      "Country Code", // Add country code as a separate column if it's a distinct field
+      "Contact",
+      "Country Code",
       "Course Name",
       "Email ID",
       "Location",
       "Status",
-      "Contacted Score", // Assuming these fields exist in your lead objects
-      "Comments", // Assuming these fields exist in your lead objects
+      "Contacted Score",
+      "Comments",
       "Assigned To",
       "Creation Date & Time",
       "Last Updated",
     ];
 
-    // Map leads data including all fields
     const csvRows = leads.map((lead, index) => {
-      // Format dates nicely for better readability in UTC
       const formatCsvDate = (dateString) => {
         if (!dateString) return "";
         const date = new Date(dateString);
         return date.toLocaleString("en-US", {
-          timeZone: "UTC", // Specify UTC
+          timeZone: "UTC",
           year: "numeric",
           month: "short",
           day: "2-digit",
@@ -858,48 +764,41 @@ const LeadManagementPage = () => {
         });
       };
 
-      // Quote strings to handle commas and quotes in fields properly
       const quoteValue = (value) => {
         if (value === null || value === undefined) return '""';
-        // Convert boolean to string, handle objects
         const strValue =
           typeof value === "object" ? JSON.stringify(value) : String(value);
-        // Replace double quotes with two double quotes, wrap in double quotes
         return `"${strValue.replace(/"/g, '""')}"`;
       };
 
-      // Prepare row with all fields, using quoteValue for each potentially problematic field
       return [
-        index + 1, // Sr. No.
+        index + 1,
         quoteValue(lead.name),
-        quoteValue(lead.contact), // Use separate contact field
-        quoteValue(lead.countryCode), // Use separate countryCode field
+        quoteValue(lead.contact),
+        quoteValue(lead.countryCode),
         quoteValue(lead.coursename),
         quoteValue(lead.email),
         quoteValue(lead.location),
         quoteValue(lead.status || "New"),
-        quoteValue(lead.contactedScore || ""), // Use actual field names from your lead object
-        quoteValue(lead.contactedComment || ""), // Use actual field names from your lead object
-        quoteValue(lead.assignedTo?.username || "Unassigned"), // Safely access username
-        quoteValue(formatCsvDate(lead.createdAt)), // Formatted date
-        quoteValue(formatCsvDate(lead.updatedAt)), // Formatted date
+        quoteValue(lead.contactedScore || ""),
+        quoteValue(lead.contactedComment || ""),
+        quoteValue(lead.assignedTo?.username || "Unassigned"),
+        quoteValue(formatCsvDate(lead.createdAt)),
+        quoteValue(formatCsvDate(lead.updatedAt)),
       ];
     });
 
-    // Create CSV content with headers and rows
     const csvContent = [
-      headers.map((header) => `"${header}"`).join(","), // Quote headers too
+      headers.map((header) => `"${header}"`).join(","),
       ...csvRows.map((row) => row.join(",")),
     ].join("\n");
 
-    // Create download link
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
 
-    // Generate filename with date
     const now = new Date();
-    const dateStr = now.toISOString().split("T")[0]; // YYYY-MM-DD format
+    const dateStr = now.toISOString().split("T")[0];
 
     a.href = url;
     a.download = `leads_export_${dateStr}.csv`;
@@ -907,43 +806,34 @@ const LeadManagementPage = () => {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url); // Clean up
+    URL.revokeObjectURL(url);
   };
 
-  // Handle pagination - NOTE: This is client-side pagination on the currently fetched data.
-  // For large datasets, implement server-side pagination.
-  // With client-side pagination, totalPages should be based on the *total fetched leads*, not just the current page's length.
   const goToPage = (page) => {
     const newPage = Math.max(1, Math.min(page, totalPages));
     if (newPage !== currentPage) {
       setCurrentPage(newPage);
-      // Deselect all leads when changing pages
       setSelectedLeads([]);
       setSelectAll(false);
     }
   };
 
-  // Calculate pagination values for client-side rendering
   const startIndex = (currentPage - 1) * leadsPerPage;
-  const endIndex = startIndex + leadsPerPage; // Calculate end index
+  const endIndex = startIndex + leadsPerPage;
   const displayedLeads = leads.slice(startIndex, endIndex);
 
-  // Get the color code for a given admin ID
   const getAdminColor = (adminId) => {
     const admin = admins.find((a) => a._id === adminId);
     return admin?.color || null;
   };
 
-  // Get the admin object for a given admin ID
   const getAdminById = (adminId) => {
     return admins.find((admin) => admin._id === adminId) || null;
   };
 
-  // If still loading initial data and user role is not yet determined/checked
   if (loading && userRole === null) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        {/* Loading Spinner */}
         <div className="relative">
           <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
           <div
@@ -958,23 +848,13 @@ const LeadManagementPage = () => {
     );
   }
 
-  // Use the imported Sidebar and AccessControl components
   return (
-    // Main container flex layout
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar is always present */}
-      <Sidebar activePage="leads" /> {/* Pass activePage prop */}
+      <Sidebar activePage="leads" />
       <FixedLogo />
-      {/* Main content area - takes remaining space */}
       <main className="flex-1 lg:ml-0 pt-16 lg:pt-0 overflow-auto">
-        {/* AccessControl handles the overall access to this page's content */}
-        {/* Content only visible to users with 'leads' access */}
         <AccessControl section="leads">
-          {" "}
-          {/* Wrap content with AccessControl */}
-          {/* Page content container with padding and max-width */}
           <div className="p-6 max-w-7xl mx-auto">
-            {/* Page Header */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 Lead Management
@@ -984,14 +864,12 @@ const LeadManagementPage = () => {
               </p>
             </div>
           </div>
-          {/* Page-level Error Message Display */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md relative mb-4 flex items-center">
               <FaTimes className="mr-2 text-xl" />
               {error}
             </div>
           )}
-          {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 mb-6 ms-4">
             <button
               className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
@@ -1002,10 +880,10 @@ const LeadManagementPage = () => {
             </button>
             <button
               className="inline-flex items-center px-6 py-3 bg-white text-gray-700 font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={fetchLeads} // This will refetch based on current filters and reset to page 1
+              onClick={fetchLeads}
               disabled={loading || submitting}
             >
-              {loading && !submitting ? ( // Show spinner only for initial/filter fetch, not during modal submit
+              {loading && !submitting ? (
                 <FaSpinner className="animate-spin mr-2" />
               ) : (
                 <FaSync className="mr-2" />
@@ -1020,13 +898,11 @@ const LeadManagementPage = () => {
               <FaDownload className="mr-2" /> Export CSV ({leads.length} leads)
             </button>
           </div>
-          {/* Filters Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
               <FaFilter className="mr-3 text-blue-600" /> Filter Leads
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {/* Status Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1053,7 +929,6 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
-              {/* Assigned To Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1071,8 +946,7 @@ const LeadManagementPage = () => {
                 >
                   <option value="">All</option>
                   <option value="unassigned">Unassigned</option>
-                  <option value="assigned">Any Admin</option>{" "}
-                  {/* Option to filter for any assigned lead */}
+                  <option value="assigned">Any Admin</option>
                   {admins.map((admin) => (
                     <option key={admin._id} value={admin._id}>
                       {admin.username} ({admin.role})
@@ -1081,7 +955,6 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
-              {/* Course Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1106,7 +979,6 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
-              {/* Location Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1131,7 +1003,6 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
-              {/* Start Date Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1151,7 +1022,6 @@ const LeadManagementPage = () => {
                 />
               </div>
 
-              {/* End Date Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1171,10 +1041,7 @@ const LeadManagementPage = () => {
                 />
               </div>
 
-              {/* Search Filter */}
               <div className="form-group col-span-full sm:col-span-2 lg:col-span-1 xl:col-span-2">
-                {" "}
-                {/* Span across columns responsively */}
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
                   htmlFor="search-filter"
@@ -1193,10 +1060,7 @@ const LeadManagementPage = () => {
                 />
               </div>
 
-              {/* Filter Actions */}
               <div className="form-group col-span-full sm:col-span-2 lg:col-span-3 xl:col-span-2 flex justify-end gap-3 items-end">
-                {" "}
-                {/* Align actions to the right, spanning columns */}
                 <button
                   className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={resetFilters}
@@ -1214,7 +1078,6 @@ const LeadManagementPage = () => {
               </div>
             </div>
           </div>
-          {/* Bulk Actions Bar */}
           {selectedLeads.length > 0 && (
             <div className="flex flex-col sm:flex-row items-center justify-between bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-md mb-4 gap-3">
               <span className="text-sm font-medium">
@@ -1223,8 +1086,6 @@ const LeadManagementPage = () => {
                 page
               </span>
               <div className="flex flex-wrap justify-center gap-2">
-                {" "}
-                {/* Allow buttons to wrap */}
                 <button
                   onClick={() => openBulkActionModal("status")}
                   className="px-4 py-2 text-blue-800 border border-blue-300 rounded-md bg-blue-100 hover:bg-blue-200 transition-colors duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
@@ -1249,8 +1110,7 @@ const LeadManagementPage = () => {
               </div>
             </div>
           )}
-          {/* Leads Table Card */}
-          {loading && !leads.length ? ( // Show full-page loader only if no leads are loaded yet and table is empty
+          {loading && !leads.length ? (
             <div className="flex flex-col items-center justify-center py-12">
               <div className="relative">
                 <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
@@ -1266,7 +1126,6 @@ const LeadManagementPage = () => {
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              {/* Mobile View (Cards) */}
               <div className="lg:hidden divide-y divide-gray-200">
                 {displayedLeads.length > 0 ? (
                   displayedLeads.map((lead) => (
@@ -1276,10 +1135,9 @@ const LeadManagementPage = () => {
                       style={
                         lead.assignedTo?.color
                           ? {
-                              // Apply background color with transparency
                               backgroundColor: selectedLeads.includes(lead._id)
-                                ? `${lead.assignedTo.color}60` // Darker if selected
-                                : `${lead.assignedTo.color}30`, // Lighter normally
+                                ? `${lead.assignedTo.color}60`
+                                : `${lead.assignedTo.color}30`,
                             }
                           : {}
                       }
@@ -1349,7 +1207,7 @@ const LeadManagementPage = () => {
                                   ? "bg-blue-100 text-blue-800 border-blue-200"
                                   : lead.assignedTo.role === "ViewMode"
                                     ? "bg-green-100 text-green-800 border-green-200"
-                                    : "bg-yellow-100 text-yellow-800 border-yellow-200" // EditMode
+                                    : "bg-yellow-100 text-yellow-800 border-yellow-200"
                             }`}
                             style={
                               lead.assignedTo.color
@@ -1358,7 +1216,7 @@ const LeadManagementPage = () => {
                                     color: "white",
                                   }
                                 : {}
-                            } // Apply admin color if available
+                            }
                           >
                             {lead.assignedTo.username}
                           </span>
@@ -1374,13 +1232,8 @@ const LeadManagementPage = () => {
                         </span>{" "}
                         {formatDate(lead.createdAt)}
                       </div>
-                      {/* Add Last Updated if needed */}
-                      {/* <div className="text-sm text-gray-700">
-                                <span className="font-medium text-gray-500">Last Updated:</span> {formatDate(lead.updatedAt)}
-                            </div> */}
 
                       <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
-                        {/* Checkbox */}
                         <div
                           className="flex items-center justify-center cursor-pointer text-xl text-blue-600"
                           onClick={() => handleSelectLead(lead._id)}
@@ -1392,7 +1245,6 @@ const LeadManagementPage = () => {
                             <FaSquare />
                           )}
                         </div>
-                        {/* Actions */}
                         <button
                           onClick={() => openEditModal(lead)}
                           className="p-2 rounded-md text-blue-600 hover:bg-blue-100 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -1434,14 +1286,11 @@ const LeadManagementPage = () => {
                 )}
               </div>
 
-              {/* Desktop View (Table) */}
               <div className="hidden lg:block overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-12">
-                        {" "}
-                        {/* Fixed width */}
                         <div
                           className="flex items-center justify-center cursor-pointer"
                           onClick={handleSelectAll}
@@ -1479,12 +1328,9 @@ const LeadManagementPage = () => {
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Created
                       </th>
-                      {/* Add Last Updated header if needed */}
-                      {/* <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Last Updated</th> */}
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-32">
                         Actions
-                      </th>{" "}
-                      {/* Fixed width */}
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -1496,12 +1342,11 @@ const LeadManagementPage = () => {
                         const rowBackgroundColor = selectedLeads.includes(
                           lead._id
                         )
-                          ? "bg-blue-50" // Background for selected row
+                          ? "bg-blue-50"
                           : assignedAdmin?.color
                             ? `${assignedAdmin.color}10`
-                            : ""; // Light tint of admin color if assigned, otherwise empty
+                            : "";
 
-                        // Add transition for background color change
                         const rowStyle = {
                           backgroundColor: rowBackgroundColor,
                           transition: "background-color 0.3s ease",
@@ -1514,8 +1359,6 @@ const LeadManagementPage = () => {
                             style={rowStyle}
                           >
                             <td className="px-6 py-4 whitespace-nowrap text-center w-12">
-                              {" "}
-                              {/* Fixed width */}
                               <div
                                 className="flex items-center justify-center cursor-pointer text-xl text-blue-600"
                                 onClick={() => handleSelectLead(lead._id)}
@@ -1577,13 +1420,13 @@ const LeadManagementPage = () => {
                                         ? "bg-blue-600 border-blue-700"
                                         : assignedAdmin.role === "ViewMode"
                                           ? "bg-green-600 border-green-700"
-                                          : "bg-yellow-600 border-yellow-700" // EditMode
+                                          : "bg-yellow-600 border-yellow-700"
                                   }`}
                                   style={
                                     assignedAdmin.color
                                       ? { backgroundColor: assignedAdmin.color }
                                       : {}
-                                  } // Apply admin color if available
+                                  }
                                 >
                                   {assignedAdmin.username}
                                 </span>
@@ -1596,11 +1439,7 @@ const LeadManagementPage = () => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                               {formatDate(lead.createdAt)}
                             </td>
-                            {/* Add Last Updated data if needed */}
-                            {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{formatDate(lead.updatedAt)}</td> */}
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium w-32">
-                              {" "}
-                              {/* Fixed width */}
                               <div className="flex gap-2 justify-center">
                                 <button
                                   onClick={() => openEditModal(lead)}
@@ -1624,8 +1463,8 @@ const LeadManagementPage = () => {
                                   onClick={() => deleteLead(lead._id)}
                                   className="p-2 rounded-md text-red-600 hover:bg-red-100 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
                                   title="Delete"
-                                  disabled={submitting}
                                   aria-label={`Delete lead ${lead.name}`}
+                                  disabled={submitting}
                                 >
                                   <FaTrash className="text-lg" />
                                 </button>
@@ -1644,7 +1483,7 @@ const LeadManagementPage = () => {
                             ? `Error loading leads: ${error}`
                             : Object.values(filters).some(
                                   (value) => value !== "" && value !== null
-                                ) // Check if any filter is actually set
+                                )
                               ? "No leads found matching the filter criteria. Try adjusting your filters."
                               : "No leads found."}
                         </td>
@@ -1655,7 +1494,6 @@ const LeadManagementPage = () => {
               </div>
             </div>
           )}
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between mt-4">
               <button
@@ -1679,11 +1517,9 @@ const LeadManagementPage = () => {
               </button>
             </div>
           )}
-          {/* Create/Edit/Assign Lead Modal */}
           {showModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1001] p-4">
               <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto transform transition-all">
-                {/* Modal Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                   <h3 className="text-xl font-semibold text-gray-900">
                     {modalType === "create"
@@ -1702,20 +1538,15 @@ const LeadManagementPage = () => {
                   </button>
                 </div>
 
-                {/* Modal Content */}
                 <form onSubmit={handleSubmit}>
                   <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-                    {" "}
-                    {/* Responsive grid for form fields */}
-                    {/* Display form-specific errors if any */}
                     {Object.keys(formErrors).length > 0 &&
-                      Object.values(formErrors).some((e) => e) && ( // Check if there are errors and at least one is not undefined/null
+                      Object.values(formErrors).some((e) => e) && (
                         <div className="md:col-span-2 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md relative flex items-center text-sm">
                           <FaTimes className="mr-2 text-lg" /> Please fix the
                           errors below.
                         </div>
                       )}
-                    {/* Display page-level error if it happened during form submission (less common in modal) */}
                     {error && (
                       <div className="md:col-span-2 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md relative flex items-center text-sm">
                         <FaTimes className="mr-2 text-lg" /> {error}
@@ -1723,10 +1554,7 @@ const LeadManagementPage = () => {
                     )}
                     {modalType !== "assign" && (
                       <>
-                        {/* Name field */}
                         <div className="md:col-span-2">
-                          {" "}
-                          {/* Span full width */}
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
                             htmlFor="name"
@@ -1750,10 +1578,7 @@ const LeadManagementPage = () => {
                           )}
                         </div>
 
-                        {/* Email field */}
                         <div className="md:col-span-2">
-                          {" "}
-                          {/* Span full width */}
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
                             htmlFor="email"
@@ -1777,10 +1602,7 @@ const LeadManagementPage = () => {
                           )}
                         </div>
 
-                        {/* Contact Number field */}
                         <div className="md:col-span-2">
-                          {" "}
-                          {/* Span full width */}
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
                             htmlFor="contact"
@@ -1789,7 +1611,6 @@ const LeadManagementPage = () => {
                             <span className="text-red-500">*</span>
                           </label>
                           <div className="flex gap-2">
-                            {/* Country Code Input */}
                             <input
                               type="text"
                               id="countryCode"
@@ -1823,7 +1644,6 @@ const LeadManagementPage = () => {
                           )}
                         </div>
 
-                        {/* Course field */}
                         <div>
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
@@ -1847,7 +1667,6 @@ const LeadManagementPage = () => {
                           )}
                         </div>
 
-                        {/* Location field */}
                         <div>
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
@@ -1871,10 +1690,7 @@ const LeadManagementPage = () => {
                           )}
                         </div>
 
-                        {/* Status field */}
                         <div className="md:col-span-2">
-                          {" "}
-                          {/* Span full width */}
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
                             htmlFor="status"
@@ -1907,10 +1723,7 @@ const LeadManagementPage = () => {
                           )}
                         </div>
 
-                        {/* Notes field */}
                         <div className="md:col-span-2">
-                          {" "}
-                          {/* Span full width */}
                           <label
                             className="block text-sm font-medium text-gray-700 mb-1"
                             htmlFor="notes"
@@ -1936,8 +1749,6 @@ const LeadManagementPage = () => {
                     )}
                     {modalType === "assign" && (
                       <div className="md:col-span-2">
-                        {" "}
-                        {/* Span full width */}
                         <label
                           className="block text-sm font-medium text-gray-700 mb-1"
                           htmlFor="assignedTo"
@@ -1955,8 +1766,6 @@ const LeadManagementPage = () => {
                           <option value="">Unassigned</option>
                           {admins.map(
                             (admin) =>
-                              // Only show Admins, EditMode, ViewMode roles for assignment, not SuperAdmins
-                              // Adjust this filter based on your assignment policy
                               admin.role !== "SuperAdmin" && (
                                 <option key={admin._id} value={admin._id}>
                                   {admin.username} ({admin.role})
@@ -1972,7 +1781,6 @@ const LeadManagementPage = () => {
                       </div>
                     )}
                   </div>
-                  {/* Modal Footer */}
                   <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50">
                     <button
                       type="button"
@@ -1986,7 +1794,7 @@ const LeadManagementPage = () => {
                       type="submit"
                       className={`inline-flex items-center px-4 py-2 font-medium rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm
                           ${
-                            modalType === "delete" // Delete button handled by separate modal
+                            modalType === "delete"
                               ? "bg-red-600 text-white hover:bg-red-700"
                               : "bg-blue-600 text-white hover:bg-blue-700"
                           }
@@ -2017,11 +1825,9 @@ const LeadManagementPage = () => {
               </div>
             </div>
           )}
-          {/* Bulk Action Confirmation/Form Modal */}
           {bulkActionModalOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1001] p-4">
               <div className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto transform transition-all">
-                {/* Modal Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                   <h3 className="text-xl font-semibold text-gray-900">
                     {bulkActionType === "status"
@@ -2039,17 +1845,15 @@ const LeadManagementPage = () => {
                     ×
                   </button>
                 </div>
-                {/* Modal Content */}
                 <form onSubmit={handleBulkAction}>
                   <div className="p-6">
                     {Object.keys(formErrors).length > 0 &&
-                      Object.values(formErrors).some((e) => e) && ( // Display form-specific errors if any
+                      Object.values(formErrors).some((e) => e) && (
                         <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md relative flex items-center text-sm mb-4">
                           <FaTimes className="mr-2 text-lg" /> Please fix the
                           errors below.
                         </div>
                       )}
-                    {/* Display page-level error if it happened during bulk action */}
                     {error && (
                       <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md relative flex items-center text-sm mb-4">
                         <FaTimes className="mr-2 text-lg" /> {error}
@@ -2097,7 +1901,6 @@ const LeadManagementPage = () => {
                         )}
                       </div>
                     ) : (
-                      // bulkActionType === "assign"
                       <div className="form-group">
                         <label
                           className="block text-sm font-medium text-gray-700 mb-1"
@@ -2120,7 +1923,6 @@ const LeadManagementPage = () => {
                           <option value="">Unassigned</option>
                           {admins.map(
                             (admin) =>
-                              // Only show Admins, EditMode, ViewMode roles for assignment, not SuperAdmins
                               admin.role !== "SuperAdmin" && (
                                 <option key={admin._id} value={admin._id}>
                                   {admin.username} ({admin.role})
@@ -2136,7 +1938,6 @@ const LeadManagementPage = () => {
                       </div>
                     )}
                   </div>
-                  {/* Modal Footer */}
                   <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50">
                     <button
                       type="button"

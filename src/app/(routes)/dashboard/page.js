@@ -22,7 +22,7 @@ import { saveAs } from "file-saver";
 
 import { fetchWithAuth } from "@/utils/auth";
 
-import { useActivityLogger } from "./layout"; // <-- Use relative path
+import { useActivityLogger } from "./layout";
 
 const Dashboard = () => {
   const [leads, setLeads] = useState([]);
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const [selectedLeadForModal, setSelectedLeadForModal] = useState(null);
 
   const router = useRouter();
-  const pathname = router.pathname; // Get current path for logging
+  const pathname = router.pathname;
 
   // Consume the activity logger from context
   const logActivityEvent = useActivityLogger();
@@ -635,7 +635,8 @@ const Dashboard = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    // Removed `URL.revokeObjectURL(url);` as `url` is not defined here.
+    // It's not strictly necessary for data: URIs, only for blob/object URLs.
   };
 
   const handleSelectLead = (id) => {
@@ -937,7 +938,7 @@ const Dashboard = () => {
                       </div>
                       <div className="text-sm text-gray-700">
                         <span className="font-medium text-gray-500">
-                          Created:
+                          Date and Time:
                         </span>{" "}
                         {new Date(lead.createdAt).toLocaleString("en-US", {
                           timeZone: "Asia/Kolkata",
@@ -1058,6 +1059,10 @@ const Dashboard = () => {
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-16">
                       Sr. No.
                     </th>
+                    {/* NEW: Date & Time Column Header */}
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[150px]">
+                      Date & Time
+                    </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Name
                     </th>
@@ -1145,6 +1150,19 @@ const Dashboard = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 w-16">
                             {indexOfFirstLead + index + 1}
+                          </td>
+                          {/* NEW: Date & Time Column Data */}
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 min-w-[150px]">
+                            {new Date(lead.createdAt).toLocaleString("en-US", {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit",
+                              hour12: true,
+                              timeZone: "Asia/Kolkata",
+                            })}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {lead.name || "—"}
@@ -1286,8 +1304,8 @@ const Dashboard = () => {
                           userRole === "SuperAdmin" ||
                           userRole === "Admin" ||
                           userRole === "EditMode"
-                            ? 13
-                            : 12
+                            ? 14 // Original 13 + 1 new column
+                            : 13 // Original 12 + 1 new column
                         }
                         className="px-6 py-4 text-center text-gray-600"
                       >
