@@ -2,32 +2,35 @@
 
 import { useEffect, useState, useCallback, memo } from "react";
 import { Carousel, Button } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css"; // KEEP THIS IMPORT - it's okay here IF Bootstrap CSS is only used in this component and not globally. If used globally, remove from here and keep in layout.js. Given layout.js already imports it, you SHOULD remove it from here.
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "@/styles/HomePage/HeaderCarousel.module.css";
 import Btnform from "./Btnform";
 import Image from "next/image";
 import Link from "next/link";
-// import LogoSphere from "./LogoSphere"; // REMOVE THIS IMPORT
 
-// --- NEW IMPORT FOR THE WRAPPER COMPONENT ---
-import dynamic from 'next/dynamic';
-const LogoSphere = dynamic(() => import('./LogoSphere'), {
+// Dynamic import for LogoSphere
+import dynamic from "next/dynamic";
+const LogoSphere = dynamic(() => import("./LogoSphere"), {
   ssr: false,
-  // Add a placeholder to prevent layout shifts before the wrapper loads
   loading: () => (
-    <div style={{ 
-      width: '340px', 
-      height: '340px', 
-      minHeight: '340px',
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center' 
-    }}>
-      <img src="/Navbar/arrow.avif" alt="Loading Logo" style={{ width: '80px', height: '80px', opacity: 0.5 }} />
+    <div
+      style={{
+        width: "340px",
+        height: "340px",
+        minHeight: "340px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img
+        src="/Navbar/arrow.avif"
+        alt="Loading Logo"
+        style={{ width: "80px", height: "80px", opacity: 0.5 }}
+      />
     </div>
   ),
 });
-
 
 // Constants moved outside component to avoid re-creation on render
 const TEXTS = [
@@ -70,8 +73,8 @@ const CompanyLogos = memo(() => (
       alt="Partner companies logos including IBM, TCS, and other corporate partners"
       width={400}
       height={100}
-      priority={true} // Keep priority if it's always above the fold
-      sizes="(max-width: 768px) 100vw, 400px" // Add sizes for responsive images
+      priority={true}
+      sizes="(max-width: 768px) 100vw, 400px"
     />
   </div>
 ));
@@ -107,22 +110,52 @@ const CareerSlide = ({ onButtonClick }) => (
       <CompanyLogos />
     </div>
     <div className={styles.carouselImage}>
-      {/* These divs are for decorative purposes, not images */}
-      <div
-        className="absolute mt-4 top-34 w-[340px] h-[340px] rounded-full bg-gradient-to-br from-blue-200/20 to-blue-400/20 animate-pulse"
-        style={{ animationDuration: "4s" }}
-      ></div>
-      <div
-        className="absolute top-40 w-[260px] h-[260px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/20 animate-pulse"
-        style={{ animationDuration: "4s" }}
-      ></div>
-      <div
-        className="absolute mt-3 top-44 w-[200px] h-[200px] rounded-full bg-gradient-to-br from-blue-500/20 to-blue-700/20 animate-pulse"
-        style={{ animationDuration: "4s" }}
-      ></div>
-      
-      {/* 💥 USE THE NEW WRAPPER COMPONENT HERE 💥 */}
-      <LogoSphere className="rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/20" />
+      {/* Updated container with intensified shadow */}
+      <div className="relative w-42 sm:w-60 md:w-80 lg:w-96 aspect-square">
+        {/* Primary intense shadow */}
+        <div
+          className="absolute"
+          style={{
+            bottom: "-25px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "90%",
+            height: "50px",
+            background:
+              "radial-gradient(ellipse, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.28) 30%, rgba(0, 0, 0, 0.14) 60%, transparent 80%)",
+            filter: "blur(25px)",
+            zIndex: 0,
+          }}
+        />
+        {/* Secondary inner shadow for more depth */}
+        <div
+          className="absolute"
+          style={{
+            bottom: "-15px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "65%",
+            height: "30px",
+            background:
+              "radial-gradient(ellipse, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 70%)",
+            filter: "blur(12px)",
+            zIndex: 0,
+          }}
+        />
+
+        <Image
+          src="/Navbar/3d-logo.webp"
+          alt="Hero Section Image"
+          fill
+          className="object-contain relative scale-150"
+          style={{
+            filter:
+              "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.2))",
+            zIndex: 1,
+          }}
+          priority={true}
+        />
+      </div>
     </div>
   </div>
 );
@@ -159,9 +192,8 @@ const AISlide = ({ index, onClick }) => (
           alt={`Training in ${TEXTS[index].split("with ")[1] || "Professional Skills"}`}
           width={500}
           height={400}
-          // 💥 LCP FIX: ADD PRIORITY TRUE 💥
-          priority={true} 
-          sizes="(max-width: 768px) 100vw, 500px" // Add sizes attribute for better performance
+          priority={true}
+          sizes="(max-width: 768px) 100vw, 500px"
         />
       </div>
     </div>
@@ -186,7 +218,7 @@ const ExpertsSlide = () => (
           className={styles.assuredPlacementImage}
           width={80}
           height={80}
-          priority={true} // Add priority if visible initially
+          priority={true}
           sizes="80px"
         />
         <h3>Assured Placement Opportunity*</h3>
@@ -266,9 +298,8 @@ const ExpertsSlide = () => (
                 className={company.className}
                 width={80}
                 height={40}
-                // Keep the loading strategy for these. They are below the first slide.
-                loading={idx < 6 ? "eager" : "lazy"} 
-                sizes="80px" // Add sizes for better optimization
+                loading={idx < 6 ? "eager" : "lazy"}
+                sizes="80px"
               />
             ))}
           </div>
@@ -305,7 +336,7 @@ const QuizSlide = ({ question, setQuestion }) => (
         width={500}
         height={400}
         className="plants-image"
-        loading="lazy" // Ensure this is lazy-loaded as it's not the LCP
+        loading="lazy"
         sizes="(max-width: 768px) 100vw, 500px"
       />
       <Link href="/" className={styles.goButton}>
@@ -335,15 +366,9 @@ const HeaderCarousel = () => {
     // Setup event listener
     window.addEventListener("resize", checkMobileView);
 
-    // 💥 REMOVE THIS BLOCK - FONT LOADING IS HANDLED IN LAYOUT.JS 💥
-    // const link = document.createElement("link");
-    // link.href = "https://fonts.googleapis.com/css2?family=Lato&display=swap";
-    // link.rel = "stylesheet";
-    // document.head.appendChild(link);
-
     // Cleanup
     return () => window.removeEventListener("resize", checkMobileView);
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   // Text rotation effect with optimized interval management
   useEffect(() => {
