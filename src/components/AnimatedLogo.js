@@ -20,7 +20,7 @@ const AnimatedLogo = () => {
           alt="Logo Arrow"
           width={18}
           height={18}
-          priority={true}
+          priority
         />
       </div>
     </div>
