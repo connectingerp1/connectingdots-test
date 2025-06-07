@@ -1,12 +1,9 @@
-/* src/app/globals.css (UPDATED - CLEANED) */
+/* src/app/globals.css */
 
 /* Tailwind CSS directives - KEEP THESE */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* 🚨 REMOVED: @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap"); */
-/* Both Lato and Rubik are now loaded via next/font in layout.js */
 
 /* Custom CSS Variables - KEEP THESE */
 :root {
@@ -19,8 +16,8 @@
   --transparent-pink: #e384ff;
   --gradient-angle: 0deg;
 
-  /* 🚀 NEW: Reference font variables */
-  font-family: var(--font-lato);
+  /* 🚀 NEW: Reference font variables for consistent use across your entire CSS */
+  font-family: var(--font-lato), var(--font-rubik), Arial, sans-serif;
 }
 
 /* Basic Reset Styles - KEEP THESE */
@@ -32,8 +29,8 @@
 
 /* Base Body Styles - KEEP THESE */
 body {
-  /* Use the CSS variable from next/font */
-  font-family: var(--font-lato), Arial, sans-serif; /* Fallback */
+  /* Use the CSS variables from next/font. Include fallbacks. */
+  font-family: var(--font-lato), var(--font-rubik), Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -48,14 +45,6 @@ body {
   color: #113b6b;
   font-weight: bold;
 }
-
-/* 🚨 REMOVED ALL BACKGROUND ANIMATION CSS FROM HERE */
-/* .background-animation { ... }
-.starsec { ... }
-.starthird { ... }
-.starfourth { ... }
-.starfifth { ... }
-@keyframes animStar { ... } */
 
 /* Specific highlight class - KEEP THIS if it's used very early on the page */
 .txtHighlight {
@@ -143,9 +132,6 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-/* This animation definition is likely from a component that is now dynamically loaded.
-   If `pulse-bg` is only used by the `LogoSphere` placeholder, it should be in its module CSS.
-   If it's truly global and needed early, keep it. Otherwise, REMOVE. */
 @keyframes pulse-bg {
   0% {
     box-shadow: 0 0 0 0 rgba(102, 130, 204, 0.4);

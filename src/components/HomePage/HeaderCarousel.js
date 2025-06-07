@@ -1,30 +1,30 @@
+// src/components/HomePage/HeaderCarousel.js
 "use client";
 
 import { useEffect, useState, useCallback, memo } from "react";
 import { Carousel, Button } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "@/styles/HomePage/HeaderCarousel.module.css";
 import Btnform from "./Btnform";
 import Image from "next/image";
 import Link from "next/link";
 
-// Dynamic import for LogoSphere
 import dynamic from "next/dynamic";
 const LogoSphere = dynamic(() => import("./LogoSphere"), {
-  ssr: false,
+  ssr: false, // Client-side only rendering
   loading: () => (
+    // Placeholder to prevent layout shifts while the 3D logo loads
     <div
       style={{
         width: "340px",
         height: "340px",
-        minHeight: "340px",
+        minHeight: "340px", // Maintain height to avoid CLS
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
       <img
-        src="/Navbar/arrow.avif"
+        src="/Navbar/arrow.avif" // Lightweight fallback image for the placeholder
         alt="Loading Logo"
         style={{ width: "80px", height: "80px", opacity: 0.5 }}
       />
@@ -32,7 +32,7 @@ const LogoSphere = dynamic(() => import("./LogoSphere"), {
   ),
 });
 
-// Constants moved outside component to avoid re-creation on render
+// Constants moved outside component to avoid re-creation on every render
 const TEXTS = [
   "Connect Your Dots with SAP Expertise",
   "Connect Your Dots with Data Science",
@@ -65,23 +65,22 @@ const QUESTION_DATA = {
   },
 };
 
-// Memoized company logo component to reduce rerenders
+// Memoized component for company logos to prevent unnecessary re-renders
 const CompanyLogos = memo(() => (
   <div className={styles.logoStrip}>
     <Image
       src="/Headercarousel/logo strip.avif"
       alt="Partner companies logos including IBM, TCS, and other corporate partners"
-      width={400}
-      height={100}
-      priority={true}
-      sizes="(max-width: 768px) 100vw, 400px"
+      width={400} // Actual width of the image
+      height={100} // Actual height of the image
+      priority={true} // 🚀 CRITICAL MOBILE LCP FIX: Set priority to TRUE as this is the LCP element on mobile
+      sizes="(max-width: 768px) 100vw, 400px" // Define sizes for responsive image loading
     />
   </div>
 ));
+CompanyLogos.displayName = "CompanyLogos"; // Good practice for memoized components
 
-CompanyLogos.displayName = "CompanyLogos";
-
-// Split into smaller components to reduce nesting
+// Component for the first carousel slide (Career Potential)
 const CareerSlide = ({ onButtonClick }) => (
   <div className={styles.carouselSlide}>
     <div className={styles.carouselText}>
@@ -107,60 +106,43 @@ const CareerSlide = ({ onButtonClick }) => (
       >
         <span>Free Consultation</span>
       </Button>
-      <CompanyLogos />
+      <CompanyLogos /> {/* The mobile LCP image is rendered here */}
     </div>
     <div className={styles.carouselImage}>
-      {/* Updated container with intensified shadow */}
-      <div className="relative w-42 sm:w-60 md:w-80 lg:w-96 aspect-square">
-        {/* Primary 50% less intense shadow */}
-        <div
-          className="absolute"
-          style={{
-            bottom: "-25px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "90%",
-            height: "50px",
-            background:
-              "radial-gradient(ellipse, rgba(0, 0, 0, 0.245) 0%, rgba(0, 0, 0, 0.14) 30%, rgba(0, 0, 0, 0.07) 60%, transparent 80%)",
-            filter: "blur(25px)",
-            zIndex: 0,
-          }}
-        />
+      {/* Decorative divs for background gradients/shadows */}
+      <div
+        className="absolute mt-4 top-34 w-[340px] h-[340px] rounded-full bg-gradient-to-br from-blue-200/20 to-blue-400/20 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
+      <div
+        className="absolute top-40 w-[260px] h-[260px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/20 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
+      <div
+        className="absolute mt-3 top-44 w-[200px] h-[200px] rounded-full bg-gradient-to-br from-blue-500/20 to-blue-700/20 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      ></div>
 
-        {/* Secondary 50% less intense shadow */}
-        <div
-          className="absolute"
-          style={{
-            bottom: "-15px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "65%",
-            height: "30px",
-            background:
-              "radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.15) 50%, transparent 70%)",
-            filter: "blur(12px)",
-            zIndex: 0,
-          }}
-        />
-
-        <Image
-          src="/Navbar/3d-logo.avif"
-          alt="Hero Section Image"
-          fill
-          className="object-contain relative"
-          style={{
-            filter:
-              "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.1))",
-            zIndex: 1,
-          }}
-          priority={true}
-        />
-      </div>
+      {/* The 3D logo image, which is the LCP on desktop (previously identified) */}
+      <Image
+        src="/Navbar/3d-logo.avif"
+        alt="Hero Section Image"
+        fill // 'fill' needs parent with `position: relative` and defined dimensions
+        className="object-contain relative" // Keep your existing styling
+        style={{
+          filter:
+            "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.1))",
+          zIndex: 1,
+        }}
+        priority={false} // 🚨 CHANGE: Set to FALSE. This is NOT the LCP element on mobile.
+        loading="eager" // Load eagerly as it's always visible on the first slide
+        sizes="100vw" // Define sizes for responsive loading
+      />
     </div>
   </div>
 );
 
+// Component for the second carousel slide (AI Programs)
 const AISlide = ({ index, onClick }) => (
   <div className={styles.carouselSlide2}>
     <div className={styles.carouselText2}>
@@ -193,14 +175,16 @@ const AISlide = ({ index, onClick }) => (
           alt={`Training in ${TEXTS[index].split("with ")[1] || "Professional Skills"}`}
           width={500}
           height={400}
-          priority={true}
-          sizes="(max-width: 768px) 100vw, 500px"
+          priority={false} // 🚨 CHANGE: Set to FALSE. These are carousel images and not LCP.
+          loading="lazy" // 🚨 CHANGE: Lazy load these images as they are not initially visible.
+          sizes="(max-width: 768px) 100vw, 500px" // Define sizes for responsive loading
         />
       </div>
     </div>
   </div>
 );
 
+// Component for the third carousel slide (Industry Experts) - Desktop Only
 const ExpertsSlide = () => (
   <div className={styles.carouselSlide3}>
     <div className={styles.leftSideH3}>
@@ -219,7 +203,8 @@ const ExpertsSlide = () => (
           className={styles.assuredPlacementImage}
           width={80}
           height={80}
-          priority={true}
+          priority={false} // 🚨 CHANGE: Set to FALSE. This is not visible on initial mobile load.
+          loading="lazy" // Lazy load as it's not on the first slide
           sizes="80px"
         />
         <h3>Assured Placement Opportunity*</h3>
@@ -299,7 +284,7 @@ const ExpertsSlide = () => (
                 className={company.className}
                 width={80}
                 height={40}
-                loading={idx < 6 ? "eager" : "lazy"}
+                loading="lazy" // Ensure these are lazy loaded
                 sizes="80px"
               />
             ))}
@@ -310,6 +295,7 @@ const ExpertsSlide = () => (
   </div>
 );
 
+// Component for the fourth carousel slide (Quiz)
 const QuizSlide = ({ question, setQuestion }) => (
   <div className={styles.carouselSlide4}>
     <div className={styles.leftSideH}>
@@ -337,7 +323,7 @@ const QuizSlide = ({ question, setQuestion }) => (
         width={500}
         height={400}
         className="plants-image"
-        loading="lazy"
+        loading="lazy" // Lazy load as it's not initially visible
         sizes="(max-width: 768px) 100vw, 500px"
       />
       <Link href="/" className={styles.goButton}>
@@ -347,6 +333,7 @@ const QuizSlide = ({ question, setQuestion }) => (
   </div>
 );
 
+// Main HeaderCarousel component
 const HeaderCarousel = () => {
   const [isMobileView, setIsMobileView] = useState(false);
   const [index, setIndex] = useState(0);
@@ -357,18 +344,12 @@ const HeaderCarousel = () => {
     text: "Hover over or click a question button to see the question here.",
   });
 
-  // Check if viewport is mobile-sized
+  // Check if viewport is mobile-sized on mount and resize
   useEffect(() => {
     const checkMobileView = () => setIsMobileView(window.innerWidth <= 768);
-
-    // Initial check
-    checkMobileView();
-
-    // Setup event listener
-    window.addEventListener("resize", checkMobileView);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobileView);
+    checkMobileView(); // Initial check
+    window.addEventListener("resize", checkMobileView); // Setup event listener
+    return () => window.removeEventListener("resize", checkMobileView); // Cleanup
   }, []);
 
   // Text rotation effect with optimized interval management
@@ -380,11 +361,10 @@ const HeaderCarousel = () => {
         setTextVisible(true);
       }, 500);
     }, 3000);
-
     return () => clearInterval(intervalId);
   }, []);
 
-  // Memoize handlers to prevent rerenders
+  // Memoized handlers to prevent unnecessary re-renders
   const scrollToPopCourses = useCallback(() => {
     const element = document.getElementById("popCourses");
     if (element) {
