@@ -58,13 +58,13 @@ const Stickyform = dynamic(() => import("@/components/Stickyform"), {
 });
 
 // 🚀 NEW: Dynamically import BackgroundAnimation
-// const BackgroundAnimation = dynamic(
-//   () => import("@/components/Common/BackgroundAnimation"),
-//   {
-//     ssr: false, // Client-side only
-//     loading: () => null, // No placeholder needed for a background animation
-//   }
-// );
+const BackgroundAnimation = dynamic(
+  () => import("@/components/Common/BackgroundAnimation"),
+  {
+    ssr: false, // Client-side only
+    loading: () => null, // No placeholder needed for a background animation
+  }
+);
 
 // Keep these as regular imports
 import CallAdvisorsStrip from "@/components/Common/CallAdvisorsStrip";
@@ -162,7 +162,7 @@ export default function RootLayout({ children }) {
           />
         </noscript>
         {/* 🚀 NEW: Conditionally loaded BackgroundAnimation component */}
-        {/* <BackgroundAnimation /> */}
+        <BackgroundAnimation />
         {/* Critical above-the-fold components */}
         {!shouldHideComponent && <CallAdvisorsStrip />}
         {!shouldHideComponent && <Marquee />}
