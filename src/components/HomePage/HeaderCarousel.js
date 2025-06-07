@@ -145,7 +145,7 @@ const CareerSlide = ({ onButtonClick }) => (
         />
 
         <Image
-          src="/Navbar/3d-logo.webp"
+          src="/Navbar/3d-logo.avif"
           alt="Hero Section Image"
           fill
           className="object-contain relative"

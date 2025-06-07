@@ -1,16 +1,24 @@
 // Navbar.jsx
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react"; // Added useCallback
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "@/styles/Common/Navbar.module.css";
-import AnimatedLogo from "../AnimatedLogo";
+// import AnimatedLogo from "../AnimatedLogo"; // REMOVE THIS DIRECT IMPORT
 
+// Dynamic import for AnimatedLogo
+import dynamic from "next/dynamic";
+const AnimatedLogo = dynamic(() => import("../AnimatedLogo"), {
+  ssr: false, // Ensure client-side rendering
+  loading: () => <div className={styles.animatedLogoPlaceholder} />, // Add a placeholder
+});
 
-// Custom component definitions with improved props handling
-const Navbar = ({ expand, className, children }) => (
+// REMOVE: import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS is already loaded in layout.js
+
+// Custom component definitions with improved props handling (minor, keep as is for now)
+const Navbar = ({ expand, className, children, ref }) => (
   <nav
     className={`${styles.navbar} ${
       expand
@@ -19,6 +27,7 @@ const Navbar = ({ expand, className, children }) => (
           ]
         : ""
     } ${className || ""}`}
+    ref={ref} // Pass ref down
   >
     {children}
   </nav>
@@ -60,21 +69,18 @@ const Header = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState(null);
   const [touchStartX, setTouchStartX] = useState(null);
-  const [touchMoveX, setTouchMoveX] = useState(null);
-  const [sidebarClass, setSidebarClass] = useState("");
-  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [touchMoveX, setTouchMoveX] = useState(null); // Keep touchMoveX for delta calculation
   const [scrolled, setScrolled] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
   const sidebarRef = useRef(null);
-  const navbarRef = useRef(null);
+  const navbarRef = useRef(null); // Retain navbarRef if used for sticky logic or other purposes
 
   // Set active link based on current pathname
   useEffect(() => {
     if (pathname) {
-      // Logic to determine active link based on pathname
-      if (pathname.includes("sap")) {
+      if (pathname.includes("sap-course")) {
         setActiveLink("dropdown2");
       } else if (pathname.includes("it-course")) {
         setActiveLink("dropdown3");
@@ -82,10 +88,15 @@ const Header = () => {
         setActiveLink("dropdown4");
       } else if (pathname.includes("digital-marketing")) {
         setActiveLink("dropdown5");
-      } else if (pathname.includes("hr")) {
+      } else if (
+        pathname.includes("hr-training") ||
+        pathname.includes("hr-course")
+      ) {
         setActiveLink("dropdown6");
       } else if (pathname.includes("aboutus")) {
         setActiveLink("aboutus");
+      } else {
+        setActiveLink(""); // Default or home
       }
     }
   }, [pathname]);
@@ -93,15 +104,23 @@ const Header = () => {
   // Handle scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true }); // Use passive listener
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Use useCallback for closeSidebar to prevent re-creation
+  const closeSidebar = useCallback(() => {
+    setIsSidebarVisible(false);
+    setMobileOpenDropdown(null);
+    // Ensure body scroll is re-enabled immediately
+    document.body.style.overflow = "";
+    if (sidebarRef.current) {
+      sidebarRef.current.style.transition = ""; // Re-enable transition
+      sidebarRef.current.style.transform = ""; // Ensure it snaps back if touch move
+    }
   }, []);
 
   // Handle click outside sidebar to close it
@@ -111,25 +130,24 @@ const Header = () => {
         isSidebarVisible &&
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target) &&
-        !event.target.classList.contains(styles.navbarToggler) &&
-        !event.target.classList.contains(styles.navbarTogglerIcon)
+        !event.target.closest(`.${styles.navbarToggler}`) // Use closest for robustness
       ) {
         closeSidebar();
       }
     }
 
-    // Add event listener when sidebar is open
     if (isSidebarVisible) {
       document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("touchstart", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside, {
+        passive: true,
+      });
     }
 
-    // Cleanup function
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [isSidebarVisible]);
+  }, [isSidebarVisible, closeSidebar]); // Add closeSidebar to dependencies
 
   // Add effect to handle window resize
   useEffect(() => {
@@ -141,19 +159,16 @@ const Header = () => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isSidebarVisible]);
+  }, [isSidebarVisible, closeSidebar]); // Add closeSidebar to dependencies
 
   // Add effect to manage overlay and body scroll
   useEffect(() => {
     if (isSidebarVisible) {
-      setOverlayVisible(true);
-      // Small delay to ensure overlay fades in properly
-      setTimeout(() => (document.body.style.overflow = "hidden"), 100);
+      // No need for overlayVisible state, directly apply styles
+      document.body.style.overflow = "hidden";
     } else {
-      setOverlayVisible(false);
       document.body.style.overflow = "";
     }
-
     return () => {
       document.body.style.overflow = "";
     };
@@ -169,117 +184,117 @@ const Header = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isSidebarVisible]);
+  }, [isSidebarVisible, closeSidebar]); // Add closeSidebar to dependencies
 
-  const closeSidebar = () => {
-    setIsSidebarVisible(false);
-    setMobileOpenDropdown(null);
-  };
+  const handleNavClick = useCallback(
+    (link) => {
+      setActiveLink(link);
+      closeSidebar();
+    },
+    [closeSidebar]
+  );
 
-  const handleNavClick = (link) => {
-    setActiveLink(link);
-    closeSidebar();
-  };
-
-  const handleMouseEnter = (dropdown) => {
-    // Only handle hover events on desktop
+  const handleMouseEnter = useCallback((dropdown) => {
     if (window.innerWidth >= 992) {
       setIsDropdownVisible((prev) => ({ ...prev, [dropdown]: true }));
     }
-  };
+  }, []);
 
-  const handleMouseLeave = (dropdown) => {
-    // Only handle hover events on desktop
+  const handleMouseLeave = useCallback((dropdown) => {
     if (window.innerWidth >= 992) {
       setIsDropdownVisible((prev) => ({ ...prev, [dropdown]: false }));
     }
-  };
+  }, []);
 
-  const handleMobileDropdownToggle = (dropdown) => {
-    // For mobile view, toggle dropdowns on click instead of hover
-    if (window.innerWidth < 992) {
-      setMobileOpenDropdown(mobileOpenDropdown === dropdown ? null : dropdown);
-    }
-  };
+  const handleMobileDropdownToggle = useCallback(
+    (dropdown) => {
+      if (window.innerWidth < 992) {
+        setMobileOpenDropdown(
+          mobileOpenDropdown === dropdown ? null : dropdown
+        );
+      }
+    },
+    [mobileOpenDropdown]
+  ); // Depend on mobileOpenDropdown
 
-  const handleNavigation = (link, section) => {
-    if (pathname !== link) {
-      router.push(link);
-      setTimeout(() => {
-        window.location.hash = section;
+  const handleNavigation = useCallback(
+    (link, section) => {
+      // Check if the current pathname is the same as the link's base path
+      const linkBasePath = link.split("#")[0];
+      if (pathname !== linkBasePath) {
+        // If navigating to a different page, push and then scroll
+        router.push(linkBasePath).then(() => {
+          if (section) {
+            setTimeout(() => {
+              document
+                .getElementById(section)
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 100); // Small delay to ensure page renders
+          }
+          closeSidebar();
+        });
+      } else {
+        // If on the same page, just scroll
+        if (section) {
+          document
+            .getElementById(section)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
         closeSidebar();
-      }, 100);
-    } else {
-      window.location.hash = section;
-      closeSidebar();
-    }
-  };
+      }
+    },
+    [pathname, router, closeSidebar]
+  ); // Depend on pathname, router, closeSidebar
 
-  // Add touch gesture handlers
-  const handleTouchStart = (e) => {
-    setSidebarClass("touchStart");
+  // Optimized Touch Gesture Handlers
+  const handleTouchStart = useCallback((e) => {
     setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    if (!touchStartX) return;
-
-    const currentX = e.touches[0].clientX;
-    setTouchMoveX(currentX);
-
-    // Calculate distance moved
-    const deltaX = currentX - touchStartX;
-
-    // Only allow sliding to the left (to close)
-    if (deltaX < 0) return;
-
-    setSidebarClass("touchMove");
-
-    // Apply transform based on touch movement (limit max movement)
-    const sidebarElement = sidebarRef.current;
-    if (sidebarElement) {
-      const moveX = Math.min(Math.abs(deltaX), sidebarElement.offsetWidth);
-      sidebarElement.style.transform = `translateX(${moveX}px)`;
+    // Initialize touchMoveX as well to ensure delta calculation is always valid
+    setTouchMoveX(e.touches[0].clientX);
+    if (sidebarRef.current) {
+      sidebarRef.current.style.transition = "none"; // Disable transition for direct manipulation
     }
-  };
+  }, []);
 
-  const handleTouchEnd = () => {
-    if (!touchStartX || !touchMoveX) {
-      setSidebarClass("");
-      return;
+  const handleTouchMove = useCallback(
+    (e) => {
+      if (touchStartX === null || !sidebarRef.current) return;
+      const currentX = e.touches[0].clientX;
+      setTouchMoveX(currentX); // Update currentX
+
+      const deltaX = currentX - touchStartX;
+      const sidebarElement = sidebarRef.current;
+
+      // Only allow swiping right (positive deltaX) to close the sidebar
+      if (deltaX > 0) {
+        sidebarElement.style.transform = `translateX(${deltaX}px)`;
+      } else {
+        // If swiping left, keep it at 0 (fully open)
+        sidebarElement.style.transform = `translateX(0px)`;
+      }
+    },
+    [touchStartX]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    if (touchStartX === null || !sidebarRef.current) return;
+    const sidebarElement = sidebarRef.current;
+    const deltaX = touchMoveX - touchStartX; // Calculate delta based on start and last move
+
+    if (sidebarRef.current) {
+      sidebarRef.current.style.transition = ""; // Re-enable default transition
     }
 
-    // Calculate distance moved
-    const deltaX = touchMoveX - touchStartX;
-
-    // If moved more than 100px or 40% of sidebar width, close the sidebar
-    const sidebarElement = sidebarRef.current;
-    const threshold = Math.min(
-      100,
-      sidebarElement ? sidebarElement.offsetWidth * 0.4 : 100
-    );
-
-    setSidebarClass("touchEnd");
+    const threshold = sidebarElement.offsetWidth * 0.4; // 40% of sidebar width
 
     if (deltaX > threshold) {
-      // User swiped right enough to close sidebar
-      closeSidebar();
-
-      // Reset sidebar transform
-      if (sidebarElement) {
-        sidebarElement.style.transform = "";
-      }
+      closeSidebar(); // This will trigger sidebar's default transition to fully close
     } else {
-      // Not enough movement, snap back
-      if (sidebarElement) {
-        sidebarElement.style.transform = "";
-      }
+      sidebarElement.style.transform = `translateX(0px)`; // Snap back to open with transition
     }
-
-    // Reset touch tracking
     setTouchStartX(null);
     setTouchMoveX(null);
-  };
+  }, [touchStartX, touchMoveX, closeSidebar]);
 
   const renderDropdownSAP = (isMobile = false) => (
     <div
@@ -298,6 +313,8 @@ const Header = () => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown2");
+            } else {
+              handleNavClick("/sap-course-in-pune"); // Ensure desktop click also triggers nav click
             }
           }}
           aria-expanded={
@@ -366,27 +383,39 @@ const Header = () => {
             },
           ].map((submenu, index) => (
             <li key={index} className={styles.megaMenuItem}>
-              <div className={styles.subMenuHeader}>
-                <span className={styles.subMenuTitle}>{submenu.title}</span>
-                <span className={styles.subMenuArrow}></span>
-              </div>
-              <ul
-                className={`${styles.dropdownMenu} ${
-                  isMobile ? styles.mobileSubmenu : styles.dropdownSubmenu
-                }`}
-              >
-                {submenu.items.map((item, subIndex) => (
-                  <li key={subIndex}>
-                    <Link
-                      className={styles.dropdownItem}
-                      href={item.link}
-                      onClick={() => handleNavClick(item.link)}
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {submenu.items ? (
+                <>
+                  <div className={styles.subMenuHeader}>
+                    <span className={styles.subMenuTitle}>{submenu.title}</span>
+                    <span className={styles.subMenuArrow}></span>
+                  </div>
+                  <ul
+                    className={`${styles.dropdownMenu} ${
+                      isMobile ? styles.mobileSubmenu : styles.dropdownSubmenu
+                    }`}
+                  >
+                    {submenu.items.map((item, subIndex) => (
+                      <li key={subIndex}>
+                        <Link
+                          className={styles.dropdownItem}
+                          href={item.link}
+                          onClick={() => handleNavClick(item.link)}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <Link
+                  className={styles.dropdownItem}
+                  href={submenu.link}
+                  onClick={() => handleNavClick(submenu.link)}
+                >
+                  {submenu.title}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -411,6 +440,8 @@ const Header = () => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown3");
+            } else {
+              handleNavClick("/it-course-in-pune");
             }
           }}
           aria-expanded={
@@ -548,6 +579,8 @@ const Header = () => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown4");
+            } else {
+              handleNavClick("/data-visualisation-course-in-pune");
             }
           }}
           aria-expanded={
@@ -620,6 +653,8 @@ const Header = () => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown5");
+            } else {
+              handleNavClick("/digital-marketing-course-in-pune");
             }
           }}
           aria-expanded={
@@ -718,6 +753,8 @@ const Header = () => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown6");
+            } else {
+              handleNavClick("/hr-training-course-in-pune");
             }
           }}
           aria-expanded={
@@ -786,14 +823,17 @@ const Header = () => {
         <Container fluid className={styles.navContainer}>
           <div className={styles.logo}>
             <Link href="/" className={styles.logoLink}>
+              {/* AnimatedLogo is now dynamically loaded */}
               <AnimatedLogo className={styles.animatedLogo} />
               <div className={styles.logoWrapper}>
                 <Image
-                  src="/Navbar/logo.webp"
+                  src="/Navbar/logo.avif"
                   alt="Logo of Connecting Dots ERP"
-                  fill
-                  priority
+                  width={120} // Explicit width matching logoWrapper
+                  height={60} // Explicit height matching logoWrapper
+                  priority // Set priority for the main logo
                   className={styles.logoImage}
+                  sizes="120px" // Add sizes for responsive loading
                 />
               </div>
             </Link>
@@ -838,14 +878,12 @@ const Header = () => {
       {isSidebarVisible && (
         <>
           <div
-            className={`${styles.sidebarOverlay} ${
-              overlayVisible ? styles.visible : ""
-            }`}
+            className={`${styles.sidebarOverlay} ${styles.visible}`} // Always visible when sidebar is
             onClick={closeSidebar}
             aria-hidden="true"
           />
           <aside
-            className={`${styles.sidebar} ${styles.visible} ${styles[sidebarClass]}`}
+            className={`${styles.sidebar} ${styles.visible}`} // Removed dynamic sidebarClass to manage transition explicitly
             ref={sidebarRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -863,11 +901,12 @@ const Header = () => {
                 >
                   <AnimatedLogo className={styles.sidebarLogo} />
                   <Image
-                    src="/Navbar/logo.png"
+                    src="/Navbar/logo.webp" // Use webp for optimization
                     alt="Connecting Dots ERP Logo"
                     width={130}
                     height={100}
-                    loading="eager"
+                    loading="lazy" // Lazy load for sidebar
+                    sizes="130px" // Add sizes attribute
                   />
                 </Link>
               </div>
