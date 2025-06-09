@@ -340,7 +340,7 @@ const QuizSlide = ({ question, setQuestion }) => (
         loading="lazy"
         sizes="(max-width: 768px) 100vw, 500px"
       />
-      <Link href="/" className={styles.goButton}>
+      <Link href="/quiz" className={styles.goButton}>
         <span>Quiz→</span>
       </Link>
     </div>
