@@ -7,13 +7,14 @@ const FixedLogo = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setIsVisible(currentScrollY < lastScrollY || currentScrollY < 10); // Show when scrolling up or near top
-      lastScrollY = currentScrollY;
+      // Show logo only when at the top (within 15px of top)
+      setIsVisible(currentScrollY <= 15);
     };
+
+    // Initial check
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -21,7 +22,7 @@ const FixedLogo = () => {
 
   return (
     <div
-      className={`fixed top-2 right-8 z-50 transition-opacity duration-500 ${
+      className={`fixed top-2 right-8 z-50 transition-opacity duration-300 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
