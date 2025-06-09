@@ -2,6 +2,7 @@ export async function GET() {
   const robotsTxt = `User-agent: *
 Disallow: /AdminLogin
 Disallow: /dashboard
+Disallow: /superadmin
 Disallow: /terms
 Disallow: /privacy
 Disallow: /919004002941
