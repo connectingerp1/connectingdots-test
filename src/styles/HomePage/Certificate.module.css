@@ -40,7 +40,6 @@
 .certificateSubtitle {
   font-weight: bold;
   letter-spacing: 1px;
-  font-family: "Lato", sans-serif;
 }
 
 .certificateContent {
@@ -49,8 +48,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  font-family: "Lato", sans-serif;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .certificateImage {
@@ -75,9 +73,8 @@
 .certificateText {
   flex: 2;
   margin-left: 20px;
-  font-family: "Forum", serif;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-style: normal;
 }
 
@@ -88,7 +85,7 @@
 }
 
 .certificateText p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-bottom: 20px;
   text-align: justify;
 }
@@ -118,7 +115,7 @@
 
 @media (min-width: 1024px) {
   .certificateText p {
-      font-size: 1.2rem;
+      font-size: 1rem;
   }
 }
 

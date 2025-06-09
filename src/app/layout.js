@@ -2,13 +2,11 @@
 "use client";
 
 import { useEffect, Suspense } from "react";
-// Removed direct globals.css import here, will import it within specific layers
-// import "./globals.css"; // REMOVED THIS
 import { CityProvider } from "@/context/CityContext";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { Lato, Rubik } from "next/font/google"; // 🚀 IMPORT RUBIK FONT AS WELL
+import { Lato, Rubik } from "next/font/google";
 
 // Initialize Lato font using next/font
 const lato = Lato({
@@ -28,7 +26,7 @@ const rubik = Rubik({
 });
 
 // Import global CSS here. Keep only essential global styles.
-import "./globals.css"; // Keep this, but its content will be much leaner.
+import "./globals.css";
 
 // Lazy load heavy components
 const Navbar = dynamic(() => import("@/components/Common/Navbar"), {

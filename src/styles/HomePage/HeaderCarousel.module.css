@@ -61,19 +61,16 @@
   color: #000;
   margin: 20px 0px;
   font-size: 22px;
-  font-family: "Lato", sans-serif;
   font-weight: bold;
 }
 
 .carouselText h3 {
   color: #333;
   margin-bottom: 15px;
-  font-family: "Lato", sans-serif;
   font-weight: bold;
 }
 
 .carouselText p {
-  font-family: Arial, Helvetica, sans-serif;
   color: #363939;
   margin-bottom: 25px;
 }
@@ -112,7 +109,6 @@
   color: #fff;
   border-radius: 5px;
   padding: 0;
-  font-family: "Lato", sans-serif;
   font-weight: 500;
   background: transparent;
   cursor: pointer;
@@ -290,7 +286,6 @@
   color: #ffffff;
   border-radius: 5px;
   padding: 0;
-  font-family: "Lato", sans-serif;
   font-weight: 500;
   background: transparent;
   background: rgb(0, 172, 238);
@@ -349,7 +344,6 @@
 }
 
 .carouselText2 {
-  font-family: "Lato", sans-serif;
   font-weight: bold;
   flex: 1;
   text-align: left;
@@ -449,13 +443,11 @@
   font-size: 38px;
   margin-top: 0px;
   margin-bottom: 20px;
-  font-family: "Lato", sans-serif;
   font-weight: bold;
 }
 
 .leftSideH3 h2 {
   font-size: 36px;
-  font-family: "Roboto", sans-serif;
   font-weight: 700;
 }
 
@@ -504,7 +496,6 @@
 .cardH3 h2 {
   font-size: 30px;
   margin-bottom: 25px;
-  font-family: "Lato", sans-serif;
   font-weight: bold;
   color: black;
 }
@@ -640,14 +631,12 @@
 .leftSideH h1 {
   font-size: 48px;
   margin-bottom: 20px;
-  font-family: "Lato", sans-serif;
   font-weight: bold;
 }
 
 .leftSideH p {
   font-size: 18px;
   margin-bottom: 40px;
-  font-family: "Roboto", sans-serif;
 }
 
 .quizOptions {
