@@ -5,18 +5,6 @@ import AboutUsClientContent from "@/components/AboutusPage/AboutUsClientContent"
 
 // Get static HTML content
 const staticHtml = getStaticHtml("aboutus");
-
-// Define metadata (moved from Client Component's <Head>)
-export const metadata = {
-  title: "About Connecting Dots ERP | Our Mission & Vision", // From your previous example
-  description:
-    "Learn about Connecting Dots ERP, our mission, vision, values, and the team dedicated to empowering students and professionals with industry-leading SAP, IT, and HR training.", // From your previous example
-  alternates: {
-    canonical: "/aboutus", // Adjust if your URL is different
-  },
-  // Add matching Open Graph / Twitter tags here if desired
-};
-
 export default async function AboutUsPage() {
   return (
     <>

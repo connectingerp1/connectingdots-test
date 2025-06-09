@@ -6,17 +6,6 @@ import ContactUsClientContent from "@/components/ContactusPage/ContactUsClientCo
 // Get static HTML content
 const staticHtml = getStaticHtml("contactus");
 
-// Define metadata (moved from Client Component's <Head>)
-export const metadata = {
-  title: "Contact Connecting Dots ERP | Locations & Support", // From your previous example
-  description:
-    "Get in touch with Connecting Dots ERP. Find our office locations in Pune, Mumbai, and Raipur. Call, email, or visit us for SAP, IT, and HR training inquiries and support.", // From your previous example
-  alternates: {
-    canonical: "/contactus", // Adjust if your URL is different
-  },
-  // Add matching Open Graph / Twitter tags here if desired
-};
-
 export default async function ContactPage() {
   return (
     <>
