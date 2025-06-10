@@ -18,7 +18,7 @@
   z-index: 10;
 }
 
-/* slide1 */
+/* slide1 - LCP OPTIMIZED */
 .carouselSlide {
   display: flex;
   align-items: center;
@@ -38,15 +38,12 @@
   height: 80%;
 }
 
-
+/* CRITICAL: Optimized logo strip for LCP */
 .logoStrip img {
   height: 130px;
   width: 800px;
   margin-left: 10px;
-}
-
-.logoStrip img {
-  max-width: unset !important;
+  /* Removed max-width: unset to prevent layout shifts */
 }
 
 .carouselText {
@@ -98,7 +95,7 @@
   height: 60px;
 }
 
-/* Custom button */
+/* Custom button - GPU accelerated */
 .buttonBTN {
   margin: 20px;
 }
@@ -123,6 +120,9 @@
     7px 7px 20px 0px rgba(0, 0, 0, 0.1),
     4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
+  /* GPU acceleration */
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .btn3 {
@@ -306,6 +306,9 @@
     7px 7px 20px 0px rgba(0, 0, 0, 0.1),
     4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
+  /* GPU acceleration */
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .slide2Btn:before,
@@ -390,15 +393,18 @@
     rgba(0, 0, 0, 0.7) 0px 8px 6px -8px inset;
 }
 
-/* Image transition styling */
+/* Image transition styling - optimized */
 .transitionImage {
   width: 90%;
   height: auto;
   border-radius: 8px;
   transition: opacity 0.5s ease-in-out;
+  /* GPU acceleration */
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
-/* Glowing animation */
+/* Glowing animation - optimized for performance */
 .cardBox2::before {
   content: "";
   position: absolute;
@@ -407,11 +413,13 @@
   background: linear-gradient(to right, #04015a, #0b3293, #2ab0f8, #53daff);
   transform-origin: center;
   animation: glowing 5s linear infinite;
+  /* GPU acceleration */
+  will-change: transform;
 }
 
 @keyframes glowing {
   0% {
-    transform: rotate(0);
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
@@ -469,7 +477,6 @@
   box-shadow:
     rgba(0, 0, 0, 0.4) 0px 2px 10px 0px,
     rgba(0, 0, 0, 0.5) 0px 2px 25px 0px;
-  /* margin-right: 80px; */
 }
 
 .cardH3 {
@@ -590,15 +597,8 @@
   background: linear-gradient(to right, #ff0ff7, #ac36c4, #ffb36b, #2efffc);
   transform-origin: center;
   animation: glowing 5s linear infinite;
-}
-
-@keyframes glowing {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  /* GPU acceleration */
+  will-change: transform;
 }
 
 /* Slide 4 */
@@ -660,6 +660,10 @@
   height: 100px;
   font-size: 24px;
   cursor: pointer;
+  /* GPU acceleration */
+  will-change: transform, background-color;
+  transform: translateZ(0);
+  transition: all 0.3s ease;
 }
 
 .highlight {
@@ -669,6 +673,7 @@
 
 .circularButton:hover {
   background-color: #0fb3a8;
+  transform: translateZ(0) scale(1.05);
 }
 
 .quizOption span {
@@ -701,13 +706,18 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  /* GPU acceleration */
+  will-change: transform, background-color;
+  transform: translateZ(0);
+  transition: all 0.3s ease;
 }
 
 .goButton:hover {
   background-color: #0fb3a8;
+  transform: translateZ(0) scale(1.05);
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries for Responsiveness - OPTIMIZED */
 @media (max-width: 1200px) {
   .carouselIndicators {
     bottom: 0px;
@@ -734,7 +744,7 @@
     margin: 20px 0px 0px 0px;
   }
 
-  .carouselImage{
+  .carouselImage {
     width: 35%;
     height: 35%;
     align-items: flex-end;
@@ -957,7 +967,7 @@
   }
 }
 
-/* Media Queries for Responsiveness */
+/* Additional responsive optimizations for slide 2 */
 @media (max-width: 1200px) {
   .carouselSlide2 {
     height: 580px;
@@ -1085,5 +1095,58 @@
     height: 40%;
     top: 115px;
     margin-right: 5px;
+  }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .transitionImage,
+  .customBtn,
+  .slide2Btn,
+  .circularButton,
+  .goButton {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .cardBox2::before,
+  .cardBox3::before {
+    animation: none !important;
+  }
+
+  .btn3:before,
+  .btn3:after,
+  .btn3 span:before,
+  .btn3 span:after,
+  .slide2Btn:before,
+  .slide2Btn:after {
+    transition: none !important;
+  }
+}
+
+/* Focus states for accessibility and performance */
+.customBtn:focus-visible,
+.slide2Btn:focus-visible,
+.circularButton:focus-visible,
+.goButton:focus-visible {
+  outline: 2px solid #2277d3;
+  outline-offset: 2px;
+}
+
+/* Optimize animations for performance */
+@keyframes glowing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Container queries for better responsive design (when supported) */
+@supports (container-type: inline-size) {
+  .carouselWrapper {
+    container-type: inline-size;
   }
 }

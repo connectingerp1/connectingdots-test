@@ -1,4 +1,4 @@
-  /* Navbar.module.css */
+/* Navbar.module.css */
 
 .navbar {
   display: flex;
@@ -66,13 +66,15 @@
 
 .logoImage {
   transition: filter 0.2s ease;
-  /* Next.js Image component handles object-fit if fill is used */
 }
 
 .logoWrapper {
   position: relative;
   width: 120px;
   height: 50px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
 .animatedLogo {
@@ -692,11 +694,10 @@
   transition: all 0.2s ease;
 }
 
-/* No longer need touchStart/touchMove/touchEnd classes for sidebar transform */
 /* Responsive styles */
 @media (min-width: 992px) {
   .containerFluid {
-    padding: 0 2rem;
+    padding: 0 1rem;
   }
 
   .navbarDesktop {
@@ -751,7 +752,11 @@
   }
 
   .navLink {
-    font-size: 0.85rem;
+    font-size: 0.68rem;
+  }
+
+  .ctaButton {
+    font-size: 0.7rem;
   }
 
   /* Prevent text wrap on larger screens */

@@ -23,9 +23,11 @@ const LogoSphere = dynamic(() => import("./LogoSphere"), {
         justifyContent: "center",
       }}
     >
-      <img
+      <Image
         src="/Navbar/arrow.avif"
         alt="Loading Logo"
+        width={80}
+        height={80}
         style={{ width: "80px", height: "80px", opacity: 0.5 }}
       />
     </div>
@@ -65,16 +67,21 @@ const QUESTION_DATA = {
   },
 };
 
-// Memoized company logo component to reduce rerenders
+// Memoized company logo component - OPTIMIZED FOR LCP
 const CompanyLogos = memo(() => (
   <div className={styles.logoStrip}>
     <Image
       src="/Headercarousel/logo strip.avif"
       alt="Partner companies logos including IBM, TCS, and other corporate partners"
-      width={400}
-      height={100}
-      priority={true}
-      sizes="(max-width: 768px) 100vw, 400px"
+      width={800}
+      height={130}
+      priority={true} // LCP element gets priority
+      sizes="(max-width: 768px) 100vw, 800px"
+      style={{ 
+        width: 'auto', 
+        height: 'auto',
+        maxWidth: '100%'
+      }}
     />
   </div>
 ));
@@ -82,7 +89,7 @@ const CompanyLogos = memo(() => (
 CompanyLogos.displayName = "CompanyLogos";
 
 // Split into smaller components to reduce nesting
-const CareerSlide = ({ onButtonClick }) => (
+const CareerSlide = memo(({ onButtonClick }) => (
   <div className={styles.carouselSlide}>
     <div className={styles.carouselText}>
       <h1>
@@ -154,14 +161,17 @@ const CareerSlide = ({ onButtonClick }) => (
               "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15)) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.1))",
             zIndex: 1,
           }}
-          priority={true}
+          loading="lazy" // Changed from priority to lazy
+          sizes="(max-width: 768px) 100vw, 400px"
         />
       </div>
     </div>
   </div>
-);
+));
 
-const AISlide = ({ index, onClick }) => (
+CareerSlide.displayName = "CareerSlide";
+
+const AISlide = memo(({ index, onClick }) => (
   <div className={styles.carouselSlide2}>
     <div className={styles.carouselText2}>
       <h2>
@@ -193,15 +203,17 @@ const AISlide = ({ index, onClick }) => (
           alt={`Training in ${TEXTS[index].split("with ")[1] || "Professional Skills"}`}
           width={500}
           height={400}
-          priority={true}
+          loading="lazy" // Changed from priority to lazy
           sizes="(max-width: 768px) 100vw, 500px"
         />
       </div>
     </div>
   </div>
-);
+));
 
-const ExpertsSlide = () => (
+AISlide.displayName = "AISlide";
+
+const ExpertsSlide = memo(() => (
   <div className={styles.carouselSlide3}>
     <div className={styles.leftSideH3}>
       <h2>
@@ -219,7 +231,7 @@ const ExpertsSlide = () => (
           className={styles.assuredPlacementImage}
           width={80}
           height={80}
-          priority={true}
+          loading="lazy" // Changed from priority to lazy
           sizes="80px"
         />
         <h3>Assured Placement Opportunity*</h3>
@@ -299,7 +311,7 @@ const ExpertsSlide = () => (
                 className={company.className}
                 width={80}
                 height={40}
-                loading={idx < 6 ? "eager" : "lazy"}
+                loading={idx < 6 ? "eager" : "lazy"} // First 6 eager, rest lazy
                 sizes="80px"
               />
             ))}
@@ -308,9 +320,11 @@ const ExpertsSlide = () => (
       </div>
     </div>
   </div>
-);
+));
 
-const QuizSlide = ({ question, setQuestion }) => (
+ExpertsSlide.displayName = "ExpertsSlide";
+
+const QuizSlide = memo(({ question, setQuestion }) => (
   <div className={styles.carouselSlide4}>
     <div className={styles.leftSideH}>
       <h2 dangerouslySetInnerHTML={{ __html: question.title }}></h2>
@@ -345,7 +359,9 @@ const QuizSlide = ({ question, setQuestion }) => (
       </Link>
     </div>
   </div>
-);
+));
+
+QuizSlide.displayName = "QuizSlide";
 
 const HeaderCarousel = () => {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -357,18 +373,26 @@ const HeaderCarousel = () => {
     text: "Hover over or click a question button to see the question here.",
   });
 
-  // Check if viewport is mobile-sized
+  // Optimized resize handler with debouncing
   useEffect(() => {
     const checkMobileView = () => setIsMobileView(window.innerWidth <= 768);
 
     // Initial check
     checkMobileView();
 
-    // Setup event listener
-    window.addEventListener("resize", checkMobileView);
+    // Debounced resize handler for better performance
+    let timeoutId;
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkMobileView, 100);
+    };
 
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobileView);
+    window.addEventListener("resize", debouncedResize, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   // Text rotation effect with optimized interval management
