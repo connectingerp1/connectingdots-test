@@ -22,9 +22,8 @@
 .carouselSlide {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 580px;
-  padding: 50px;
+  padding: 10px 100px;
   background-color: #e5e5ed;
   max-width: 1800px;
   width: 100%;
@@ -34,8 +33,9 @@
 .carouselImage {
   display: flex;
   justify-content: center;
-  width: 80%;
-  height: 80%;
+  align-items: end;
+  width: 50%;
+  height: 50%;
 }
 
 /* CRITICAL: Optimized logo strip for LCP */
@@ -51,7 +51,6 @@
   text-align: left;
   padding-right: 20px;
   position: relative;
-  margin-top: 20px;
 }
 
 .carouselText h2 {
@@ -722,6 +721,11 @@
   .carouselIndicators {
     bottom: 0px;
   }
+
+  .carouselSlide {
+    padding: 10px 50px;
+  }
+
   .carouselSlide2 {
     flex-direction: column;
     height: auto;
@@ -742,13 +746,6 @@
     width: 800px;
     height: 400px;
     margin: 20px 0px 0px 0px;
-  }
-
-  .carouselImage {
-    width: 35%;
-    height: 35%;
-    align-items: flex-end;
-    margin-right: 100px;
   }
 }
 
@@ -827,7 +824,7 @@
     margin-top: 0;
   }
   .btn3 span {
-    font-size: 10px;
+    font-size: 18px;
   }
 }
 
@@ -1142,7 +1139,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 /* Container queries for better responsive design (when supported) */
 @supports (container-type: inline-size) {
