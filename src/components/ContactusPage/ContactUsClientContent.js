@@ -2,10 +2,8 @@
 
 import { useState, useEffect, useContext } from "react";
 import { FaPhone, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { CityContext } from "@/context/CityContext";
-import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "@/styles/ContactUs.module.css";
+import Branches from "@/components/HomePage/Branches";
 
 const ContactUsClientContent = ({
   formData = {},
@@ -15,16 +13,6 @@ const ContactUsClientContent = ({
   submissionError: propSubmissionError,
 }) => {
   const { city } = useContext(CityContext);
-
-  // Google Maps API
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDBGFl3pJw6rBm6R0eX5vPZNLVkZgfcvh8",
-  });
-
-  const mapContainerStyle = {
-    width: "100%",
-    height: "200px",
-  };
 
   // Local state for form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,11 +24,10 @@ const ContactUsClientContent = ({
     contact: formData.contact || "",
     email: formData.email || "",
     course: formData.course || "",
-    countryCode: "+91", // Explicitly set default country code
+    countryCode: "+91",
   });
 
   useEffect(() => {
-    // Log form data whenever it changes (debug)
     console.log("Current form data:", localFormData);
   }, [localFormData]);
 
@@ -103,7 +90,6 @@ const ContactUsClientContent = ({
 
     console.log(`Field changed: ${name} = ${value}`);
 
-    // If it's the contact field, remove non-digit characters
     if (name === "contact") {
       const digitsOnly = value.replace(/\D/g, "");
       setLocalFormData((prev) => ({ ...prev, [name]: digitsOnly }));
@@ -111,7 +97,6 @@ const ContactUsClientContent = ({
       setLocalFormData((prev) => ({ ...prev, [name]: value }));
     }
 
-    // Also update parent state if provided
     if (setFormData) {
       if (name === "contact") {
         const digitsOnly = value.replace(/\D/g, "");
@@ -130,17 +115,13 @@ const ContactUsClientContent = ({
     console.log("Form submission:", localFormData);
     console.log("Country code:", localFormData.countryCode);
 
-    // Validate required fields
     if (!localFormData.name || !localFormData.email || !localFormData.contact) {
       setSubmissionError("Please fill all required fields");
       setIsSubmitting(false);
       return;
     }
 
-    // Fix for undefined country code - use default if not set
     const countryCode = localFormData.countryCode || "+91";
-
-    // Get the selected country code details
     const selectedCountry = countryCodes.find(
       (country) => country.code === countryCode
     );
@@ -153,7 +134,6 @@ const ContactUsClientContent = ({
 
     const { minLength, maxLength } = selectedCountry;
 
-    // Check if phone number length is valid for the selected country
     if (
       localFormData.contact.length < minLength ||
       localFormData.contact.length > maxLength
@@ -165,7 +145,6 @@ const ContactUsClientContent = ({
       return;
     }
 
-    // Check if phone number contains only digits
     const phoneRegex = /^\d+$/;
     if (!phoneRegex.test(localFormData.contact)) {
       setSubmissionError("Phone number must contain only digits");
@@ -181,13 +160,12 @@ const ContactUsClientContent = ({
     }
 
     try {
-      // Prepare the submission data
       const submissionData = {
         name: localFormData.name,
         contact: localFormData.contact,
         email: localFormData.email,
-        coursename: localFormData.course, // Use coursename for API compatibility
-        countryCode: countryCode, // Use the fixed countryCode
+        coursename: localFormData.course,
+        countryCode: countryCode,
       };
 
       console.log("Submitting data:", submissionData);
@@ -197,7 +175,7 @@ const ContactUsClientContent = ({
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(submissionData),
         }
       );
 
@@ -205,13 +183,12 @@ const ContactUsClientContent = ({
 
       alert("Form submitted successfully!");
 
-      // Reset the form
       setLocalFormData({
         name: "",
         contact: "",
         email: "",
         course: "",
-        countryCode: "+91", // Explicitly reset country code
+        countryCode: "+91",
       });
     } catch (error) {
       setSubmissionError(error.message);
@@ -220,9 +197,8 @@ const ContactUsClientContent = ({
     }
   };
 
-  // Get the current selected country's maxLength
   const getSelectedCountryMaxLength = () => {
-    const countryCode = localFormData.countryCode || "+91"; // Use default if not set
+    const countryCode = localFormData.countryCode || "+91";
     const selectedCountry = countryCodes.find(
       (country) => country.code === countryCode
     );
@@ -230,81 +206,109 @@ const ContactUsClientContent = ({
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <div className="container my-4">
-        <h2 className={styles.branchesTitle}>
-          EXPLORE OUR EXPERT TECH TRAINING SOLUTIONS
-        </h2>
+    <div className="py-12 px-4 w-full max-w-7xl mx-auto">
+      <div className="container mx-auto">
+        {/* Enhanced title with custom styling */}
+        <div className="mb-12">
+          <h2
+            className="text-center font-bold uppercase"
+            style={{
+              fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+              fontWeight: 700,
+              letterSpacing: "clamp(2px, 0.5vw, 4px)",
+              textShadow: `
+                0 0 0px #fff,
+                0 0 10px #fff,
+                0 0 10px #0073e6,
+                0 0 20px #182e4a,
+                0 0 20px #182e4a,
+                0 0 30px #182e4a,
+                0 0 30px #182e4a
+              `,
+              background:
+                "linear-gradient(90deg, #fff 35%, rgba(3, 163, 196, 1) 49%, #fff 62%)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              textAlign: "center",
+            }}
+          >
+            EXPLORE OUR EXPERT TECH TRAINING SOLUTIONS
+          </h2>
+        </div>
 
-        <div className="row gx-4 gy-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Contact Info Section */}
-          <div className="col-lg-8 col-md-7">
+          <div className="lg:col-span-8">
             {branches.map((branch, index) => (
               <div
                 key={index}
-                className={`row border-bottom pb-4 mb-4 ${styles.branchInfo}`}
+                className="border-b-2 border-gray-300/50 pb-8 mb-8 last:border-b-0"
               >
-                {/* Branch Name */}
-                <h5
-                  className={`fw-bold text-uppercase mb-3 ${styles.branchName}`}
-                >
+                {/* Branch Name - Enhanced for dark backgrounds */}
+                <h5 className="text-xl md:text-2xl font-bold uppercase mb-6 text-center lg:text-left text-white drop-shadow-lg">
                   {branch.name}
                 </h5>
 
-                <div className="row g-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Phone Section */}
-                  <div className="col-md-4 col-sm-6">
-                    <div className={styles.contactCard}>
-                      <FaPhone size={30} className={styles.phoneIcon} />
-                      <h6 className={styles.cardSubtitle}>Phone</h6>
-                      <div className={styles.contactDetails}>
-                        {branch.phone.map((num, i) => (
-                          <a
-                            href={`tel:${num.replace(/\s/g, "")}`}
-                            key={i}
-                            className={styles.contactLink}
-                          >
-                            {num}
-                          </a>
-                        ))}
-                      </div>
+                  <div className="bg-white/95 backdrop-blur-sm border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-h-[240px] flex flex-col items-center justify-center group">
+                    <div className="bg-blue-50 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <FaPhone
+                        size={32}
+                        className="text-blue-600 transform rotate-90"
+                      />
+                    </div>
+                    <h6 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+                      Phone
+                    </h6>
+                    <div className="flex flex-col items-center gap-3">
+                      {branch.phone.map((num, i) => (
+                        <a
+                          href={`tel:${num.replace(/\s/g, "")}`}
+                          key={i}
+                          className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200 text-center hover:underline"
+                        >
+                          {num}
+                        </a>
+                      ))}
                     </div>
                   </div>
 
                   {/* WhatsApp Section */}
-                  <div className="col-md-4 col-sm-6">
-                    <div className={styles.contactCard}>
-                      <FaWhatsapp size={30} className={styles.whatsappIcon} />
-                      <h6 className={styles.cardSubtitle}>WhatsApp</h6>
-                      <div className={styles.contactDetails}>
-                        <a
-                          href={branch.whatsapp}
-                          className={styles.whatsappBtn}
-                        >
-                          Chat Now
-                        </a>
-                      </div>
+                  <div className="bg-white/95 backdrop-blur-sm border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-h-[240px] flex flex-col items-center justify-center group">
+                    <div className="bg-green-50 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <FaWhatsapp size={32} className="text-green-600" />
+                    </div>
+                    <h6 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+                      WhatsApp
+                    </h6>
+                    <div className="flex flex-col items-center">
+                      <a
+                        href={branch.whatsapp}
+                        className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
+                      >
+                        Chat Now
+                      </a>
                     </div>
                   </div>
 
                   {/* Address Section */}
-                  <div className="col-md-4 col-sm-12">
-                    <div className={styles.contactCard}>
-                      <FaMapMarkerAlt
-                        size={30}
-                        className={styles.addressIcon}
-                      />
-                      <h6 className={styles.cardSubtitle}>Address</h6>
-                      <div className={styles.contactDetails}>
-                        <a
-                          href={branch.address}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.addressLink}
-                        >
-                          {branch.addresstext}
-                        </a>
-                      </div>
+                  <div className="bg-white/95 backdrop-blur-sm border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-h-[240px] flex flex-col items-center justify-center sm:col-span-2 lg:col-span-1 group">
+                    <div className="bg-orange-50 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <FaMapMarkerAlt size={32} className="text-orange-600" />
+                    </div>
+                    <h6 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+                      Address
+                    </h6>
+                    <div className="flex flex-col items-center text-center">
+                      <a
+                        href={branch.address}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm leading-relaxed hover:underline"
+                      >
+                        {branch.addresstext}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -313,81 +317,112 @@ const ContactUsClientContent = ({
           </div>
 
           {/* Contact Form Section */}
-          <div className="col-lg-4 col-md-5">
-            <div className={styles.rightSectionItDs}>
-              <h3>Contact Form</h3>
-              <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
+          <div className="lg:col-span-4">
+            <div className="bg-white/95 backdrop-blur-sm border border-gray-200 p-8 rounded-xl shadow-xl w-full sticky top-4">
+              <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">
+                Contact Form
+              </h3>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <div className="w-full">
                   <input
                     type="text"
                     name="name"
                     placeholder="Enter your name"
                     value={localFormData.name || ""}
                     onChange={handleChange}
-                    className={styles.inputField}
+                    className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 placeholder-gray-500"
                     required
                   />
                 </div>
 
-                <div className={styles.phoneInputItDs}>
+                {/* Fixed phone input with proper flex layout */}
+                <div className="flex gap-2 w-full">
                   <select
-                    name="countryCode" // Important: ensure this matches the state property name
-                    value={localFormData.countryCode || "+91"} // Provide default value
+                    name="countryCode"
+                    value={localFormData.countryCode || "+91"}
                     onChange={handleChange}
-                    className={styles.selectCountryCode}
+                    className="flex-shrink-0 px-2 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 min-w-[80px]"
                   >
                     {countryCodes.map(({ code, country }) => (
                       <option key={code} value={code}>
-                        {code} ({country})
+                        {code}
                       </option>
                     ))}
                   </select>
                   <input
                     type="tel"
-                    name="contact" // Important: ensure this matches the state property name
-                    placeholder="Enter your phone number"
+                    name="contact"
+                    placeholder="Phone number"
                     value={localFormData.contact || ""}
                     onChange={handleChange}
                     maxLength={getSelectedCountryMaxLength()}
-                    className={styles.contactInput}
+                    className="flex-1 min-w-0 px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 placeholder-gray-500"
                     required
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className="w-full">
                   <input
                     type="email"
                     name="email"
                     placeholder="Enter your email"
                     value={localFormData.email || ""}
                     onChange={handleChange}
-                    className={styles.inputField}
+                    className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 placeholder-gray-500"
                     required
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className="w-full">
                   <input
                     type="text"
                     name="course"
                     placeholder="Enter course name"
                     value={localFormData.course || ""}
                     onChange={handleChange}
-                    className={styles.inputField}
+                    className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 placeholder-gray-500"
                     required
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className={styles.submitButtonItDs}
+                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 rounded-lg font-semibold transition-all duration-200 mt-3 disabled:from-red-400 disabled:to-red-500 disabled:cursor-not-allowed transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit"}
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg
+                        className="animate-spin h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Submitting...
+                    </span>
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
 
                 {submissionError && (
-                  <p className={styles.error}>{submissionError}</p>
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm text-center">
+                    {submissionError}
+                  </div>
                 )}
               </form>
             </div>
@@ -395,39 +430,9 @@ const ContactUsClientContent = ({
         </div>
       </div>
 
-      {/* Map Section */}
-      <div className={styles.branchesSection}>
-        <h2 className={styles.branchesTitle}>OUR BRANCHES</h2>
-
-        <div className={styles.branchesContainer}>
-          {branches.map((branch, index) => (
-            <div className={styles.branchCard} key={index}>
-              <h3>{branch.name}</h3>
-              <div className={styles.mapContainer}>
-                {isLoaded ? (
-                  <GoogleMap
-                    mapContainerStyle={mapContainerStyle}
-                    center={branch.position}
-                    zoom={13}
-                  >
-                    <Marker position={branch.position} />
-                  </GoogleMap>
-                ) : (
-                  <div className={styles.loadingMap}>Loading Map...</div>
-                )}
-              </div>
-              <div className={styles.add2}>
-                <a
-                  href={branch.address}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {branch.addresstext}
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Branches Component */}
+      <div className="mt-16">
+        <Branches />
       </div>
     </div>
   );
