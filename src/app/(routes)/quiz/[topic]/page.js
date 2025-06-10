@@ -1,45 +1,70 @@
 // src/app/(routes)/quiz/[topic]/page.js
-'use client';
+"use client";
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { getQuizByTopic } from '@/data/quizzes/page';
-import QuizComponent from '@/components/quiz/QuizComponent';
-import styles from '@/styles/quiz.module.css';
+import React, { Suspense } from "react";
+import { useRouter } from "next/navigation";
+import { getQuizByTopic } from "@/data/quizzes/page";
+import QuizComponent from "@/components/quiz/QuizComponent";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-export default function QuizPage({ params }) {
+function QuizContent({ params }) {
   const router = useRouter();
-  const unwrappedParams = React.use(params); // Unwrap params using React.use()
-  const { topic } = unwrappedParams; // Access topic from unwrapped params
+  const unwrappedParams = React.use(params);
+  const { topic } = unwrappedParams;
   const quiz = topic ? getQuizByTopic(topic) : null;
 
   if (!quiz) {
     return (
-      <div className={styles.container}>
-        <div className={styles.errorMessage}>
-          {topic ? 'Quiz not found' : 'Loading...'}
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md mx-auto text-center">
+          <div className="mb-6">
+            <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+              <span className="text-red-600 text-2xl">⚠️</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {topic ? "Quiz Not Found" : "Loading..."}
+            </h2>
+            <p className="text-gray-600">
+              {topic
+                ? "The quiz you're looking for doesn't exist."
+                : "Please wait while we load your quiz..."}
+            </p>
+          </div>
+          <button
+            onClick={() => router.push("/quiz")}
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#1B4168] to-[#2FA9EC] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
+          >
+            <ArrowLeftIcon className="h-5 w-5 mr-2" />
+            Back to Topics
+          </button>
         </div>
-        <button 
-          className={`btn btn-primary ${styles.backButton}`} 
-          onClick={() => router.push('/quiz')}
-        >
-          Back to Topics
-        </button>
       </div>
     );
   }
 
   return (
-    <div className={styles.quizPageContainer}>
-      <div className={styles.backLink}>
-        <button 
-          className="btn btn-outline-secondary" 
-          onClick={() => router.push('/quiz')}
-        >
-          ← Back to Topics
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6">
+          <button
+            onClick={() => router.push("/quiz")}
+            className="inline-flex items-center px-4 py-2 text-gray-600 hover:text-[#1B4168] font-medium transition-colors duration-200"
+          >
+            <ArrowLeftIcon className="h-5 w-5 mr-2" />
+            Back to Topics
+          </button>
+        </div>
+        <QuizComponent quiz={quiz} />
       </div>
-      <QuizComponent quiz={quiz} />
     </div>
+  );
+}
+
+export default function QuizPage({ params }) {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <QuizContent params={params} />
+    </Suspense>
   );
 }
