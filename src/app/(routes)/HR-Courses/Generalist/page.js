@@ -11,21 +11,19 @@ import Counselor from "@/components/CoursesComponents/Councelor";
 import Program from "@/components/CoursesComponents/ProgramHighlights";
 import Description from "@/components/CoursesComponents/Description";
 
-
 export default function CORE() {
   return (
     <>
-        <DSHeader  pageId="GENHeader" pageType="genpage" />
-        <Why pageId="WhyGEN" pageType="Whygen" />
-        <Counselor />
-        <Modules pageId="HRTrainModule" />
-        <TrustUs />
-        <Program />
-        <Certificate pageId="HRHCMCERT" />
-        <Description pageId="gen" />
-        <FAQ pageId="GENFAQ" pageType="genfaq" />
-        <CoursesRelated pageId="HCMrelated" />
-      
+      <DSHeader pageId="GENHeader" pageType="genpage" />
+      <Why pageId="WhyGEN" pageType="Whygen" />
+      <Counselor />
+      <Modules pageId="HRTrainModule" />
+      <TrustUs />
+      <Program />
+      <Certificate pageId="HRHCMCERT" />
+      <Description pageId="gen" />
+      <FAQ pageId="GENFAQ" pageType="genfaq" />
+      <CoursesRelated pageId="HCMrelated" />
     </>
   );
 }

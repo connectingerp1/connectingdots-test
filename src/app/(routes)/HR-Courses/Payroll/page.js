@@ -11,21 +11,19 @@ import Counselor from "@/components/CoursesComponents/Councelor";
 import Program from "@/components/CoursesComponents/ProgramHighlights";
 import Description from "@/components/CoursesComponents/Description";
 
-
 export default function PAYROLL() {
   return (
     <>
-        <DSHeader  pageId="PAYROLLHeader" pageType="payrollmanpage" />
-        <Why pageId="WhyPAY" pageType="Whypay" />
-        <Counselor />
-        <Modules pageId="HRTrainModule" />
-        <TrustUs />
-        <Program />
-        <Certificate pageId="HRPayrollCERT" />
-        <Description pageId="pay" />
-        <FAQ pageId="PAYFAQ" pageType="payfaq" />
-        <CoursesRelated pageId="PAYrelated" />
-      
+      <DSHeader pageId="PAYROLLHeader" pageType="payrollmanpage" />
+      <Why pageId="WhyPAY" pageType="Whypay" />
+      <Counselor />
+      <Modules pageId="HRTrainModule" />
+      <TrustUs />
+      <Program />
+      <Certificate pageId="HRPayrollCERT" />
+      <Description pageId="pay" />
+      <FAQ pageId="PAYFAQ" pageType="payfaq" />
+      <CoursesRelated pageId="PAYrelated" />
     </>
   );
 }

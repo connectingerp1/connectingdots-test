@@ -11,21 +11,19 @@ import Counselor from "@/components/CoursesComponents/Councelor";
 import Program from "@/components/CoursesComponents/ProgramHighlights";
 import Description from "@/components/CoursesComponents/Description";
 
-
 export default function HRANALYTIC() {
   return (
     <>
-        <DSHeader pageId="ANAHeader" pageType="anapage" />
-        <Why pageId="WhyANA" pageType="Whyana" />
-        <Counselor />
-        <Modules pageId="HRTrainModule" />
-        <TrustUs />
-        <Program />
-        <Certificate pageId="HRAnalyticsCERT" />
-        <Description pageId="ana" />
-        <FAQ pageId="ANAFAQ" pageType="anafaq" />
-        <CoursesRelated pageId="ANArelated" />
-      
+      <DSHeader pageId="ANAHeader" pageType="anapage" />
+      <Why pageId="WhyANA" pageType="Whyana" />
+      <Counselor />
+      <Modules pageId="HRTrainModule" />
+      <TrustUs />
+      <Program />
+      <Certificate pageId="HRAnalyticsCERT" />
+      <Description pageId="ana" />
+      <FAQ pageId="ANAFAQ" pageType="anafaq" />
+      <CoursesRelated pageId="ANArelated" />
     </>
   );
 }

@@ -15,18 +15,17 @@ import HRCard from "@/components/CoursesComponents/HRCard";
 export default function HRTraining() {
   return (
     <>
-        <DSHeader pageId="HRTrainingHeader" pageType="hrtraining" />
-        <Why pageId="WhyHRTRAIN" pageType="Whyhrtrain" />
-        <Counselor />
-        <Modules pageId="HRTrainModule" />
-        <TrustUs />
-        <HRCard />
-        <Program />
-        <Certificate pageId="HrtrainCERT" />
-        <Description pageId="hrtrain" />
-        <FAQ pageId="HRTRAINFAQ" pageType="hrtrainfaq" />
-        <CoursesRelated pageId="Hrtrainrelated" />
-      
+      <DSHeader pageId="HRTrainingHeader" pageType="hrtraining" />
+      <Why pageId="WhyHRTRAIN" pageType="Whyhrtrain" />
+      <Counselor />
+      <Modules pageId="HRTrainModule" />
+      <TrustUs />
+      <HRCard />
+      <Program />
+      <Certificate pageId="HrtrainCERT" />
+      <Description pageId="hrtrain" />
+      <FAQ pageId="HRTRAINFAQ" pageType="hrtrainfaq" />
+      <CoursesRelated pageId="Hrtrainrelated" />
     </>
   );
 }
