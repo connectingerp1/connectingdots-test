@@ -10,6 +10,8 @@ const IconsCloud = (props) => {
   });
   const cloudRef = useRef(null);
   const canvasRef = useRef(null);
+  const isHovering = useRef(false);
+  const normalSpeedTimer = useRef(null);
 
   // Extract props with defaults
   const {
@@ -22,7 +24,7 @@ const IconsCloud = (props) => {
     glowEffect = true,
     hoverEffectScale = 1.25,
     textShadow = true,
-    rotationSpeed = 1.3,
+    rotationSpeed = 1,
     autoRotate = true,
     depth = 0.95,
     rotateDirection = "both",
@@ -172,27 +174,66 @@ const IconsCloud = (props) => {
     };
   }, [cloudRef]);
 
-  // Restart animation when mouse leaves
-  useEffect(() => {
-    const restartAnimation = () => {
-      if (!canvasRef.current || !window.TagCanvas) return;
+  // Updated restart animation function with proper speed control
+  const restartAnimation = (useNormalSpeed = true) => {
+    if (!canvasRef.current || !window.TagCanvas) return;
 
-      try {
-        window.TagCanvas.Delete(canvasRef.current);
-        window.TagCanvas.Start(canvasRef.current, "tags", getCloudOptions());
-
-        setTimeout(() => {
-          try {
-            window.TagCanvas.Reload(canvasRef.current);
-          } catch (e) {
-            console.error("Error reloading TagCanvas:", e);
-          }
-        }, 50);
-      } catch (e) {
-        console.error("Error restarting TagCanvas:", e);
+    try {
+      // Clear any existing timer
+      if (normalSpeedTimer.current) {
+        clearTimeout(normalSpeedTimer.current);
+        normalSpeedTimer.current = null;
       }
-    };
 
+      // Stop current animation
+      window.TagCanvas.Pause(canvasRef.current);
+
+      // Get current options with proper speed
+      const options = getCloudOptions(useNormalSpeed);
+
+      // Update the TagCanvas with new options
+      window.TagCanvas.SetSpeed(canvasRef.current, [
+        options.maxSpeed,
+        options.initSpeed,
+      ]);
+
+      // Resume with controlled speed
+      setTimeout(() => {
+        try {
+          if (!isHovering.current) {
+            window.TagCanvas.Resume(canvasRef.current);
+          }
+        } catch (e) {
+          console.error("Error resuming TagCanvas:", e);
+        }
+      }, 100);
+    } catch (e) {
+      console.error("Error restarting TagCanvas:", e);
+    }
+  };
+
+  // Enhanced mouse leave handler with gradual speed normalization
+  const handleMouseLeave = () => {
+    isHovering.current = false;
+
+    // Gradually return to normal speed
+    normalSpeedTimer.current = setTimeout(() => {
+      restartAnimation(true);
+    }, 300); // Small delay for smooth transition
+  };
+
+  // Mouse enter handler
+  const handleMouseEnter = () => {
+    isHovering.current = true;
+
+    // Clear any pending normal speed timer
+    if (normalSpeedTimer.current) {
+      clearTimeout(normalSpeedTimer.current);
+      normalSpeedTimer.current = null;
+    }
+  };
+
+  useEffect(() => {
     // Load icons
     const loadIcons = async () => {
       try {
@@ -211,36 +252,52 @@ const IconsCloud = (props) => {
         if (canvas) {
           canvasRef.current = canvas;
 
-          canvas.addEventListener("mouseleave", restartAnimation);
-          canvas.addEventListener("mouseout", restartAnimation);
+          // Updated event listeners with proper speed control
+          canvas.addEventListener("mouseleave", handleMouseLeave);
+          canvas.addEventListener("mouseenter", handleMouseEnter);
+          canvas.addEventListener("mouseout", handleMouseLeave);
 
           canvas.addEventListener("touchend", () => {
-            setTimeout(restartAnimation, 50);
+            setTimeout(() => restartAnimation(true), 200);
           });
 
+          // Maintain consistent rotation when visible
           const rotationInterval = setInterval(() => {
-            if (isVisible && autoRotate) {
+            if (isVisible && autoRotate && !isHovering.current) {
               try {
-                window.TagCanvas.Resume(canvasRef.current);
+                if (window.TagCanvas && canvasRef.current) {
+                  const currentSpeed = window.TagCanvas.GetSpeed
+                    ? window.TagCanvas.GetSpeed(canvasRef.current)
+                    : null;
+                  if (
+                    !currentSpeed ||
+                    (currentSpeed[0] < 0.01 && currentSpeed[1] < 0.01)
+                  ) {
+                    window.TagCanvas.Resume(canvasRef.current);
+                  }
+                }
               } catch (e) {
                 // Ignore errors during periodic refresh
               }
             }
-          }, 2000);
+          }, 3000);
 
           return () => {
             clearInterval(rotationInterval);
-            canvas.removeEventListener("mouseleave", restartAnimation);
-            canvas.removeEventListener("mouseout", restartAnimation);
-            canvas.removeEventListener("touchend", restartAnimation);
+            if (normalSpeedTimer.current) {
+              clearTimeout(normalSpeedTimer.current);
+            }
+            canvas.removeEventListener("mouseleave", handleMouseLeave);
+            canvas.removeEventListener("mouseenter", handleMouseEnter);
+            canvas.removeEventListener("mouseout", handleMouseLeave);
           };
         }
       }
     }, 1000);
   }, [isVisible, autoRotate]);
 
-  // Calculate initial rotation based on direction
-  const getCloudOptions = () => {
+  // Calculate initial rotation based on direction with speed control
+  const getCloudOptions = (useNormalSpeed = true) => {
     let initialX = 0;
     let initialY = 0;
 
@@ -255,12 +312,16 @@ const IconsCloud = (props) => {
       initialY = 0.06;
     }
 
-    // Fixed cloud options for proper circular display
+    // Adjust speed based on context
+    const speedMultiplier = useNormalSpeed
+      ? rotationSpeed
+      : rotationSpeed * 0.6;
+
     return {
-      // Core configuration - Fixed radius and zoom for proper circular display
-      radius: adjustedSize * 3.2, // Adjusted for proper circular display
-      maxSpeed: 0.072 * rotationSpeed,
-      initSpeed: 0.06 * rotationSpeed,
+      // Core configuration
+      radius: adjustedSize * 3.2,
+      maxSpeed: 0.072 * speedMultiplier,
+      initSpeed: 0.06 * speedMultiplier,
       direction: 135,
       keep: true,
 
@@ -285,16 +346,16 @@ const IconsCloud = (props) => {
       outlineRadius: 8,
       outlineThickness: 3,
 
-      // Animation
+      // Animation with controlled deceleration
       fadeIn: 800,
       initial: autoRotate ? [initialX, initialY] : [0, 0],
-      decel: 0.95,
+      decel: 0.98, // Increased deceleration for smoother stops
       shadow: textShadow ? "#ffffff" : false,
       shadowBlur: textShadow ? 5 : 0,
 
-      // Responsive behavior - Fixed zoom settings for proper circular display
+      // Responsive behavior
       weight: true,
-      zoom: 1.0, // Reset to 1.0 for proper circular display
+      zoom: 1.0,
       zoomMax: 1.0,
       zoomMin: 1.0,
       pauseOnTag: false,
@@ -302,7 +363,7 @@ const IconsCloud = (props) => {
       // Only animate when visible for performance
       lock: !isVisible ? "xy" : null,
 
-      // Rotation settings
+      // Enhanced rotation settings
       freezeDecel: false,
       animTiming: "Smooth",
       dragControl: false,
@@ -310,24 +371,14 @@ const IconsCloud = (props) => {
       noMouse: false,
 
       animation: autoRotate ? "both" : "none",
-
       activeScale: hoverEffectScale,
       textHeight: 20,
 
       tooltip: "native",
       tooltipDelay: 50,
 
-      clickToFront: 600,
-      hideTags: false,
-
-      minSpeed: 0.02 * rotationSpeed,
+      minSpeed: 0.015 * speedMultiplier, // Controlled minimum speed
       dragThreshold: 4,
-
-      freezeActive: false,
-      freezeDecel: false,
-      frontSelect: true,
-      txtOpt: true,
-      txtScale: 2,
 
       interval: 20,
       persistent: true,
@@ -404,16 +455,20 @@ const IconsCloud = (props) => {
         aProps: {
           onClick: (e) => {
             e.preventDefault();
-
+            // Gentle resume after click
             setTimeout(() => {
-              if (canvasRef.current && window.TagCanvas) {
+              if (
+                canvasRef.current &&
+                window.TagCanvas &&
+                !isHovering.current
+              ) {
                 try {
-                  window.TagCanvas.Resume(canvasRef.current);
+                  restartAnimation(true);
                 } catch (e) {
                   console.error("Error resuming TagCanvas:", e);
                 }
               }
-            }, 50);
+            }, 100);
           },
           href: `#${icon.slug}`,
           title: icon.title,
@@ -430,17 +485,17 @@ const IconsCloud = (props) => {
       });
     });
 
-  // Enhanced container style - Fixed for proper circular display
+  // Enhanced container style
   const containerStyleWithDefaults = {
     background: bgColor,
-    padding: isMobile ? "20px" : "30px", // Increased padding for proper circular display
+    padding: isMobile ? "20px" : "30px",
     borderRadius: "12px",
     boxShadow:
       bgColor === "transparent" ? "none" : "0 15px 35px rgba(0, 0, 0, 0.1)",
     transition: "all 0.3s ease",
     perspective: "1200px",
     perspectiveOrigin: "center center",
-    overflow: "visible", // Changed from 'hidden' to 'visible' for proper circular display
+    overflow: "visible",
     width: "100%",
     maxWidth: "100%",
     display: "flex",
@@ -449,22 +504,13 @@ const IconsCloud = (props) => {
     ...containerStyle,
   };
 
-  const restartRotation = () => {
-    if (canvasRef.current && window.TagCanvas) {
-      try {
-        window.TagCanvas.Resume(canvasRef.current);
-      } catch (e) {
-        console.error("Error resuming TagCanvas:", e);
-      }
-    }
-  };
-
   return (
     <div
       ref={cloudRef}
       style={containerStyleWithDefaults}
       className="icons-cloud-container"
-      onMouseLeave={restartRotation}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
     >
       <Cloud
         options={getCloudOptions()}
@@ -475,7 +521,7 @@ const IconsCloud = (props) => {
             alignItems: "center",
             width: "100%",
             height: `${actualHeight}px`,
-            overflow: "visible", // Changed for proper circular display
+            overflow: "visible",
             transform: "translateZ(0)",
             position: "relative",
           },
@@ -499,6 +545,7 @@ const IconsCloud = (props) => {
             opacity: 0.95;
             max-width: none !important;
             max-height: none !important;
+            transition: all 0.3s ease;
           }
 
           .icons-cloud-container a {
@@ -516,19 +563,10 @@ const IconsCloud = (props) => {
             animation-play-state: running !important;
           }
           
-                   .tagcloud {
+          .tagcloud {
             position: relative !important;
             width: 100% !important;
             height: 100% !important;
-          }
-          
-          /* Fix for canvas animations */
-          @keyframes keepRotating {
-            to { transform: rotate(0.01deg); }
-          }
-          
-          .icons-cloud-container canvas {
-            animation: keepRotating 0.01s linear infinite;
           }
 
           /* Mobile optimizations */
@@ -552,30 +590,6 @@ const IconsCloud = (props) => {
           }
         `}
       </style>
-
-      {/* Add hidden script to force rotation through TagCanvas API */}
-      {autoRotate && (
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function() {
-              function ensureRotation() {
-                if (typeof TagCanvas !== 'undefined') {
-                  const canvases = document.querySelectorAll('.icons-cloud-container canvas');
-                  canvases.forEach(canvas => {
-                    try {
-                      TagCanvas.Resume(canvas);
-                    } catch(e) {}
-                  });
-                }
-                setTimeout(ensureRotation, 2000);
-              }
-              setTimeout(ensureRotation, 1000);
-            })();
-          `,
-          }}
-        />
-      )}
     </div>
   );
 };
