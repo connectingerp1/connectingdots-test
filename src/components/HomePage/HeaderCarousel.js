@@ -68,25 +68,25 @@ const QUESTION_DATA = {
 };
 
 // Memoized company logo component - OPTIMIZED FOR LCP
-const CompanyLogos = memo(() => (
-  <div className={styles.logoStrip}>
-    <Image
-      src="/Headercarousel/logo strip.avif"
-      alt="Partner companies logos including IBM, TCS, and other corporate partners"
-      width={800}
-      height={130}
-      priority={true} // LCP element gets priority
-      sizes="(max-width: 768px) 100vw, 800px"
-      style={{ 
-        width: 'auto', 
-        height: 'auto',
-        maxWidth: '100%'
-      }}
-    />
-  </div>
-));
+// const CompanyLogos = memo(() => (
+//   <div className={styles.logoStrip}>
+//     <Image
+//       src="/Headercarousel/logo strip.avif"
+//       alt="Partner companies logos including IBM, TCS, and other corporate partners"
+//       width={800}
+//       height={130}
+//       priority={true} // LCP element gets priority
+//       sizes="(max-width: 768px) 100vw, 800px"
+//       style={{ 
+//         width: 'auto', 
+//         height: 'auto',
+//         maxWidth: '100%'
+//       }}
+//     />
+//   </div>
+// ));
 
-CompanyLogos.displayName = "CompanyLogos";
+// CompanyLogos.displayName = "CompanyLogos";
 
 // Split into smaller components to reduce nesting
 const CareerSlide = memo(({ onButtonClick }) => (
@@ -114,7 +114,7 @@ const CareerSlide = memo(({ onButtonClick }) => (
       >
         <span>Free Consultation</span>
       </Button>
-      <CompanyLogos />
+      {/* <CompanyLogos /> */}
     </div>
     <div className={styles.carouselImage}>
       {/* Updated container with intensified shadow */}
