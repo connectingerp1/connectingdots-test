@@ -67,13 +67,13 @@ export default function HomePage() {
         {/* Critical - loads immediately */}
         {/* <HeaderCarousel /> */}
         <Marquee />
-        <Chevron />
+        {/* <Chevron /> */}
         {/* <Keypoints /> */}
         <OurClients />
         <Courses />
         <PlacementSection />
         <OurStats />
-        <Achievements />
+        {/* <Achievements /> */}
         <FeedbackAndReviews />
         <Certificate pageId="HomepageCERT" />
         <Branches />
