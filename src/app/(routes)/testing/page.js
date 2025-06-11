@@ -65,10 +65,10 @@ export default function HomePage() {
       {/* Main content */}
       <main className="flex-col justify-center">
         {/* Critical - loads immediately */}
-        <HeaderCarousel />
+        {/* <HeaderCarousel /> */}
         <Marquee />
         <Chevron />
-        <Keypoints />
+        {/* <Keypoints /> */}
         <OurClients />
         <Courses />
         <PlacementSection />
