@@ -1305,6 +1305,9 @@ const LeadManagementPage = () => {
                         </div>
                       </th>
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Created
+                      </th>
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Name
                       </th>
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -1324,9 +1327,6 @@ const LeadManagementPage = () => {
                       </th>
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Assigned To
-                      </th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Created
                       </th>
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-32">
                         Actions
@@ -1370,6 +1370,9 @@ const LeadManagementPage = () => {
                                   <FaSquare />
                                 )}
                               </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                              {formatDate(lead.createdAt)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                               {lead.name}
@@ -1435,9 +1438,6 @@ const LeadManagementPage = () => {
                                   Unassigned
                                 </span>
                               )}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                              {formatDate(lead.createdAt)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium w-32">
                               <div className="flex gap-2 justify-center">
