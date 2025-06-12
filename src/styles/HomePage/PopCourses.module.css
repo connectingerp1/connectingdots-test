@@ -681,10 +681,6 @@
 }
 
 @media (max-width: 480px) {
-  .coursesTitle h2 {
-    font-size: 1.6rem;
-  }
-
   .courseCard {
     width: 100%;
     max-width: 280px;

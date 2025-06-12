@@ -22,8 +22,8 @@
     0 0 20px #182e4a,
     0 0 30px #182e4a,
     0 0 30px #182e4a;
-  background: linear-gradient( /* Keep for desktop, but override for mobile */
-    90deg,
+  background: linear-gradient(
+    /* Keep for desktop, but override for mobile */ 90deg,
     #fff 35%,
     rgba(3, 163, 196, 1) 49%,
     #fff 62%
@@ -149,6 +149,11 @@
   border-left-color: #182e4a;
 }
 
+.phases ul li:nth-child(2) a h4 {
+  position: absolute;
+  margin-right: 10px;
+}
+
 /* Desktop and larger */
 @media (min-width: 1024px) {
   .phases ul li:first-child a {
@@ -246,6 +251,11 @@
     left: 45px;
     top: -46px;
   }
+
+  
+.phases ul li:nth-child(2) a h4 {
+  padding-top: 40px;
+}
 }
 
 @media (max-width: 576px) {
