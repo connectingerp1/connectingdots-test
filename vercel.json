@@ -15,5 +15,27 @@
       "destination": "/$path",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "dashboard.connectingdotserp.com"
+        }
+      ],
+      "destination": "/dashboard/$1"
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "superadmin.connectingdotserp.com"
+        }
+      ],
+      "destination": "/superadmin/$1"
+    }
   ]
 }
