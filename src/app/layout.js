@@ -76,7 +76,7 @@ import CourseLoader from "@/components/CourseLoader";
 
 const GTM_ID = "GTM-MB68QM2V";
 const FB_PIXEL_ID = "3414178115554916";
-const AHREFS_KEY = "gEgk/nVdPB3hXBlcToICqQ";
+const AHREFS_KEY = "pUfORHA6uR+7KBt+fOIy2g";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
