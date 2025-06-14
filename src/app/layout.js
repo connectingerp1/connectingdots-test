@@ -133,7 +133,6 @@ export default function RootLayout({ children }) {
           name="ahrefs-site-verification"
           content="f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0"
         />
-\
         {/* Initialize dataLayer FIRST */}
         <Script
           id="gtm-dataLayer-init"
