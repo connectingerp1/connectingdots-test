@@ -7,6 +7,10 @@
   padding: 40px 20px;
 }
 
+.parallaxContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .parallaxGrid {
   display: flex;
   gap: 20px;
