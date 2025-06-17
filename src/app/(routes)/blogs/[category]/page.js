@@ -1,12 +1,14 @@
+// src/app/(routes)/blogs/[category]/page.js
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "@/styles/BlogPage/CategoryPage.module.css";
-import BlogCard from "@/components/BlogsPage/BlogCard";
+import BlogCard from "@/components/BlogsPage/BlogCard"; // Make sure this component is updated
 import Breadcrumb from "@/components/BlogsPage/Breadcrumb";
 
-const BASE_URL = "https://blog-page-panel.onrender.com";
+// CHANGED: Use process.env.NEXT_PUBLIC_API_URL_BLOG
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BLOG;
 
 const CategoryPage = () => {
   const { category } = useParams() || {};
@@ -24,15 +26,21 @@ const CategoryPage = () => {
 
   const fetchAllSubcategories = async () => {
     try {
+      // CHANGED: Use API_BASE_URL
       const response = await fetch(
-        `${BASE_URL}/api/blogs?category=${category}`
+        `${API_BASE_URL}/api/blogs?category=${encodeURIComponent(category)}`
       );
-      const data = await response.json();
+      const data = await response.json(); // Note: Your API currently returns { blogs: [], hasMore: bool }
+
+      // Assuming your backend /api/blogs endpoint returns { blogs: Array, hasMore: Boolean }
+      // The old code assumed `data` was directly an array, which might be incorrect based on your blogsPanel.js.
+      // Adjusting to correctly extract `blogs` array.
+      const blogsData = Array.isArray(data.blogs) ? data.blogs : [];
 
       const uniqueSubcategories = [
         "All",
         ...new Set(
-          data.map((blog) => blog.subcategory?.trim()).filter(Boolean)
+          blogsData.map((blog) => blog.subcategory?.trim()).filter(Boolean)
         ),
       ];
 
@@ -45,20 +53,21 @@ const CategoryPage = () => {
   const fetchBlogs = async () => {
     setLoading(true); // Start loading
     try {
-      let url = `${BASE_URL}/api/blogs?category=${encodeURIComponent(category)}`;
+      // CHANGED: Use API_BASE_URL
+      let url = `${API_BASE_URL}/api/blogs?category=${encodeURIComponent(category)}`;
 
       if (selectedSubcategory.toLowerCase() !== "all") {
         url += `&subcategory=${encodeURIComponent(selectedSubcategory.trim())}`;
       }
 
       const response = await fetch(url);
-      const data = await response.json();
+      const data = await response.json(); // Note: Your API currently returns { blogs: [], hasMore: bool }
 
-      if (!response.ok || !Array.isArray(data)) {
+      if (!response.ok || !Array.isArray(data.blogs)) { // CHANGED: Check data.blogs for array
         throw new Error("Invalid response format");
       }
 
-      setBlogs(data);
+      setBlogs(data.blogs); // CHANGED: Set blogs from data.blogs
     } catch (error) {
       console.error("Error fetching blogs:", error);
       setBlogs([]);
@@ -102,6 +111,7 @@ const CategoryPage = () => {
                 .
               </p>
             ) : (
+              // Ensure BlogCard is updated to use blog.slug
               blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)
             )}
           </div>

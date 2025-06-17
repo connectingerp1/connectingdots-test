@@ -1,3 +1,4 @@
+// src/components/BlogsPage/BlogHorizontalCarousel.js
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -5,7 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/BlogPage/Components/BlogHorizontalCarousel.module.css";
 
-const BlogHorizontalCarousel = ({ blogs, title, BASE_URL }) => {
+// CHANGED: Access NEXT_PUBLIC_API_URL_BLOG directly
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BLOG;
+
+// REMOVED: BASE_URL from props
+const BlogHorizontalCarousel = ({ blogs, title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -146,9 +151,10 @@ const BlogHorizontalCarousel = ({ blogs, title, BASE_URL }) => {
         onTouchEnd={handleTouchEnd}
       >
         {blogs.map((blog, index) => (
+          // CHANGED: Use blog.slug for the Link href, with _id fallback
           <Link
             key={blog._id}
-            href={`/blogs/${blog.category}/${blog._id}`}
+            href={`/blogs/${blog.category}/${blog.slug || blog._id}`}
             className={`${styles.blogLink} ${
               index === currentIndex ? styles.active : ""
             }`}
@@ -161,10 +167,11 @@ const BlogHorizontalCarousel = ({ blogs, title, BASE_URL }) => {
             <div className={styles.blogHorizontal}>
               <div className={styles.imageWrapper}>
                 <Image
+                  // CHANGED: Use API_BASE_URL
                   src={
                     blog.image?.startsWith("http")
                       ? blog.image
-                      : `${BASE_URL}${blog.image}`
+                      : `${API_BASE_URL}${blog.image}`
                   }
                   alt={blog.title}
                   className={styles.blogImage}

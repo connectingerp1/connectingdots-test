@@ -1,15 +1,16 @@
 // src/components/BlogsPage/BlogClientContent.js
-"use client"; // This component handles client-side interactions/rendering
+"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react"; // useRef is unused, consider removing
 // Import necessary components used previously in blogs/page.js
-import styles from "@/styles/BlogPage/BlogsPage.module.css"; // Assuming styles needed
+import styles from "@/styles/BlogPage/BlogsPage.module.css";
 import Breadcrumb from "@/components/BlogsPage/Breadcrumb";
 import CategoryFilter from "@/components/BlogsPage/CategoryFilter";
 import BlogCarousel from "@/components/BlogsPage/BlogCarousel";
 import BlogHorizontalCarousel from "@/components/BlogsPage/BlogHorizontalCarousel";
 
-const BASE_URL = "https://blog-page-panel.onrender.com"; // Define your BASE_URL
+// CHANGED: Use process.env.NEXT_PUBLIC_API_URL_BLOG directly
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BLOG;
 
 const BlogClientContent = () => {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,6 @@ const BlogClientContent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // --- All the useEffect and fetch logic remains the same ---
   useEffect(() => {
     fetchBlogs();
   }, []);
@@ -43,11 +43,19 @@ const BlogClientContent = () => {
     try {
       setLoading(true);
       setError(null); // Reset error on retry
-      const response = await fetch(`${BASE_URL}/api/blogs`);
-      if (!response.ok)
+      // CHANGED: Use API_BASE_URL
+      const response = await fetch(`${API_BASE_URL}/api/blogs`);
+      if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       const data = await response.json();
-      setBlogs(data);
+      
+      // CHANGED: Access data.blogs from the API response
+      if (!Array.isArray(data.blogs)) {
+          throw new Error("Invalid response format: 'blogs' array missing.");
+      }
+      setBlogs(data.blogs);
+
     } catch (error) {
       console.error("Error fetching blogs:", error);
       setError("Failed to load blogs. Please try again later.");
@@ -55,16 +63,12 @@ const BlogClientContent = () => {
     }
   };
 
-  const filteredBlogs = // Keep filter logic if needed elsewhere, maybe not for this structure
+  const filteredBlogs = // This filteredBlogs is unused in the provided JSX for this component
     selectedCategory === "all"
       ? blogs
       : blogs.filter((blog) => blog.category === selectedCategory);
-  // --- End of existing logic ---
-
-  // No Head component needed here
 
   return (
-    // This div replaces the static content area upon hydration
     <div className={styles.blogsPageContainer}>
       <Breadcrumb />
 
@@ -98,11 +102,11 @@ const BlogClientContent = () => {
       ) : (
         <>
           {/* Render carousels based on fetched data */}
-          {recommendedBlogs.length > 0 && ( // Assuming you meant recommended here based on variable name
+          {recommendedBlogs.length > 0 && (
             <BlogHorizontalCarousel
               blogs={recommendedBlogs}
-              title="Recommended Blogs" // Changed title to match variable
-              BASE_URL={BASE_URL}
+              title="Recommended Blogs"
+              // REMOVED: BASE_URL prop, component will use env var directly
             />
           )}
 
@@ -110,10 +114,9 @@ const BlogClientContent = () => {
             <BlogCarousel
               blogs={trendingBlogs}
               title="Trending Blogs"
-              BASE_URL={BASE_URL}
+              // REMOVED: BASE_URL prop, component will use env var directly
             />
           )}
-          {/* Removed duplicate recommended carousel - adjust if needed */}
         </>
       )}
     </div>

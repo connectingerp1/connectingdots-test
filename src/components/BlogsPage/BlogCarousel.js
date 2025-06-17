@@ -1,16 +1,21 @@
+// src/components/BlogsPage/BlogCarousel.js
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "@/styles/BlogPage/Components/BlogCarousel.module.css";
 
-const BlogCarousel = ({ blogs, title, BASE_URL }) => {
+// CHANGED: Access NEXT_PUBLIC_API_URL_BLOG directly
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BLOG;
+
+// REMOVED: BASE_URL from props
+const BlogCarousel = ({ blogs, title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
-  const visibleSlides = 3; 
+  const visibleSlides = 3;
 
   const handleNext = () => {
     setCurrentIndex(
@@ -125,14 +130,16 @@ const BlogCarousel = ({ blogs, title, BASE_URL }) => {
               className={styles.carouselItem}
               style={{ minWidth: `${100 / visibleSlides}%` }}
             >
-              <Link href={`/blogs/${blog.category}/${blog._id}`} className={styles.linkTag}>
+              {/* CHANGED: Use blog.slug for the Link href, with _id fallback */}
+              <Link href={`/blogs/${blog.category}/${blog.slug || blog._id}`} className={styles.linkTag}>
                 <div className={styles.blogCard}>
                   <div className={styles.imageContainer}>
                     <img
+                      // CHANGED: Use API_BASE_URL
                       src={
                         blog.image?.startsWith("http")
                           ? blog.image
-                          : `${BASE_URL}${blog.image}`
+                          : `${API_BASE_URL}${blog.image}`
                       }
                       alt={blog.title}
                       className={styles.blogImage}

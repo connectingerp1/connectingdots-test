@@ -1,15 +1,22 @@
+// src/components/BlogsPage/BlogCard.js
 "use client";
 
 import Link from "next/link";
 import styles from "@/styles/BlogPage/Components/BlogCard.module.css";
 
-const BlogCard = ({ blog, BASE_URL }) => {
+// CHANGED: Access NEXT_PUBLIC_API_URL_BLOG directly
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BLOG;
+
+// REMOVED: BASE_URL from props
+const BlogCard = ({ blog }) => {
   return (
     <div className={styles.blogCard}>
-      <Link href={`/blogs/${blog.category}/${blog._id}`} className={styles.linkTag}>
+      {/* CHANGED: Use blog.slug for the Link href, with _id fallback */}
+      <Link href={`/blogs/${blog.category}/${blog.slug || blog._id}`} className={styles.linkTag}>
         <div className={styles.imageContainer}>
           <img
-            src={blog.image?.startsWith("http") ? blog.image : `${BASE_URL}${blog.image}`}
+            // CHANGED: Use API_BASE_URL
+            src={blog.image?.startsWith("http") ? blog.image : `${API_BASE_URL}${blog.image}`}
             alt={blog.title}
             className={styles.blogImage}
             loading="lazy"

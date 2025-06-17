@@ -1,3 +1,4 @@
+// src/app/(routes)/blogs/[category]/[slug]/page.js
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -6,15 +7,16 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/BlogPage/BlogDetails.module.css";
 
-const BASE_URL = "https://blog-page-panel.onrender.com"; // Change for production
+// CHANGED: Use process.env.NEXT_PUBLIC_API_URL_BLOG
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BLOG;
 
 const BlogDetails = () => {
-  const { category, id } = useParams();
+  const { category, slug } = useParams(); // CHANGED: Destructure 'slug' instead of 'id'
   const router = useRouter();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const [showShareOptions, setShowShareOptions] = useState(false);
+  const [showShareOptions, setShowShareOptions] = useState(false); // Unused, consider removing
   const contentRef = useRef(null);
   const [readingProgress, setReadingProgress] = useState(0);
   const [tableOfContents, setTableOfContents] = useState([]);
@@ -22,16 +24,18 @@ const BlogDetails = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/blogs/${id}`);
+        // CHANGED: Fetch by slug using the new backend endpoint
+        const response = await fetch(`${API_BASE_URL}/api/blogs/slug/${slug}`);
         const data = await response.json();
 
-        if (!response.ok || !data || Object.keys(data).length === 0)
+        if (!response.ok || !data || Object.keys(data).length === 0) {
           throw new Error("Blog not found");
+        }
 
-        setBlog({ ...data, category: data.category || category });
+        setBlog({ ...data, category: data.category || category }); // Ensure category is set
 
-        // Fetch related blogs
-        fetchRelatedBlogs(data.category || category, id);
+        // Fetch related blogs - still filter by category, pass blog._id to exclude
+        fetchRelatedBlogs(data.category || category, data._id);
 
         // Generate table of contents from content
         setTimeout(() => {
@@ -45,7 +49,12 @@ const BlogDetails = () => {
       }
     };
 
-    if (id) fetchBlog();
+    if (slug) { // CHANGED: Condition to fetch based on 'slug'
+      fetchBlog();
+    } else {
+      setLoading(false); // If no slug, stop loading and show not found
+      // Optionally, set an error message here like setError("Blog slug is missing.");
+    }
 
     // Set up scroll event for reading progress
     const handleScroll = () => {
@@ -66,18 +75,19 @@ const BlogDetails = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [id, category]);
+  }, [slug, category]); // CHANGED: Dependencies to 'slug' and 'category'
 
   const fetchRelatedBlogs = async (blogCategory, currentBlogId) => {
     try {
+      // CHANGED: Use API_BASE_URL. Your backend's /api/blogs returns { blogs: [], hasMore: bool }
       const response = await fetch(
-        `${BASE_URL}/api/blogs?category=${blogCategory}`
+        `${API_BASE_URL}/api/blogs?category=${encodeURIComponent(blogCategory)}`
       );
-      const data = await response.json();
+      const data = await response.json(); // Data is { blogs: [], hasMore: bool }
 
-      if (response.ok && data) {
+      if (response.ok && data && Array.isArray(data.blogs)) { // CHANGED: Check data.blogs
         // Filter out current blog and limit to 3 related blogs
-        const filtered = data
+        const filtered = data.blogs // CHANGED: Iterate over data.blogs
           .filter((b) => b._id !== currentBlogId)
           .slice(0, 3);
         setRelatedBlogs(filtered);
@@ -182,7 +192,7 @@ const BlogDetails = () => {
                     src={
                       blog.authorAvatar.startsWith("http")
                         ? blog.authorAvatar
-                        : `${BASE_URL}${blog.authorAvatar}`
+                        : `${API_BASE_URL}${blog.authorAvatar}` // CHANGED: Use API_BASE_URL
                     }
                     alt={blog.author}
                     width={40}
@@ -210,7 +220,7 @@ const BlogDetails = () => {
             src={
               blog.image?.startsWith("http")
                 ? blog.image
-                : `${BASE_URL}${blog.image}`
+                : `${API_BASE_URL}${blog.image}` // CHANGED: Use API_BASE_URL
             }
             alt={blog.title}
             className={styles.blogImage}
@@ -259,7 +269,7 @@ const BlogDetails = () => {
                     src={
                       blog.authorAvatar.startsWith("http")
                         ? blog.authorAvatar
-                        : `${BASE_URL}${blog.authorAvatar}`
+                        : `${API_BASE_URL}${blog.authorAvatar}` // CHANGED: Use API_BASE_URL
                     }
                     alt={blog.author}
                     width={80}
@@ -287,7 +297,8 @@ const BlogDetails = () => {
             <div className={styles.relatedArticlesGrid}>
               {relatedBlogs.map((relatedBlog) => (
                 <Link
-                  href={`/blogs/${relatedBlog.category}/${relatedBlog._id}`}
+                  // CHANGED: Use blog.slug for the Link href
+                  href={`/blogs/${relatedBlog.category}/${relatedBlog.slug || relatedBlog._id}`}
                   key={relatedBlog._id}
                   className={styles.relatedArticleCard}
                 >
@@ -296,7 +307,7 @@ const BlogDetails = () => {
                       src={
                         relatedBlog.image?.startsWith("http")
                           ? relatedBlog.image
-                          : `${BASE_URL}${relatedBlog.image}`
+                          : `${API_BASE_URL}${relatedBlog.image}` // CHANGED: Use API_BASE_URL
                       }
                       alt={relatedBlog.title}
                       width={300}
