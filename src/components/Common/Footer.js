@@ -247,10 +247,10 @@ const Footer = () => {
                   <Link href="/sitemap">CITY SITEMAP</Link>
                 </li>
                 <li>
-                  <Link href="/all-course-links">ALL COURSES/CITY SITEMAP</Link>
+                  <Link href="/all-course-links">ALL COURSES</Link>
                 </li>
                 <li>
-                  <Link href="/sitemap.xml">SITEMAP.XML</Link>
+                  <Link href="/sitemap.xml">SITEMAP</Link>
                 </li>
               </ul>
             </div>
