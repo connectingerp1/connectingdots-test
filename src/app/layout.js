@@ -131,7 +131,7 @@ export default function RootLayout({ children }) {
         {/* Ahrefs verification */}
         <meta
           name="ahrefs-site-verification"
-          content="f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0"
+          content="61e8327be7878b001e67d79b48fa239923e438edb85df759becf82090ac89a7c"
         />
         {/* Initialize dataLayer FIRST */}
         <Script
