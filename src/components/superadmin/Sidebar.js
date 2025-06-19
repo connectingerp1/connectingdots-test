@@ -1,4 +1,3 @@
-// components/superadmin/Sidebar.js
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -10,14 +9,13 @@ import {
   FaCog,
   FaSignOutAlt,
   FaTachometerAlt,
-  FaHistory, // Keep FaHistory for Audit Logs and add to Admin Activity
+  FaHistory,
   FaKey,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
 import Link from "next/link";
 
-// Assuming userRole might be passed down if sidebar needs to conditionally render items
 const Sidebar = ({ activePage, userRole }) => {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,18 +32,20 @@ const Sidebar = ({ activePage, userRole }) => {
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if event.target is defined before calling closest
-      if (
-        isMobileMenuOpen &&
-        typeof event.target !== "undefined" &&
-        modalRef.current &&
-        !modalRef.current.contains(event.target)
-      ) {
-        setIsMobileMenuOpen(false);
+      if (isMobileMenuOpen && event.target) {
+        const sidebar = document.querySelector(".sidebar-container");
+        const mobileButton = document.querySelector(".mobile-menu-button");
+
+        if (
+          sidebar &&
+          mobileButton &&
+          !sidebar.contains(event.target) &&
+          !mobileButton.contains(event.target)
+        ) {
+          setIsMobileMenuOpen(false);
+        }
       }
     };
-    // Need a ref for the sidebar container to check clicks outside
-    const modalRef = { current: document.querySelector(".sidebar-container") };
 
     if (typeof document !== "undefined") {
       document.addEventListener("mousedown", handleClickOutside);
@@ -56,13 +56,11 @@ const Sidebar = ({ activePage, userRole }) => {
         document.removeEventListener("mousedown", handleClickOutside);
       }
     };
-    // Re-run effect if isMobileMenuOpen changes
   }, [isMobileMenuOpen]);
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    // Re-run effect if activePage changes (indicating a route change within superadmin)
   }, [activePage]);
 
   const menuItems = [
@@ -90,16 +88,15 @@ const Sidebar = ({ activePage, userRole }) => {
       label: "Analytics",
       page: "analytics",
     },
-    // Add the new Admin Activity Logs link here
     {
-      href: "/superadmin/activity", // New route
-      icon: FaHistory, // Reusing History icon, or choose another
-      label: "Admin Activity", // New label
-      page: "activity", // New page identifier
+      href: "/superadmin/activity",
+      icon: FaHistory,
+      label: "Admin Activity",
+      page: "activity",
     },
     {
       href: "/superadmin/audit-logs",
-      icon: FaHistory, // Original Audit Logs link - consider a different icon if reusing FaHistory feels confusing
+      icon: FaHistory,
       label: "Audit Logs",
       page: "audit-logs",
     },
@@ -115,21 +112,20 @@ const Sidebar = ({ activePage, userRole }) => {
       label: "Settings",
       page: "settings",
     },
-    // Optional: Link back to the regular dashboard if needed
     {
       href: "/dashboard",
       icon: FaClipboardList,
       label: "Go to Dashboard",
-      page: "", // No specific 'page' match for highlighting
+      page: "",
     },
   ];
 
   return (
     <>
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button - Fixed position */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-40 p-2 bg-slate-800 text-white rounded-lg shadow-lg hover:bg-slate-700 transition-colors duration-200"
+        className="mobile-menu-button lg:hidden fixed top-4 left-4 z-50 p-2 bg-slate-800 text-white rounded-lg shadow-lg hover:bg-slate-700 transition-colors duration-200"
         aria-label="Toggle menu"
       >
         {isMobileMenuOpen ? (
@@ -147,20 +143,19 @@ const Sidebar = ({ activePage, userRole }) => {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - Fixed and Sticky */}
       <aside
-        // Add the 'sidebar-container' class for the outside click detection
         className={`
-          sidebar-container fixed lg:static inset-y-0 left-0 z-[1000]
+          sidebar-container fixed lg:sticky lg:top-0 inset-y-0 left-0 z-[1000] lg:z-30
           transform ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 transition-transform duration-300 ease-in-out
           bg-gradient-to-b from-slate-800 to-slate-900 text-white
           w-64 shadow-2xl border-r border-slate-700 flex flex-col
-          lg:min-h-screen min-h-full
+          h-screen lg:h-screen lg:max-h-screen
         `}
       >
         {/* Header */}
-        <div className="px-6 py-6 border-b border-slate-700/50">
+        <div className="px-6 py-6 border-b border-slate-700/50 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-white tracking-wide">
@@ -179,11 +174,10 @@ const Sidebar = ({ activePage, userRole }) => {
           </div>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 px-3 py-6 overflow-y-auto">
+        {/* Navigation - Scrollable */}
+        <nav className="flex-1 px-3 py-6 overflow-y-auto scrollbar-hide">
           <ul className="space-y-1 pl-0">
             {menuItems.map((item) => {
-              // Or filteredMenuItems if implementing conditional rendering
               const Icon = item.icon;
               const isActive = activePage === item.page;
 
@@ -191,27 +185,23 @@ const Sidebar = ({ activePage, userRole }) => {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    // Close mobile menu on click - crucial for mobile UX
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`
                       flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium
                       transition-all duration-200 ease-in-out group no-underline
                       ${
                         isActive
-                          ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform lg:scale-[1.02]" // Scale slightly on active for desktop
+                          ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform lg:scale-[1.02]"
                           : "text-slate-300 hover:text-white hover:bg-slate-700/50"
                       }
                     `}
                   >
-                    {/* Icon with scale effect */}
                     <Icon
                       className={`text-lg transition-transform duration-200 ${
                         isActive ? "scale-110" : "group-hover:scale-110"
                       }`}
                     />
-                    {/* Label */}
                     <span className="font-medium">{item.label}</span>
-                    {/* Active indicator dot */}
                     {isActive && (
                       <div className="ml-auto w-2 h-2 bg-white rounded-full animate-pulse"></div>
                     )}
@@ -225,7 +215,7 @@ const Sidebar = ({ activePage, userRole }) => {
               <button
                 onClick={() => {
                   handleLogout();
-                  setIsMobileMenuOpen(false); // Close mobile menu on logout click
+                  setIsMobileMenuOpen(false);
                 }}
                 className="
                   flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium
@@ -242,7 +232,7 @@ const Sidebar = ({ activePage, userRole }) => {
         </nav>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-700/50">
+        <div className="px-6 py-4 border-t border-slate-700/50 flex-shrink-0">
           <div className="text-xs text-slate-400 text-center">
             <p className="font-medium">Admin Panel v2.0</p>
             <p className="mt-1">Secure Access</p>

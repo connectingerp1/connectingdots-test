@@ -145,14 +145,19 @@ const SuperAdminLayout = ({ children }) => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <Sidebar activePage={activePage} userRole={userRole} />
-      <FixedLogo />
-      {/* Main content */}
-      <main className="flex-1 lg:ml-64 pt-16 lg:pt-0 overflow-auto">
-        <AccessControl section={activePage}>
-          {children}
-        </AccessControl>
+      {/* Sidebar - Fixed and Sticky */}
+      <div className="relative">
+        <Sidebar activePage={activePage} userRole={userRole} />
+        <FixedLogo />
+      </div>
+      
+      {/* Main content - Ensure proper spacing and scrolling */}
+      <main className="flex-1 lg:ml-64 min-h-screen overflow-auto">
+        <div className="pt-16 lg:pt-0">
+          <AccessControl section={activePage}>
+            {children}
+          </AccessControl>
+        </div>
       </main>
 
       {/* Inactivity modal */}

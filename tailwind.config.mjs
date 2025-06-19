@@ -207,6 +207,7 @@ export default {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("tailwind-scrollbar-hide"),
     require("@tailwindcss/forms")({
       strategy: "class", // only generate classes
     }),
