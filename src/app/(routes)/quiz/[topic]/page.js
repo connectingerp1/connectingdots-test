@@ -8,6 +8,32 @@ import QuizComponent from "@/components/quiz/QuizComponent";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
+// Generate dynamic metadata
+export async function generateMetadata({ params }) {
+  const unwrappedParams = await params;
+  const { topic } = unwrappedParams;
+  const quiz = topic ? getQuizByTopic(topic) : null;
+
+  if (!quiz) {
+    return {
+      title: "Quiz Not Found - Connecting Dots ERP",
+      description:
+        "The requested quiz topic was not found. Explore our other interactive quizzes to test your knowledge.",
+    };
+  }
+
+  // Format topic name for display (remove hyphens and capitalize)
+  const formattedTopic = topic
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  return {
+    title: `${formattedTopic} Quiz | Test Your Knowledge - Connecting Dots ERP`,
+    description: `Challenge yourself with our comprehensive ${formattedTopic} quiz. Test your skills with ${quiz.questions?.length || "multiple"} interactive questions and improve your expertise.`,
+  };
+}
+
 function QuizContent({ params }) {
   const router = useRouter();
   const unwrappedParams = React.use(params);

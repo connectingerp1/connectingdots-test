@@ -103,7 +103,6 @@ export async function GET() {
     "tableau-training-in",
     "digital-marketing-course-in",
     "hr-analytics-course-in",
-    "hr-training-course-in",
     "core-hr-course-in",
     "hr-management-course-in",
     "hr-payroll-course-in",

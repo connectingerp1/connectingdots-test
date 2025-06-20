@@ -4,6 +4,13 @@ import { quizTopics } from "@/data/quizzes/page";
 import QuizTopicCard from "@/components/quiz/QuizTopicCard";
 import { BookOpenIcon, AcademicCapIcon } from "@heroicons/react/24/outline";
 
+// Optimized metadata
+export const metadata = {
+  title: "Interactive Quizzes | Test Your Knowledge - Connecting Dots ERP",
+  description:
+    "Challenge yourself with our comprehensive interactive quizzes covering SAP, Software Development, Digital Marketing, and HR topics. Test your skills and track your progress.",
+};
+
 export default function QuizTopicsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">

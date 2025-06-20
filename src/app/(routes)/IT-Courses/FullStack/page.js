@@ -9,11 +9,8 @@ import CoursesRelated from "@/components/CoursesComponents/RelatedCourses";
 import TrustUs from "@/components/CoursesComponents/Trustus";
 import Counselor from "@/components/CoursesComponents/Councelor";
 
-
 import Description from "@/components/CoursesComponents/Description";
 import Program from "@/components/CoursesComponents/ProgramHighlights";
-
-
 
 export default function FullStack() {
   return (
@@ -24,9 +21,8 @@ export default function FullStack() {
       <Modules pageId="FullStackmodule" />
       <TrustUs />
       <Certificate pageId="fullstackCERT" />
-     
       <Description pageId="full-stack" />
-        <FAQ pageId="FullStackFAQ" pageType="fullstackfaq" />
+      <FAQ pageId="FullStackFAQ" pageType="fullstackfaq" />
       <CoursesRelated pageId="FullStackrelcourses" />
     </>
   );
