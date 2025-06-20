@@ -1,14 +1,9 @@
 // src/app/(routes)/quiz/[topic]/page.js
+
 import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
 import { getQuizByTopic } from "@/data/quizzes/page";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-
-// Dynamically import the client component
-const QuizContent = dynamic(() => import("@/components/quiz/QuizContent"), {
-  ssr: false,
-  loading: () => <LoadingSpinner />,
-});
+import QuizContent from "@/components/quiz/QuizContent"; // ✅ Import normally
 
 // ✅ Server-only metadata function
 export async function generateMetadata({ params }) {
