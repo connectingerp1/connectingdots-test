@@ -112,7 +112,7 @@ const cityData = {
   chembur: {
     name: "Chembur",
     description:
-      "Find top-rated training in Chembur, a well-connected residential and industrial area in Mumbai.",
+      "Find top-rated professional training in Chembur, a well-connected residential and industrial area in Mumbai with excellent career opportunities.",
   },
   malad: {
     name: "Malad",
@@ -127,7 +127,7 @@ const cityData = {
   matunga: {
     name: "Matunga",
     description:
-      "Excel in your field with expert training in Matunga, Mumbai’s academic and cultural hub.",
+      "Excel in your field with professional training and expert trainers in Matunga, Mumbai’s academic and cultural hub.",
   },
   delhi: {
     name: "Delhi",
@@ -331,17 +331,59 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  const cityInfo = cityData[city];
+  const title = `Courses in ${cityInfo.name} | Connecting Dots ERP`;
+  const description = cityInfo.description;
+  const url = `https://connectingdotserp.com/sitemap/${city}`;
+  const imageUrl = `https://connectingdotserp.com/images/courses-${city}.jpg`; // You'll need to create these images
+
   return {
-    title: `Courses in ${cityData[city].name} | Connecting Dots ERP`,
-    description: cityData[city].description,
-    keywords: `courses in ${cityData[city].name}, SAP training ${cityData[city].name}, IT courses ${cityData[city].name}, professional training ${cityData[city].name}, best training institute in ${cityData[city].name}`,
+    title,
+    description,
+    keywords: `courses in ${cityInfo.name}, SAP training ${cityInfo.name}, IT courses ${cityInfo.name}, professional training ${cityInfo.name}, best training institute in ${cityInfo.name}`,
+
+    // Open Graph Tags
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Connecting Dots ERP",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `Courses in ${cityInfo.name}`,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+
+    // Twitter Card Tags
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+      site: "@CD_ERP",
+      creator: "@CD_ERP",
+    },
+
+    // Additional Meta Tags
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: url,
+    },
   };
 }
 
 export default function CityPage({ params }) {
   const city = params.city.toLowerCase();
 
-  // Check if the city exists in our data
   if (!cityData[city]) {
     notFound();
   }
@@ -349,7 +391,7 @@ export default function CityPage({ params }) {
   const cityInfo = cityData[city];
 
   const breadcrumbItems = [
-    { label: "Home", path: "/home" },
+    { label: "Home", path: "/" },
     { label: "Sitemap", path: "/sitemap" },
     { label: cityInfo.name },
   ];

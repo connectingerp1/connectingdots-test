@@ -109,6 +109,12 @@ export async function GET() {
     "hr-generalist-course-in",
   ];
 
+  const quizPages = [
+    "react",
+    "javascript", 
+    "nextjs"
+  ];
+
   // Generate course and city URLs
   const courseUrls = courses.flatMap((course) =>
     cities.map(
@@ -122,6 +128,42 @@ export async function GET() {
     `
     )
   );
+
+  // Generate city sitemap URLs
+  const citySitemapUrls = cities.map(
+    (city) => `
+    <url>
+      <loc>${baseUrl}/sitemap/${city}</loc>
+      <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+    </url>
+  `
+  );
+
+  // Generate quiz URLs
+  const quizUrls = [
+    // Main quiz page
+    `
+    <url>
+      <loc>${baseUrl}/quiz</loc>
+      <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    `,
+    // Individual quiz pages
+    ...quizPages.map(
+      (quiz) => `
+      <url>
+        <loc>${baseUrl}/quiz/${quiz}</loc>
+        <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+      </url>
+    `
+    )
+  ];
 
   // Static pages (Home & About Us)
   const staticUrls = [
@@ -163,6 +205,8 @@ export async function GET() {
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${staticUrls.join("\n")}
     ${courseUrls.join("\n")}
+    ${citySitemapUrls.join("\n")}
+    ${quizUrls.join("\n")}
   </urlset>`;
 
   return new Response(sitemap, {

@@ -14,6 +14,7 @@ import Program from "@/components/CoursesComponents/ProgramHighlights";
 export default function HomePage() {
   return (
     <>
+
       <DSHeader pageId="SapHeader" pageType="sapheader" />
       <Why pageId="WhySap" pageType="Whysap" />
       <Counselor />
