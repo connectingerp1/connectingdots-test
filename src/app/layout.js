@@ -82,11 +82,11 @@ export default function RootLayout({ children }) {
           {children}
         </CityProvider>
 
-        {/* SERVER-RENDERED FOOTER - Crawlers can see this! */}
-        <Footer />
-
         {/* CLIENT-SIDE COMPONENTS - Wrapped in client component */}
         <ClientLayoutWrapper />
+
+        {/* SERVER-RENDERED FOOTER - Crawlers can see this! */}
+        <Footer />
 
         {/* Load tracking scripts AFTER page content */}
         <Script
