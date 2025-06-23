@@ -1,126 +1,44 @@
-// src/app/layout.js (UPDATED with next/font and Dynamic BackgroundAnimation)
-"use client";
-
-import { useEffect, Suspense } from "react";
+// src/app/layout.js - FIXED VERSION (Server Component)
 import { CityProvider } from "@/context/CityContext";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import { usePathname } from "next/navigation";
 import { Lato, Rubik } from "next/font/google";
 
-// Initialize Lato font using next/font
+// Initialize fonts
 const lato = Lato({
   weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
   preload: true,
-  variable: "--font-lato", // Assign a CSS variable for consistent use
+  variable: "--font-lato",
 });
 
-// 🚀 NEW: Initialize Rubik font if it's used globally
 const rubik = Rubik({
   weight: ["300", "500"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-rubik", // Assign a CSS variable
+  variable: "--font-rubik",
 });
 
-// Import global CSS here. Keep only essential global styles.
+// Import global CSS
 import "./globals.css";
 
-// Lazy load heavy components
-const Navbar = dynamic(() => import("@/components/Common/Navbar"), {
-  loading: () => (
-    <div
-      style={{
-        height: "80px",
-        width: "100%",
-        backgroundColor: "#fff",
-        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-      }}
-    />
-  ),
-});
-
-const Footer = dynamic(() => import("@/components/Common/Footer"), {
-  ssr: false,
-  loading: () => <div style={{ height: "200px", width: "100%" }} />,
-});
-
-const Chatbot = dynamic(() => import("@/components/Chatbot"), { ssr: false });
-const PopupForm = dynamic(() => import("@/components/PopupForm"), {
-  ssr: false,
-});
-const Stickyform = dynamic(() => import("@/components/Stickyform"), {
-  ssr: false,
-});
-
-// 🚀 NEW: Dynamically import BackgroundAnimation
-const BackgroundAnimation = dynamic(
-  () => import("@/components/Common/BackgroundAnimation"),
-  {
-    ssr: false, // Client-side only
-    loading: () => null, // No placeholder needed for a background animation
-  }
-);
-
-// Keep these as regular imports
+// Static imports for critical components that need to be server-rendered
+import Navbar from "@/components/Common/Navbar";
+import Footer from "@/components/Common/Footer";
 import CallAdvisorsStrip from "@/components/Common/CallAdvisorsStrip";
 import Marquee from "@/components/Common/Marquee";
-import WaveComponent from "@/components/Wave";
-import Whatsapp from "@/components/Whatsapp";
-import Floatingcontact from "@/components/Floatingcontact";
-import BottomMenu from "@/components/BottomMenu";
-import ScrollToTop from "@/components/ScrollToTop";
-import CourseLoader from "@/components/CourseLoader";
+
+// Create a client component wrapper for components that need client-side features
+import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
 
 const GTM_ID = "GTM-MB68QM2V";
 const FB_PIXEL_ID = "3414178115554916";
 const AHREFS_KEY = "pUfORHA6uR+7KBt+fOIy2g";
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const hiddenRoutes = [
-    "/dashboard",
-    "/AdminLogin",
-    "/superadmin",
-    "/superadmin/dashboard",
-    "/superadmin/users",
-    "/superadmin/leads",
-    "/superadmin/analytics",
-    "/superadmin/activity",
-    "/superadmin/audit-logs",
-    "/superadmin/roles",
-    "/superadmin/settings",
-  ];
-  const shouldHideComponent = hiddenRoutes.includes(pathname);
-
-  // Optimize API pings (no change)
-  useEffect(() => {
-    const delayedPing = setTimeout(() => {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
-      if (apiBaseUrl) {
-        fetch(`${apiBaseUrl}/api/ping`).catch(() => {});
-      }
-    }, 3000);
-
-    const delayedBlogPing = setTimeout(() => {
-      const blogBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-      if (blogBaseUrl) {
-        fetch(`${blogBaseUrl}/api/blogs/ping`).catch(() => {});
-      }
-    }, 4000);
-
-    return () => {
-      clearTimeout(delayedPing);
-      clearTimeout(delayedBlogPing);
-    };
-  }, []);
-
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
-      {" "}
-      {/* Apply both font variables */}
       <head>
         {/* Critical resource hints */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -133,6 +51,7 @@ export default function RootLayout({ children }) {
           name="ahrefs-site-verification"
           content="61e8327be7878b001e67d79b48fa239923e438edb85df759becf82090ac89a7c"
         />
+        
         {/* Initialize dataLayer FIRST */}
         <Script
           id="gtm-dataLayer-init"
@@ -143,8 +62,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`body bg-black ${lato.className} ${rubik.className}`}>
-        {" "}
-        {/* Apply both font classes to body */}
         {/* GTM noscript */}
         <noscript>
           <iframe
@@ -154,27 +71,23 @@ export default function RootLayout({ children }) {
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {/* 🚀 NEW: Conditionally loaded BackgroundAnimation component */}
-        <BackgroundAnimation />
-        {/* Critical above-the-fold components */}
-        {!shouldHideComponent && <CallAdvisorsStrip />}
-        {!shouldHideComponent && <Marquee />}
-        {!shouldHideComponent && <Navbar />}
-        <Suspense fallback={null}>
-          <CourseLoader />
-        </Suspense>
-        <CityProvider>{children}</CityProvider>
-        {/* Non-critical components */}
-        <ScrollToTop />
-        <Floatingcontact phoneNumber="+919004002958" />
-        <Whatsapp phoneNumber="+919004002958" />
-        {/* Lazy loaded heavy components */}
-        <Chatbot />
-        <Stickyform />
-        <PopupForm />
-        {!shouldHideComponent && <WaveComponent />}
-        {!shouldHideComponent && <Footer />}
-        <BottomMenu />
+
+        {/* SERVER-RENDERED COMPONENTS - Crawlers can see these! */}
+        <CallAdvisorsStrip />
+        <Marquee />
+        <Navbar />
+
+        {/* Main content */}
+        <CityProvider>
+          {children}
+        </CityProvider>
+
+        {/* SERVER-RENDERED FOOTER - Crawlers can see this! */}
+        <Footer />
+
+        {/* CLIENT-SIDE COMPONENTS - Wrapped in client component */}
+        <ClientLayoutWrapper />
+
         {/* Load tracking scripts AFTER page content */}
         <Script
           id="gtm-script"
@@ -207,4 +120,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
- 

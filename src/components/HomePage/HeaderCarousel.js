@@ -77,10 +77,10 @@ const CompanyLogos = memo(() => (
       height={130}
       priority={true} // LCP element gets priority
       sizes="(max-width: 768px) 100vw, 800px"
-      style={{ 
-        width: 'auto', 
-        height: 'auto',
-        maxWidth: '100%'
+      style={{
+        width: "auto",
+        height: "auto",
+        maxWidth: "100%",
       }}
     />
   </div>
