@@ -34,7 +34,7 @@ import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
 
 const GTM_ID = "GTM-MB68QM2V";
 const FB_PIXEL_ID = "3414178115554916";
-const AHREFS_KEY = "pUfORHA6uR+7KBt+fOIy2g";
+const AHREFS_KEY = "L70jLMsM/8tB6uO9CN/tIQ";
 
 export default function RootLayout({ children }) {
   return (
