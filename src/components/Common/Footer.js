@@ -236,7 +236,7 @@ const Footer = () => {
               <ul className={styles.footerMenu}>
                 <li>
                   <Link href="/aboutus">ABOUT US</Link>
-                </li>
+                </li> 
                 <li>
                   <Link href="/blogs">BLOG</Link>
                 </li>
