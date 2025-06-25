@@ -25,22 +25,22 @@ const Courses = dynamic(() => import("@/components/HomePage/PopCourses"));
 const staticHtml = getStaticHtml('home-page');
 
 // Optimized metadata
-export const metadata = {
-  title: 'Connecting Dots ERP | SAP Training Institute In Pune',
-  description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.',
-  keywords: 'SAP Certification Courses, SAP Course, Data Science Course, Power BI Course, Digital Marketing Course, HR Training Institute, SAP Training Institute, Python Course, Software Course, Training, Education',
-  author: 'Connecting Dots ERP | Software and SAP Training Institute',
-  openGraph: {
-    title: 'Connecting Dots ERP | SAP Training Institute In Pune',
-    description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Connecting Dots ERP | SAP Training Institute In Pune',
-    description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses.',
-  },
-};
+// export const metadata = {
+//   title: 'Connecting Dots ERP | SAP Training Institute In Pune',
+//   description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.',
+//   keywords: 'SAP Certification Courses, SAP Course, Data Science Course, Power BI Course, Digital Marketing Course, HR Training Institute, SAP Training Institute, Python Course, Software Course, Training, Education',
+//   author: 'Connecting Dots ERP | Software and SAP Training Institute',
+//   openGraph: {
+//     title: 'Connecting Dots ERP | SAP Training Institute In Pune',
+//     description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support.',
+//     type: 'website',
+//   },
+//   twitter: {
+//     card: 'summary_large_image',
+//     title: 'Connecting Dots ERP | SAP Training Institute In Pune',
+//     description: 'Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses.',
+//   },
+// };
 
 export default function HomePage() {
   return (

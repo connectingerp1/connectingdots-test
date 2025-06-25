@@ -39,7 +39,7 @@ const AHREFS_KEY = "L70jLMsM/8tB6uO9CN/tIQ";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
-      <head>
+      <head>c
         {/* Critical resource hints */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
