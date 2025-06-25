@@ -39,19 +39,17 @@ const AHREFS_KEY = "L70jLMsM/8tB6uO9CN/tIQ";
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
-      <head>c
-        {/* Critical resource hints */}
+      <head>
+        c{/* Critical resource hints */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
-
         {/* Ahrefs verification */}
         <meta
           name="ahrefs-site-verification"
           content="0b9886aad63a27368476900bd3b4bb0e23971b8ca6d448cfc2c77ce706798bc9"
         />
-        
         {/* Initialize dataLayer FIRST */}
         <Script
           id="gtm-dataLayer-init"
@@ -78,9 +76,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         {/* Main content */}
-        <CityProvider>
-          {children}
-        </CityProvider>
+        <CityProvider>{children}</CityProvider>
 
         {/* CLIENT-SIDE COMPONENTS - Wrapped in client component */}
         <ClientLayoutWrapper />

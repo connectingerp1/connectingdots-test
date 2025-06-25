@@ -7,22 +7,28 @@ import HeaderCarousel from "@/components/HomePage/HeaderCarousel";
 
 // Lazy load below-the-fold components
 const Marquee = dynamic(() => import("@/components/HomePage/Marquee2"), {
-  loading: () => <div style={{ height: '60px' }} />,
+  loading: () => <div style={{ height: "60px" }} />,
 });
 
 const Chevron = dynamic(() => import("@/components/HomePage/Chevron"));
 const Keypoints = dynamic(() => import("@/components/HomePage/Keypoints"));
 const OurClients = dynamic(() => import("@/components/HomePage/OurClients"));
-const PlacementSection = dynamic(() => import("@/components/HomePage/PlacementSection"));
+const PlacementSection = dynamic(
+  () => import("@/components/HomePage/PlacementSection")
+);
 const OurStats = dynamic(() => import("@/components/HomePage/OurStats"));
-const Achievements = dynamic(() => import("@/components/HomePage/Achievements"));
-const FeedbackAndReviews = dynamic(() => import("@/components/HomePage/FeedbackandReviews"));
+const Achievements = dynamic(
+  () => import("@/components/HomePage/Achievements")
+);
+const FeedbackAndReviews = dynamic(
+  () => import("@/components/HomePage/FeedbackandReviews")
+);
 const Certificate = dynamic(() => import("@/components/HomePage/Certificate"));
 const Branches = dynamic(() => import("@/components/HomePage/Branches"));
 const Courses = dynamic(() => import("@/components/HomePage/PopCourses"));
 
 // Get static HTML content
-const staticHtml = getStaticHtml('home-page');
+const staticHtml = getStaticHtml("home-page");
 
 // Optimized metadata
 // export const metadata = {
@@ -46,17 +52,17 @@ export default function HomePage() {
   return (
     <>
       {/* SEO content - hidden when JS loads */}
-      <div 
-        id="seo-content" 
+      <div
+        id="seo-content"
         dangerouslySetInnerHTML={{ __html: staticHtml }}
-        style={{ display: 'none' }} // Hide by default, show only for crawlers
+        style={{ display: "none" }} // Hide by default, show only for crawlers
       />
-      
+
       {/* Main content */}
       <main className="flex-col justify-center">
         {/* Critical - loads immediately */}
         <HeaderCarousel />
-        
+
         {/* Below-the-fold - lazy loaded */}
         <Marquee />
         <Chevron />

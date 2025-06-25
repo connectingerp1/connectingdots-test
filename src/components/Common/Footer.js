@@ -209,7 +209,7 @@ const Footer = () => {
                 <li>
                   <Link href="/ui-ux-course-in-pune">UI/UX DESIGN</Link>
                 </li>
-                <li> 
+                <li>
                   <Link href="/python-course-in-pune">PYTHON</Link>
                 </li>
                 <li>
