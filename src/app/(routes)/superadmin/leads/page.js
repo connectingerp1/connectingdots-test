@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   FaUsers,
@@ -107,6 +107,8 @@ const LeadManagementPage = () => {
     assignedTo: "",
   });
   const [userRole, setUserRole] = useState(null);
+  const [searchInput, setSearchInput] = useState(""); // For the actual input field
+  const [debouncedSearch, setDebouncedSearch] = useState(""); // For the debounced search
 
   useEffect(() => {
     const token =
@@ -318,18 +320,35 @@ const LeadManagementPage = () => {
     }
   };
 
+  // debounce effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Trim whitespace and update the actual search filter
+      setFilters((prev) => ({
+        ...prev,
+        search: searchInput.trim(),
+      }));
+    }, 500); // 500ms delay - adjust as needed
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  // Update your handleFilterChange function
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters({
-      ...filters,
-      [name]: value,
-    });
+
+    if (name === "search") {
+      // For search, update the input state instead of filters directly
+      setSearchInput(value);
+    } else {
+      setFilters({
+        ...filters,
+        [name]: value,
+      });
+    }
   };
 
-  const applyFilters = () => {
-    setCurrentPage(1);
-  };
-
+  // Update your resetFilters function
   const resetFilters = () => {
     setFilters({
       status: "",
@@ -340,6 +359,7 @@ const LeadManagementPage = () => {
       endDate: "",
       search: "",
     });
+    setSearchInput(""); // Also reset the search input
     setCurrentPage(1);
   };
 
