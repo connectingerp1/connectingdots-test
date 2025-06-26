@@ -28,6 +28,7 @@ const SettingsPage = () => {
   const [userRole, setUserRole] = useState(null);
   const [totalLeads, setTotalLeads] = useState(0);
   const [sliderValue, setSliderValue] = useState(0);
+  const [maxLeadsEnabled, setMaxLeadsEnabled] = useState(false); // New state for toggle
   const [inactivityTimeout, setInactivityTimeout] = useState(30);
   const [inactivityWarning, setInactivityWarning] = useState(5);
   const router = useRouter();
@@ -65,7 +66,10 @@ const SettingsPage = () => {
       );
 
       if (maxLeadsSetting != null && maxLeadsSetting.value != null) {
-        setSliderValue(parseInt(maxLeadsSetting.value));
+        const value = parseInt(maxLeadsSetting.value);
+        setSliderValue(value);
+        // If value is 0, it means show all leads (disabled), otherwise enabled
+        setMaxLeadsEnabled(value > 0);
       }
       if (timeoutSetting != null && timeoutSetting.value != null) {
         setInactivityTimeout(parseInt(timeoutSetting.value));
@@ -223,6 +227,22 @@ const SettingsPage = () => {
     } else {
       console.warn(`Setting with key "${key}" not found to toggle.`);
       setError(`Setting "${key}" not found.`);
+    }
+  };
+
+  // New function to handle max leads toggle
+  const toggleMaxLeads = () => {
+    const newEnabled = !maxLeadsEnabled;
+    setMaxLeadsEnabled(newEnabled);
+
+    if (newEnabled) {
+      // If enabling, set to current slider value (or default to 100 if slider is 0)
+      const valueToSet = sliderValue > 0 ? sliderValue : 100;
+      setSliderValue(valueToSet);
+      updateSetting("maxLeadsToDisplay", valueToSet);
+    } else {
+      // If disabling, set to 0 (show all leads)
+      updateSetting("maxLeadsToDisplay", 0);
     }
   };
 
@@ -393,74 +413,141 @@ const SettingsPage = () => {
             key={setting.key}
           >
             <div className="flex-1 mb-4 sm:mb-0 mx-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1 flex items-center">
-                <FaChartBar className="mr-2 text-blue-600" /> Maximum Leads to
-                Display
-              </h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Set the maximum number of leads to display on the main dashboard
-                page. (0 shows all leads up to system limit).
-              </p>
-              <div className="w-full max-w-sm">
-                <div className="flex items-center gap-4 mb-2">
-                  <input
-                    type="range"
-                    min="0"
-                    max={maxValueForSlider}
-                    step="1"
-                    value={sliderValue}
-                    onChange={(e) => setSliderValue(parseInt(e.target.value))}
-                    onMouseUp={() =>
-                      !isReadOnly && updateSetting(setting.key, sliderValue)
-                    }
-                    onTouchEnd={() =>
-                      !isReadOnly && updateSetting(setting.key, sliderValue)
-                    }
-                    className={`w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 disabled:opacity-50 disabled:cursor-not-allowed ${isReadOnly || saving ? "pointer-events-none" : ""}`}
-                    disabled={isReadOnly || saving}
-                    aria-label="Maximum Leads to Display slider"
-                  />
-                  <input
-                    type="number"
-                    min="0"
-                    max={maxValueForSlider}
-                    value={sliderValue}
-                    onChange={(e) => {
-                      const value =
-                        e.target.value === "" ? 0 : parseInt(e.target.value);
-                      const clamped = Math.max(
-                        0,
-                        Math.min(value, maxValueForSlider)
-                      );
-                      setSliderValue(clamped);
-                    }}
-                    onBlur={(e) => {
-                      if (isReadOnly || saving) return;
-                      const value =
-                        e.target.value === "" ? 0 : parseInt(e.target.value);
-                      const clamped = Math.max(
-                        0,
-                        Math.min(value, maxValueForSlider)
-                      );
-                      if (clamped !== setting.value) {
-                        updateSetting(setting.key, clamped);
-                      } else {
-                        setSliderValue(setting.value);
-                      }
-                    }}
-                    className="w-20 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={isReadOnly || saving}
-                    aria-label="Maximum Leads to Display number input"
-                  />
-                </div>
-                <div className="flex justify-between text-xs text-gray-600 mt-1">
-                  <span>0 (All)</span>
-                  <span>
-                    {maxValueForSlider}
-                    {totalLeads > 0 && ` (${totalLeads} Total)`}
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                  <FaChartBar className="mr-2 text-blue-600" /> Maximum Leads to
+                  Display
+                </h3>
+                <div className="flex items-center ml-4">
+                  <span
+                    className={`text-sm mr-2 ${maxLeadsEnabled ? "text-green-700" : "text-red-700"}`}
+                  >
+                    {maxLeadsEnabled ? "Limited" : "Show All"}
                   </span>
+                  <button
+                    onClick={toggleMaxLeads}
+                    className="p-1 text-3xl leading-none focus:outline-none transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isReadOnly || saving}
+                    title={
+                      maxLeadsEnabled
+                        ? "Click to Show All Leads"
+                        : "Click to Limit Leads"
+                    }
+                    aria-label={
+                      maxLeadsEnabled
+                        ? "Disable lead limit"
+                        : "Enable lead limit"
+                    }
+                  >
+                    {maxLeadsEnabled ? (
+                      <FaToggleOn className="text-blue-600 hover:text-blue-700" />
+                    ) : (
+                      <FaToggleOff className="text-gray-400 hover:text-gray-500" />
+                    )}
+                  </button>
                 </div>
               </div>
+
+              <p className="text-sm text-gray-600 mb-2">
+                {maxLeadsEnabled
+                  ? "Set the maximum number of leads to display on the main dashboard page."
+                  : "Currently showing all leads without limit. Toggle on to set a specific limit."}
+              </p>
+
+              {/* Show total leads info separately */}
+              {totalLeads > 0 && (
+                <p className="text-xs text-gray-500 mb-4">
+                  📊 Total leads in database:{" "}
+                  <span className="font-semibold">{totalLeads}</span>
+                </p>
+              )}
+
+              {maxLeadsEnabled && (
+                <div className="w-full max-w-sm">
+                  <div className="flex items-center gap-4 mb-2">
+                    <input
+                      type="range"
+                      min="1"
+                      max={maxValueForSlider}
+                      step="1"
+                      value={sliderValue}
+                      onChange={(e) => setSliderValue(parseInt(e.target.value))}
+                      onMouseUp={() =>
+                        !isReadOnly && updateSetting(setting.key, sliderValue)
+                      }
+                      onTouchEnd={() =>
+                        !isReadOnly && updateSetting(setting.key, sliderValue)
+                      }
+                      className={`w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 disabled:opacity-50 disabled:cursor-not-allowed ${isReadOnly || saving ? "pointer-events-none" : ""}`}
+                      disabled={isReadOnly || saving}
+                      aria-label="Maximum Leads to Display slider"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      max={maxValueForSlider}
+                      value={sliderValue}
+                      onChange={(e) => {
+                        const value =
+                          e.target.value === "" ? 1 : parseInt(e.target.value);
+                        const clamped = Math.max(
+                          1,
+                          Math.min(value, maxValueForSlider)
+                        );
+                        setSliderValue(clamped);
+                      }}
+                      onBlur={(e) => {
+                        if (isReadOnly || saving) return;
+                        const value =
+                          e.target.value === "" ? 1 : parseInt(e.target.value);
+                        const clamped = Math.max(
+                          1,
+                          Math.min(value, maxValueForSlider)
+                        );
+                        if (clamped !== setting.value) {
+                          updateSetting(setting.key, clamped);
+                        } else {
+                          setSliderValue(
+                            setting.value > 0 ? setting.value : 100
+                          );
+                        }
+                      }}
+                      className="w-20 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isReadOnly || saving}
+                      aria-label="Maximum Leads to Display number input"
+                    />
+                    <span className="text-sm text-gray-600 whitespace-nowrap">
+                      leads
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-600 mt-1">
+                    <span>1</span>
+                    <span>{maxValueForSlider} total</span>
+                  </div>
+
+                  {/* Show current setting info */}
+                  <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded-md">
+                    <p className="text-xs text-blue-700">
+                      💡 Currently set to display:{" "}
+                      <span className="font-semibold">{sliderValue}</span> leads
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {!maxLeadsEnabled && (
+                <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-md">
+                  <p className="text-sm text-green-700 flex items-center">
+                    <FaCheck className="mr-2" />
+                    All leads will be displayed without any limit.
+                    {totalLeads > 0 && (
+                      <span className="ml-2 text-xs">
+                        (All {totalLeads} leads will be shown)
+                      </span>
+                    )}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         );
