@@ -923,6 +923,7 @@ const LeadManagementPage = () => {
               <FaFilter className="mr-3 text-blue-600" /> Filter Leads
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {/* Status Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -949,6 +950,7 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
+              {/* Assigned To Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -975,6 +977,7 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
+              {/* Course Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -999,6 +1002,7 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
+              {/* Location Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1023,6 +1027,7 @@ const LeadManagementPage = () => {
                 </select>
               </div>
 
+              {/* Start Date Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1042,6 +1047,7 @@ const LeadManagementPage = () => {
                 />
               </div>
 
+              {/* End Date Filter */}
               <div className="form-group">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1061,6 +1067,7 @@ const LeadManagementPage = () => {
                 />
               </div>
 
+              {/* Search Filter */}
               <div className="form-group col-span-full sm:col-span-2 lg:col-span-1 xl:col-span-2">
                 <label
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -1068,32 +1075,39 @@ const LeadManagementPage = () => {
                 >
                   <FaSearch className="inline mr-1 text-gray-500" /> Search
                 </label>
-                <input
-                  id="search-filter"
-                  type="text"
-                  name="search"
-                  value={filters.search}
-                  onChange={handleFilterChange}
-                  placeholder="Name, Email, or Phone"
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={loading || submitting}
-                />
+                <div className="relative">
+                  <input
+                    id="search-filter"
+                    type="text"
+                    name="search"
+                    value={searchInput}
+                    onChange={handleFilterChange}
+                    placeholder="Name, Email, or Phone"
+                    className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={loading || submitting}
+                  />
+                  {searchInput !== filters.search && searchInput && (
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <FaSpinner className="h-4 w-4 text-gray-400 animate-spin" />
+                    </div>
+                  )}
+                </div>
+                {filters.search && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    Searching for: "{filters.search}"
+                  </p>
+                )}
               </div>
 
-              <div className="form-group col-span-full sm:col-span-2 lg:col-span-3 xl:col-span-2 flex justify-end gap-3 items-end">
+              {/* Reset Button Only */}
+              <div className="form-group col-span-full sm:col-span-2 lg:col-span-3 xl:col-span-2 flex justify-end items-end">
                 <button
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={resetFilters}
                   disabled={loading || submitting}
                 >
-                  Reset
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                  onClick={applyFilters}
-                  disabled={loading || submitting}
-                >
-                  Apply Filters
+                  <FaTimes className="inline mr-2" />
+                  Reset All Filters
                 </button>
               </div>
             </div>
