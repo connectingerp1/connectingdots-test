@@ -1,15 +1,23 @@
-// src/app/layout.js - FIXED VERSION (Server Component)
-import { CityProvider } from "@/context/CityContext";
-import dynamic from "next/dynamic";
-import Script from "next/script";
-import { Lato, Rubik } from "next/font/google";
+// src/app/layout.js - FINAL VERSION
 
-// Initialize fonts
+import { Lato, Rubik } from "next/font/google";
+import Script from "next/script";
+import "./globals.css";
+
+// Static imports for components that are part of the main layout
+import Navbar from "@/components/Common/Navbar";
+import Footer from "@/components/Common/Footer";
+import CallAdvisorsStrip from "@/components/Common/CallAdvisorsStrip";
+import Marquee from "@/components/Common/Marquee";
+
+// This wrapper will contain all our client-side logic, like Context Providers
+import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
+
+// --- Font Setup ---
 const lato = Lato({
   weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
-  preload: true,
   variable: "--font-lato",
 });
 
@@ -20,37 +28,36 @@ const rubik = Rubik({
   variable: "--font-rubik",
 });
 
-// Import global CSS
-import "./globals.css";
-
-// Static imports for critical components that need to be server-rendered
-import Navbar from "@/components/Common/Navbar";
-import Footer from "@/components/Common/Footer";
-import CallAdvisorsStrip from "@/components/Common/CallAdvisorsStrip";
-import Marquee from "@/components/Common/Marquee";
-
-// Create a client component wrapper for components that need client-side features
-import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
-
+// --- Constants ---
 const GTM_ID = "GTM-MB68QM2V";
 const FB_PIXEL_ID = "3414178115554916";
 const AHREFS_KEY = "L70jLMsM/8tB6uO9CN/tIQ";
 
+// --- SITE-WIDE METADATA ---
+// This object replaces the manual <head> tag. Next.js uses this to build the
+// final <head> for every page, merging it with page-specific metadata.
+export const metadata = {
+  // A default title and description for pages that don't have their own
+  title: {
+    default: "Connecting Dots ERP | SAP Training Institute",
+    template: "%s | Connecting Dots ERP",
+  },
+  description:
+    "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",
+  verification: {
+    // Ahrefs verification and other verification tags go here
+    other: {
+      "ahrefs-site-verification":
+        "0b9886aad63a27368476900bd3b4bb0e23971b8ca6d448cfc2c77ce706798bc9",
+    },
+  },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
-      <head>
-        c{/* Critical resource hints */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://connect.facebook.net" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://connect.facebook.net" />
-        {/* Ahrefs verification */}
-        <meta
-          name="ahrefs-site-verification"
-          content="0b9886aad63a27368476900bd3b4bb0e23971b8ca6d448cfc2c77ce706798bc9"
-        />
-        {/* Initialize dataLayer FIRST */}
+      <body className={`body bg-black ${lato.className} ${rubik.className}`}>
+        {/* Initialize dataLayer for GTM. 'beforeInteractive' ensures it runs before anything else. */}
         <Script
           id="gtm-dataLayer-init"
           strategy="beforeInteractive"
@@ -58,9 +65,7 @@ export default function RootLayout({ children }) {
             __html: `window.dataLayer = window.dataLayer || [];`,
           }}
         />
-      </head>
-      <body className={`body bg-black ${lato.className} ${rubik.className}`}>
-        {/* GTM noscript */}
+        {/* GTM noscript fallback */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -70,23 +75,19 @@ export default function RootLayout({ children }) {
           />
         </noscript>
 
-        {/* SERVER-RENDERED COMPONENTS - Crawlers can see these! */}
+        {/* Server-Side Rendered Components */}
         <CallAdvisorsStrip />
         <Marquee />
         <Navbar />
 
-        {/* Main content */}
-        <CityProvider>{children}</CityProvider>
+        {/* The ClientLayoutWrapper now contains the CityProvider and wraps the children */}
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
 
-        {/* CLIENT-SIDE COMPONENTS - Wrapped in client component */}
-        <ClientLayoutWrapper />
-
-        {/* SERVER-RENDERED FOOTER - Crawlers can see this! */}
         <Footer />
 
-        {/* Load tracking scripts AFTER page content */}
+        {/* Tracking scripts are loaded with 'lazyOnload' to avoid blocking page rendering */}
         <Script
-          id="gtm-script"
+          id="gtm-main-script"
           strategy="lazyOnload"
           src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
         />
@@ -108,6 +109,7 @@ export default function RootLayout({ children }) {
           }}
         />
         <Script
+          id="ahrefs-analytics"
           src="https://analytics.ahrefs.com/analytics.js"
           data-key={AHREFS_KEY}
           strategy="lazyOnload"
