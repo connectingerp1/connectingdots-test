@@ -11,16 +11,15 @@
   overflow: visible;
 }
 
-/* Lines container for positioning */
 .linesContainer {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
+  margin: auto;
   width: 100%;
   height: 100%;
-  transform: translate(-50%, -50%);
   pointer-events: none;
 }
+
 
 /* Center arrow animation */
 .centerArrow {

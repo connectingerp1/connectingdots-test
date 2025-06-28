@@ -1,23 +1,20 @@
-// Navbar.jsx
+// Navbar.js
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react"; // Added useCallback
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "@/styles/Common/Navbar.module.css";
-// import AnimatedLogo from "../AnimatedLogo"; // REMOVE THIS DIRECT IMPORT
 
 // Dynamic import for AnimatedLogo
 import dynamic from "next/dynamic";
 const AnimatedLogo = dynamic(() => import("../AnimatedLogo"), {
-  ssr: false, // Ensure client-side rendering
-  loading: () => <div className={styles.animatedLogoPlaceholder} />, // Add a placeholder
+  ssr: false,
+  loading: () => <div className={styles.animatedLogoPlaceholder} />,
 });
 
-// REMOVE: import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS is already loaded in layout.js
-
-// Custom component definitions with improved props handling (minor, keep as is for now)
+// Custom component definitions
 const Navbar = ({ expand, className, children, ref }) => (
   <nav
     className={`${styles.navbar} ${
@@ -27,7 +24,7 @@ const Navbar = ({ expand, className, children, ref }) => (
           ]
         : ""
     } ${className || ""}`}
-    ref={ref} // Pass ref down
+    ref={ref}
   >
     {children}
   </nav>
@@ -69,13 +66,14 @@ const Header = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState(null);
   const [touchStartX, setTouchStartX] = useState(null);
-  const [touchMoveX, setTouchMoveX] = useState(null); // Keep touchMoveX for delta calculation
+  const [touchMoveX, setTouchMoveX] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [floatingNav, setFloatingNav] = useState(false); // New state for floating navbar
 
   const pathname = usePathname();
   const router = useRouter();
   const sidebarRef = useRef(null);
-  const navbarRef = useRef(null); // Retain navbarRef if used for sticky logic or other purposes
+  const navbarRef = useRef(null);
 
   // Set active link based on current pathname
   useEffect(() => {
@@ -96,30 +94,30 @@ const Header = () => {
       } else if (pathname.includes("aboutus")) {
         setActiveLink("aboutus");
       } else {
-        setActiveLink(""); // Default or home
+        setActiveLink("");
       }
     }
   }, [pathname]);
 
-  // Handle scroll effect for navbar
+  // Enhanced scroll effect for floating navbar
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 50);
+      setFloatingNav(scrollY > 100); // Activate floating effect after 100px scroll
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true }); // Use passive listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Use useCallback for closeSidebar to prevent re-creation
   const closeSidebar = useCallback(() => {
     setIsSidebarVisible(false);
     setMobileOpenDropdown(null);
-    // Ensure body scroll is re-enabled immediately
     document.body.style.overflow = "";
     if (sidebarRef.current) {
-      sidebarRef.current.style.transition = ""; // Re-enable transition
-      sidebarRef.current.style.transform = ""; // Ensure it snaps back if touch move
+      sidebarRef.current.style.transition = "";
+      sidebarRef.current.style.transform = "";
     }
   }, []);
 
@@ -130,7 +128,7 @@ const Header = () => {
         isSidebarVisible &&
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target) &&
-        !event.target.closest(`.${styles.navbarToggler}`) // Use closest for robustness
+        !event.target.closest(`.${styles.navbarToggler}`)
       ) {
         closeSidebar();
       }
@@ -147,7 +145,7 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [isSidebarVisible, closeSidebar]); // Add closeSidebar to dependencies
+  }, [isSidebarVisible, closeSidebar]);
 
   // Add effect to handle window resize
   useEffect(() => {
@@ -159,12 +157,11 @@ const Header = () => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isSidebarVisible, closeSidebar]); // Add closeSidebar to dependencies
+  }, [isSidebarVisible, closeSidebar]);
 
   // Add effect to manage overlay and body scroll
   useEffect(() => {
     if (isSidebarVisible) {
-      // No need for overlayVisible state, directly apply styles
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -184,7 +181,7 @@ const Header = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isSidebarVisible, closeSidebar]); // Add closeSidebar to dependencies
+  }, [isSidebarVisible, closeSidebar]);
 
   const handleNavClick = useCallback(
     (link) => {
@@ -215,26 +212,23 @@ const Header = () => {
       }
     },
     [mobileOpenDropdown]
-  ); // Depend on mobileOpenDropdown
+  );
 
   const handleNavigation = useCallback(
     (link, section) => {
-      // Check if the current pathname is the same as the link's base path
       const linkBasePath = link.split("#")[0];
       if (pathname !== linkBasePath) {
-        // If navigating to a different page, push and then scroll
         router.push(linkBasePath).then(() => {
           if (section) {
             setTimeout(() => {
               document
                 .getElementById(section)
                 ?.scrollIntoView({ behavior: "smooth", block: "start" });
-            }, 100); // Small delay to ensure page renders
+            }, 100);
           }
           closeSidebar();
         });
       } else {
-        // If on the same page, just scroll
         if (section) {
           document
             .getElementById(section)
@@ -244,15 +238,14 @@ const Header = () => {
       }
     },
     [pathname, router, closeSidebar]
-  ); // Depend on pathname, router, closeSidebar
+  );
 
-  // Optimized Touch Gesture Handlers
+  // Touch gesture handlers
   const handleTouchStart = useCallback((e) => {
     setTouchStartX(e.touches[0].clientX);
-    // Initialize touchMoveX as well to ensure delta calculation is always valid
     setTouchMoveX(e.touches[0].clientX);
     if (sidebarRef.current) {
-      sidebarRef.current.style.transition = "none"; // Disable transition for direct manipulation
+      sidebarRef.current.style.transition = "none";
     }
   }, []);
 
@@ -260,16 +253,14 @@ const Header = () => {
     (e) => {
       if (touchStartX === null || !sidebarRef.current) return;
       const currentX = e.touches[0].clientX;
-      setTouchMoveX(currentX); // Update currentX
+      setTouchMoveX(currentX);
 
       const deltaX = currentX - touchStartX;
       const sidebarElement = sidebarRef.current;
 
-      // Only allow swiping right (positive deltaX) to close the sidebar
       if (deltaX > 0) {
         sidebarElement.style.transform = `translateX(${deltaX}px)`;
       } else {
-        // If swiping left, keep it at 0 (fully open)
         sidebarElement.style.transform = `translateX(0px)`;
       }
     },
@@ -279,23 +270,24 @@ const Header = () => {
   const handleTouchEnd = useCallback(() => {
     if (touchStartX === null || !sidebarRef.current) return;
     const sidebarElement = sidebarRef.current;
-    const deltaX = touchMoveX - touchStartX; // Calculate delta based on start and last move
+    const deltaX = touchMoveX - touchStartX;
 
     if (sidebarRef.current) {
-      sidebarRef.current.style.transition = ""; // Re-enable default transition
+      sidebarRef.current.style.transition = "";
     }
 
-    const threshold = sidebarElement.offsetWidth * 0.4; // 40% of sidebar width
+    const threshold = sidebarElement.offsetWidth * 0.4;
 
     if (deltaX > threshold) {
-      closeSidebar(); // This will trigger sidebar's default transition to fully close
+      closeSidebar();
     } else {
-      sidebarElement.style.transform = `translateX(0px)`; // Snap back to open with transition
+      sidebarElement.style.transform = `translateX(0px)`;
     }
     setTouchStartX(null);
     setTouchMoveX(null);
   }, [touchStartX, touchMoveX, closeSidebar]);
 
+  // Dropdown render functions (keeping all existing dropdown functions as they are)
   const renderDropdownSAP = (isMobile = false) => (
     <div
       className={styles.dropdown}
@@ -314,7 +306,7 @@ const Header = () => {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown2");
             } else {
-              handleNavClick("/sap-course-in-pune"); // Ensure desktop click also triggers nav click
+              handleNavClick("/sap-course-in-pune");
             }
           }}
           aria-expanded={
@@ -344,7 +336,7 @@ const Header = () => {
           </button>
         )}
       </div>
-      {((isMobile && mobileOpenDropdown === "dropdown2") ||
+            {((isMobile && mobileOpenDropdown === "dropdown2") ||
         (!isMobile && isDropdownVisible.dropdown2)) && (
         <ul
           className={`${styles.dropdownMenu} ${styles.show}`}
@@ -359,7 +351,6 @@ const Header = () => {
                 { name: "SAP MM", link: "/sap-mm-course-in-pune" },
                 { name: "SAP SD", link: "/sap-sd-course-in-pune" },
                 { name: "SAP HR/HCM", link: "/sap-hr-hcm-course-in-pune" },
-
                 { name: "SAP PP", link: "/sap-pp-course-in-pune" },
                 { name: "SAP QM", link: "/sap-qm-course-in-pune" },
                 { name: "SAP PM", link: "/sap-pm-course-in-pune" },
@@ -649,7 +640,7 @@ const Header = () => {
             activeLink === "dropdown5" ? styles.active : ""
           }`}
           id="dropdownMenuButton5"
-          onClick={(e) => {
+                    onClick={(e) => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown5");
@@ -698,7 +689,6 @@ const Header = () => {
             {
               name: "Pay Per Click Training",
               link: "/digital-marketing-course-in-pune#pay-per-click",
-
               section: "pay-per-click",
             },
             {
@@ -817,23 +807,24 @@ const Header = () => {
     <>
       <Navbar
         expand="lg"
-        className={`${styles.headerNav} ${scrolled ? styles.scrolled : ""}`}
+        className={`${styles.headerNav} ${scrolled ? styles.scrolled : ""} ${
+          floatingNav ? styles.floating : ""
+        }`}
         ref={navbarRef}
       >
         <Container fluid className={styles.navContainer}>
           <div className={styles.logo}>
             <Link href="/" className={styles.logoLink}>
-              {/* AnimatedLogo is now dynamically loaded */}
               <AnimatedLogo className={styles.animatedLogo} />
               <div className={styles.logoWrapper}>
                 <Image
                   src="/Navbar/logo.avif"
                   alt="Logo of Connecting Dots ERP"
-                  width={120} // Explicit width matching logoWrapper
-                  height={60} // Explicit height matching logoWrapper
-                  priority // Set priority for the main logo
+                  width={120}
+                  height={60}
+                  priority
                   className={styles.logoImage}
-                  sizes="120px" // Add sizes for responsive loading
+                  sizes="120px"
                 />
               </div>
             </Link>
@@ -858,7 +849,9 @@ const Header = () => {
             {renderDropdownHRCourses()}
             <div className={styles.navItem}>
               <Link
-                className={`${styles.navLink} ${activeLink === "aboutus" ? styles.active : ""}`}
+                className={`${styles.navLink} ${
+                  activeLink === "aboutus" ? styles.active : ""
+                }`}
                 href="/aboutus"
                 onClick={() => handleNavClick("aboutus")}
               >
@@ -878,12 +871,12 @@ const Header = () => {
       {isSidebarVisible && (
         <>
           <div
-            className={`${styles.sidebarOverlay} ${styles.visible}`} // Always visible when sidebar is
+            className={`${styles.sidebarOverlay} ${styles.visible}`}
             onClick={closeSidebar}
             aria-hidden="true"
           />
           <aside
-            className={`${styles.sidebar} ${styles.visible}`} // Removed dynamic sidebarClass to manage transition explicitly
+            className={`${styles.sidebar} ${styles.visible}`}
             ref={sidebarRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -901,12 +894,12 @@ const Header = () => {
                 >
                   <AnimatedLogo className={styles.sidebarLogo} />
                   <Image
-                    src="/Navbar/logo.webp" // Use webp for optimization
+                    src="/Navbar/logo.webp"
                     alt="Connecting Dots ERP Logo"
                     width={130}
                     height={100}
-                    loading="lazy" // Lazy load for sidebar
-                    sizes="130px" // Add sizes attribute
+                    loading="lazy"
+                    sizes="130px"
                   />
                 </Link>
               </div>
@@ -919,7 +912,6 @@ const Header = () => {
 
             <Nav className={styles.sidebarNav}>
               {renderDropdownSAP(true)}
-
               {renderDropdownITCourses(true)}
               {renderDropdownDataVisualisation(true)}
               {renderDropdownDigitalMarketing(true)}
