@@ -12,7 +12,7 @@ export default function HomePage() {
     <>
       <DSHeader pageId="SapHeader" pageType="sapheader" />
       <Why pageId="WhySap" pageType="Whysap" />
-      <Certificate pageId="sap-CERT" />
+      <Certificate pageId="sap-CERT" /> 
       <Description pageId="sap-landing" />
       <FAQ pageId="SAPFAQ" pageType="sapfaq" />
       <CoursesRelated pageId="Saprelcourses" />
