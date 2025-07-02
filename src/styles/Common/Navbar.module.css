@@ -786,6 +786,10 @@
     display: none;
   }
 
+  .floating {
+    width: 80% !important;
+  }
+
   /* Base level dropdown positioning for desktop */
   .dropdown > .dropdownMenu {
     top: 150%;
@@ -875,6 +879,10 @@
   .logoWrapper {
     width: 140px;
     height: 50px;
+  }
+
+  .floating {
+    width: 60% !important;
   }
 
   /* Floating navbar adjustments for large desktop */
