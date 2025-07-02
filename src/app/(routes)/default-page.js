@@ -15,7 +15,7 @@ export default function HomePage() {
       <Certificate pageId="sap-CERT" /> 
       <Description pageId="sap-landing" />
       <FAQ pageId="SAPFAQ" pageType="sapfaq" />
-      <CoursesRelated pageId="Saprelcourses" />
+      <CoursesRelated pageId="SAPrelcourses" />
     </>
   );
 }
