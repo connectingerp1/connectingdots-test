@@ -48,7 +48,7 @@ export const metadata = {
     // Ahrefs verification and other verification tags go here
     other: {
       "ahrefs-site-verification":
-        "0b9886aad63a27368476900bd3b4bb0e23971b8ca6d448cfc2c77ce706798bc9",
+        "f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0",
     },
   },
 };
