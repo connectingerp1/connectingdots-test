@@ -48,10 +48,6 @@ const CourseComponentLoader = ({ formattedCourse, city, course }) => {
 
   let CourseComponent = null;
 
-  console.log(
-    `CourseComponentLoader: formattedCourse received: "${formattedCourse}"`
-  );
-  console.log(`CourseComponentLoader: city received: "${city}"`);
 
   try {
     // Use dynamic imports for specific courses with loading: eager
