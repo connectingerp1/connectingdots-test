@@ -1,57 +1,90 @@
-// src/app/(routes)/[slug]/page.js - FINAL ATTEMPT WITH AWAIT PARAMS & PAGE DATA
+// src/app/(routes)/[slug]/page.js (Updated with scroll navigation)
+
 import { notFound } from "next/navigation";
-import CourseComponentLoader from "@/components/CourseComponentLoader";
+import dynamic from "next/dynamic";
 import ClientOnly from "@/context/ClientOnly";
-import { getStaticHtml } from "@/lib/staticHtml"; // <--- Import getStaticHtml
+import {
+  generateDynamicMetadata,
+  generateDynamicJsonLd,
+} from "@/lib/dynamicSEO";
+import { coursesData, citiesData } from "@/lib/masterData";
 
-export const dynamic = "force-dynamic";
+// Import all your common components
+import DSHeader from "@/components/CoursesComponents/Header";
+import Why from "@/components/CoursesComponents/Why";
+import Counselor from "@/components/CoursesComponents/Councelor";
+import TrustUs from "@/components/CoursesComponents/Trustus";
+import Certificate from "@/components/HomePage/Certificate";
+import Program from "@/components/CoursesComponents/ProgramHighlights";
+import Description from "@/components/CoursesComponents/Description";
+import FAQ from "@/components/CoursesComponents/FAQ";
+import CoursesRelated from "@/components/CoursesComponents/RelatedCourses";
 
-async function getPageData(slug) {
-  // Directly call the getStaticHtml function to get all data synchronously
-  const data = getStaticHtml(slug);
+// Import course-specific modules
+import SapModComponent from "@/components/CoursesComponents/sapmod";
+import Modules from "@/components/CoursesComponents/Modules";
+import HrCard from "@/components/CoursesComponents/HRCard";
 
-  if (!data || !data.content) {
-    console.error(
-      `❌ getPageData: No data or content found for slug: "${slug}"`
-    );
+
+// Helper function to parse the slug into course and city components
+function parseSlug(slug) {
+  const lastInIndex = slug.lastIndexOf("-in-");
+  if (lastInIndex === -1) {
     return null;
   }
-  return data;
+
+  let coursePart = slug.substring(0, lastInIndex);
+  coursePart = coursePart.replace(
+    /-course$|-training$|-developer$|-developer-course$|-developer-training$/,
+    ""
+  );
+
+  const cityPart = slug.substring(lastInIndex + 4);
+
+  return { courseSlug: coursePart, citySlug: cityPart };
 }
 
-// Generate metadata for each page
+// Generate metadata dynamically for each page
 export async function generateMetadata({ params }) {
-  // Await params to ensure it's fully resolved
-  // This helps mitigate the "params should be awaited" warning in Next.js 15
   const resolvedParams = await params;
-
   const slug = resolvedParams?.slug;
+
   if (!slug) {
+    console.warn("❌ generateMetadata: Missing slug parameter.");
+    return {};
+  }
+
+  const parsed = parseSlug(slug);
+  if (!parsed) {
     console.warn(
-      "❌ generateMetadata: Missing slug parameter. Returning empty metadata."
+      `❌ generateMetadata: Slug "${slug}" does not match expected pattern for dynamic course pages.`
     );
     return {};
   }
 
-  // Await getPageData even if it's synchronous to ensure proper Next.js hydration context
-  // This ensures the data is fully available before metadata generation proceeds.
-  const pageData = await getPageData(slug);
+  const { courseSlug, citySlug } = parsed;
 
-  if (!pageData || !pageData.metadata) {
+  if (!coursesData[courseSlug] || !citiesData[citySlug]) {
     console.warn(
-      `❌ generateMetadata: No pageData or metadata received from getStaticHtml for slug: "${slug}". Returning empty metadata.`
+      `❌ generateMetadata: Course "${courseSlug}" or City "${citySlug}" not found in masterData. Returning empty metadata.`
     );
     return {};
   }
 
-  const { metadata } = pageData;
+  const metadata = generateDynamicMetadata(courseSlug, citySlug);
+  if (!metadata) {
+    console.warn(
+      `❌ generateMetadata: Failed to generate metadata for "${slug}".`
+    );
+    return {};
+  }
 
   const metadataObject = {
     title: metadata.title,
     description: metadata.description,
     keywords: metadata.keywords,
     robots: metadata.robots,
-    authors: metadata.author ? [{ name: metadata.author }] : undefined,
+    authors: metadata.authors,
     alternates: {
       canonical: metadata.canonical,
       languages: metadata.alternates.reduce((acc, alt) => {
@@ -61,38 +94,16 @@ export async function generateMetadata({ params }) {
         return acc;
       }, {}),
     },
-    openGraph: {
-      title: metadata.openGraph.title,
-      description: metadata.openGraph.description,
-      url: metadata.openGraph.url,
-      siteName: metadata.openGraph.siteName,
-      images: metadata.openGraph.images,
-      type: metadata.openGraph.type,
-      locale: metadata.openGraph.locale,
-      updatedTime: metadata.openGraph.updatedTime,
+    openGraph: metadata.openGraph,
+    twitter: metadata.twitter,
+    icons: {
+      icon: metadata.icons.icon,
+      apple: metadata.icons.appleTouchIcon,
     },
-    twitter: {
-      card: metadata.twitter.card,
-      title: metadata.twitter.title,
-      description: metadata.twitter.description,
-      images: metadata.twitter.images,
-      site: metadata.twitter.site,
-      creator: metadata.twitter.creator,
-    },
-    // Add other relevant metadata fields from your extracted data, using optional chaining for safety
-    applicationName: metadata.applicationName,
-    generator: metadata.generator,
-    themeColor: metadata.enhancedMeta?.themeColor,
-    msapplicationNavbuttonColor:
-      metadata.enhancedMeta?.msApplicationNavButtonColor,
-    appleMobileWebAppStatusBarStyle: metadata.enhancedMeta?.appleStatusBarStyle,
-    mobileWebCapable: metadata.enhancedMeta?.mobileWebCapable,
-    appleMobileWebAppCapable: metadata.enhancedMeta?.appleMobileCapable,
-    appleMobileWebAppTitle: metadata.enhancedMeta?.appleMobileTitle,
+    manifest: metadata.manifest,
   };
 
   if (metadata.isMajorCity && metadata.enhancedMeta) {
-    // Ensure 'other' property exists before adding sub-properties
     metadataObject.other = metadataObject.other || {};
     Object.assign(metadataObject.other, {
       "geo.region": metadata.enhancedMeta.geoRegion,
@@ -102,108 +113,291 @@ export async function generateMetadata({ params }) {
       "course.provider": metadata.enhancedMeta.courseProvider,
       "course.location": metadata.enhancedMeta.courseLocation,
       "course.category": metadata.enhancedMeta.courseCategory,
+      "theme-color": metadata.enhancedMeta.themeColor,
+      "msapplication-navbutton-color":
+        metadata.enhancedMeta.msApplicationNavButtonColor,
+      "apple-mobile-web-app-status-bar-style":
+        metadata.enhancedMeta.appleStatusBarStyle,
+      "mobile-web-capable": metadata.enhancedMeta.mobileWebCapable,
+      "apple-mobile-web-app-capable": metadata.enhancedMeta.appleMobileCapable,
+      "apple-mobile-web-app-title": metadata.enhancedMeta.appleMobileTitle,
     });
   }
 
-  // Add preconnect/dns-prefetch
-  if (metadata.preconnect && metadata.preconnect.length > 0) {
-    metadataObject.preconnect = metadata.preconnect;
+  if (metadata.facebook?.appId) {
+    metadataObject.other = metadataObject.other || {};
+    metadataObject.other["fb:app_id"] = metadata.facebook.appId;
   }
-  if (metadata.dnsPrefetch && metadata.dnsPrefetch.length > 0) {
-    metadataObject.dnsPrefetch = metadata.dnsPrefetch;
-  }
-
-  // Add icons (ensure icon paths are not null/empty strings unless intended)
-  metadataObject.icons = {
-    icon: metadata.icons.icon || undefined, // Use undefined if empty to prevent error
-    apple: metadata.icons.appleTouchIcon || undefined, // Use undefined if empty to prevent error
-  };
-
-  // Add manifest
-  if (metadata.manifest) {
-    metadataObject.manifest = metadata.manifest;
+  if (metadata.pinterest?.richPin) {
+    metadataObject.other = metadataObject.other || {};
+    metadataObject.other["pinterest-rich-pin"] = metadata.pinterest.richPin;
   }
 
   return metadataObject;
 }
 
 const CourseCityPage = async ({ params }) => {
-  // Await params to ensure it's fully resolved
-  // This helps mitigate the "params should be awaited" warning in Next.js 15
   const resolvedParams = await params;
-
   const slug = resolvedParams?.slug;
-  if (!slug) {
-    console.error(
-      "❌ CourseCityPage: Missing slug parameter. Returning notFound()."
+
+  if (!slug) return notFound();
+
+  const parsed = parseSlug(slug);
+  if (!parsed) {
+    console.warn(
+      `❌ CourseCityPage: Slug "${slug}" does not match course-city pattern. Returning notFound().`
     );
     return notFound();
   }
 
-  // Await getPageData even if it's synchronous to ensure proper Next.js hydration context
-  // This ensures the data is fully available before component rendering proceeds.
-  const pageData = await getPageData(slug);
-  if (!pageData) {
+  const { courseSlug, citySlug } = parsed;
+
+  const course = coursesData[courseSlug];
+  const city = citiesData[citySlug];
+
+  if (!course || !city) {
     console.error(
-      `❌ CourseCityPage: No pageData received from getPageData for slug: "${slug}". Returning notFound().`
+      `❌ CourseCityPage: Course "${courseSlug}" or City "${citySlug}" not found in masterData. Returning notFound().`
     );
     return notFound();
   }
 
-  const { content, metadata } = pageData;
+  const jsonLd = generateDynamicJsonLd(courseSlug, citySlug);
 
-  // Extract course and city from the original slug (e.g., "it-course-in-chennai")
-  const slugParts = slug.split("-");
+  const processPlaceholders = (obj, cityNameToUse) => {
+    if (typeof obj === "string") {
+      return obj.replace(/{city}/g, cityNameToUse);
+    }
+    if (Array.isArray(obj)) {
+      return obj.map((item) => processPlaceholders(item, cityNameToUse));
+    }
+    if (typeof obj === "object" && obj !== null) {
+      const newObj = {};
+      for (const key in obj) {
+        newObj[key] = processPlaceholders(obj[key], cityNameToUse);
+      }
+      return newObj;
+    }
+    return obj;
+  };
 
-  // Reconstruct the base course name (e.g., "it-course", "sap-fico")
-  let courseBaseSlugForLoader = "";
-  const lastInIndex = slug.lastIndexOf("-in-");
-  if (lastInIndex !== -1) {
-    courseBaseSlugForLoader = slug.substring(0, lastInIndex);
-  } else {
-    // Fallback if the "-in-" pattern is not found (e.g., for non-course pages or different slug patterns)
-    // This might need adjustment based on all your slug patterns.
-    // For simplicity, for now, if no "-in-", assume the slug itself is the course base.
-    courseBaseSlugForLoader = slug;
+  const headerData = processPlaceholders(course.header, city.name);
+  const whyData = processPlaceholders(course.why, city.name);
+  const sapModData = course.sapMod
+    ? processPlaceholders(course.sapMod, city.name)
+    : null;
+  const modulesData = course.modulesData
+    ? processPlaceholders(course.modulesData, city.name)
+    : null;
+  const certificateData = processPlaceholders(course.certificate, city.name);
+  const faqData = processPlaceholders(course.faq, city.name);
+  const relatedCoursesData = processPlaceholders(
+    course.relatedCourses,
+    city.name
+  );
+
+  // Handle description content - check if it's multi-section (like Digital Marketing) or single section
+  const descriptionContentData = processPlaceholders(
+    course.descriptionContent,
+    city.name
+  );
+
+  // Check if this is a multi-section course (like Digital Marketing)
+  const isMultiSectionCourse =
+    descriptionContentData &&
+    (descriptionContentData.main ||
+      descriptionContentData.ppc ||
+      descriptionContentData.seo);
+
+  // Generate dynamic content for the page body.
+  const dynamicBodyContent = `
+    <div class="course-main-content">
+      <!-- These elements now use the global 'visually-hidden' class -->
+      <h1 class="visually-hidden">${course.title} Course in ${city.name}</h1>
+      <h2 class="visually-hidden">Best ${course.fullTitle} Training in ${city.name}</h2>
+      <p class="visually-hidden">${course.description.replace(/{city}/g, city.name)}</p>
+      
+      <section class="course-summary">
+        <h3>About Our ${course.fullTitle} Course</h3>
+        <p>Our comprehensive ${course.title} course in ${city.name} is designed to equip you with ${course.modules.length} key modules, practical skills, and industry insights. With a duration of ${course.duration}, you'll gain expertise in areas like: ${course.modules.slice(0, 3).join(", ")}${course.modules.length > 3 ? "..." : ""}.</p>
+        <p>Get ready for a successful career in roles such as ${course.jobRoles.slice(0, 2).join(" or ")}.</p>
+      </section>
+
+      ${renderOfficeSpecificContent(city, course.title)}
+      
+      <section class="career-path">
+        <h3>Career Opportunities After ${course.fullTitle} Training</h3>
+        <p>Upon successful completion of our ${course.title} course, you'll be prepared for diverse and rewarding career paths, including:</p>
+        <ul>
+          ${course.jobRoles.map((role) => `<li>${role}</li>`).join("")}
+        </ul>
+      </section>
+    </div>
+  `;
+
+  function renderOfficeSpecificContent(cityData, courseTitle) {
+    if (cityData.hasOffice && cityData.office) {
+      return `
+        <section class="our-local-presence">
+          <h3>Visit Our Training Center in ${cityData.name}</h3>
+          <p>We're proud to offer in-person training at our state-of-the-art facility in ${cityData.name}.</p>
+          <p><strong>Address:</strong> ${cityData.office.address}</p>
+          <p><strong>Phone:</strong> ${cityData.office.phone}</p>
+          <p><strong>Operating Hours:</strong> ${cityData.office.hours.open} - ${cityData.office.hours.close} daily</p>
+          <p>Rated <strong>${cityData.office.rating}/5</strong> by ${cityData.office.reviewCount} students on Google.</p>
+          ${cityData.office.mapUrl ? `<p><a href="${cityData.office.mapUrl}" target="_blank" rel="noopener noreferrer">Get Directions to our ${courseTitle} Training Center</a></p>` : ""}
+        </section>
+      `;
+    }
+    return "";
   }
 
-  const city = slugParts[slugParts.length - 1]; // "chennai" or "pune"
+  // Scroll handling script for hash navigation
+  const scrollScript = `
+    <script>
+      (function() {
+        function scrollToHash() {
+          const hash = window.location.hash.replace('#', '');
+          if (hash) {
+            setTimeout(() => {
+              const element = document.getElementById(hash);
+              if (element) {
+                element.scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'start',
+                  inline: 'nearest'
+                });
+              }
+            }, 500);
+          }
+        }
+        
+        // Handle initial load
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', scrollToHash);
+        } else {
+          scrollToHash();
+        }
+        
+        // Handle hash changes
+        window.addEventListener('hashchange', scrollToHash);
+      })();
+    </script>
+  `;
 
-  // Format for CourseComponentLoader: "IT-COURSE" or "SAP-FICO"
-  let formattedCourseForLoader = courseBaseSlugForLoader.toUpperCase();
+  // Render Digital Marketing specific layout
+  if (courseSlug === "digital-marketing" && isMultiSectionCourse) {
+    return (
+      <>
+        {/* Inject JSON-LD structured data (server-rendered) */}
+        {jsonLd && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+        )}
 
-  // Additional check if the formattedCourseForLoader still contains "-IN" after initial slice
-  if (formattedCourseForLoader.endsWith("-IN")) {
-    formattedCourseForLoader = formattedCourseForLoader.slice(0, -3); // remove "-IN"
+        {/* Inject scroll handling script */}
+        <div dangerouslySetInnerHTML={{ __html: scrollScript }} />
+
+        {/* Render core dynamic content for the page body */}
+        <div dangerouslySetInnerHTML={{ __html: dynamicBodyContent }} />
+
+        {/* Render Client Components */}
+        <ClientOnly>
+          <DSHeader data={headerData} />
+          <Why data={whyData} />
+          {sapModData && <SapModComponent data={sapModData} />}
+          <Counselor />
+
+          {/* Main description section */}
+          <Description data={descriptionContentData.main} />
+
+          {/* PPC Section with scroll anchor */}
+          <div id="pay-per-click" style={{ scrollMarginTop: "80px" }}>
+            {descriptionContentData.ppc && (
+              <Description data={descriptionContentData.ppc} sectionIndex={0} />
+            )}
+          </div>
+
+          <TrustUs />
+
+          {/* SEO Section with scroll anchor */}
+          <div
+            id="search-engine-optimization"
+            style={{ scrollMarginTop: "80px" }}
+          >
+            {descriptionContentData.seo && (
+              <Description data={descriptionContentData.seo} sectionIndex={1} />
+            )}
+          </div>
+
+          <Certificate data={certificateData} />
+          <Program />
+
+          {/* SMM Section with scroll anchor */}
+          <div id="social-media-marketing" style={{ scrollMarginTop: "80px" }}>
+            {descriptionContentData.smm && (
+              <Description data={descriptionContentData.smm} sectionIndex={0} />
+            )}
+          </div>
+
+          {/* Analytics Section with scroll anchor */}
+          <div id="advance-analytics" style={{ scrollMarginTop: "80px" }}>
+            {descriptionContentData.analytics && (
+              <Description
+                data={descriptionContentData.analytics}
+                sectionIndex={1}
+              />
+            )}
+          </div>
+
+          <FAQ data={faqData} />
+          <CoursesRelated
+            data={relatedCoursesData}
+            currentCityName={city.name}
+          />
+        </ClientOnly>
+      </>
+    );
   }
 
+  // Default layout for other courses (SAP, HR, etc.)
   return (
     <>
-      {/* Inject JSON-LD structured data if available */}
-      {/* Added defensive check for metadata.jsonLd to prevent error if it's undefined */}
-      {metadata && metadata.jsonLd && (
+      {/* Inject JSON-LD structured data (server-rendered) */}
+      {jsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(metadata.jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
 
-      {/* Render only the body content from static HTML for SEO.
-          H1/H2 will be prepended inside 'content' by staticHtml.js if missing. */}
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      {/* Render core dynamic content for the page body */}
+      <div dangerouslySetInnerHTML={{ __html: dynamicBodyContent }} />
 
-      {/* Remove this test paragraph once confirmed working */}
-      {/* <p style={{ margin: '20px', padding: '10px', border: '2px solid blue', background: '#e0f7fa', color: '#006064', fontWeight: 'bold' }}>
-            Test: If you see this, static content is being injected.
-      </p> */}
+      {/* Render Client Components */}
+      <ClientOnly>
+        <DSHeader data={headerData} />
+        <Why data={whyData} />
 
-      {/* Render Dynamic Course Component */}
-      <ClientOnly key={`${formattedCourseForLoader}-${city}`}>
-        <CourseComponentLoader
-          formattedCourse={formattedCourseForLoader}
-          city={city}
-          course={courseBaseSlugForLoader} // Pass the base slug if needed for dynamic component logic
-        />
+        {/* Conditional rendering based on data availability */}
+        {sapModData && <SapModComponent data={sapModData} />}
+        {modulesData && <Modules data={modulesData} />}
+
+        <Counselor />
+
+        <TrustUs />
+        <Program />
+
+        <Certificate data={certificateData} />
+
+        {/* Single description section for non-multi-section courses */}
+        <Description data={descriptionContentData} />
+
+        <FAQ data={faqData} />
+        {course.category === 'hr' && <HrCard />}
+        <CoursesRelated data={relatedCoursesData} currentCityName={city.name} />
       </ClientOnly>
     </>
   );

@@ -1,67 +1,29 @@
+// components/CoursesComponents/sapmod.js (Updated SapModComponent)
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/CoursesComponents/sapmod.module.css";
 import dynamic from "next/dynamic";
-import { CityContext } from "@/context/CityContext";
+// Removed: import { CityContext } from "@/context/CityContext"; // No longer needed as city is handled in parent
 
 // Dynamically import Btnform to prevent SSR-related issues
 const Btnform = dynamic(() => import("@/components/HomePage/Btnform"), {
   ssr: false,
 });
 
-const SapModComponent = ({ pageId }) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// SapModComponent now directly receives the 'data' prop
+const SapModComponent = ({ data }) => {
+  // Removed: const [data, setData] = useState(null);
+  // Removed: const [loading, setLoading] = useState(true);
+  // Removed: const [error, setError] = useState(null);
   const [showPopupForm, setShowPopupForm] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const city = useContext(CityContext);
+  // Removed: const city = useContext(CityContext);
+
+  // Removed: useEffect for data fetching
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/Jsonfolder/sapmod.json");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const jsonData = await response.json();
-        const pageData = jsonData?.[pageId];
-
-        if (pageData) {
-          pageData.title2 = pageData.title2?.replace(/{city}/g, city);
-          pageData.description = pageData.description?.replace(/{city}/g, city);
-          pageData.summary = pageData.summary?.replace(/{city}/g, city);
-          pageData.features = pageData.features?.map((feature) => ({
-            ...feature,
-            description: feature.description?.replace(/{city}/g, city),
-          }));
-          pageData.overview = {
-            ...pageData.overview,
-            title: pageData.overview.title?.replace(/{city}/g, city),
-            modules: pageData.overview.modules?.map((module) => ({
-              ...module,
-              name: module.name?.replace(/{city}/g, city),
-            })),
-          };
-
-          setData(pageData);
-        } else {
-          throw new Error("Page data not found");
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Fetch error:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [pageId, city]);
-
-  useEffect(() => {
+    // Ensure data exists before trying to access its properties
     if (data && data.noteAdvance) {
       const container = document.getElementById("glowContainer");
       if (container) {
@@ -74,7 +36,7 @@ const SapModComponent = ({ pageId }) => {
         });
       }
     }
-  }, [data]);
+  }, [data]); // Depend on 'data' prop now
 
   const handleDownloadBrochureClick = () => {
     setShowPopupForm(true);
@@ -87,7 +49,7 @@ const SapModComponent = ({ pageId }) => {
     if (data && data.downloadLink) {
       const link = document.createElement("a");
       link.href = data.downloadLink;
-      link.download = "";
+      link.download = ""; // This will use the filename provided in the Content-Disposition header, if any
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -100,9 +62,14 @@ const SapModComponent = ({ pageId }) => {
     setShowPopupForm(false); // Close the form
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data: {error.message}</p>;
-  if (!data) return <p>No data available for the specified page.</p>;
+  // Simplified loading/error handling as data is passed directly
+  if (!data) {
+    return (
+      <div /* Add your loading/error styling here */>
+        <p>No SAP Modules data available (check masterData.js or prop passing).</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.sapModContainer}>
@@ -190,7 +157,7 @@ const SapModComponent = ({ pageId }) => {
       </div>
 
       <div className={styles.sapModNote}>
-        {data.note && (
+        {data.note && ( // Check if 'note' property exists
           <p
             className="text-lg"
             dangerouslySetInnerHTML={{

@@ -62,7 +62,7 @@ const footerSections = [
       { href: "/mern-stack-course-in-pune", text: "MERN STACK" },
       { href: "/ui-ux-course-in-pune", text: "UI/UX DESIGN" },
       { href: "/python-course-in-pune", text: "PYTHON" },
-      { href: "/salesforce-training-in-pune", text: "SALESFORCE" },
+      { href: "/salesforce-course-in-pune", text: "SALESFORCE" },
     ],
   },
   {
@@ -113,10 +113,10 @@ const footerSections = [
     ],
   },
   {
-    title: "DATA VISUALISATION",
+    title: "DATA VISUALIZATION",
     links: [
       { href: "/power-bi-course-in-pune", text: "POWER BI" },
-      { href: "/tableau-training-in-pune", text: "TABLEAU" },
+      { href: "/tableau-course-in-pune", text: "TABLEAU" },
       { href: "/sql-course-in-pune", text: "SQL" },
     ],
   },
@@ -136,7 +136,7 @@ const footerSections = [
 const Footer = () => {
   return (
     <footer className="bg-[#182e4a] text-[#ecf0f1] font-sans w-full max-w-[1800px] mx-auto relative">
-      <div className="py-5 px-10 lg:px-24 flex flex-col">
+      <div className="px-10 lg:px-24 flex flex-col">
         {/* Top Section with Logo and Social Icons */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-2.5 border-b border-white/10 pb-2.5 gap-5 md:gap-0">
           <div className="w-[180px] h-auto">
@@ -201,7 +201,7 @@ const Footer = () => {
             <FooterClient sections={[footerSections[3], footerSections[4]]} />
           </div>
 
-          {/* Column 4: DATA VISUALISATION + HR COURSES */}
+          {/* Column 4: DATA VISUALIZATION + HR COURSES */}
           <div className="lg:col-span-1">
             <FooterClient sections={[footerSections[5], footerSections[6]]} />
           </div>
@@ -227,7 +227,7 @@ const Footer = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           alt="Pune Office"
-                          className="text-base font-semibold text-[#3498db] m-0 mb-1.5 block"
+                          className="text-base font-semibold text-[#3498db] m-0 mb-1.5 block text-decoration-none"
                         >
                           Pune Office
                         </a>
@@ -277,7 +277,7 @@ const Footer = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           alt="Mumbai Office"
-                          className="text-base font-semibold text-[#3498db] m-0 mb-1.5 block"
+                          className="text-base font-semibold text-[#3498db] m-0 mb-1.5 block text-decoration-none"
                         >
                           Mumbai Office
                         </a>

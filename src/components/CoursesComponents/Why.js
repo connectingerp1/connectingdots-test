@@ -1,84 +1,27 @@
+// components/CoursesComponents/Why.js (Updated)
+
 "use client";
 
-import { useState, useEffect, useContext, useRef } from "react";
-import { CityContext } from "@/context/CityContext";
+import { useState, useEffect, useRef } from "react";
 import styles from "@/styles/CoursesComponents/Why.module.css";
 import { useInView } from "react-intersection-observer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
-const Why = ({ pageId, pageType }) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { city } = useContext(CityContext);
-  
-  // For fade-in animation of the section
+const Why = ({ data }) => {
   const [sectionRef, sectionInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/Jsonfolder/Whyds.json");
-        if (!response.ok) throw new Error("Network response was not ok");
-
-        const jsonData = await response.json();
-        const pageData = jsonData?.[pageType]?.[pageId];
-
-        if (pageData) {
-          pageData.title = pageData.title?.replace(/{city}/g, city);
-          pageData.cards = pageData.cards?.map((card) => ({
-            ...card,
-            title: card.title?.replace(/{city}/g, city),
-            content: Array.isArray(card.content)
-              ? card.content.map((text) => text.replace(/{city}/g, city))
-              : card.content?.replace(/{city}/g, city),
-            listItems: card.listItems?.map((item) =>
-              item.replace(/{city}/g, city)
-            ),
-          }));
-          setData(pageData);
-        } else {
-          throw new Error("Page data not found");
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Fetch error:", error);
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [pageId, pageType, city]);
-
-  if (loading) return (
-    <div className={styles.loadingContainer}>
-      <div className={styles.spinner}></div>
-      <p>Loading content...</p>
-    </div>
-  );
-  
-  if (error) return (
-    <div className={styles.errorContainer}>
-      <div className={styles.errorIcon}>!</div>
-      <p>Error loading data: {error.message}</p>
-      <button className={styles.retryButton} onClick={() => window.location.reload()}>
-        Try Again
-      </button>
-    </div>
-  );
-  
-  if (!data) return (
-    <div className={styles.noDataContainer}>
-      <div className={styles.infoIcon}>i</div>
-      <p>No data available for the specified page.</p>
-    </div>
-  );
+  if (!data) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
+        <p>Loading "Why" section data...</p>
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -92,19 +35,62 @@ const Why = ({ pageId, pageType }) => {
 
 const SectionComponent = ({ section }) => {
   const titleRef = useRef(null);
-  
+  // Global expanded state for desktop - all cards expand together
+  const [globalExpanded, setGlobalExpanded] = useState(false);
+  // Individual expanded states for mobile - each card expands independently
+  const [individualExpanded, setIndividualExpanded] = useState({});
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    // Adding text animation for title
     if (titleRef.current) {
       const title = titleRef.current;
       title.classList.add(styles.titleAnimation);
     }
   }, []);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      
+      // Reset states when switching between mobile/desktop
+      if (mobile) {
+        setGlobalExpanded(false);
+      } else {
+        setIndividualExpanded({});
+      }
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleExpandToggle = (cardIndex) => {
+    if (isMobile) {
+      // Mobile: toggle individual card
+      setIndividualExpanded(prev => ({
+        ...prev,
+        [cardIndex]: !prev[cardIndex]
+      }));
+    } else {
+      // Desktop: toggle all cards
+      setGlobalExpanded(prev => !prev);
+    }
+  };
+
+  const isCardExpanded = (cardIndex) => {
+    if (isMobile) {
+      return individualExpanded[cardIndex] || false;
+    } else {
+      return globalExpanded;
+    }
+  };
+
   return (
     <>
       <h2 ref={titleRef} className={styles.title}>
-        <span className={styles.accent}>{section.title}</span>
+        <span className={styles.accent} dangerouslySetInnerHTML={{ __html: section.title }}></span>
       </h2>
       <div className={styles.cardsContainerYds}>
         {section.cards && section.cards.length > 0 ? (
@@ -114,63 +100,169 @@ const SectionComponent = ({ section }) => {
               title={card.title}
               content={card.content}
               listItems={card.listItems}
-              index={index} // Pass index for staggered animations
+              index={index}
+              expanded={isCardExpanded(index)}
+              onExpandToggle={() => handleExpandToggle(index)}
+              isMobile={isMobile}
             />
           ))
         ) : (
-          <p className={styles.noCards}>No cards available.</p>
+          <p className={styles.noCards}>No cards available for this section.</p>
         )}
       </div>
     </>
   );
 };
 
-const DataCard = ({ title, content, listItems, index }) => {
-  // Using intersection observer for card reveal animation
+const DataCard = ({ title, content, listItems, index, expanded, onExpandToggle, isMobile }) => {
   const [cardRef, cardInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px',
   });
 
-  // For read more/less functionality
-  const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
   const contentRef = useRef(null);
 
-  // Constants for content threshold (adjust as needed)
-  const CONTENT_HEIGHT_THRESHOLD = 150; // pixels
-  
-  // Check device type
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    // Check on mount
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener('resize', checkMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  // Character limits for different screen sizes
+  const DESKTOP_CHAR_LIMIT = 120;
+  const MOBILE_CHAR_LIMIT = 100;
 
-  // Check if content is long enough to need read more/less
-  useEffect(() => {
-    if (contentRef.current) {
-      const height = contentRef.current.scrollHeight;
-      setShowReadMore(height > CONTENT_HEIGHT_THRESHOLD);
+  // Calculate total content length
+  const getTotalContentLength = () => {
+    let totalLength = 0;
+    
+    if (Array.isArray(content)) {
+      totalLength += content.join(' ').replace(/<[^>]*>/g, '').length;
+    } else {
+      totalLength += content.replace(/<[^>]*>/g, '').length;
     }
-  }, [content, listItems, cardInView]);
+    
+    if (listItems && listItems.length > 0) {
+      totalLength += listItems.join(' ').length;
+    }
+    
+    return totalLength;
+  };
+
+  // Check if content should be truncated
+  useEffect(() => {
+    const totalLength = getTotalContentLength();
+    const charLimit = isMobile ? MOBILE_CHAR_LIMIT : DESKTOP_CHAR_LIMIT;
+    setShowReadMore(totalLength > charLimit);
+  }, [content, listItems, isMobile]);
+
+  // Truncate content based on character limit
+  const getTruncatedContent = () => {
+    const charLimit = isMobile ? MOBILE_CHAR_LIMIT : DESKTOP_CHAR_LIMIT;
+    let currentLength = 0;
+    const truncatedContent = [];
+    const truncatedListItems = [];
+
+    // Process content paragraphs
+    if (Array.isArray(content)) {
+      for (let i = 0; i < content.length; i++) {
+        const paragraph = content[i];
+        const textLength = paragraph.replace(/<[^>]*>/g, '').length;
+        
+        if (currentLength + textLength <= charLimit) {
+          truncatedContent.push(paragraph);
+          currentLength += textLength;
+        } else {
+          const remainingChars = charLimit - currentLength;
+          if (remainingChars > 50) {
+            const truncatedParagraph = paragraph.replace(/<[^>]*>/g, '').substring(0, remainingChars) + '...';
+            truncatedContent.push(truncatedParagraph);
+          }
+          break;
+        }
+      }
+    } else {
+      const textLength = content.replace(/<[^>]*>/g, '').length;
+      if (textLength <= charLimit) {
+        truncatedContent.push(content);
+        currentLength = textLength;
+      } else {
+        const truncatedText = content.replace(/<[^>]*>/g, '').substring(0, charLimit) + '...';
+        truncatedContent.push(truncatedText);
+        currentLength = charLimit;
+      }
+    }
+
+    // Process list items if there's space left
+    if (listItems && listItems.length > 0 && currentLength < charLimit) {
+      for (let i = 0; i < listItems.length; i++) {
+        const item = listItems[i];
+        if (currentLength + item.length <= charLimit) {
+          truncatedListItems.push(item);
+          currentLength += item.length;
+        } else {
+          break;
+        }
+      }
+    }
+
+    return { content: truncatedContent, listItems: truncatedListItems };
+  };
+
+  const renderContent = () => {
+    if (!showReadMore || expanded) {
+      // Show full content
+      return (
+        <>
+          {Array.isArray(content) ? (
+            content.map((paragraph, idx) => (
+              <p
+                key={idx}
+                className={styles.textMutedForegroundClass}
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              ></p>
+            ))
+          ) : (
+            <p
+              className={styles.textMutedForegroundClass}
+              dangerouslySetInnerHTML={{ __html: content }}
+            ></p>
+          )}
+          
+          {listItems && listItems.length > 0 && (
+            <ul className={styles.listClass}>
+              {listItems.map((item, index) => (
+                <li key={index} className={styles.listItem}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </>
+      );
+    } else {
+      // Show truncated content
+      const truncated = getTruncatedContent();
+      return (
+        <>
+          {truncated.content.map((paragraph, idx) => (
+            <p
+              key={idx}
+              className={styles.textMutedForegroundClass}
+              dangerouslySetInnerHTML={{ __html: paragraph }}
+            ></p>
+          ))}
+          
+          {truncated.listItems.length > 0 && (
+            <ul className={styles.listClass}>
+              {truncated.listItems.map((item, index) => (
+                <li key={index} className={styles.listItem}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </>
+      );
+    }
+  };
 
   return (
     <div 
       ref={cardRef}
-      className={`${styles.cardClassYds} ${cardInView ? styles.cardVisible : styles.cardHidden}`}
+      className={`${styles.cardClassYds} ${cardInView ? styles.cardVisible : styles.cardHidden} ${expanded ? styles.cardExpanded : ''}`}
       style={{ animationDelay: `${index * 0.15}s` }}
     >
       <div className={styles.cardHeader}>
@@ -183,42 +275,21 @@ const DataCard = ({ title, content, listItems, index }) => {
         </div>
       </div>
       
-      <div 
-        ref={contentRef} 
-        className={`${styles.cardContent} ${!expanded && showReadMore ? styles.truncatedContent : ''}`}
-      >
-        {Array.isArray(content) ? (
-          content.map((paragraph, idx) => (
-            <p
-              key={idx}
-              className={styles.textMutedForegroundClass}
-              dangerouslySetInnerHTML={{ __html: paragraph }}
-            ></p>
-          ))
-        ) : (
-          <p
-            className={styles.textMutedForegroundClass}
-            dangerouslySetInnerHTML={{ __html: content }}
-          ></p>
-        )}
-        
-        {listItems && listItems.length > 0 && (
-          <ul className={styles.listClass}>
-            {listItems.map((item, index) => (
-              <li key={index} className={styles.listItem}>{item}</li>
-            ))}
-          </ul>
-        )}
+      <div ref={contentRef} className={styles.cardContent}>
+        {renderContent()}
       </div>
       
       {showReadMore && (
         <div className={styles.readMoreContainer}>
           <button 
             className={styles.readMoreButton}
-            onClick={() => setExpanded(!expanded)}
+            onClick={onExpandToggle}
             aria-expanded={expanded}
           >
-            {expanded ? (isMobile ? 'Show Less' : 'Read Less') : (isMobile ? 'Show More' : 'Read More')}
+            {expanded ? (isMobile ? 'Read Less' : 'Read Less') : (isMobile ? 'Read More' : 'Read More')}
+            {!isMobile && !expanded && (
+              <span className={styles.allCardsHint}></span>
+            )}
           </button>
         </div>
       )}

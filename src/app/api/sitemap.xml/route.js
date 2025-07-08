@@ -71,7 +71,7 @@ export async function GET() {
     "sap-course-in",
     "it-course-in",
     "hr-training-course-in",
-    "data-visualisation-course-in",
+    "data-visualization-course-in",
     "data-science-course-in",
     "data-analytics-course-in",
     "business-analytics-course-in",
@@ -80,7 +80,7 @@ export async function GET() {
     "java-course-in",
     "mern-stack-course-in",
     "python-course-in",
-    "salesforce-training-in",
+    "salesforce-course-in",
     "ui-ux-course-in",
     "sap-ewm-course-in",
     "sap-abap-course-in",
@@ -109,11 +109,7 @@ export async function GET() {
     "hr-generalist-course-in",
   ];
 
-  const quizPages = [
-    "react",
-    "javascript", 
-    "nextjs"
-  ];
+  const quizPages = ["react", "javascript", "nextjs"];
 
   // Generate course and city URLs
   const courseUrls = courses.flatMap((course) =>
@@ -162,7 +158,7 @@ export async function GET() {
         <priority>0.6</priority>
       </url>
     `
-    )
+    ),
   ];
 
   // Static pages (Home & About Us)
@@ -194,6 +190,15 @@ export async function GET() {
     `
     <url>
       <loc>${baseUrl}/sitemap</loc>
+      <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.9</priority>
+    </url>
+    `,
+
+    `
+    <url>
+      <loc>${baseUrl}/all-course-links</loc>
       <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.9</priority>

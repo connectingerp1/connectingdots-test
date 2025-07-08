@@ -92,7 +92,7 @@ const cityData = {
   bandra: {
     name: "Bandra",
     description:
-      "Upgrade your expertise in Bandra, Mumbai’s trendy suburb known for its business centers and cultural hotspots.",
+      "Upgrade your expertise in Bandra, Mumbai's trendy suburb known for its business centers and cultural hotspots.",
   },
   andheri: {
     name: "Andheri",
@@ -107,7 +107,7 @@ const cityData = {
   worli: {
     name: "Worli",
     description:
-      "Develop your career in Worli, one of Mumbai’s prime commercial districts with elite business and educational centers.",
+      "Develop your career in Worli, one of Mumbai's prime commercial districts with elite business and educational centers.",
   },
   chembur: {
     name: "Chembur",
@@ -117,7 +117,7 @@ const cityData = {
   malad: {
     name: "Malad",
     description:
-      "Advance your skills with specialized courses in Malad, a dynamic residential and IT hub in Mumbai’s western suburbs.",
+      "Advance your skills with specialized courses in Malad, a dynamic residential and IT hub in Mumbai's western suburbs.",
   },
   "vile-parle": {
     name: "Vile Parle",
@@ -127,7 +127,7 @@ const cityData = {
   matunga: {
     name: "Matunga",
     description:
-      "Excel in your field with professional training and expert trainers in Matunga, Mumbai’s academic and cultural hub.",
+      "Excel in your field with professional training and expert trainers in Matunga, Mumbai's academic and cultural hub.",
   },
   delhi: {
     name: "Delhi",
@@ -332,17 +332,33 @@ export async function generateMetadata({ params }) {
   }
 
   const cityInfo = cityData[city];
-  const title = `Courses in ${cityInfo.name} | Connecting Dots ERP`;
-  const description = cityInfo.description;
+  const title = `Courses in ${cityInfo.name} | Connecting Dots ERP Training Institute`;
+  const description = `${cityInfo.description} Find SAP, IT, HR, Data Science, and Digital Marketing courses with placement support.`;
   const url = `https://connectingdotserp.com/sitemap/${city}`;
-  const imageUrl = `https://connectingdotserp.com/images/courses-${city}.jpg`; // You'll need to create these images
+  const imageUrl = `https://connectingdotserp.com/images/courses-${city}.jpg`;
 
   return {
     title,
     description,
-    keywords: `courses in ${cityInfo.name}, SAP training ${cityInfo.name}, IT courses ${cityInfo.name}, professional training ${cityInfo.name}, best training institute in ${cityInfo.name}`,
-
-    // Open Graph Tags
+    keywords: [
+      `courses in ${cityInfo.name}`,
+      `SAP training ${cityInfo.name}`,
+      `IT courses ${cityInfo.name}`,
+      `HR courses ${cityInfo.name}`,
+      `Data Science courses ${cityInfo.name}`,
+      `Digital Marketing courses ${cityInfo.name}`,
+      `professional training ${cityInfo.name}`,
+      `best training institute in ${cityInfo.name}`,
+      `placement assistance ${cityInfo.name}`,
+      `certification courses ${cityInfo.name}`,
+      `Connecting Dots ERP ${cityInfo.name}`,
+      `skill development ${cityInfo.name}`,
+    ],
+    author: "Connecting Dots ERP",
+    robots: "index, follow",
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title,
       description,
@@ -353,14 +369,12 @@ export async function generateMetadata({ params }) {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: `Courses in ${cityInfo.name}`,
+          alt: `Professional Courses in ${cityInfo.name} - Connecting Dots ERP`,
         },
       ],
       locale: "en_US",
       type: "website",
     },
-
-    // Twitter Card Tags
     twitter: {
       card: "summary_large_image",
       title,
@@ -369,15 +383,278 @@ export async function generateMetadata({ params }) {
       site: "@CD_ERP",
       creator: "@CD_ERP",
     },
+  };
+}
 
-    // Additional Meta Tags
-    robots: {
-      index: true,
-      follow: true,
-    },
-    alternates: {
-      canonical: url,
-    },
+// Generate JSON-LD for city page
+function generateCityJsonLd(city, cityInfo) {
+  const cityUrl = `https://connectingdotserp.com/sitemap/${city}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://connectingdotserp.com/#organization",
+        name: "Connecting Dots ERP",
+        url: "https://connectingdotserp.com/",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://connectingdotserp.com/Navbar/connecting%20dot%20erp%20logo.avif",
+          "@id": "https://connectingdotserp.com/#logo",
+          width: 228,
+          height: 70,
+          caption: "Connecting Dots ERP Logo",
+        },
+        description:
+          "Connecting Dots ERP - Leading Training Institute for SAP, IT & HR Courses with Placement Support.",
+        telephone: "+919004002941",
+        email: "info@connectingdotserp.com",
+        address: [
+          {
+            "@type": "PostalAddress",
+            streetAddress:
+              "1st Floor,101, Police, Wireless Colony, Vishal Nagar, Pimple Nilakh",
+            addressLocality: "Pune",
+            addressRegion: "Maharashtra",
+            postalCode: "411027",
+            addressCountry: "IN",
+          },
+          {
+            "@type": "PostalAddress",
+            streetAddress:
+              "8th Floor, Paradise Tower, next to McDonald's, Naupada, Thane West",
+            addressLocality: "Mumbai",
+            addressRegion: "Maharashtra",
+            postalCode: "400601",
+            addressCountry: "IN",
+          },
+          {
+            "@type": "PostalAddress",
+            streetAddress: "Office Address", // Replace with actual Raipur address
+            addressLocality: "Raipur",
+            addressRegion: "Chhattisgarh",
+            postalCode: "492001",
+            addressCountry: "IN",
+          },
+        ],
+        foundingDate: "2013",
+        founder: {
+          "@type": "Person",
+          name: "Nitendra Singh",
+        },
+        sameAs: [
+          "https://www.facebook.com/sapinstallation.pune.9",
+          "https://x.com/CD_ERP",
+          "https://www.youtube.com/channel/UCxQ-RBOBaoYjjd4Mv7qQekA",
+          "https://www.linkedin.com/company/connecting-dots-erp",
+          "https://www.instagram.com/connecting_dot_software_course/",
+          "https://in.pinterest.com/Connecting_Dots_ERP/",
+          "https://www.quora.com/profile/Connecting-Dot-ERP-SAP-And-IT-Training-Institute",
+        ],
+        areaServed: {
+          "@type": "City",
+          name: cityInfo.name,
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${cityUrl}#webpage`,
+        url: cityUrl,
+        name: `Courses in ${cityInfo.name} | Connecting Dots ERP Training Institute`,
+        description: `${cityInfo.description} Find SAP, IT, HR, Data Science, and Digital Marketing courses with placement support.`,
+        inLanguage: "en-US",
+        isPartOf: {
+          "@id": "https://connectingdotserp.com/#website",
+        },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: `https://connectingdotserp.com/images/courses-${city}.jpg`,
+          "@id": `${cityUrl}#mainImage`,
+          width: 1200,
+          height: 630,
+          caption: `Professional Courses in ${cityInfo.name} - Connecting Dots ERP`,
+        },
+        breadcrumb: {
+          "@id": `${cityUrl}#breadcrumb`,
+        },
+        mainEntity: {
+          "@type": "ItemList",
+          name: `Training Courses in ${cityInfo.name}`,
+          description: `Professional training courses available in ${cityInfo.name}`,
+          itemListElement: [
+            {
+              "@type": "Course",
+              name: `SAP Training in ${cityInfo.name}`,
+              description: `Comprehensive SAP modules training in ${cityInfo.name} with placement support`,
+              provider: {
+                "@id": "https://connectingdotserp.com/#organization",
+              },
+            },
+            {
+              "@type": "Course",
+              name: `IT Courses in ${cityInfo.name}`,
+              description: `Software development and programming courses in ${cityInfo.name}`,
+              provider: {
+                "@id": "https://connectingdotserp.com/#organization",
+              },
+            },
+            {
+              "@type": "Course",
+              name: `HR Training in ${cityInfo.name}`,
+              description: `Human Resources and HR Analytics courses in ${cityInfo.name}`,
+              provider: {
+                "@id": "https://connectingdotserp.com/#organization",
+              },
+            },
+            {
+              "@type": "Course",
+              name: `Data Science Courses in ${cityInfo.name}`,
+              description: `Data Science and Analytics training in ${cityInfo.name}`,
+              provider: {
+                "@id": "https://connectingdotserp.com/#organization",
+              },
+            },
+            {
+              "@type": "Course",
+              name: `Digital Marketing Training in ${cityInfo.name}`,
+              description: `Comprehensive digital marketing courses in ${cityInfo.name}`,
+              provider: {
+                "@id": "https://connectingdotserp.com/#organization",
+              },
+            },
+          ],
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${cityUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://connectingdotserp.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Sitemap",
+            item: "https://connectingdotserp.com/sitemap",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: `Courses in ${cityInfo.name}`,
+            item: cityUrl,
+          },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://connectingdotserp.com/#website",
+        url: "https://connectingdotserp.com/",
+        name: "Connecting Dots ERP",
+        description:
+          "Connecting Dots ERP - Leading Training Institute for SAP, IT & HR Courses with Placement Support.",
+        publisher: {
+          "@id": "https://connectingdotserp.com/#organization",
+        },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate:
+                "https://connectingdotserp.com/?s={search_term_string}",
+            },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": `${cityUrl}#localbusiness`,
+        name: `Connecting Dots ERP - ${cityInfo.name}`,
+        description: `Professional SAP, IT, and HR training institute serving ${cityInfo.name} with placement support`,
+        url: cityUrl,
+        telephone: "+919004002941",
+        email: "info@connectingdotserp.com",
+        areaServed: {
+          "@type": "City",
+          name: cityInfo.name,
+        },
+        serviceArea: {
+          "@type": "City",
+          name: cityInfo.name,
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: `Training Courses in ${cityInfo.name}`,
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Course",
+                name: `SAP Training in ${cityInfo.name}`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Course",
+                name: `IT Courses in ${cityInfo.name}`,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Course",
+                name: `HR Training in ${cityInfo.name}`,
+              },
+            },
+          ],
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.7",
+          reviewCount: "185",
+        },
+      },
+      {
+        "@type": "EducationalOrganization",
+        "@id": `${cityUrl}#educationalorganization`,
+        name: `Connecting Dots ERP Training Institute - ${cityInfo.name}`,
+        description: `Professional training institute offering SAP, IT, and HR courses in ${cityInfo.name}`,
+        url: cityUrl,
+        areaServed: {
+          "@type": "City",
+          name: cityInfo.name,
+        },
+        hasCredential: [
+          {
+            "@type": "EducationalOccupationalCredential",
+            name: `SAP Certification Programs in ${cityInfo.name}`,
+            description: `Industry-recognized SAP certification training in ${cityInfo.name}`,
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            name: `IT Professional Certification in ${cityInfo.name}`,
+            description: `Comprehensive IT skills certification programs in ${cityInfo.name}`,
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            name: `HR Professional Certification in ${cityInfo.name}`,
+            description: `Human Resources management and analytics certification in ${cityInfo.name}`,
+          },
+        ],
+      },
+    ],
   };
 }
 
@@ -389,6 +666,7 @@ export default function CityPage({ params }) {
   }
 
   const cityInfo = cityData[city];
+  const jsonLd = generateCityJsonLd(city, cityInfo);
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },
@@ -397,9 +675,44 @@ export default function CityPage({ params }) {
   ];
 
   return (
-    <main>
-      <Breadcrumb items={breadcrumbItems} />
-      <CityCoursePage city={city} cityInfo={cityData[city]} />
-    </main>
+    <>
+      {/* 3. INJECT JSON-LD SCRIPT */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* SEO-only content - hidden from users */}
+      <div className="sr-only" aria-hidden="true">
+        {/* <h1>
+          Professional Courses in {cityInfo.name} - Connecting Dots ERP Training
+          Institute
+        </h1> */}
+        <h2>SAP Training Courses in {cityInfo.name}</h2>
+        <h2>IT & Software Development Courses in {cityInfo.name}</h2>
+        <h2>HR Training Programs in {cityInfo.name}</h2>
+        <h2>Data Science & Analytics Courses in {cityInfo.name}</h2>
+        <h2>Digital Marketing Training in {cityInfo.name}</h2>
+        <h2>Business Analytics Courses in {cityInfo.name}</h2>
+        <h2>Python Programming Courses in {cityInfo.name}</h2>
+        <h2>Java Development Training in {cityInfo.name}</h2>
+        <h2>Full Stack Developer Courses in {cityInfo.name}</h2>
+        <h2>Power BI Training in {cityInfo.name}</h2>
+        <h2>Tableau Courses in {cityInfo.name}</h2>
+        <h2>Salesforce Training in {cityInfo.name}</h2>
+        <h2>UI/UX Design Courses in {cityInfo.name}</h2>
+        <h2>Placement Assistance in {cityInfo.name}</h2>
+        <h2>Career Support Services in {cityInfo.name}</h2>
+        <h2>Professional Certification Programs in {cityInfo.name}</h2>
+        <h2>Industry Expert Trainers in {cityInfo.name}</h2>
+        <h2>Best Training Institute in {cityInfo.name}</h2>
+        <h2>Job-Oriented Courses in {cityInfo.name}</h2>
+      </div>
+
+      <main>
+        <Breadcrumb items={breadcrumbItems} />
+        <CityCoursePage city={city} cityInfo={cityData[city]} />
+      </main>
+    </>
   );
 }

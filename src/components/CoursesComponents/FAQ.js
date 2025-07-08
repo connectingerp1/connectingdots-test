@@ -1,57 +1,31 @@
-'use client';
+// components/CoursesComponents/FAQ.js (Updated FAQ)
+"use client";
 
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/CoursesComponents/FAQ.module.css';
-import { CityContext } from '@/context/CityContext';
+// Removed: import { CityContext } from '@/context/CityContext'; // Not needed here anymore
 
-const FAQAccordion = ({ pageId, pageType }) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const FAQAccordion = ({ data }) => { // Renamed prop to 'data' for consistency
+  // Removed: const [data, setData] = useState(null);
+  // Removed: const [loading, setLoading] = useState(true);
+  // Removed: const [error, setError] = useState(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
-  const { city } = useContext(CityContext);
+  // Removed: const { city } = useContext(CityContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/Jsonfolder/faqdata.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-
-        const pageData = data[pageType]?.[pageId];
-        if (pageData) {
-          pageData.title = pageData.title?.replace(/{city}/g, city);
-          pageData.description = pageData.description?.replace(/{city}/g, city);
-          pageData.items = pageData.items?.map((item) => ({
-            ...item,
-            question: item.question?.replace(/{city}/g, city),
-            answer: item.answer?.replace(/{city}/g, city),
-          }));
-
-          setData(pageData);
-        } else {
-          throw new Error('Page data not found');
-        }
-      } catch (error) {
-        console.error('Error fetching FAQ data:', error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [pageId, pageType, city]);
+  // Removed: useEffect for data fetching
 
   const handleToggle = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error loading data: {error.message}</div>;
-  if (!data) return <div>No data available for the specified page.</div>;
+  // Simplified loading/error handling as data is passed directly
+  if (!data) {
+    return (
+      <div /* Add loading/error styling */>
+        <p>No FAQ data available (check masterData.js or prop passing).</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.containerFaqDs}>
@@ -59,10 +33,13 @@ const FAQAccordion = ({ pageId, pageType }) => {
       <p>{data.description}</p>
       <div className={styles.faqContent}>
         <div className={styles.faqImage}>
-          <video loop autoPlay muted>
-            <source src={data.video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {/* Ensure video source exists in data */}
+          {data.video && (
+            <video loop autoPlay muted>
+              <source src={data.video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
         <div className={styles.faqQuestions}>
           {data.items && data.items.length > 0 ? (
@@ -80,7 +57,7 @@ const FAQAccordion = ({ pageId, pageType }) => {
                   className={styles.accordionContent}
                   style={{
                     opacity: expandedIndex === index ? 1 : 0,
-                    maxHeight: expandedIndex === index ? '9em' : 0,
+                    maxHeight: expandedIndex === index ? '9em' : 0, /* Adjust max-height if content is longer */
                   }}
                 >
                   <p>{item.answer}</p>

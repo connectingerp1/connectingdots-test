@@ -169,10 +169,6 @@
   .containerCH h2 {
     font-size: 2.2rem;
     letter-spacing: 2px;
-    text-shadow: none; /* 🚀 NEW: Remove text-shadow for mobile LCP */
-    background: none; /* 🚀 NEW: Remove background-clip for mobile LCP */
-    -webkit-background-clip: unset; /* 🚀 NEW: Unset background-clip */
-    color: #0073e6; /* 🚀 NEW: Set a solid color for mobile LCP */
     text-align: center;
   }
 

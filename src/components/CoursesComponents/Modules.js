@@ -1,17 +1,26 @@
+// components/CoursesComponents/Modules.js (Updated Modules)
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import styles from "@/styles/CoursesComponents/Modules.module.css";
+// Removed: CityContext import, as city is no longer directly used for data fetching
 
-const Modules = ({ pageId }) => {
+const Modules = ({ data }) => {
   const [activeTab, setActiveTab] = useState("beginner");
   const [activeModule, setActiveModule] = useState(0);
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Removed: [data, setData] = useState(null);
+  // Removed: [loading, setLoading] = useState(true);
+  // Removed: [error, setError] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const moduleRef = useRef(null);
   const observerRef = useRef(null);
+
+  // Set initial activeTab once data is available
+  useEffect(() => {
+    if (data && data.tabs && data.tabs.length > 0) {
+      setActiveTab(data.tabs[0].type);
+    }
+  }, [data]);
 
   // Setup intersection observer to detect when component is visible
   useEffect(() => {
@@ -49,55 +58,7 @@ const Modules = ({ pageId }) => {
     return () => clearTimeout(timer);
   }, [isVisible]);
 
-  useEffect(() => {
-    // Clear localStorage to prevent stale data
-    // localStorage.clear(); // This line may be causing issues by clearing all data, so removing it
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Unique cache key for each curriculum data
-        const cacheKey = `curriculum_${pageId}`;
-        const cachedData = localStorage.getItem(cacheKey);
-        
-        if (cachedData) {
-          setData(JSON.parse(cachedData));
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch("/Jsonfolder/curriculumdata.json");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const jsonData = await response.json();
-        const pageData = jsonData[pageId];
-
-        if (pageData) {
-          localStorage.setItem(
-            cacheKey,
-            JSON.stringify(pageData)
-          );
-          setData(pageData);
-        } else {
-          throw new Error("Page data not found");
-        }
-      } catch (error) {
-        console.error("Fetch error:", error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Cleanup function - don't clear localStorage here
-    return () => {};
-  }, [pageId]);
+  // Removed: useEffect for data fetching and localStorage logic
 
   const handleModuleClick = useCallback(
     (moduleIndex) => {
@@ -123,16 +84,16 @@ const Modules = ({ pageId }) => {
     return null;
   }, [data, activeTab, activeModule]);
 
-  if (loading) {
-    return <div className={styles.loadingContainer}>Loading module content...</div>;
-  }
-
-  if (error) {
-    return <div className={styles.errorContainer}>Error loading data: {error.message}</div>;
-  }
-
+  // Simplified loading/error handling as data is passed directly
   if (!data) {
-    return <div className={styles.errorContainer}>No data available for the specified page.</div>;
+    return <div className={styles.loadingContainer}>No Modules data available (check masterData.js or prop passing).</div>;
+  }
+  // No separate error state, as `data` would be null if there was an upstream error.
+
+  // Ensure data.tabs and activeTab content exists before trying to access modules
+  const currentTabData = data.tabs.find((tab) => tab.type === activeTab);
+  if (!currentTabData) {
+    return <div className={styles.errorContainer}>Selected tab data not found.</div>;
   }
 
   return (
@@ -160,9 +121,7 @@ const Modules = ({ pageId }) => {
       </div>
       <div className={styles.contentContainer}>
         <div className={styles.content}>
-          {data.tabs
-            .find((tab) => tab.type === activeTab)
-            .modules.map((module, index) => (
+          {currentTabData.modules.map((module, index) => (
               <div
                 key={index}
                 className={`${styles.module} ${
@@ -195,7 +154,7 @@ const Modules = ({ pageId }) => {
         </div>
       </div>
       <div className={styles.footer}>
-        <button className={styles.footerButton}>Download Curriculum</button>
+        <button className={styles.footerButton}>Download Curriculum</button> {/* This button could trigger a form or a direct download using a prop */}
       </div>
     </div>
   );

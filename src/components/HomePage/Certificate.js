@@ -1,69 +1,39 @@
+// components/HomePage/Certificate.js (Updated Certificate)
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "@/styles/HomePage/Certificate.module.css";
 import { Button } from "react-bootstrap";
 import dynamic from "next/dynamic";
-import { useCity } from "@/context/CityContext";
+// Removed: import { useCity } from "@/context/CityContext"; // No longer needed as city is handled in parent
 
 // Dynamically import Btnform to prevent SSR-related issues
 const Btnform = dynamic(() => import("@/components/HomePage/Btnform"), {
   ssr: false,
 });
 
-const Certificate = ({ pageId }) => {
+// Certificate now directly receives the 'data' prop
+const Certificate = ({ data }) => {
   const [showForm, setShowForm] = useState(false);
-  const [certificateInfo, setCertificateInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { city } = useCity();
+  // Removed: [certificateInfo, setCertificateInfo] = useState(null);
+  // Removed: [loading, setLoading] = useState(true);
+  // Removed: [error, setError] = useState(null);
+  // Removed: const { city } = useCity();
 
-  useEffect(() => {
-    const fetchCertificateData = async () => {
-      try {
-        const response = await fetch("/Jsonfolder/certificateData.json");
-        if (!response.ok) throw new Error("Failed to fetch certificate data");
-
-        const jsonData = await response.json();
-        const pageCertificate = jsonData.pages.find(
-          (page) => page.pageId === pageId
-        );
-
-        if (pageCertificate) {
-          const updatedCertificate = {
-            ...pageCertificate,
-            completionText: pageCertificate.completionText.replace(
-              /{city}/g,
-              city
-            ),
-            description: pageCertificate.description.replace(/{city}/g, city),
-            courseTitle: pageCertificate.courseTitle.replace(/{city}/g, city),
-          };
-
-          setCertificateInfo(updatedCertificate);
-        } else {
-          throw new Error(
-            "Certificate data not found for the specified page ID"
-          );
-        }
-
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchCertificateData();
-  }, [pageId, city]);
+  // Removed: useEffect for data fetching
 
   const handleButtonClick = () => setShowForm(true);
   const handleCloseForm = () => setShowForm(false);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!certificateInfo) return <p>No certificate data available.</p>;
+  // Simplified loading/error handling as data is passed directly
+  if (!data) {
+    return (
+      <div /* Add loading/error styling */>
+        <p>No certificate data available (check masterData.js or prop passing).</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.certificateSection}>
@@ -72,8 +42,8 @@ const Certificate = ({ pageId }) => {
       <div className={styles.certificateContent}>
         <div className={styles.certificateImage}>
           <Image
-            src={certificateInfo.image}
-            alt={certificateInfo.alt || "Certificate"}
+            src={data.image} // Use data from props
+            alt={data.alt || `${data.courseTitle} Certificate`} // Use data from props
             width={500}
             height={300}
             layout="intrinsic"
@@ -82,10 +52,10 @@ const Certificate = ({ pageId }) => {
         <div className={styles.certificateText}>
           <h2>Congratulations on Completing Your Training!</h2>
           <h4 className={styles.certificateSubtitle}>
-            {certificateInfo.courseTitle}
+            {data.courseTitle} {/* Use data from props */}
           </h4>
-          <p>{certificateInfo.completionText}</p>
-          <p>{certificateInfo.description}</p>
+          <p>{data.completionText}</p> {/* Use data from props */}
+          <p>{data.description}</p> {/* Use data from props */}
           <div
             className="mb-3 btnContainer"
           >

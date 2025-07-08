@@ -124,7 +124,7 @@ const Marquee = () => {
         </div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default Marquee;

@@ -31,7 +31,7 @@ const rubik = Rubik({
 // --- Constants ---
 const GTM_ID = "GTM-MB68QM2V";
 const FB_PIXEL_ID = "3414178115554916";
-const AHREFS_KEY = "L70jLMsM/8tB6uO9CN/tIQ";
+const AHREFS_KEY = "ersRjKzL0Wdjz4Qtn0BvDg";
 
 // --- SITE-WIDE METADATA ---
 // This object replaces the manual <head> tag. Next.js uses this to build the
@@ -40,7 +40,6 @@ export const metadata = {
   // A default title and description for pages that don't have their own
   title: {
     default: "Connecting Dots ERP | SAP Training Institute",
-    template: "%s | Connecting Dots ERP",
   },
   description:
     "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",

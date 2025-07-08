@@ -1,14 +1,15 @@
+// components/CoursesComponents/Description.js (Updated Description - Continued)
 "use client";
 
-import React, { useEffect, useState, useContext, useRef } from "react";
-import { CityContext } from "@/context/CityContext";
+import React, { useEffect, useState, useRef } from "react";
+// Removed: import { CityContext } from "@/context/CityContext"; // Not directly needed
 import styles from "@/styles/CoursesComponents/Description.module.css";
 import { FaCheckCircle, FaChevronRight } from "react-icons/fa";
 
-const Description = ({ pageId, sectionIndex = 0 }) => {
-  const [content, setContent] = useState(null);
-  const [error, setError] = useState("");
-  const { city } = useContext(CityContext);
+const Description = ({ data, sectionIndex = 0 }) => { // Renamed 'content' prop to 'data' for consistency
+  // Removed: const [content, setContent] = useState(null);
+  // Removed: const [error, setError] = useState("");
+  // Removed: const { city } = useContext(CityContext);
   const [isVisible, setIsVisible] = useState(false);
   const descriptionRef = useRef(null);
   const observerRef = useRef(null);
@@ -49,66 +50,7 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
     return () => clearTimeout(timer);
   }, [isVisible]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setError("");
-      try {
-        // Create a cache key for this specific page and city
-        const cacheKey = `description_${pageId}_${city}`;
-        const cachedData = localStorage.getItem(cacheKey);
-        
-        if (cachedData) {
-          setContent(JSON.parse(cachedData));
-          return;
-        }
-        
-        const response = await fetch("/Jsonfolder/Descriptiondata.json");
-        const data = await response.json();
-        const pageContent = data.find((item) => item.pageId === pageId);
-
-        if (pageContent) {
-          const updatedContent = {
-            ...pageContent,
-            title: pageContent.title?.replace(/{city}/g, city) ?? "",
-            paragraphs:
-              pageContent.paragraphs?.map((p) => p.replace(/{city}/g, city)) ??
-              [],
-            paragraphsAfterList:
-              pageContent.paragraphsAfterList?.map((p) =>
-                p.replace(/{city}/g, city)
-              ) ?? [],
-            listItem1Header:
-              pageContent.listItem1Header?.replace(/{city}/g, city) ?? "",
-            listItem1: pageContent.listItem1 ?? [],
-            listItem2: pageContent.listItem2 ?? [],
-            secondTitle:
-              pageContent.secondTitle?.replace(/{city}/g, city) ?? "",
-            secondParagraphs:
-              pageContent.secondParagraphs?.map((p) =>
-                p.replace(/{city}/g, city)
-              ) ?? [],
-            highlights: pageContent.highlights ?? [],
-            listItemAfterIndex:
-              typeof pageContent.listItemAfterIndex === "number"
-                ? pageContent.listItemAfterIndex
-                : undefined,
-          };
-          
-          // Cache the processed content
-          localStorage.setItem(cacheKey, JSON.stringify(updatedContent));
-          setContent(updatedContent);
-        } else {
-          setError("Course info not found.");
-          setContent(null);
-        }
-      } catch (err) {
-        console.error("Failed to load description data:", err);
-        setError("Failed to load course info.");
-        setContent(null);
-      }
-    };
-    fetchData();
-  }, [pageId, city]);
+  // Removed: useEffect for data fetching and localStorage logic
 
   const applyHighlights = (text, highlights) => {
     if (!highlights || highlights.length === 0) return text;
@@ -134,23 +76,27 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
     );
   };
 
-  if (error) return <div className={styles.errorMsg}>{error}</div>;
-
-  if (!content)
-    return <div className={styles.loader}>Loading course info...</div>;
+  // Simplified error/loading handling as data is passed directly
+  if (!data) {
+    return (
+      <div /* Add loading/error styling */>
+        <p>No description data available (check masterData.js or prop passing).</p>
+      </div>
+    );
+  }
 
   // Figure out if/where to split paragraphs for the list
   const insertListAfter =
-    typeof content.listItemAfterIndex === "number"
-      ? content.listItemAfterIndex
+    typeof data.listItemAfterIndex === "number"
+      ? data.listItemAfterIndex
       : -1;
 
   const paragraphsBeforeList =
     insertListAfter >= 0
-      ? content.paragraphs.slice(0, insertListAfter + 1)
-      : content.paragraphs;
+      ? data.paragraphs.slice(0, insertListAfter + 1)
+      : data.paragraphs;
   const paragraphsAfterList =
-    insertListAfter >= 0 ? content.paragraphs.slice(insertListAfter + 1) : [];
+    insertListAfter >= 0 ? data.paragraphs.slice(insertListAfter + 1) : [];
 
   // Helper to render list with icons
   const renderList = (
@@ -175,34 +121,34 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
         sectionIndex % 2 === 0 ? styles.videoLeft : styles.videoRight
       }`}
     >
-      {content.videoUrl && (
+      {data.videoUrl && ( // Use data.videoUrl instead of content.videoUrl
         <div className={styles.descriptionVideo}>
-          <video src={content.videoUrl} loop autoPlay muted playsInline />
+          <video src={data.videoUrl} loop autoPlay muted playsInline />
         </div>
       )}
 
       <div className={styles.descriptionContent}>
-        <h2 className={styles.descriptionTitle}>{content.title}</h2>
+        <h2 className={styles.descriptionTitle}>{data.title}</h2> {/* Use data.title */}
 
         {/* Paragraphs BEFORE list */}
         {paragraphsBeforeList.map(
           (p, i) =>
             p.trim() && (
               <p key={`before-${i}`} className={styles.descriptionParagraph}>
-                {applyHighlights(p, content.highlights)}
+                {applyHighlights(p, data.highlights)}
               </p>
             )
         )}
 
         {/* Insert feature list here if present */}
-        {content.listItem1 && content.listItem1.length > 0 && (
+        {data.listItem1 && data.listItem1.length > 0 && (
           <div className={styles.sectionCard}>
             <div className={styles.cardHeader}>
-              {content.listItem1Header
-                ? content.listItem1Header
+              {data.listItem1Header
+                ? data.listItem1Header
                 : "What sets us apart:"}
             </div>
-            {renderList(content.listItem1, styles.featureList)}
+            {renderList(data.listItem1, styles.featureList)}
           </div>
         )}
 
@@ -211,43 +157,43 @@ const Description = ({ pageId, sectionIndex = 0 }) => {
           (p, i) =>
             p.trim() && (
               <p key={`after-${i}`} className={styles.descriptionParagraph}>
-                {applyHighlights(p, content.highlights)}
+                {applyHighlights(p, data.highlights)}
               </p>
             )
         )}
 
         {/* Paragraphs AFTER feature list (for the paragraphsAfterList property) */}
-        {content.paragraphsAfterList &&
-          content.paragraphsAfterList.map(
+        {data.paragraphsAfterList &&
+          data.paragraphsAfterList.map(
             (p, i) =>
               p.trim() && (
                 <p
                   key={`afterlist-${i}`}
                   className={styles.descriptionParagraph}
                 >
-                  {applyHighlights(p, content.highlights)}
+                  {applyHighlights(p, data.highlights)}
                 </p>
               )
           )}
 
         {/* Optionally render listItem2 (eg for your SAP closing statement) */}
-        {content.listItem2 &&
-          content.listItem2.length > 0 &&
+        {data.listItem2 &&
+          data.listItem2.length > 0 &&
           renderList(
-            content.listItem2,
+            data.listItem2,
             styles.listItem2,
             <FaChevronRight className={styles.arrowIcon} />
           )}
 
         {/* Second section (What Will You Learn, etc.) */}
-        {content.secondTitle && (
+        {data.secondTitle && (
           <div className={styles.sectionCardAlt}>
-            <div className={styles.secondTitle}>{content.secondTitle}</div>
-            {content.secondParagraphs.map(
+            <div className={styles.secondTitle}>{data.secondTitle}</div>
+            {data.secondParagraphs.map(
               (p, i) =>
                 p.trim() && (
                   <p key={i} className={styles.descriptionParagraphAlt}>
-                    {applyHighlights(p, content.highlights)}
+                    {applyHighlights(p, data.highlights)}
                   </p>
                 )
             )}

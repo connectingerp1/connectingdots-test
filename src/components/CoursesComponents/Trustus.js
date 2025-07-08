@@ -77,7 +77,7 @@ const TrustUs = () => {
                   alt={`Logo ${index}`}
                   width={100}
                   height={50}
-                  className={styles.logoItDs}
+                  className={styles.logoItDs}   
                   priority
                 />
               ))}

@@ -82,7 +82,7 @@ const Header = () => {
         setActiveLink("dropdown2");
       } else if (pathname.includes("it-course")) {
         setActiveLink("dropdown3");
-      } else if (pathname.includes("data-visualisation")) {
+      } else if (pathname.includes("data-visualization")) {
         setActiveLink("dropdown4");
       } else if (pathname.includes("digital-marketing")) {
         setActiveLink("dropdown5");
@@ -509,7 +509,7 @@ const Header = () => {
             },
             {
               title: "Salesforce",
-              link: "/salesforce-training-in-pune",
+              link: "/salesforce-course-in-pune",
             },
           ].map((submenu, index) => (
             <li key={index} className={styles.megaMenuItem}>
@@ -553,7 +553,7 @@ const Header = () => {
     </div>
   );
 
-  const renderDropdownDataVisualisation = (isMobile = false) => (
+  const renderDropdownDataVisualization = (isMobile = false) => (
     <div
       className={styles.dropdown}
       onMouseEnter={() => handleMouseEnter("dropdown4")}
@@ -561,7 +561,7 @@ const Header = () => {
     >
       <div className={styles.dropdownToggleWrapper}>
         <Link
-          href="/data-visualisation-course-in-pune"
+          href="/data-visualization-course-in-pune"
           className={`${styles.navLink} ${styles.dropdownToggle} ${
             activeLink === "dropdown4" ? styles.active : ""
           }`}
@@ -571,7 +571,7 @@ const Header = () => {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown4");
             } else {
-              handleNavClick("/data-visualisation-course-in-pune");
+              handleNavClick("/data-visualization-course-in-pune");
             }
           }}
           aria-expanded={
@@ -582,14 +582,14 @@ const Header = () => {
           }
           aria-haspopup="true"
         >
-          <span>Data Visualisation</span>
+          <span>Data Visualization</span>
           {!isMobile && <span className={styles.desktopDropdownArrow}></span>}
         </Link>
         {isMobile && (
           <button
             className={styles.mobileDropdownArrow}
             onClick={() => handleMobileDropdownToggle("dropdown4")}
-            aria-label="Toggle Data Visualisation menu"
+            aria-label="Toggle Data Visualization menu"
           >
             <span
               className={`${styles.arrow} ${
@@ -608,7 +608,7 @@ const Header = () => {
           aria-labelledby="dropdownMenuButton4"
         >
           {[
-            { name: "Tableau", link: "/tableau-training-in-pune" },
+            { name: "Tableau", link: "/tableau-course-in-pune" },
             { name: "Power BI", link: "/power-bi-course-in-pune" },
             { name: "SQL", link: "/sql-course-in-pune" },
           ].map((item, index) => (
@@ -844,7 +844,7 @@ const Header = () => {
           <Nav className={styles.navbarDesktop}>
             {renderDropdownSAP()}
             {renderDropdownITCourses()}
-            {renderDropdownDataVisualisation()}
+            {renderDropdownDataVisualization()}
             {renderDropdownDigitalMarketing()}
             {renderDropdownHRCourses()}
             <div className={styles.navItem}>
@@ -913,7 +913,7 @@ const Header = () => {
             <Nav className={styles.sidebarNav}>
               {renderDropdownSAP(true)}
               {renderDropdownITCourses(true)}
-              {renderDropdownDataVisualisation(true)}
+              {renderDropdownDataVisualization(true)}
               {renderDropdownDigitalMarketing(true)}
               {renderDropdownHRCourses(true)}
 

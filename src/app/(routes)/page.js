@@ -26,9 +26,6 @@ const Certificate = dynamic(() => import("@/components/HomePage/Certificate"));
 const Branches = dynamic(() => import("@/components/HomePage/Branches"));
 const Courses = dynamic(() => import("@/components/HomePage/PopCourses"));
 
-// 1. SEO METADATA
-// Next.js uses this object to automatically generate all the <meta> and <link> tags
-// in the <head> of your page. This is the modern, correct approach.
 export const metadata = {
   title: "Connecting Dots ERP | SAP Training Institute In Pune",
   description:
@@ -79,8 +76,6 @@ export const metadata = {
   },
 };
 
-// 2. JSON-LD STRUCTURED DATA
-// This contains the complete graph of all your schema data.
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -228,9 +223,6 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <>
-      {/* 3. INJECT JSON-LD SCRIPT */}
-      {/* This script tag is placed directly in the component. Next.js is smart
-          and will automatically move it to the document's <head>. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -238,10 +230,7 @@ export default function HomePage() {
 
       {/* Main Page Content */}
       <main className="flex-col justify-center">
-        {/* Critical content loads immediately */}
         <HeaderCarousel />
-
-        {/* Below-the-fold content is lazy-loaded for performance */}
         <Marquee />
         <Chevron />
         <Keypoints />
