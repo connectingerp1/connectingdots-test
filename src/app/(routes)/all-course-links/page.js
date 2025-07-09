@@ -3,7 +3,7 @@ import Breadcrumb from "@/components/CitySitemap/Breadcrumb";
 
 // Define breadcrumb items for this page
 const breadcrumbItems = [
-  { label: "Home", path: "/home" },
+  { label: "Home", path: "/" },
   { label: "All Courses" }, // Current page
 ];
 
