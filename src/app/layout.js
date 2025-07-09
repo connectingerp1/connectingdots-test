@@ -31,7 +31,7 @@ const rubik = Rubik({
 // --- Constants ---
 const GTM_ID = "GTM-MB68QM2V";
 const FB_PIXEL_ID = "3414178115554916";
-const AHREFS_KEY = "ersRjKzL0Wdjz4Qtn0BvDg";
+const AHREFS_KEY = "h5nofTpYPf65FI8/61ypeA";
 
 // --- SITE-WIDE METADATA ---
 // This object replaces the manual <head> tag. Next.js uses this to build the
@@ -47,7 +47,7 @@ export const metadata = {
     // Ahrefs verification and other verification tags go here
     other: {
       "ahrefs-site-verification":
-        "0b9886aad63a27368476900bd3b4bb0e23971b8ca6d448cfc2c77ce706798bc9",
+        "b872425e28fadcf9facf8f8257df376299d08f293e0f849e466a66a9b4448eec",
     },
   },
 };
