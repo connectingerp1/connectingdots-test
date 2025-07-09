@@ -174,13 +174,13 @@ export const metadata = {
   author: "Connecting Dots ERP",
   robots: "index, follow",
   alternates: {
-    canonical: "https://connectingdotserp.com/allcourseslinks",
+    canonical: "https://connectingdotserp.com/all-course-links",
   },
   openGraph: {
     title: "All Courses | SAP, IT & HR Training | Connecting Dots ERP",
     description:
       "Explore the full range of SAP, IT, and HR professional training courses offered by Connecting Dots ERP.",
-    url: "https://connectingdotserp.com/allcourseslinks",
+    url: "https://connectingdotserp.com/all-course-links",
     siteName: "Connecting Dots ERP",
     images: [
       {
@@ -247,8 +247,8 @@ const jsonLd = {
     },
     {
       "@type": "CollectionPage",
-      "@id": "https://connectingdotserp.com/allcourseslinks#webpage",
-      url: "https://connectingdotserp.com/allcourseslinks",
+      "@id": "https://connectingdotserp.com/all-course-links#webpage",
+      url: "https://connectingdotserp.com/all-course-links",
       name: "All Courses | SAP, IT & HR Training | Connecting Dots ERP",
       description:
         "Browse all SAP, IT, and HR courses offered by Connecting Dots ERP. Find detailed information and links to specific training programs with placement support in Pune, Mumbai, Raipur and more.",
@@ -259,13 +259,13 @@ const jsonLd = {
       primaryImageOfPage: {
         "@type": "ImageObject",
         url: "https://connectingdotserp.com/images/all-courses-banner.jpg",
-        "@id": "https://connectingdotserp.com/allcourseslinks#mainImage",
+        "@id": "https://connectingdotserp.com/all-course-links#mainImage",
         width: 1280,
         height: 720,
         caption: "Connecting Dots ERP Course Catalog",
       },
       breadcrumb: {
-        "@id": "https://connectingdotserp.com/allcourseslinks#breadcrumb",
+        "@id": "https://connectingdotserp.com/all-course-links#breadcrumb",
       },
       mainEntity: {
         "@type": "ItemList",
@@ -280,7 +280,7 @@ const jsonLd = {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://connectingdotserp.com/allcourseslinks#breadcrumb",
+      "@id": "https://connectingdotserp.com/all-course-links#breadcrumb",
       itemListElement: [
         {
           "@type": "ListItem",
@@ -292,7 +292,7 @@ const jsonLd = {
           "@type": "ListItem",
           position: 2,
           name: "All Courses",
-          item: "https://connectingdotserp.com/allcourseslinks",
+          item: "https://connectingdotserp.com/all-course-links",
         },
       ],
     },
