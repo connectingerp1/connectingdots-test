@@ -77,8 +77,7 @@ const cities = [
 const courses = [
   "sap-course-in",
   "it-course-in",
-  "hr-course-in",
-  "data-visualisation-course-in",
+  "data-visualization-course-in",
   "data-science-course-in",
   "data-analytics-course-in",
   "business-analytics-course-in",
@@ -107,7 +106,7 @@ const courses = [
   "sap-successfactors-course-in",
   "power-bi-course-in",
   "sql-course-in",
-  "tableau-training-in",
+  "tableau-course-in",
   "digital-marketing-course-in",
   "hr-analytics-course-in",
   "hr-training-course-in",

@@ -71,8 +71,7 @@ const CourseCityLinks = () => {
   const courses = [
     "sap-course-in",
     "it-course-in",
-    "hr-course-in",
-    "data-visualisation-course-in",
+    "data-visualization-course-in",
     "data-science-course-in",
     "data-analytics-course-in",
     "business-analytics-course-in",

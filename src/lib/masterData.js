@@ -787,10 +787,10 @@ export const coursesData = {
           alt: "SAP HANA icon",
         },
         {
-          name: "SAP NETWEAVER",
-          description: "Become a NETWEAVER expert",
+          name: "SAP ARIBA",
+          description: "Become a ARIBA expert",
           icon: "https://i.imgur.com/HbmlQ9u.png",
-          alt: "SAP NETWEAVER icon",
+          alt: "SAP ARIBA icon",
         },
         {
           name: "SAP BW/BI",
@@ -1074,10 +1074,10 @@ export const coursesData = {
           alt: "SAP HANA icon",
         },
         {
-          name: "SAP NETWEAVER",
-          description: "Become a NETWEAVER expert",
+          name: "SAP ARIBA",
+          description: "Become a ARIBA expert",
           icon: "https://i.imgur.com/HbmlQ9u.png",
-          alt: "SAP NETWEAVER icon",
+          alt: "SAP ARIBA icon",
         },
         {
           name: "SAP BW/BI",
@@ -1371,10 +1371,10 @@ export const coursesData = {
           alt: "SAP HANA icon",
         },
         {
-          name: "SAP NETWEAVER",
-          description: "Become a NETWEAVER expert",
+          name: "SAP ARIBA",
+          description: "Become a ARIBA expert",
           icon: "https://i.imgur.com/HbmlQ9u.png",
-          alt: "SAP NETWEAVER icon",
+          alt: "SAP ARIBA icon",
         },
         {
           name: "SAP BW/BI",
@@ -1664,10 +1664,10 @@ export const coursesData = {
           alt: "SAP HANA icon",
         },
         {
-          name: "SAP NETWEAVER",
-          description: "Learn NETWEAVER from experts", // Corrected description
+          name: "SAP ARIBA",
+          description: "Learn ARIBA from experts", // Corrected description
           icon: "https://i.imgur.com/HbmlQ9u.png",
-          alt: "SAP NETWEAVER icon",
+          alt: "SAP ARIBA icon",
         },
         {
           name: "SAP BASIS",
@@ -2030,12 +2030,12 @@ export const coursesData = {
   },
 
   "sap-s4-hana": {
-    // Using 'sap-s4hana' as the slug for clarity and consistency
+    // Using 'sap-s4-hana' as the slug for clarity and consistency
     // === BASIC COURSE INFO ===
     title: "SAP S/4 HANA", // Used in: Page titles, headers, SEO
     fullTitle: "SAP S/4 HANA Enterprise Management", // Used in: Page content, descriptions
     category: "sap", // Used in: JSON-LD breadcrumbs, URL structure
-    slug: "sap-s4hana", // Used in: URL generation, routing
+    slug: "sap-s4-hana", // Used in: URL generation, routing
 
     // === SEO META DATA ===
     // Used in: @type:webpage, @type:course, general page descriptions
@@ -2277,10 +2277,10 @@ export const coursesData = {
           alt: "SAP BW/BI icon",
         },
         {
-          name: "SAP NETWEAVER",
-          description: "Learn NETWEAVER from experts",
+          name: "SAP ARIBA",
+          description: "Learn ARIBA from experts",
           icon: "https://i.imgur.com/HbmlQ9u.png",
-          alt: "SAP NETWEAVER icon",
+          alt: "SAP ARIBA icon",
         },
         {
           name: "SAP BASIS",
@@ -2346,7 +2346,7 @@ export const coursesData = {
     title: "SAP HR/HCM", // Used in: Page titles, headers, SEO
     fullTitle: "SAP Human Resources / Human Capital Management", // Used in: Page content, descriptions
     category: "sap", // Used in: JSON-LD breadcrumbs, URL structure
-    slug: "sap-hrhcm", // Used in: URL generation, routing
+    slug: "sap-hr-hcm", // Used in: URL generation, routing
 
     // === SEO META DATA ===
     // Used in: @type:webpage, @type:course, general page descriptions
@@ -3479,10 +3479,10 @@ export const coursesData = {
           alt: "SAP HANA icon",
         },
         {
-          name: "SAP NETWEAVER",
-          description: "Become a NETWEAVER expert",
+          name: "SAP ARIBA",
+          description: "Become a ARIBA expert",
           icon: "https://i.imgur.com/HbmlQ9u.png",
-          alt: "SAP NETWEAVER icon",
+          alt: "SAP ARIBA icon",
         },
         {
           name: "SAP BW/BI",
@@ -4770,7 +4770,7 @@ export const coursesData = {
     title: "SAP SuccessFactors", // Used in: Page titles, headers, SEO
     fullTitle: "SAP SuccessFactors Human Capital Management", // Used in: Page content, descriptions
     category: "sap", // Used in: JSON-LD breadcrumbs, URL structure
-    slug: "sap-successfactor", // Used in: URL generation, routing
+    slug: "sap-successfactors", // Used in: URL generation, routing
 
     // === SEO META DATA ===
     // Used in: @type:webpage, @type:course, general page descriptions

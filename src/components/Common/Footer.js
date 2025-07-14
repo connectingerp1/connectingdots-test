@@ -46,7 +46,6 @@ const footerSections = [
           { href: "/sap-basis-course-in-pune", text: "SAP BASIS COURSE" },
           { href: "/sap-bwbi-course-in-pune", text: "SAP BW/BI COURSE" },
           { href: "/sap-s4-hana-course-in-pune", text: "SAP S/4 HANA COURSE" },
-          { href: "/sap-netweaver-course-in-pune", text: "SAP NETWEAVER" },
         ],
       },
     ],

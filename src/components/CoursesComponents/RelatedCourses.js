@@ -42,7 +42,7 @@ const CoursesRelated = ({ data, currentCityName }) => {
     "UI/UX Design": "ui-ux-course",
 
     // Data Visualization & BI
-    Tableau: "tableau-training",
+    Tableau: "tableau-course",
     PowerBI: "power-bi-course",
     "Power BI": "power-bi-course",
     SQL: "sql-course",
@@ -52,7 +52,6 @@ const CoursesRelated = ({ data, currentCityName }) => {
 
     // SAP Modules - ENSURE THESE SLUGS MATCH YOUR MASTERDATA.JS SLUGS
     "SAP HANA": "sap-s4-hana-course",
-    "SAP NETWEAVER": "sap-course", // Generic SAP course
     "SAP BW/BI": "sap-bwbi-course",
     "SAP BASIS": "sap-basis-course",
     "SAP ABAP": "sap-abap-course",
@@ -82,7 +81,7 @@ const CoursesRelated = ({ data, currentCityName }) => {
 
     // IT & General
     "IT Course": "it-course",
-    "Data Visualisation": "data-visualisation-course",
+    "Data Visualisation": "data-visualization-course",
 
     // Add any other course mappings you might have
   };

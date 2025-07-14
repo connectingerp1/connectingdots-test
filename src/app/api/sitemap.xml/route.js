@@ -100,7 +100,7 @@ export async function GET() {
     "sap-successfactors-course-in",
     "power-bi-course-in",
     "sql-course-in",
-    "tableau-training-in",
+    "tableau-course-in",
     "digital-marketing-course-in",
     "hr-analytics-course-in",
     "core-hr-course-in",

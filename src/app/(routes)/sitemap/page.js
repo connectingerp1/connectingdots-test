@@ -197,7 +197,7 @@ const jsonLd = {
             "@type": "ListItem",
             position: 3,
             name: "HR Courses in Delhi",
-            url: "https://connectingdotserp.com/hr-course-in-delhi",
+            url: "https://connectingdotserp.com/hr-training-in-delhi",
           },
           {
             "@type": "ListItem",
