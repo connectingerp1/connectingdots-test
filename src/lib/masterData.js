@@ -1294,7 +1294,7 @@ export const coursesData = {
     // Data for Certificate Component
     certificate: {
       courseTitle: "SAP BASIS CERTIFICATION",
-      alt: "sap-basis-certification-from-connecting-dots-erp",
+      alt: "sap-basis-certification-from-connecting-dots-erp", 
       image: "/Certificate/Certificate-1.avif",
       completionText:
         "SAP BASIS is the core technical foundation of SAP systems, and our certification covers all aspects of system administration. Learn to install, configure, and maintain SAP systems, ensuring optimal performance.",
