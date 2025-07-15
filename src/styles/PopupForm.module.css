@@ -424,16 +424,16 @@
 
   .popupFormContainer form input {
     padding: 8px; /* Reduced from 10px */
-    font-size: 22px;
+    font-size: 14px;
   }
 
   .popupFormContainer form input::placeholder {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .popupFormContainer form button {
     padding: 12px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .termsCheckbox {
@@ -442,7 +442,7 @@
   }
 
   .termsCheckbox label {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .statusMessage {
