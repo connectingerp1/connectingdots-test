@@ -432,7 +432,7 @@
   }
 
   .popupFormContainer form button {
-    padding: 12px; 
+    padding: 12px;
     font-size: 16px;
   }
 
@@ -442,6 +442,10 @@
   }
 
   .termsCheckbox label {
+    font-size: 14px;
+  }
+
+  .statusMessage {
     font-size: 14px;
   }
 }
@@ -842,7 +846,7 @@
   }
 
   .statusMessage {
-    font-size: 7px; /* Reduced from 8px */
-    padding: 3px; /* Reduced from 4px */
+    font-size: 7px;
+    padding: 3px;
   }
 }
