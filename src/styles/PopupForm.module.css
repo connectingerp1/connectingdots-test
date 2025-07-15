@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
   z-index: 2000;
-  padding: 20px;
+  padding: 8px; /* Reduced from 10px */
   transition: backdrop-filter 0.3s ease;
 }
 
@@ -21,19 +21,20 @@
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  
-  padding: 30px;
+
+  padding: 12px; /* Reduced from 15px */
   z-index: 1010;
-  border-radius: 16px;
+  border-radius: 8px; /* Reduced from 10px */
   width: 100%;
-  max-width: 380px;
+  max-width: 310px; /* Reduced from 320px */
+  max-height: 80vh; /* Increased from 80vh for base */
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    0 10px 30px rgba(0, 0, 0, 0.2),
+    0 8px 30px rgba(0, 0, 0, 0.3),
+    0 4px 15px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
-  overflow: hidden;
   animation: popupSlideIn 0.4s ease-out;
+  margin: auto;
 }
 
 /* Video Background */
@@ -45,7 +46,7 @@
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  border-radius: 16px;
+  border-radius: 8px; /* Match container */
   opacity: 0.8;
 }
 
@@ -53,7 +54,7 @@
 @keyframes popupSlideIn {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(-30px);
+    transform: scale(0.95) translateY(-10px); /* Reduced movement */
   }
   to {
     opacity: 1;
@@ -61,14 +62,14 @@
   }
 }
 
-/* SLOWER Lightning border effect */
+/* Lightning border effect */
 .lightningBorder {
   position: absolute;
-  top: -2px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  border-radius: 18px;
+  top: -1px; /* Reduced from -2px */
+  left: -1px; /* Reduced from -2px */
+  width: calc(100% + 2px); /* Reduced from 4px */
+  height: calc(100% + 2px); /* Reduced from 4px */
+  border-radius: 10px; /* Match container */
   pointer-events: none;
   overflow: hidden;
   z-index: 10;
@@ -96,14 +97,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  animation: lightningMoveHorizontal 7s infinite linear; /* SLOWER: 7s */
+  height: 2px;
+  animation: lightningMoveHorizontal 7s infinite linear;
 }
 
 .lightningEdge.right {
   top: 0;
   right: 0;
-  width: 4px;
+  width: 2px;
   height: 100%;
   animation: lightningMoveVertical 7s infinite linear 1.75s;
   background: linear-gradient(
@@ -125,14 +126,14 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 4px;
+  height: 2px;
   animation: lightningMoveHorizontal 7s infinite linear 3.5s;
 }
 
 .lightningEdge.left {
   top: 0;
   left: 0;
-  width: 4px;
+  width: 2px;
   height: 100%;
   animation: lightningMoveVertical 7s infinite linear 5.25s;
   background: linear-gradient(
@@ -195,10 +196,10 @@
 /* Enhanced close button */
 .closeButton {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 36px;
-  height: 36px;
+  top: 6px; /* Reduced from 8px */
+  right: 6px; /* Reduced from 8px */
+  width: 24px; /* Reduced from 28px */
+  height: 24px; /* Reduced from 28px */
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -210,16 +211,16 @@
   z-index: 1020;
   transition: all 0.3s ease;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-size: 9px; /* Reduced from 10px */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.5);
   color: white;
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .closeButton:active {
@@ -235,108 +236,111 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 8px; /* Reduced from 12px */
   position: relative;
   z-index: 15;
 }
 
 .logo {
-  width: 55px;
-  height: 55px;
-  margin-right: 12px;
-  margin-left: -30px;
+  width: 30px; /* Reduced from 35px */
+  height: 30px; /* Reduced from 35px */
+  margin-right: 6px; /* Reduced from 8px */
+  margin-left: -15px; /* Reduced from -20px */
   transition: all 0.3s ease-in-out;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 .headerContainer h2 {
-  font-size: 26px;
+  font-size: 15px; /* Reduced from 18px */
   font-weight: 700;
   color: white;
   margin: 0;
-  text-shadow: 
+  text-shadow:
     0 2px 8px rgba(0, 0, 0, 0.4),
     0 0 20px rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease-in-out;
-  font-family: 'Arial', sans-serif;
-  letter-spacing: 0.5px;
+  font-family: "Arial", sans-serif;
+  letter-spacing: 0.2px; /* Reduced from 0.3px */
 }
 
 /* Glassmorphism form styling */
 .popupFormContainer form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 6px; /* Reduced from 8px */
   position: relative;
   z-index: 15;
 }
 
 .popupFormContainer form input {
   width: 100%;
-  padding: 16px;
-  border-radius: 10px;
+  padding: 6px; /* Reduced from 8px */
+  border-radius: 5px; /* Reduced from 6px */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: 15px;
+  font-size: 11px; /* Reduced from 12px */
   box-sizing: border-box;
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   color: white;
-  box-shadow: 
-    0 4px 15px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .popupFormContainer form input:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 
-    0 0 0 2px rgba(255, 255, 255, 0.3),
-    0 6px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 2px 10px rgba(0, 0, 0, 0.2);
   background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .popupFormContainer form input::placeholder {
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 10px; /* Reduced from 11px */
 }
 
 .popupFormContainer form input::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
 }
 
 .popupFormContainer form input::-moz-placeholder {
   color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
 }
 
 .termsCheckbox {
   width: 100%;
   display: flex;
-  padding: 15px;
+  padding: 6px; /* Reduced from 8px */
   align-items: flex-start;
-  border-radius: 10px;
-  font-size: 13px;
-  line-height: 1.5;
+  border-radius: 5px; /* Reduced from 6px */
+  font-size: 8px; /* Reduced from 9px */
+  line-height: 1.1; /* Reduced from 1.2 */
   color: rgba(255, 255, 255, 0.9);
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  gap: 12px;
-  box-shadow: 
-    0 4px 15px rgba(0, 0, 0, 0.1),
+  gap: 5px; /* Reduced from 6px */
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .termsCheckbox span input[type="checkbox"] {
-  margin-top: 13px;
+  margin-top: 1px;
   cursor: pointer;
-  transform: scale(1.2);
+  transform: scale(0.8); /* Reduced from 0.9 */
 }
 
 .termsCheckbox label {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 12px;
+  font-size: 8px; /* Reduced from 9px */
 }
 
 .termsCheckbox a {
@@ -354,34 +358,36 @@
 /* Glass morphism button */
 .popupFormContainer form button {
   width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.2), 
+  padding: 8px; /* Reduced from 10px */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0.1)
   );
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 5px; /* Reduced from 6px */
+  font-size: 12px; /* Reduced from 13px */
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 
-    0 6px 25px rgba(0, 0, 0, 0.2),
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.6px; /* Reduced from 0.8px */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .popupFormContainer form button:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 8px 30px rgba(0, 0, 0, 0.3),
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.3), 
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
     rgba(255, 255, 255, 0.2)
   );
   border-color: rgba(255, 255, 255, 0.5);
@@ -391,53 +397,327 @@
   overflow: hidden;
 }
 
-@media (max-width: 480px) {
-  .popupFormOverlay {
-    padding: 15px;
-  }
-
+/* Large screens - Increased height to 80% */
+@media (min-width: 1200px) {
   .popupFormContainer {
-    padding: 25px;
-    max-width: 320px;
+    max-width: 330px; /* Reduced from 340px */
+    max-height: 80vh; /* Increased from 70vh */
+    padding: 20px;
   }
 
   .headerContainer h2 {
-    font-size: 20px;
+    font-size: 22px;
+  }
+
+  .headerContainer {
+    margin-bottom: 20px;
   }
 
   .logo {
-    width: 45px;
-    height: 45px;
-    margin: 0 0 10px 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .popupFormContainer form {
+    gap: 12px;
+  }
+
+  .popupFormContainer form input {
+    padding: 8px; /* Reduced from 10px */
+    font-size: 22px;
+  }
+
+  .popupFormContainer form input::placeholder {
+    font-size: 20px;
+  }
+
+  .popupFormContainer form button {
+    padding: 12px; 
+    font-size: 16px;
+  }
+
+  .termsCheckbox {
+    padding: 9px; /* Reduced from 10px */
+    font-size: 11px;
+  }
+
+  .termsCheckbox label {
+    font-size: 18px;
+  }
+}
+
+/* Medium screens - Increased height to 80% */
+@media (max-width: 1199px) and (min-width: 769px) {
+  .popupFormContainer {
+    max-width: 300px; /* Reduced from 310px */
+    max-height: 80vh; /* Increased from 75vh */
+    padding: 14px; /* Reduced from 16px */
+  }
+
+  .headerContainer h2 {
+    font-size: 16px; /* Reduced from 17px */
+  }
+
+  .logo {
+    width: 28px; /* Reduced from 32px */
+    height: 28px; /* Reduced from 32px */
+  }
+
+  .popupFormContainer form {
+    gap: 6px; /* Reduced from 8px */
+  }
+
+  .popupFormContainer form input {
+    padding: 6px; /* Reduced from 8px */
+    font-size: 11px; /* Reduced from 12px */
+  }
+
+  .popupFormContainer form input::placeholder {
+    font-size: 10px;
+  }
+
+  .termsCheckbox {
+    padding: 6px; /* Reduced from 8px */
+    font-size: 8px; /* Reduced from 9px */
+  }
+
+  .termsCheckbox label {
+    font-size: 8px; /* Reduced from 9px */
+  }
+
+  .popupFormContainer form button {
+    padding: 8px; /* Reduced from 10px */
+    font-size: 12px; /* Reduced from 13px */
+  }
+
+  .headerContainer {
+    margin-bottom: 8px;
+  }
+}
+
+/* Small to medium screens - Increased height to 85% */
+@media (max-width: 768px) and (min-width: 481px) {
+  .popupFormOverlay {
+    padding: 6px; /* Reduced from 8px */
+  }
+
+  .popupFormContainer {
+    max-width: 280px; /* Reduced from 290px */
+    max-height: 85vh; /* Increased from 80vh */
+    padding: 12px; /* Reduced from 14px */
+  }
+
+  .headerContainer {
+    margin-bottom: 8px; /* Reduced from 10px */
+  }
+
+  .headerContainer h2 {
+    font-size: 14px; /* Reduced from 16px */
+  }
+
+  .logo {
+    width: 26px; /* Reduced from 30px */
+    height: 26px; /* Reduced from 30px */
+    margin-right: 5px; /* Reduced from 6px */
+    margin-left: -12px; /* Reduced from -15px */
+  }
+
+  .closeButton {
+    top: 5px; /* Reduced from 6px */
+    right: 5px; /* Reduced from 6px */
+    width: 22px; /* Reduced from 24px */
+    height: 22px; /* Reduced from 24px */
+    font-size: 8px; /* Reduced from 9px */
+  }
+
+  .popupFormContainer form {
+    gap: 5px; /* Reduced from 7px */
+  }
+
+  .popupFormContainer form input {
+    padding: 5px; /* Reduced from 7px */
+    font-size: 10px; /* Reduced from 11px */
+    border-radius: 4px; /* Reduced from 5px */
+  }
+
+  .popupFormContainer form input::placeholder {
+    font-size: 9px; /* Reduced from 10px */
+  }
+
+  .termsCheckbox {
+    padding: 5px; /* Reduced from 7px */
+    font-size: 7px; /* Reduced from 8px */
+    gap: 4px; /* Reduced from 5px */
+    border-radius: 4px; /* Reduced from 5px */
+  }
+
+  .termsCheckbox label {
+    font-size: 7px; /* Reduced from 8px */
+  }
+
+  .termsCheckbox span input[type="checkbox"] {
+    transform: scale(0.7); /* Reduced from 0.8 */
+  }
+
+  .popupFormContainer form button {
+    padding: 7px; /* Reduced from 9px */
+    font-size: 11px; /* Reduced from 12px */
+    border-radius: 4px; /* Reduced from 5px */
+  }
+}
+
+/* Mobile screens - Increased height to 88% */
+@media (max-width: 480px) {
+  .popupFormOverlay {
+    padding: 4px; /* Reduced from 5px */
+  }
+
+  .popupFormContainer {
+    padding: 10px; /* Reduced from 12px */
+    max-width: 260px; /* Reduced from 270px */
+    max-height: 88vh; /* Increased from 85vh */
+    border-radius: 6px; /* Reduced from 8px */
+  }
+
+  .videoBackground {
+    border-radius: 6px; /* Match container */
+  }
+
+  .lightningBorder {
+    border-radius: 8px; /* Match container */
   }
 
   .headerContainer {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 6px; /* Reduced from 8px */
+  }
+
+  .headerContainer h2 {
+    font-size: 12px; /* Reduced from 14px */
+    margin-top: 2px; /* Reduced from 3px */
+  }
+
+  .logo {
+    width: 24px; /* Reduced from 28px */
+    height: 24px; /* Reduced from 28px */
+    margin: 0;
   }
 
   .closeButton {
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
+    top: 4px; /* Reduced from 5px */
+    right: 4px; /* Reduced from 5px */
+    width: 20px; /* Reduced from 22px */
+    height: 20px; /* Reduced from 22px */
+    font-size: 7px; /* Reduced from 8px */
+  }
+
+  .popupFormContainer form {
+    gap: 4px; /* Reduced from 6px */
+  }
+
+  .popupFormContainer form input {
+    padding: 4px; /* Reduced from 6px */
+    font-size: 9px; /* Reduced from 10px */
+    border-radius: 3px; /* Reduced from 4px */
+  }
+
+  .popupFormContainer form input::placeholder {
+    font-size: 8px; /* Reduced from 9px */
+  }
+
+  .termsCheckbox {
+    padding: 4px; /* Reduced from 6px */
+    font-size: 6px; /* Reduced from 7px */
+    gap: 3px; /* Reduced from 4px */
+    border-radius: 3px; /* Reduced from 4px */
+    line-height: 1; /* Reduced from 1.1 */
+  }
+
+  .termsCheckbox span input[type="checkbox"] {
+    margin-top: 0;
+    transform: scale(0.6); /* Reduced from 0.7 */
+  }
+
+  .termsCheckbox label {
+    font-size: 6px; /* Reduced from 7px */
+  }
+
+  .popupFormContainer form button {
+    padding: 6px; /* Reduced from 8px */
+    font-size: 10px; /* Reduced from 11px */
+    border-radius: 3px; /* Reduced from 4px */
   }
 }
 
-/* Status message styling */
+/* Extra small screens - Increased height to 92% */
+@media (max-width: 360px) {
+  .popupFormOverlay {
+    padding: 2px; /* Reduced from 3px */
+  }
+
+  .popupFormContainer {
+    padding: 8px; /* Reduced from 10px */
+    max-width: 240px; /* Reduced from 250px */
+    max-height: 92vh; /* Increased from 90vh */
+  }
+
+  .headerContainer h2 {
+    font-size: 11px; /* Reduced from 13px */
+  }
+
+  .logo {
+    width: 22px; /* Reduced from 25px */
+    height: 22px; /* Reduced from 25px */
+  }
+
+  .popupFormContainer form {
+    gap: 3px; /* Reduced from 5px */
+  }
+
+  .popupFormContainer form input {
+    padding: 3px; /* Reduced from 5px */
+    font-size: 8px; /* Reduced from 9px */
+  }
+
+  .popupFormContainer form input::placeholder {
+    font-size: 7px; /* Reduced from 8px */
+  }
+
+  .termsCheckbox {
+    padding: 3px; /* Reduced from 5px */
+    font-size: 5px; /* Reduced from 6px */
+  }
+
+  .termsCheckbox label {
+    font-size: 5px; /* Reduced from 6px */
+  }
+
+  .termsCheckbox span input[type="checkbox"] {
+    transform: scale(0.5); /* Reduced from 0.6 */
+  }
+
+  .popupFormContainer form button {
+    padding: 5px; /* Reduced from 7px */
+    font-size: 9px; /* Reduced from 10px */
+  }
+}
+
+/* Status message styling - more compact */
 .statusMessage {
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 10px;
+  margin-bottom: 5px; /* Reduced from 8px */
+  padding: 4px; /* Reduced from 6px */
+  border-radius: 4px; /* Reduced from 5px */
   text-align: center;
-  font-size: 14px;
+  font-size: 9px; /* Reduced from 10px */
   font-weight: 600;
   animation: fadeIn 0.3s ease;
   position: relative;
   z-index: 15;
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  line-height: 1.1; /* Reduced from 1.2 */
 }
 
 .success {
@@ -457,7 +737,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-15px) scale(0.9);
+    transform: translateY(-3px) scale(0.95); /* Reduced movement */
   }
   to {
     opacity: 1;
@@ -465,7 +745,7 @@
   }
 }
 
-/* Button loading state */
+/* Button loading state - more compact */
 .submitting {
   position: relative;
   display: flex;
@@ -476,14 +756,14 @@
 }
 
 .buttonText {
-  margin-right: 10px;
+  margin-right: 4px; /* Reduced from 6px */
 }
 
 .buttonLoader {
   display: inline-block;
-  width: 18px;
-  height: 18px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  width: 10px; /* Reduced from 12px */
+  height: 10px; /* Reduced from 12px */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Reduced from 2px */
   border-radius: 50%;
   border-top-color: #fff;
   animation: spin 1s linear infinite;
@@ -498,10 +778,71 @@
 /* Form validation visual cues */
 .popupFormContainer form input:focus:invalid {
   border-color: rgba(244, 67, 54, 0.8);
-  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.3);
+  box-shadow: 0 0 0 1px rgba(244, 67, 54, 0.3);
 }
 
 .popupFormContainer form input:focus:valid {
   border-color: rgba(76, 175, 80, 0.8);
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 0 0 1px rgba(76, 175, 80, 0.3);
+}
+
+/* Remove scrollbars completely */
+.popupFormContainer {
+  overflow: hidden;
+}
+
+.popupFormOverlay {
+  overflow: hidden;
+}
+
+/* Ensure no horizontal scrolling */
+.popupFormContainer * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 320px) {
+  .popupFormContainer {
+    max-width: 220px; /* Reduced from 230px */
+    padding: 6px; /* Reduced from 8px */
+    max-height: 95vh; /* Increased from 92vh */
+  }
+
+  .headerContainer h2 {
+    font-size: 10px; /* Reduced from 12px */
+  }
+
+  .logo {
+    width: 20px; /* Reduced from 22px */
+    height: 20px; /* Reduced from 22px */
+  }
+
+  .popupFormContainer form input {
+    padding: 2px; /* Reduced from 4px */
+    font-size: 7px; /* Reduced from 8px */
+  }
+
+  .popupFormContainer form input::placeholder {
+    font-size: 6px; /* Reduced from 7px */
+  }
+
+  .termsCheckbox {
+    padding: 2px; /* Reduced from 4px */
+    font-size: 4px; /* Reduced from 5px */
+  }
+
+  .termsCheckbox label {
+    font-size: 4px; /* Reduced from 5px */
+  }
+
+  .popupFormContainer form button {
+    padding: 4px; /* Reduced from 6px */
+    font-size: 8px; /* Reduced from 9px */
+  }
+
+  .statusMessage {
+    font-size: 7px; /* Reduced from 8px */
+    padding: 3px; /* Reduced from 4px */
+  }
 }
