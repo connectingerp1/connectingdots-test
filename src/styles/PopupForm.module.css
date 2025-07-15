@@ -428,7 +428,7 @@
   }
 
   .popupFormContainer form input::placeholder {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .popupFormContainer form button {
@@ -442,7 +442,7 @@
   }
 
   .termsCheckbox label {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
