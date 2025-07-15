@@ -1,4 +1,3 @@
-// Navbar.js
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
@@ -68,7 +67,8 @@ const Header = () => {
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchMoveX, setTouchMoveX] = useState(null);
   const [scrolled, setScrolled] = useState(false);
-  const [floatingNav, setFloatingNav] = useState(false); // New state for floating navbar
+  const [floatingNav, setFloatingNav] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -99,17 +99,38 @@ const Header = () => {
     }
   }, [pathname]);
 
-  // Enhanced scroll effect for floating navbar
+  // Enhanced scroll effect for smoother floating navbar transition
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 50);
-      setFloatingNav(scrollY > 100); // Activate floating effect after 100px scroll
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const isScrolled = scrollY > 50;
+          const shouldFloat = scrollY > 150;
+          
+          setScrolled(isScrolled);
+          
+          if (shouldFloat !== floatingNav) {
+            setIsTransitioning(true);
+            setFloatingNav(shouldFloat);
+            
+            // Reset transition state after animation completes
+            setTimeout(() => {
+              setIsTransitioning(false);
+            }, 600);
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [floatingNav]);
 
   const closeSidebar = useCallback(() => {
     setIsSidebarVisible(false);
@@ -287,7 +308,7 @@ const Header = () => {
     setTouchMoveX(null);
   }, [touchStartX, touchMoveX, closeSidebar]);
 
-  // Dropdown render functions (keeping all existing dropdown functions as they are)
+  // Dropdown render functions
   const renderDropdownSAP = (isMobile = false) => (
     <div
       className={styles.dropdown}
@@ -336,7 +357,7 @@ const Header = () => {
           </button>
         )}
       </div>
-            {((isMobile && mobileOpenDropdown === "dropdown2") ||
+      {((isMobile && mobileOpenDropdown === "dropdown2") ||
         (!isMobile && isDropdownVisible.dropdown2)) && (
         <ul
           className={`${styles.dropdownMenu} ${styles.show}`}
@@ -420,7 +441,7 @@ const Header = () => {
       onMouseEnter={() => handleMouseEnter("dropdown3")}
       onMouseLeave={() => handleMouseLeave("dropdown3")}
     >
-      <div className={styles.dropdownToggleWrapper}>
+            <div className={styles.dropdownToggleWrapper}>
         <Link
           href="/it-course-in-pune"
           className={`${styles.navLink} ${styles.dropdownToggle} ${
@@ -640,7 +661,7 @@ const Header = () => {
             activeLink === "dropdown5" ? styles.active : ""
           }`}
           id="dropdownMenuButton5"
-                    onClick={(e) => {
+          onClick={(e) => {
             if (isMobile) {
               e.preventDefault();
               handleMobileDropdownToggle("dropdown5");
@@ -809,7 +830,7 @@ const Header = () => {
         expand="lg"
         className={`${styles.headerNav} ${scrolled ? styles.scrolled : ""} ${
           floatingNav ? styles.floating : ""
-        }`}
+        } ${isTransitioning ? styles.transitioning : ""}`}
         ref={navbarRef}
       >
         <Container fluid className={styles.navContainer}>
@@ -847,22 +868,26 @@ const Header = () => {
             {renderDropdownDataVisualization()}
             {renderDropdownDigitalMarketing()}
             {renderDropdownHRCourses()}
-            <div className={styles.navItem}>
-              <Link
-                className={`${styles.navLink} ${
-                  activeLink === "aboutus" ? styles.active : ""
-                }`}
-                href="/aboutus"
-                onClick={() => handleNavClick("aboutus")}
-              >
-                About us
-              </Link>
-            </div>
-            <div className={styles.navAction}>
-              <Link href="/contactus" className={styles.ctaButton}>
-                Contact Us
-              </Link>
-            </div>
+            {!floatingNav && (
+              <>
+                <div className={styles.navItem}>
+                  <Link
+                    className={`${styles.navLink} ${
+                      activeLink === "aboutus" ? styles.active : ""
+                    }`}
+                    href="/aboutus"
+                    onClick={() => handleNavClick("aboutus")}
+                  >
+                    About us
+                  </Link>
+                </div>
+                <div className={styles.navAction}>
+                  <Link href="/contactus" className={styles.ctaButton}>
+                    Contact Us
+                  </Link>
+                </div>
+              </>
+            )}
           </Nav>
         </Container>
       </Navbar>
@@ -870,7 +895,7 @@ const Header = () => {
       {/* Sidebar for Smaller Screens with Touch Support */}
       {isSidebarVisible && (
         <>
-          <div
+                    <div
             className={`${styles.sidebarOverlay} ${styles.visible}`}
             onClick={closeSidebar}
             aria-hidden="true"

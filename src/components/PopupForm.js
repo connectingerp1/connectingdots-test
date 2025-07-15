@@ -3,28 +3,26 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import styles from "@/styles/PopupForm.module.css";
-import axios from "axios"; // Make sure axios is imported
+import axios from "axios";
 
 const PopupForm = ({ onSubmitData }) => {
   const [isVisible, setIsVisible] = useState(false);
   // Form state
   const [name, setName] = useState("");
-  const [mobile, setMobile] = useState(""); // Represents 'contact' for backend
+  const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-  const [course, setCourse] = useState(""); // Represents 'coursename' for backend
+  const [course, setCourse] = useState("");
   const [location, setLocation] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-  // Add default country code state (assuming +91 if not collected)
   const [countryCode] = useState("+91");
 
   // Submission state
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusMessage, setStatusMessage] = useState({ text: "", type: "" }); // For success/validation messages
+  const [statusMessage, setStatusMessage] = useState({ text: "", type: "" });
 
   const pathname = usePathname();
 
   useEffect(() => {
-    // Update the hidden pages list to include all admin paths
     const hiddenPages = [
       "/adminlogin",
       "/dashboard",
@@ -34,7 +32,6 @@ const PopupForm = ({ onSubmitData }) => {
 
     const currentPath = pathname?.toLowerCase() || "";
 
-    // Check if the current path starts with any of the hidden pages
     if (hiddenPages.some((page) => currentPath.startsWith(page))) {
       setIsVisible(false);
       return;
@@ -70,10 +67,7 @@ const PopupForm = ({ onSubmitData }) => {
     return () => clearTimeout(timer);
   }, [statusMessage]);
 
-  // --- Original Frontend Validation (using statusMessage) ---
-  // Note: This validation only shows the *first* error found.
   const validateForm = () => {
-    // Basic required field checks (trimming values)
     if (!name.trim()) {
       setStatusMessage({ text: "Name is required.", type: "error" });
       return false;
@@ -98,7 +92,6 @@ const PopupForm = ({ onSubmitData }) => {
       return false;
     }
 
-    // Specific format/length checks
     if (name.length > 50) {
       setStatusMessage({
         text: "Name should be less than 50 characters.",
@@ -121,12 +114,10 @@ const PopupForm = ({ onSubmitData }) => {
       return false;
     }
     if (course.length > 100) {
-      // Increased limit
       setStatusMessage({ text: "Course name seems too long.", type: "error" });
       return false;
     }
     if (location.length > 100) {
-      // Increased limit
       setStatusMessage({ text: "Location seems too long.", type: "error" });
       return false;
     }
@@ -138,42 +129,33 @@ const PopupForm = ({ onSubmitData }) => {
       return false;
     }
 
-    // Clear validation error message if all checks pass
     setStatusMessage({ text: "", type: "" });
     return true;
   };
 
-  // --- Form Submission Handler (using alert for backend errors) ---
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default browser submission
+    e.preventDefault();
 
-    // Run validation
     if (!validateForm()) {
-      // Validation failed, statusMessage is already set by validateForm
       return;
     }
 
-    setIsSubmitting(true); // Set loading state
-    setStatusMessage({ text: "", type: "" }); // Clear previous messages
+    setIsSubmitting(true);
+    setStatusMessage({ text: "", type: "" });
 
-    // Prepare payload for the backend API
-    // Include countryCode
     const formData = {
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      contact: mobile.replace(/\D/g, ""), // Ensure only digits
-      countryCode: countryCode, // <<< Included default country code
+      contact: mobile.replace(/\D/g, ""),
+      countryCode: countryCode,
       coursename: course.trim(),
       location: location.trim(),
-      // date field removed - backend handles createdAt
     };
 
     try {
-      // --- Send data to backend API ---
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) {
         console.error("API URL (NEXT_PUBLIC_API_URL) is not set.");
-        // Use alert for config errors too
         alert("Configuration error. Cannot submit form.");
         setIsSubmitting(false);
         return;
@@ -183,9 +165,7 @@ const PopupForm = ({ onSubmitData }) => {
 
       const response = await axios.post(`${apiUrl}/api/submit`, formData);
 
-      // --- Handle Success (Backend responded with 2xx) ---
       console.log("PopupForm submitted successfully:", response.data);
-      // Use status message for success
       setStatusMessage({
         text: response.data.message || "Registration complete!",
         type: "success",
@@ -207,12 +187,11 @@ const PopupForm = ({ onSubmitData }) => {
         document.body.classList.add(styles.popupClosedManually);
       }, 2500);
     } catch (error) {
-      // --- Handle Errors (Uses alert for feedback) ---
       console.error("--- Error During PopupForm Submission ---");
       console.error("Raw Error Object:", error);
 
       let alertMessage =
-        "An error occurred while submitting. Please try again."; // Default
+        "An error occurred while submitting. Please try again.";
 
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -222,7 +201,6 @@ const PopupForm = ({ onSubmitData }) => {
           console.error("Raw Response Data:", responseData);
 
           if (status === 400) {
-            // Use the specific backend message for 400 errors
             alertMessage =
               responseData?.message ||
               "Submission failed. Please check your input.";
@@ -239,12 +217,8 @@ const PopupForm = ({ onSubmitData }) => {
       } else {
         alertMessage = `Unexpected application error: ${error.message || "Unknown error"}`;
       }
-      // Display the determined error message using alert()
       alert(alertMessage);
-      // Optionally set status message as well if you want redundancy
-      // setStatusMessage({ text: alertMessage, type: "error" });
     } finally {
-      // Ensure loading state is turned off regardless of success or failure
       setIsSubmitting(false);
     }
   };
@@ -255,13 +229,36 @@ const PopupForm = ({ onSubmitData }) => {
     document.body.classList.add(styles.popupClosedManually);
   };
 
-  // --- JSX Rendering (Original Structure) ---
+  // Handle click outside form to close
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
+  // Prevent form container clicks from closing the popup
+  const handleFormClick = (e) => {
+    e.stopPropagation();
+  };
+
   if (!isVisible) return null;
 
   return (
-    <div className={styles.popupFormOverlay}>
-      <div className={styles.popupFormContainer}>
-        {/* Lightning border effect */}
+    <div className={styles.popupFormOverlay} onClick={handleOverlayClick}>
+      <div className={styles.popupFormContainer} onClick={handleFormClick}>
+        {/* Video Background */}
+        <video
+          className={styles.videoBackground}
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/bg/bg6.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Enhanced lightning border effect */}
         <div className={styles.lightningBorder}>
           <div className={`${styles.lightningEdge} ${styles.top}`}></div>
           <div className={`${styles.lightningEdge} ${styles.right}`}></div>
@@ -269,14 +266,30 @@ const PopupForm = ({ onSubmitData }) => {
           <div className={`${styles.lightningEdge} ${styles.left}`}></div>
         </div>
 
+        {/* Enhanced close button */}
         <button
           className={styles.closeButton}
           onClick={handleClose}
           disabled={isSubmitting}
           aria-label="Close registration form"
         >
-          X
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 4L4 12M4 4L12 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
+
         <div className={styles.headerContainer}>
           <img
             src="/Navbar/Connecting Logo.avif"
@@ -286,7 +299,6 @@ const PopupForm = ({ onSubmitData }) => {
           <h2>Register Now!</h2>
         </div>
 
-        {/* Status Message Area (Used for success/frontend validation) */}
         {statusMessage.text && (
           <div
             id="popup-status"
@@ -298,7 +310,6 @@ const PopupForm = ({ onSubmitData }) => {
           </div>
         )}
 
-        {/* Form Fields */}
         <form onSubmit={handleSubmit} noValidate>
           <input
             type="text"
@@ -308,7 +319,7 @@ const PopupForm = ({ onSubmitData }) => {
             required
             maxLength="50"
             disabled={isSubmitting}
-            aria-describedby="popup-status" // Can still link to general status
+            aria-describedby="popup-status"
           />
           <input
             type="email"
@@ -342,7 +353,7 @@ const PopupForm = ({ onSubmitData }) => {
             value={course}
             onChange={(e) => setCourse(e.target.value)}
             required
-            maxLength="100" // Use consistent limits
+            maxLength="100"
             disabled={isSubmitting}
             aria-describedby="popup-status"
           />
@@ -352,7 +363,7 @@ const PopupForm = ({ onSubmitData }) => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
-            maxLength="100" // Use consistent limits
+            maxLength="100"
             disabled={isSubmitting}
             aria-describedby="popup-status"
           />
@@ -380,9 +391,7 @@ const PopupForm = ({ onSubmitData }) => {
               </a>{" "}
               of Connecting Dots ERP.
             </label>
-            {/* No inline error span for terms */}
           </div>
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
