@@ -1,4 +1,4 @@
-// components/HomePage/Certificate.js (Updated Certificate)
+// components/HomePage/DemoCertificate.js
 "use client";
 
 import { useState, useEffect } from "react";
@@ -12,20 +12,22 @@ const Btnform = dynamic(() => import("@/components/HomePage/Btnform"), {
   ssr: false,
 });
 
-// Certificate now directly receives the 'data' prop
-const Certificate = ({ data }) => {
+// Hardcoded certificate data
+const certificateData = {
+  courseTitle: "SAP Training Certificate",
+  alt: "sap-training-certification-from-connecting-dots-erp",
+  image: "/Certificate/Certificate-1.avif",
+  completionText:
+    "The Connecting Dots SAP Certification Course in {city} is designed to enhance your expertise in SAP systems and set you on the path to a successful career in ERP. Our program goes beyond theoretical learning, offering hands-on practical sessions and real-world scenarios across various SAP modules.",
+  description:
+    "With expert guidance and a focus on practical application, you'll be well-equipped to thrive in the dynamic world of SAP and meet the evolving needs of modern businesses.",
+};
+
+// Certificate component no longer needs props
+const DemoCertificate = () => {
   const [showForm, setShowForm] = useState(false);
   const handleButtonClick = () => setShowForm(true);
   const handleCloseForm = () => setShowForm(false);
-
-  // Simplified loading/error handling as data is passed directly
-  if (!data) {
-    return (
-      <div /* Add loading/error styling */>
-        <p>No certificate data available (check masterData.js or prop passing).</p>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.certificateSection}>
@@ -34,8 +36,8 @@ const Certificate = ({ data }) => {
       <div className={styles.certificateContent}>
         <div className={styles.certificateImage}>
           <Image
-            src={data.image} // Use data from props
-            alt={data.alt || `${data.courseTitle} Certificate`} // Use data from props
+            src={certificateData.image}
+            alt={certificateData.alt || `${certificateData.courseTitle} Certificate`}
             width={500}
             height={300}
             layout="intrinsic"
@@ -44,13 +46,11 @@ const Certificate = ({ data }) => {
         <div className={styles.certificateText}>
           <h2>Congratulations on Completing Your Training!</h2>
           <h4 className={styles.certificateSubtitle}>
-            {data.courseTitle} {/* Use data from props */}
+            {certificateData.courseTitle}
           </h4>
-          <p>{data.completionText}</p> {/* Use data from props */}
-          <p>{data.description}</p> {/* Use data from props */}
-          <div
-            className="mb-3 btnContainer"
-          >
+          <p>{certificateData.completionText}</p>
+          <p>{certificateData.description}</p>
+          <div className="mb-3 btnContainer">
             <Button className={styles.outlineBtn} onClick={handleButtonClick}>
               Get your Certificate
             </Button>
@@ -62,4 +62,4 @@ const Certificate = ({ data }) => {
   );
 };
 
-export default Certificate;
+export default DemoCertificate;

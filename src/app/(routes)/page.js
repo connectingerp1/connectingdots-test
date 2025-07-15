@@ -22,7 +22,7 @@ const Achievements = dynamic(
 const FeedbackAndReviews = dynamic(
   () => import("@/components/HomePage/FeedbackandReviews")
 );
-const Certificate = dynamic(() => import("@/components/HomePage/Certificate"));
+const DemoCertificate = dynamic(() => import("@/components/HomePage/DemoCertificate"));
 const Branches = dynamic(() => import("@/components/HomePage/Branches"));
 const Courses = dynamic(() => import("@/components/HomePage/PopCourses"));
 
@@ -240,7 +240,7 @@ export default function HomePage() {
         <OurStats />
         <Achievements />
         <FeedbackAndReviews />
-        <Certificate pageId="HomepageCERT" />
+        <DemoCertificate />
         <Branches />
       </main>
     </>
