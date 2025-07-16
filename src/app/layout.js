@@ -1,4 +1,4 @@
-// src/app/layout.js - FINAL VERSION
+// src/app/layout.js - COMPLETE CORRECTED VERSION
 
 import { Lato, Rubik } from "next/font/google";
 import Script from "next/script";
@@ -34,37 +34,42 @@ const FB_PIXEL_ID = "3414178115554916";
 const AHREFS_KEY = "h5nofTpYPf65FI8/61ypeA";
 
 // --- SITE-WIDE METADATA ---
-// This object replaces the manual <head> tag. Next.js uses this to build the
-// final <head> for every page, merging it with page-specific metadata.
 export const metadata = {
-  // A default title and description for pages that don't have their own
   title: {
     default: "Connecting Dots ERP | SAP Training Institute",
   },
   description:
     "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",
   verification: {
-    // Ahrefs verification and other verification tags go here
+    google: "KRKFsO9AAW2a8qImif8Wj4uzzjmWGA0R6o7IZFJcmPo",
     other: {
       "ahrefs-site-verification":
         "b872425e28fadcf9facf8f8257df376299d08f293e0f849e466a66a9b4448eec",
     },
   },
 };
- 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
-      <body className={`body bg-black ${lato.className} ${rubik.className}`}>
-        {/* Initialize dataLayer for GTM. 'beforeInteractive' ensures it runs before anything else. */}
+      <head>
+        {/* GTM Head Script - Critical for GTM to work properly */}
         <Script
-          id="gtm-dataLayer-init"
-          strategy="beforeInteractive"
+          id="gtm-head"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];`,
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
+            `,
           }}
         />
-        {/* GTM noscript fallback */}
+      </head>
+      <body className={`body bg-black ${lato.className} ${rubik.className}`}>
+        {/* GTM noscript fallback - Required for users with JavaScript disabled */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -79,20 +84,15 @@ export default function RootLayout({ children }) {
         <Marquee />
         <Navbar />
 
-        {/* The ClientLayoutWrapper now contains the CityProvider and wraps the children */}
+        {/* The ClientLayoutWrapper contains the CityProvider and wraps the children */}
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
 
         <Footer />
 
-        {/* Tracking scripts are loaded with 'lazyOnload' to avoid blocking page rendering */}
-        <Script
-          id="gtm-main-script"
-          strategy="lazyOnload"
-          src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
-        />
+        {/* Facebook Pixel */}
         <Script
           id="facebook-pixel"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s)
@@ -107,6 +107,8 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+
+        {/* Ahrefs Analytics */}
         <Script
           id="ahrefs-analytics"
           src="https://analytics.ahrefs.com/analytics.js"
