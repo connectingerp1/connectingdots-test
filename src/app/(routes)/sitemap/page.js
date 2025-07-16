@@ -221,7 +221,7 @@ const jsonLd = {
         {
           "@type": "ListItem",
           position: 1,
-          name: "Home",
+          name: "",
           item: "https://connectingdotserp.com/",
         },
         {
