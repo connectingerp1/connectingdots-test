@@ -221,7 +221,7 @@ const jsonLd = {
         {
           "@type": "ListItem",
           position: 1,
-          name: "",
+          name: "Home",
           item: "https://connectingdotserp.com/",
         },
         {
@@ -308,7 +308,7 @@ const jsonLd = {
 export default function SitemapPage() {
   // Define breadcrumb items for this page
   const breadcrumbItems = [
-    { label: "Home", path: "/home" },
+    { label: "Home", path: "/" },
     { label: "Sitemap" }, // Current page
   ];
 
