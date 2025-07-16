@@ -148,7 +148,7 @@ const SuperAdminLayout = ({ children }) => {
       {/* Sidebar - Fixed and Sticky */}
       <div className="relative">
         <Sidebar activePage={activePage} userRole={userRole} />
-        <FixedLogo />
+        {/* <FixedLogo /> */}
       </div>
       
       {/* Main content - Ensure proper spacing and scrolling */}
@@ -160,7 +160,7 @@ const SuperAdminLayout = ({ children }) => {
         </div>
       </main>
 
-      {/* Inactivity modal */}
+      {/* Inactivity modal */}  
       {showWarning && (
         <InactivityWarningModal
           onStayLoggedIn={() => resetInactivityTimer()}
