@@ -86,7 +86,7 @@ const courses = [
   "java-course-in",
   "mern-stack-course-in",
   "python-course-in",
-  "salesforce-training-in",
+  "salesforce-course-in",
   "ui-ux-course-in",
   "sap-ewm-course-in",
   "sap-abap-course-in",
