@@ -70,27 +70,27 @@ const AboutGallery = () => {
   };
 
   return (
-    <section className="relative px-20 py-6 lg:py-10 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-8 lg:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+    <section className="relative px-3 sm:px-4 lg:px-20 py-4 sm:py-6 lg:py-10 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+      <div className="container mx-auto relative z-10">
+        {/* Header - Mobile Optimized */}
+        <div className="text-center mb-4 sm:mb-6 lg:mb-16">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-4 leading-tight px-2">
             Our{" "}
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Achievements
             </span>
           </h2>
 
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-300 text-sm sm:text-base lg:text-lg max-w-xl lg:max-w-2xl mx-auto leading-relaxed px-4">
             Discover our journey through milestones and success stories
           </p>
         </div>
 
-        {/* Gallery Container */}
-        <div className="grid lg:grid-cols-4 gap-6 lg:gap-8">
-          {/* Featured Image */}
-          <div className="lg:col-span-3 group">
-            <div className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50">
+        {/* Gallery Container - Mobile First */}
+        <div className="flex flex-col lg:grid lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
+          {/* Featured Image - Mobile Optimized */}
+          <div className="lg:col-span-3 group order-1">
+            <div className="relative aspect-[4/3] sm:aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg sm:rounded-xl lg:rounded-2xl xl:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl lg:shadow-2xl border border-slate-700/50">
               {/* Main Image */}
               <div
                 className="relative w-full h-full transition-all duration-700 ease-out"
@@ -106,26 +106,27 @@ const AboutGallery = () => {
                   fill
                   className="object-cover transition-all duration-1000 ease-out group-hover:scale-105"
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 75vw, 66vw"
                 />
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {/* Gradient Overlay - Always visible on mobile */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                {/* Image Counter */}
-                <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-sm font-medium border border-white/20">
+                {/* Image Counter - Mobile Optimized */}
+                <div className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4 px-2 sm:px-3 py-1 bg-black/60 backdrop-blur-sm rounded-md sm:rounded-full text-white text-xs sm:text-sm font-medium border border-white/20">
                   {activeIndex + 1} / {images.length}
                 </div>
               </div>
 
-              {/* Navigation Arrows */}
-              <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              {/* Navigation Arrows - Always visible on mobile */}
+              <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 sm:px-3 lg:px-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300">
                 <button
                   onClick={prevImage}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-lg"
+                  className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 hover:scale-110 transition-all duration-300 shadow-lg touch-manipulation"
                   aria-label="Previous image"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -141,11 +142,11 @@ const AboutGallery = () => {
 
                 <button
                   onClick={nextImage}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-lg"
+                  className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 active:bg-white/40 hover:scale-110 transition-all duration-300 shadow-lg touch-manipulation"
                   aria-label="Next image"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -160,9 +161,9 @@ const AboutGallery = () => {
                 </button>
               </div>
 
-              {/* Progress Bar */}
-              <div className="absolute bottom-4 left-4 right-4">
-                <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
+              {/* Progress Bar - Mobile Optimized */}
+              <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 left-2 sm:left-3 lg:left-4 right-2 sm:right-3 lg:right-4">
+                <div className="w-full h-0.5 sm:h-1 bg-white/20 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-gradient-to-r from-blue-400 to-purple-400 rounded-full transition-all duration-300"
                     style={{
@@ -174,9 +175,9 @@ const AboutGallery = () => {
             </div>
           </div>
 
-          {/* Thumbnail Grid */}
-          <div className="lg:col-span-1">
-            <div className="grid grid-cols-3 lg:grid-cols-1 gap-3 lg:gap-4 max-h-[550px] lg:overflow-y-auto lg:scrollbar-thin lg:scrollbar-thumb-slate-600 lg:scrollbar-track-slate-800">
+          {/* Thumbnail Grid - Mobile Optimized */}
+          <div className="lg:col-span-1 order-2">
+            <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-1 gap-2 sm:gap-3 lg:gap-4 max-h-[120px] sm:max-h-[140px] lg:max-h-[550px] overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto lg:scrollbar-thin lg:scrollbar-thumb-slate-600 lg:scrollbar-track-slate-800">
               {images.map((image, index) => (
                 <div
                   key={`${image}-${index}`}
@@ -184,42 +185,44 @@ const AboutGallery = () => {
                   onMouseEnter={() => setIsHovered(index)}
                   onMouseLeave={() => setIsHovered(null)}
                   className={`
-                    relative aspect-square cursor-pointer rounded-xl lg:rounded-2xl overflow-hidden transition-all duration-500 group/thumb
+                    relative aspect-square cursor-pointer rounded-md sm:rounded-lg lg:rounded-xl xl:rounded-2xl overflow-hidden transition-all duration-300 group/thumb touch-manipulation
                     ${
                       activeIndex === index
-                        ? "ring-2 ring-blue-400 ring-offset-2 ring-offset-slate-900 scale-105 shadow-lg shadow-blue-500/25"
-                        : "hover:scale-105 hover:shadow-lg hover:shadow-white/10"
+                        ? "ring-1 sm:ring-2 ring-blue-400 ring-offset-1 sm:ring-offset-2 ring-offset-slate-900 scale-105 shadow-md sm:shadow-lg shadow-blue-500/25"
+                        : "hover:scale-105 hover:shadow-md hover:shadow-white/10 opacity-70 hover:opacity-100"
                     }
                   `}
                   style={{
-                    transform: `translateY(${isHovered === index ? -2 : 0}px)`,
+                    transform: `translateY(${isHovered === index ? -1 : 0}px)`,
+                    minWidth: isMobile ? '60px' : 'auto'
                   }}
                 >
                   <Image
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
                     fill
-                    className="object-cover transition-all duration-700 group-hover/thumb:scale-110"
+                    className="object-cover transition-all duration-500 group-hover/thumb:scale-110"
+                    sizes="(max-width: 768px) 60px, (max-width: 1024px) 80px, 120px"
                   />
 
-                  {/* Overlay */}
+                  {/* Overlay - Simplified for mobile */}
                   <div
                     className={`
                     absolute inset-0 transition-all duration-300
                     ${
                       activeIndex === index
                         ? "bg-blue-500/20"
-                        : "bg-black/40 group-hover/thumb:bg-black/20"
+                        : "bg-black/30 group-hover/thumb:bg-black/10"
                     }
                   `}
                   ></div>
 
-                  {/* Active Indicator */}
+                  {/* Active Indicator - Mobile Optimized */}
                   {activeIndex === index && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                      <div className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
                         <svg
-                          className="w-4 h-4 text-white"
+                          className="w-2 h-2 sm:w-3 sm:h-3 lg:w-4 lg:h-4 text-white"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >

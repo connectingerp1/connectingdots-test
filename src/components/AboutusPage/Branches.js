@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import styles from "@/styles/AboutPage/Branches.module.css";
 import { MapPin, Globe as GlobeIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -43,23 +42,34 @@ const BRANCH_DATA = [
 
 const BranchCard = ({ branch, isActive, onHover }) => (
   <div
-    className={`${styles.branchCard} ${isActive ? styles.activeBranch : ''}`}
+    className={`
+      bg-white/10 border border-white/20 rounded-xl transition-all duration-300 ease-in-out overflow-hidden cursor-pointer
+      hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,255,255,0.15)]
+      ${isActive 
+        ? 'scale-[1.03] shadow-[0_0_15px_rgba(255,255,255,0.3)] border-white/50' 
+        : ''
+      }
+    `}
     onMouseEnter={() => onHover(branch.id)}
     onMouseLeave={() => onHover(null)}
   >
-    <div className={styles.branchCardBody}>
-      <div className={styles.branchCardHeader}>
-        <MapPin className={styles.branchIcon} />
-        <h5 className={styles.branchTitle}>{branch.city}</h5>
+    <div className="p-3 sm:p-4">
+      <div className="flex items-center mb-2 sm:mb-3">
+        <MapPin className="mr-2 text-white/70 w-4 h-4 sm:w-5 sm:h-5" />
+        <h5 className="text-base sm:text-lg lg:text-xl font-semibold text-white/90 m-0">
+          {branch.city}
+        </h5>
       </div>
-      <p className={styles.branchAddress}>{branch.address}</p>
+      <p className="text-white/80 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">
+        {branch.address}
+      </p>
       <a
         href={branch.mapLink}
         target="_blank"
         rel="noopener noreferrer"
-        className={styles.mapButton}
+        className="text-white bg-transparent border-none inline-flex items-center transition-all duration-300 p-0 hover:opacity-90 text-sm sm:text-base"
       >
-        <GlobeIcon className={styles.mapButtonIcon} />
+        <GlobeIcon className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
         View on Map
       </a>
     </div>
@@ -73,40 +83,38 @@ const Branches = () => {
   const [globeSize, setGlobeSize] = useState({ width: 500, height: 500 });
   const [isClient, setIsClient] = useState(false);
 
-  // Set initial default values for SSR that won't cause issues
   useEffect(() => {
-    // Mark that we're now on the client
     setIsClient(true);
     
-    // Responsive globe size calculation
     const handleResize = () => {
       const windowWidth = window.innerWidth;
       let width, height;
 
-      if (windowWidth < 640) {
-        // Mobile view
+      if (windowWidth < 480) {
+        width = 250;
+        height = 250;
+      } else if (windowWidth < 640) {
         width = 300;
         height = 300;
+      } else if (windowWidth < 768) {
+        width = 400;
+        height = 400;
       } else if (windowWidth < 1024) {
-        // Tablet view
         width = 500;
         height = 500;
+      } else if (windowWidth < 1280) {
+        width = 600;
+        height = 600;
       } else {
-        // Desktop view
-        width = 850;
-        height = 850;
+        width = 700;
+        height = 700;
       }
 
       setGlobeSize({ width, height });
     };
 
-    // Initial call
     handleResize();
-
-    // Add resize listener
     window.addEventListener('resize', handleResize);
-
-    // Cleanup listener
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -130,52 +138,66 @@ const Branches = () => {
     if (!isClient) return;
     
     if (branchId && globeRef.current) {
-      // Stop rotation when a branch is hovered
       setGlobeRotation(false);
       
-      // Find the hovered branch
       const branch = BRANCH_DATA.find(b => b.id === branchId);
       if (branch) {
-        // Rotate to focus on the specific location
         globeRef.current.pointOfView(
           { 
             lat: branch.position.lat, 
             lng: branch.position.lng, 
             altitude: 2.5 
           }, 
-          1000 // Transition duration in ms
+          1000
         );
       }
     } else {
-      // Resume rotation when no branch is hovered
       setGlobeRotation(true);
     }
   };
 
-  // Move DOM manipulation to a client-side only function
-  const createCustomMarker = (color = "#FF6B6B", isActive = false) => {
+  // Fixed marker creation function
+  const createCustomMarker = (d) => {
     if (!isClient) return null;
     
+    const isActive = d.id === activeBranch;
+    const color = isActive ? "#FF6B6B" : "#4CAF50";
+    
     const el = document.createElement("div");
-    el.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" width="24" height="24">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-      </svg>
+    el.style.cssText = `
+      width: 28px;
+      height: 28px;
+      position: relative;
+      transform: translate(-50%, -100%);
+      pointer-events: none;
+      z-index: 1000;
     `;
-    el.style.width = "24px";
-    el.style.height = "24px";
-    el.style.transform = "translate(-50%, -100%)";
-    if (isActive) {
-      el.style.animation = "pulse 1s infinite";
-    }
+    
+    el.innerHTML = `
+      <div style="
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ${isActive ? 'animation: markerPulse 1.5s ease-in-out infinite;' : ''}
+      ">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" width="28" height="28" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      </div>
+    `;
+    
     return el;
   };
 
   return (
-    <div className={styles.branchesContainer}>
-      <div className={styles.branchesWrapper}>
-        <div className={styles.globeSection}>
-          <div className={styles.globeWrapper}>
+    <div className="bg-[#04041D] text-white flex items-center justify-center py-6 sm:py-8 lg:py-12 px-3 sm:px-4 lg:px-8 w-full max-w-[1800px] mx-auto min-h-screen lg:min-h-0">
+      <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl gap-4 sm:gap-6 lg:gap-8">
+        
+        {/* Globe Section */}
+        <div className="w-full lg:w-1/2 flex justify-center items-center order-1 lg:order-1">
+          <div className="w-full aspect-square flex justify-center items-center overflow-hidden max-w-[250px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px]">
             {isClient && (
               <Globe
                 ref={globeRef}
@@ -187,30 +209,28 @@ const Branches = () => {
                 labelLat={(d) => d.position.lat + (d.labelOffset?.lat || 0)}
                 labelLng={(d) => d.position.lng + (d.labelOffset?.lng || 0)}
                 labelText={(d) => d.city}
-                labelSize={1.5}
+                labelSize={1.2}
                 labelColor={() => "white"}
                 labelAltitude={(d) => d.labelAltitude}
                 labelDotRadius={0}
                 labelResolution={2}
                 htmlElementsData={BRANCH_DATA}
-                htmlElement={(d) =>
-                  createCustomMarker(
-                    d.id === activeBranch ? "#FF6B6B" : "#4CAF50",
-                    d.id === activeBranch
-                  )
-                }
+                htmlElement={createCustomMarker}
                 htmlLat={(d) => d.position.lat}
                 htmlLng={(d) => d.position.lng}
+                htmlAltitude={0.01}
               />
             )}
           </div>
         </div>
 
-        <div className={styles.branchListSection}>
-          <h2 className={styles.sectionTitle}>
+        {/* Branch List Section */}
+        <div className="w-full lg:w-1/2 flex flex-col order-2 lg:order-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 lg:mb-8 text-white text-center lg:text-left">
             Our Branches
           </h2>
-          <div className={styles.branchCardContainer}>
+          
+          <div className="flex flex-col gap-3 sm:gap-4">
             {BRANCH_DATA.map((branch) => (
               <BranchCard
                 key={branch.id}
@@ -222,6 +242,24 @@ const Branches = () => {
           </div>
         </div>
       </div>
+
+      {/* Enhanced CSS for animations */}
+      <style jsx global>{`
+        @keyframes markerPulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.2);
+            opacity: 0.8;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };
