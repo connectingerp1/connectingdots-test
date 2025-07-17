@@ -254,7 +254,7 @@ const PopupForm = ({ onSubmitData }) => {
           muted
           playsInline
         >
-          <source src="/bg/bg8.mp4" type="video/mp4" />
+          <source src="/bg/bg7.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 

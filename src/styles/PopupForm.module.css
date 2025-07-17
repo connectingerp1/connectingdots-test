@@ -47,7 +47,7 @@
   object-fit: cover;
   z-index: -1;
   border-radius: 10px;
-  opacity: 0.6;
+  opacity: 0.2;
 }
 
 /* Popup slide-in animation */
@@ -242,13 +242,14 @@
 }
 
 .logo {
-  width: 35px; /* Increased from 30px */
-  height: 35px; /* Increased from 30px */
-  margin-right: 8px; /* Increased from 6px */
-  margin-left: -18px; /* Increased from -15px */
+  width: 35px;
+  height: 35px;
+  margin-right: 8px;
+  margin-left: -18px;
   transition: all 0.3s ease-in-out;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 0 8px rgba(0, 153, 255, 0.8));
 }
+
 
 .headerContainer h2 {
   font-size: 18px; /* Increased from 15px */
