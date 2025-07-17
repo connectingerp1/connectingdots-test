@@ -37,36 +37,57 @@ export async function generateStaticParams() {
 
     // ✅ CRITICAL: Limit generation to prevent build timeouts
     // Priority cities for initial deployment
-    const priorityCities = ["pune", "mumbai", "delhi", "bangalore", "chennai", "hyderabad"];
-    const limitedCities = cityKeys.filter(city => priorityCities.includes(city));
-    
-    // Priority courses for initial deployment  
-    const priorityCourses = ["sap-fico", "sap", "digital-marketing", "data-science", "java"];
-    const limitedCourses = courseKeys.filter(course => priorityCourses.includes(course));
+    const priorityCities = [
+      "pune",
+      "mumbai",
+      "delhi",
+      "bangalore",
+      "chennai",
+      "hyderabad",
+    ];
+    const limitedCities = cityKeys.filter((city) =>
+      priorityCities.includes(city)
+    );
+
+    // Priority courses for initial deployment
+    const priorityCourses = [
+      "sap-fico",
+      "sap",
+      "digital-marketing",
+      "data-science",
+      "java",
+    ];
+    const limitedCourses = courseKeys.filter((course) =>
+      priorityCourses.includes(course)
+    );
 
     // Generate limited combinations first
-    limitedCourses.forEach(courseSlug => {
-      limitedCities.forEach(citySlug => {
+    limitedCourses.forEach((courseSlug) => {
+      limitedCities.forEach((citySlug) => {
         try {
           const course = coursesData[courseSlug];
           const city = citiesData[citySlug];
-          
+
           if (course && city && course.slug && city.name) {
             params.push({
-              slug: `${courseSlug}-course-in-${citySlug}`
+              slug: `${courseSlug}-course-in-${citySlug}`,
             });
           }
         } catch (error) {
-          console.warn(`⚠️ Error processing ${courseSlug}-${citySlug}:`, error.message);
+          console.warn(
+            `⚠️ Error processing ${courseSlug}-${citySlug}:`,
+            error.message
+          );
         }
       });
     });
 
-    console.log(`✅ Generated ${params.length} priority static params for course pages`);
-    
+    console.log(
+      `✅ Generated ${params.length} priority static params for course pages`
+    );
+
     // Return limited set for initial deployment
     return params;
-    
   } catch (error) {
     console.error("❌ Error in generateStaticParams:", error);
     return [];
@@ -76,7 +97,7 @@ export async function generateStaticParams() {
 // Helper function to parse the slug into course and city components
 function parseSlug(slug) {
   try {
-    if (!slug || typeof slug !== 'string') return null;
+    if (!slug || typeof slug !== "string") return null;
 
     const lastInIndex = slug.lastIndexOf("-in-");
     if (lastInIndex === -1) return null;
@@ -120,7 +141,12 @@ export async function generateMetadata({ params }) {
 
     const { courseSlug, citySlug } = parsed;
 
-    if (!coursesData || !citiesData || !coursesData[courseSlug] || !citiesData[citySlug]) {
+    if (
+      !coursesData ||
+      !citiesData ||
+      !coursesData[courseSlug] ||
+      !citiesData[citySlug]
+    ) {
       return {
         title: "Course Not Available | Connecting Dots ERP",
         description: "The requested course or location is not available.",
@@ -142,12 +168,13 @@ export async function generateMetadata({ params }) {
       robots: metadata.robots,
       alternates: {
         canonical: metadata.canonical,
-        languages: metadata.alternates?.reduce((acc, alt) => {
-          if (alt.hreflang && alt.href) {
-            acc[alt.hreflang] = alt.href;
-          }
-          return acc;
-        }, {}) || {},
+        languages:
+          metadata.alternates?.reduce((acc, alt) => {
+            if (alt.hreflang && alt.href) {
+              acc[alt.hreflang] = alt.href;
+            }
+            return acc;
+          }, {}) || {},
       },
       openGraph: metadata.openGraph,
       twitter: metadata.twitter,
@@ -157,7 +184,6 @@ export async function generateMetadata({ params }) {
       },
       manifest: metadata.manifest || "/site.webmanifest",
     };
-
   } catch (error) {
     console.error("❌ Error in generateMetadata:", error);
     return {
@@ -212,14 +238,30 @@ const CourseCityPage = async ({ params }) => {
     };
 
     // Safe data processing with fallbacks
-    const headerData = course.header ? processPlaceholders(course.header, city.name) : null;
-    const whyData = course.why ? processPlaceholders(course.why, city.name) : null;
-    const sapModData = course.sapMod ? processPlaceholders(course.sapMod, city.name) : null;
-    const modulesData = course.modulesData ? processPlaceholders(course.modulesData, city.name) : null;
-    const certificateData = course.certificate ? processPlaceholders(course.certificate, city.name) : null;
-    const faqData = course.faq ? processPlaceholders(course.faq, city.name) : null;
-    const relatedCoursesData = course.relatedCourses ? processPlaceholders(course.relatedCourses, city.name) : null;
-    const descriptionContentData = course.descriptionContent ? processPlaceholders(course.descriptionContent, city.name) : null;
+    const headerData = course.header
+      ? processPlaceholders(course.header, city.name)
+      : null;
+    const whyData = course.why
+      ? processPlaceholders(course.why, city.name)
+      : null;
+    const sapModData = course.sapMod
+      ? processPlaceholders(course.sapMod, city.name)
+      : null;
+    const modulesData = course.modulesData
+      ? processPlaceholders(course.modulesData, city.name)
+      : null;
+    const certificateData = course.certificate
+      ? processPlaceholders(course.certificate, city.name)
+      : null;
+    const faqData = course.faq
+      ? processPlaceholders(course.faq, city.name)
+      : null;
+    const relatedCoursesData = course.relatedCourses
+      ? processPlaceholders(course.relatedCourses, city.name)
+      : null;
+    const descriptionContentData = course.descriptionContent
+      ? processPlaceholders(course.descriptionContent, city.name)
+      : null;
 
     // Check if this is a multi-section course
     const isMultiSectionCourse =
@@ -238,9 +280,10 @@ const CourseCityPage = async ({ params }) => {
         <section class="course-summary">
           <h3>About Our ${course.fullTitle || course.title || "Course"} Course</h3>
           <p>Our comprehensive ${course.title || "course"} course in ${city.name || "your city"} is designed to equip you with practical skills and industry insights.</p>
-          ${course.jobRoles && course.jobRoles.length > 0 ? 
-            `<p>Get ready for a successful career in roles such as ${course.jobRoles.slice(0, 2).join(" or ")}.</p>` : 
-            ""
+          ${
+            course.jobRoles && course.jobRoles.length > 0
+              ? `<p>Get ready for a successful career in roles such as ${course.jobRoles.slice(0, 2).join(" or ")}.</p>`
+              : ""
           }
         </section>
 
@@ -325,11 +368,19 @@ const CourseCityPage = async ({ params }) => {
 
         <div dangerouslySetInnerHTML={{ __html: dynamicBodyContent }} />
 
-        <ClientOnly fallback={
-          <div style={{ minHeight: '200px', padding: '20px', textAlign: 'center' }}>
-            <div>Loading page content...</div>
-          </div>
-        }>
+        <ClientOnly
+          fallback={
+            <div
+              style={{
+                minHeight: "200px",
+                padding: "20px",
+                textAlign: "center",
+              }}
+            >
+              <div>Loading page content...</div>
+            </div>
+          }
+        >
           {headerData && <DSHeader data={headerData} />}
           {whyData && <Why data={whyData} />}
           {sapModData && <SapModComponent data={sapModData} />}
@@ -338,16 +389,22 @@ const CourseCityPage = async ({ params }) => {
           <TrustUs />
           <Program />
           {certificateData && <Certificate data={certificateData} />}
-          {descriptionContentData && <Description data={descriptionContentData} />}
+          {descriptionContentData && (
+            <Description data={descriptionContentData} />
+          )}
           {faqData && <FAQ data={faqData} />}
-          {course.category === 'hr' && <HrCard />}
-          {relatedCoursesData && <CoursesRelated data={relatedCoursesData} currentCityName={city.name} />}
+          {course.category === "hr" && <HrCard />}
+          {relatedCoursesData && (
+            <CoursesRelated
+              data={relatedCoursesData}
+              currentCityName={city.name}
+            />
+          )}
         </ClientOnly>
 
         <div dangerouslySetInnerHTML={{ __html: scrollScript }} />
       </>
     );
-
   } catch (error) {
     console.error("❌ Error in CourseCityPage:", error);
     notFound();

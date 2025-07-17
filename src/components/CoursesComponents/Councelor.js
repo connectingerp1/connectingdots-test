@@ -19,13 +19,13 @@ const Councelor = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      AOS.init({ duration: 1000 });
+      AOS.init({ duration: 100 });
     }
   }, []);
 
   return (
     <div>
-      <div className={styles.counselorContainer} data-aos="fade-up">
+      <div className={styles.counselorContainer}>
         <video
           className={styles.backgroundVideo}
           src="https://i.imgur.com/OKLCgpA.mp4"
