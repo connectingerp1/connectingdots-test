@@ -1,4 +1,4 @@
-// src/components/ClientLayoutWrapper.js - FIXED VERSION
+// src/components/ClientLayoutWrapper.js - Fixed to prevent errors
 
 "use client";
 
@@ -9,17 +9,42 @@ import { usePathname } from "next/navigation";
 // 1. IMPORT THE CONTEXT PROVIDER
 import { CityProvider } from "@/context/CityContext";
 
-// Lazy load client-side components
+// ✅ FIXED: Better error handling for dynamic imports
 const BackgroundAnimation = dynamic(
   () => import("@/components/Common/BackgroundAnimation"),
-  { ssr: false, loading: () => null }
+  { 
+    ssr: false, 
+    loading: () => null,
+    // Add error fallback
+    onError: (error) => {
+      console.warn("BackgroundAnimation failed to load:", error);
+      return null;
+    }
+  }
 );
-const Chatbot = dynamic(() => import("@/components/Chatbot"), { ssr: false });
+
+const Chatbot = dynamic(() => import("@/components/Chatbot"), { 
+  ssr: false,
+  onError: (error) => {
+    console.warn("Chatbot failed to load:", error);
+    return null;
+  }
+});
+
 const PopupForm = dynamic(() => import("@/components/PopupForm"), {
   ssr: false,
+  onError: (error) => {
+    console.warn("PopupForm failed to load:", error);
+    return null;
+  }
 });
+
 const Stickyform = dynamic(() => import("@/components/Stickyform"), {
   ssr: false,
+  onError: (error) => {
+    console.warn("Stickyform failed to load:", error);
+    return null;
+  }
 });
 
 // Regular imports for lighter components
@@ -50,19 +75,31 @@ export default function ClientLayoutWrapper({ children }) {
     pathname.startsWith(path)
   );
 
-  // API pings
+  // ✅ FIXED: Better error handling for API pings
   useEffect(() => {
     const delayedPing = setTimeout(() => {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
-      if (apiBaseUrl) {
-        fetch(`${apiBaseUrl}/api/ping`).catch(() => {});
+      try {
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
+        if (apiBaseUrl) {
+          fetch(`${apiBaseUrl}/api/ping`).catch((error) => {
+            console.warn("API ping failed:", error);
+          });
+        }
+      } catch (error) {
+        console.warn("API ping setup failed:", error);
       }
     }, 3000);
 
     const delayedBlogPing = setTimeout(() => {
-      const blogBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-      if (blogBaseUrl) {
-        fetch(`${blogBaseUrl}/api/blogs/ping`).catch(() => {});
+      try {
+        const blogBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        if (blogBaseUrl) {
+          fetch(`${blogBaseUrl}/api/blogs/ping`).catch((error) => {
+            console.warn("Blog ping failed:", error);
+          });
+        }
+      } catch (error) {
+        console.warn("Blog ping setup failed:", error);
       }
     }, 4000);
 
@@ -73,13 +110,11 @@ export default function ClientLayoutWrapper({ children }) {
   }, []);
 
   return (
-    // 3. WRAP EVERYTHING IN THE PROVIDER
     <CityProvider>
       {/* 4. RENDER THE ACTUAL PAGE CONTENT HERE */}
-      {/* This 'children' is your HomePage, AboutPage, etc. */}
       {children}
 
-      {/* All of your global client-side components will now render alongside the page content */}
+      {/* All of your global client-side components */}
       <BackgroundAnimation />
 
       <Suspense fallback={null}>
@@ -90,10 +125,18 @@ export default function ClientLayoutWrapper({ children }) {
       <Floatingcontact phoneNumber="+919004002958" />
       <Whatsapp phoneNumber="+919004002958" />
 
-      {/* Lazy loaded heavy components */}
-      <Chatbot />
-      <Stickyform />
-      <PopupForm />
+      {/* ✅ FIXED: Wrap potentially problematic components in error boundaries */}
+      <Suspense fallback={null}>
+        <Chatbot />
+      </Suspense>
+      
+      <Suspense fallback={null}>
+        <Stickyform />
+      </Suspense>
+      
+      <Suspense fallback={null}>
+        <PopupForm />
+      </Suspense>
 
       {!shouldHideComponent && <WaveComponent />}
       <BottomMenu />

@@ -1,4 +1,4 @@
-// src/app/layout.js - COMPLETE CORRECTED VERSION
+// src/app/layout.js - Fixed to prevent JavaScript errors
 
 import { Lato, Rubik } from "next/font/google";
 import Script from "next/script";
@@ -38,14 +38,18 @@ export const metadata = {
   title: {
     default: "Connecting Dots ERP | SAP Training Institute",
   },
-  description:
-    "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",
+  description: "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",
   verification: {
     google: "KRKFsO9AAW2a8qImif8Wj4uzzjmWGA0R6o7IZFJcmPo",
     other: {
-      "ahrefs-site-verification":
-        "b872425e28fadcf9facf8f8257df376299d08f293e0f849e466a66a9b4448eec",
+      "ahrefs-site-verification": "b872425e28fadcf9facf8f8257df376299d08f293e0f849e466a66a9b4448eec",
     },
+  },
+  // ✅ FIXED: Add manifest reference at the top level
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: "/favicon.ico",
+    appleTouchIcon: "/apple-touch-icon.png",
   },
 };
 
@@ -53,6 +57,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
       <head>
+        {/* ✅ FIXED: Ensure manifest is properly linked */}
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#1a365d" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        
         {/* GTM Head Script - Critical for GTM to work properly */}
         <Script
           id="gtm-head"
@@ -68,7 +77,10 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className={`body bg-black ${lato.className} ${rubik.className}`}>
+      <body 
+        className={`body bg-black ${lato.className} ${rubik.className}`}
+        suppressHydrationWarning={true} // ✅ FIXED: Suppress hydration warnings
+      >
         {/* GTM noscript fallback - Required for users with JavaScript disabled */}
         <noscript>
           <iframe

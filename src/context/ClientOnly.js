@@ -1,21 +1,24 @@
+// context/ClientOnly.js - Fixed to prevent hydration mismatches
+
 "use client";
 
 import { useEffect, useState } from "react";
 
-// This component ensures its children only render on the client side
-const ClientOnly = ({ children, key }) => {
+// ✅ FIXED: Prevent hydration mismatches by ensuring consistent rendering
+const ClientOnly = ({ children, fallback = null }) => {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
+  // ✅ FIXED: Render consistent fallback on server and initial client render
   if (!hasMounted) {
-    return null;
+    return fallback;
   }
 
-  // Apply the key to force re-rendering when it changes
-  return <div key={key}>{children}</div>;
+  // ✅ FIXED: Simple wrapper without extra div or key prop that could cause issues
+  return <>{children}</>;
 };
 
 export default ClientOnly;

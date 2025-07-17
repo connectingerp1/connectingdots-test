@@ -1,4 +1,4 @@
-// lib/dynamicSEO.js (Complete and Optimized for Meta Titles/Descriptions)
+// lib/dynamicSEO.js - Fixed for JavaScript Errors
 
 import { coursesData, citiesData } from "./masterData.js";
 
@@ -8,10 +8,102 @@ function truncateString(str, maxLength) {
   if (str.length <= maxLength) return str;
   const truncated = str.slice(0, maxLength);
   const lastSpaceIndex = truncated.lastIndexOf(" ");
-  // Cut at last word boundary if it's not too far back, otherwise just hard truncate
   return lastSpaceIndex > maxLength * 0.8 && lastSpaceIndex < maxLength
     ? truncated.slice(0, lastSpaceIndex) + "..."
     : truncated + "...";
+}
+
+// Strategic city name optimization
+function getOptimizedCityName(cityName) {
+  const optimizations = {
+    "Pimpri-Chinchwad": "Pimpri",
+    "Visakhapatnam": "Vizag", 
+    "Koregaon-Park": "Koregaon",
+    "Shivaji-Nagar": "Shivaji Ngr",
+    "Pimple-Saudagar": "Pimple",
+    "Thiruvananthapuram": "Trivandrum",
+    "Navi-Mumbai": "Navi Mumbai",
+    "Vile-Parle": "Vile Parle",
+  };
+  return optimizations[cityName] || cityName;
+}
+
+// Strategic course name optimization
+function getOptimizedCourseTitle(courseTitle) {
+  const optimizations = {
+    "SAP SuccessFactors": "SAP SF",
+    "Full Stack Developer": "Full Stack Dev",
+    "Data Visualization": "Data Viz",
+    "Business Analytics": "Biz Analytics",
+    "HR Management": "HR Mgmt",
+    "SAP S4 HANA": "SAP S4",
+  };
+  return optimizations[courseTitle] || courseTitle;
+}
+
+// Smart title optimization (50-60 chars target)
+function getOptimalTitle(course, cityName, courseTitle) {
+  if (course.metaTitle) {
+    const processedTitle = course.metaTitle.replace(/{city}/g, cityName);
+    return truncateString(processedTitle, 60);
+  }
+  
+  const currentYear = new Date().getFullYear();
+  const cityLength = cityName.length;
+  const courseTitleLength = courseTitle.length;
+  
+  // Strategy 1: Try standard template
+  const standardTemplate = `${courseTitle} Course in ${cityName} | Training`;
+  if (standardTemplate.length <= 60) {
+    return standardTemplate;
+  }
+  
+  // Strategy 2: Optimize city name
+  const optimizedCity = getOptimizedCityName(cityName);
+  const cityOptimizedTemplate = `${courseTitle} Course in ${optimizedCity} | Training`;
+  if (cityOptimizedTemplate.length <= 60) {
+    return cityOptimizedTemplate;
+  }
+  
+  // Strategy 3: Optimize both
+  const optimizedCourse = getOptimizedCourseTitle(courseTitle);
+  const bothOptimizedTemplate = `${optimizedCourse} in ${optimizedCity} | Training`;
+  if (bothOptimizedTemplate.length <= 60) {
+    return bothOptimizedTemplate;
+  }
+  
+  // Fallback: Truncate
+  return truncateString(`${courseTitle} in ${cityName} | Training`, 60);
+}
+
+// Smart description optimization (150-160 chars target)
+function getOptimalDescription(course, cityName, courseTitle) {
+  if (course.metaDescription) {
+    const processedDescription = course.metaDescription.replace(/{city}/g, cityName);
+    if (processedDescription.length <= 160) {
+      return processedDescription;
+    }
+    return truncateString(processedDescription, 160);
+  }
+  
+  // Template targeting 150-160 chars
+  const template = `Master ${courseTitle} in ${cityName}. Expert-led training, certification, real-time projects & 100% placement support. Launch your career now!`;
+  
+  if (template.length >= 150 && template.length <= 160) {
+    return template;
+  }
+  
+  if (template.length > 160) {
+    return truncateString(template, 160);
+  }
+  
+  // If too short, expand slightly
+  const expandedTemplate = template.replace(
+    "Launch your career now!",
+    "Start your successful career journey now!"
+  );
+  
+  return expandedTemplate.length <= 160 ? expandedTemplate : truncateString(expandedTemplate, 160);
 }
 
 export function generateDynamicMetadata(courseSlug, citySlug) {
@@ -28,70 +120,37 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
   const courseTitle = course.title;
   const cityName = city.name;
   const hasOffice = city.hasOffice;
-  const currentYear = new Date().getFullYear();
 
-  // --- META TITLE LOGIC ---
-  let finalTitle;
-  if (course.metaTitle) {
-    finalTitle = course.metaTitle.replace(/{city}/g, cityName);
-    // You can choose to add truncation here as a safeguard even if metaTitle is defined.
-    // finalTitle = truncateString(finalTitle, 60); // Max 60 chars for title
-  } else {
-    // Fallback template if metaTitle is not explicitly defined in masterData
-    const defaultTitleTemplate = `${courseTitle} Course in ${cityName} | ${currentYear} Cert. & Placements`;
-    finalTitle = truncateString(defaultTitleTemplate, 60); // Apply truncation to fallback
-  }
+  // Generate optimized title and description
+  const finalTitle = getOptimalTitle(course, cityName, courseTitle);
+  const finalDescription = getOptimalDescription(course, cityName, courseTitle);
 
-  // --- META DESCRIPTION LOGIC ---
-  let finalDescription;
-  if (course.metaDescription) {
-    finalDescription = course.metaDescription.replace(/{city}/g, cityName);
-    // You can choose to add truncation here as a safeguard even if metaDescription is defined.
-    // finalDescription = truncateString(finalDescription, 155); // Max 155 chars for description
-  } else {
-    // Fallback template if metaDescription is not explicitly defined in masterData
-    const fallbackDescriptionTemplate = `${course.description.replace(/{city}/g, cityName)} Get ${course.certification} with ${course.duration} training, placement support, and hands-on projects in ${cityName}.`;
-    finalDescription = truncateString(fallbackDescriptionTemplate, 155); // Apply truncation to fallback
-  }
-
-  // Generate extensive keywords
+  // Generate strategic keywords
   const keywords = [
     `${courseTitle} Course in ${cityName}`,
-    `${courseTitle} Training Institute in ${cityName}`,
-    `Best ${courseTitle} Training Institute in ${cityName}`,
-    `${courseTitle} Jobs ${cityName}`,
-    `${courseTitle} Certificate in ${cityName}`,
-    `${courseTitle} Certificate Course in ${cityName}`,
-    `${courseTitle} Course Fees ${cityName}`,
-    `${courseTitle} Training Fees in ${cityName}`,
-    `${courseTitle} Interview Preparation ${cityName}`,
-    `${courseTitle} Mock Interview ${cityName}`,
-    `${courseTitle} Tutorial`,
-    `${courseTitle} Summer Training ${cityName}`,
     `${courseTitle} Training in ${cityName}`,
-    `${courseTitle} Industrial Training ${cityName}`,
-    `${courseTitle} Internship ${cityName}`,
-    `How to become ${courseTitle} expert in ${cityName}`,
-    `${courseTitle} course Syllabus`,
-    `Connecting Dots ERP ${courseTitle} ${cityName}`,
-    ...course.jobRoles.map((role) => `${role} ${cityName}`),
-    ...(course.modules
-      ? course.modules.map((module) => `${module} training ${cityName}`)
-      : []),
+    `Best ${courseTitle} Training Institute in ${cityName}`,
+    `${courseTitle} Certification in ${cityName}`,
+    `${courseTitle} Classes in ${cityName}`,
+    `${courseTitle} Jobs in ${cityName}`,
+    `Connecting Dots ERP ${cityName}`,
+    ...course.jobRoles.slice(0, 2).map((role) => `${role} ${cityName}`),
+    ...(course.modules ? course.modules.slice(0, 2).map((module) => `${module} training ${cityName}`) : []),
   ]
     .filter(Boolean)
-    .join(", "); // Filter out any empty strings and join
+    .join(", ");
+    
+  const optimizedKeywords = truncateString(keywords, 400);
 
-  // Generate dynamic URLs and images
+  // Generate URLs
   const pageUrl = `https://connectingdotserp.com/${course.slug}-course-in-${citySlug}`;
-  // Ensure your image paths are correct and these images exist
   const ogImageUrl = `https://connectingdotserp.com/images/og-${course.slug}-course-${citySlug}.jpg`;
   const twitterImageUrl = `https://connectingdotserp.com/images/twitter-${course.slug}-course-${citySlug}.jpg`;
 
-  // Generate Open Graph metadata
+  // Open Graph metadata
   const openGraph = {
-    title: finalTitle, // Use optimized title
-    description: finalDescription, // Use optimized description
+    title: finalTitle,
+    description: finalDescription,
     url: pageUrl,
     siteName: "Connecting Dots ERP",
     images: [
@@ -99,7 +158,7 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: `${courseTitle} Course in ${cityName}`,
+        alt: truncateString(`${courseTitle} Course in ${cityName}`, 100),
       },
     ],
     type: "website",
@@ -107,17 +166,17 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
     updatedTime: new Date().toISOString(),
   };
 
-  // Generate Twitter Card metadata
+  // Twitter Card metadata
   const twitter = {
     card: "summary_large_image",
-    title: finalTitle, // Use optimized title
-    description: finalDescription, // Use optimized description
+    title: finalTitle,
+    description: finalDescription,
     images: [twitterImageUrl],
     site: "@CD_ERP",
     creator: "@CD_ERP",
   };
 
-  // Generate enhanced metadata for cities with offices
+  // FIXED: Enhanced metadata with correct meta tag names
   const enhancedMeta = hasOffice
     ? {
         geoRegion: city.seoData.geoRegion,
@@ -130,16 +189,15 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
         themeColor: "#1a365d",
         msApplicationNavButtonColor: "#1a365d",
         appleStatusBarStyle: "black-translucent",
-        mobileWebCapable: "yes",
-        appleMobileCapable: "yes",
-        appleMobileTitle: `${courseTitle} - ${cityName}`,
+        "mobile-web-app-capable": "yes", // ✅ Fixed: Use correct meta tag
+        appleMobileTitle: truncateString(`${getOptimizedCourseTitle(courseTitle)} - ${getOptimizedCityName(cityName)}`, 45),
       }
     : {};
 
   return {
-    title: finalTitle, // Use optimized title
-    description: finalDescription, // Use optimized description
-    keywords, // Keywords remain dynamically generated from modules/jobRoles
+    title: finalTitle,
+    description: finalDescription,
+    keywords: optimizedKeywords,
     robots: "index, follow",
     author: "Connecting Dots ERP Training Institute",
     language: "en-US",
@@ -164,11 +222,8 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
     icons: {
       icon: "/favicon.ico",
       appleTouchIcon: "/apple-touch-icon.png",
-      // You can add specific sizes here if your favicons have them
-      // favicon32: '/favicon-32x32.png',
-      // favicon16: '/favicon-16x16.png'
     },
-    // manifest: "/site.webmanifest",
+    manifest: "/site.webmanifest", // ✅ Fixed: Ensure manifest is included
     preconnect: [
       "https://fonts.googleapis.com",
       "https://fonts.gstatic.com",
@@ -180,7 +235,7 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
       "//fonts.googleapis.com",
     ],
     facebook: {
-      appId: "your-facebook-app-id", // Replace with your actual Facebook App ID
+      appId: "your-facebook-app-id",
     },
     pinterest: {
       richPin: "true",
@@ -188,6 +243,7 @@ export function generateDynamicMetadata(courseSlug, citySlug) {
   };
 }
 
+// Keep your existing generateDynamicJsonLd function unchanged
 export function generateDynamicJsonLd(courseSlug, citySlug) {
   const course = coursesData[courseSlug];
   const city = citiesData[citySlug];
@@ -204,12 +260,11 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
   const currentDate = new Date().toISOString();
   const futureDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
     .toISOString()
-    .split("T")[0]; // Valid for 90 days
+    .split("T")[0];
   const courseTitle = course.title;
   const cityName = city.name;
   const hasOffice = city.hasOffice;
 
-  // Process description with city replacement (using the main description, not metaDescription)
   const processedDescription = course.description.replace(/{city}/g, cityName);
 
   const jsonLd = [
@@ -222,7 +277,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       description: "Best Training Provider | Placement Giants",
       url: baseUrl,
       telephone:
-        hasOffice && city.office.phone ? city.office.phone : "+919004002941",
+        hasOffice && city.office?.phone ? city.office.phone : "+919004002941",
       logo: {
         "@type": "ImageObject",
         url: `${baseUrl}/Navbar/logo.webp`,
@@ -253,7 +308,6 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       name: `${courseTitle} Course in ${cityName} | Connecting Dots ERP`,
       description: processedDescription,
       inLanguage: "en-US",
-
       isPartOf: {
         "@id": `${baseUrl}/#website`,
       },
@@ -262,7 +316,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       },
       image: {
         "@type": "ImageObject",
-        url: `${baseUrl}/images/course-banner-${course.slug}-course.jpg`, // Example: course-banner-sap-fico-course.jpg
+        url: `${baseUrl}/images/course-banner-${course.slug}-course.jpg`,
         "@id": `${pageUrl}#mainImage`,
         width: 1200,
         height: 630,
@@ -271,7 +325,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       primaryImageOfPage: {
         "@id": `${pageUrl}#mainImage`,
       },
-      datePublished: course.publishedAt || currentDate, // Assuming coursesData might have a publishedAt
+      datePublished: course.publishedAt || currentDate,
       dateModified: course.updatedAt || currentDate,
     },
 
@@ -289,7 +343,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
         {
           "@type": "ListItem",
           position: 2,
-          name: `${course.category.charAt(0).toUpperCase() + course.category.slice(1)} Courses`, // e.g., "Sap Courses", "Hr Courses"
+          name: `${course.category.charAt(0).toUpperCase() + course.category.slice(1)} Courses`,
           item: `${baseUrl}/${course.category}-courses`,
         },
         {
@@ -328,10 +382,10 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       inLanguage: "en-US",
     },
 
-    // Course Schema (Correction: Changed "hasCourseinstance" to "Course" as per your HTML examples)
+    // Course Schema
     {
       "@context": "https://schema.org",
-      "@type": "Course", // Corrected type
+      "@type": "Course",
       "@id": `${pageUrl}#course`,
       name: `${courseTitle} Course in ${cityName}`,
       description: processedDescription,
@@ -360,7 +414,6 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
               "@id": `${baseUrl}/${citySlug}/#localbusiness`,
             }
           : {
-              // For cities without offices, provide a general Place
               "@type": "Place",
               name: cityName,
               addressLocality: cityName,
@@ -374,17 +427,16 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
             }
           : {
               "@type": "Organization",
-              "@id": `${baseUrl}/#organization`, // Default to main organization if no local office
+              "@id": `${baseUrl}/#organization`,
             },
       },
-      // Corrected "Rating" to "aggregateRating"
       aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: (hasOffice
+        ratingValue: (hasOffice && city.office
           ? city.office.rating
           : course.defaultRating || 4.5
         ).toString(),
-        reviewCount: (hasOffice
+        reviewCount: (hasOffice && city.office
           ? city.office.reviewCount
           : course.defaultReviewCount || 50
         ).toString(),
@@ -395,7 +447,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
         "@type": "Review",
         author: {
           "@type": "Person",
-          name: "Verified Student", // Or dynamically pull a specific review from masterData
+          name: "Verified Student",
         },
         datePublished: currentDate.split("T")[0],
         reviewBody: `The ${courseTitle} course at Connecting Dots ERP is outstanding! The course content is comprehensive, and the trainers are highly knowledgeable. I highly recommend it to anyone looking to build a successful career in ${courseTitle}.`,
@@ -417,16 +469,16 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
             "@type": "Schedule",
             duration: "PT3H",
             repeatFrequency: "Daily",
-            repeatCount: 31, // Example, adjust as needed
+            repeatCount: 31,
             startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
               .toISOString()
-              .split("T")[0], // Next week
+              .split("T")[0],
             endDate: new Date(Date.now() + 37 * 24 * 60 * 60 * 1000)
               .toISOString()
-              .split("T")[0], // One month after start
+              .split("T")[0],
           },
           instructor:
-            hasOffice && city.office.instructor
+            hasOffice && city.office?.instructor
               ? [
                   {
                     "@type": "Person",
@@ -436,7 +488,6 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
                 ]
               : [
                   {
-                    // Default instructor if no specific one for the city
                     "@type": "Person",
                     name: "Experienced Trainer",
                     description: `${courseTitle} Specialist with 10+ years of experience in training and consulting`,
@@ -453,8 +504,8 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       "@id": `${pageUrl}#video`,
       name: `Introduction to ${courseTitle} Course at Connecting Dots ERP`,
       description: `Explore ${courseTitle} with Connecting Dots ERP! Gain expertise in ${course.modules ? course.modules.slice(0, 2).join(" and ") : "your chosen field"}, data management, and business process integration. Master real-world applications to drive digital transformation.`,
-      thumbnailUrl: `${baseUrl}/images/video-thumbnail-${course.slug}-course-${citySlug}.jpg`, // Placeholder
-      embedUrl: "https://www.youtube.com/embed/7YRbfuv7R3k", // Example generic video, update for specific courses if available
+      thumbnailUrl: `${baseUrl}/images/video-thumbnail-${course.slug}-course-${citySlug}.jpg`,
+      embedUrl: "https://www.youtube.com/embed/7YRbfuv7R3k",
       uploadDate: currentDate.split("T")[0],
       publisher: {
         "@id": `${baseUrl}/#organization`,
@@ -471,7 +522,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       datePosted: currentDate.split("T")[0],
       expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
         .toISOString()
-        .split("T")[0], // Valid for 60 days
+        .split("T")[0],
       url: pageUrl,
       publisher: {
         "@id": `${baseUrl}/#organization`,
@@ -481,7 +532,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
             "@type": "Place",
             "@id": `${baseUrl}/${citySlug}/#localbusiness`,
           }
-        : undefined, // Undefined if no local office
+        : undefined,
     },
   ];
 
@@ -527,7 +578,7 @@ export function generateDynamicJsonLd(courseSlug, citySlug) {
       },
       image: {
         "@type": "ImageObject",
-        url: `${baseUrl}/images/location-${citySlug}-${course.category}.jpg`, // Placeholder
+        url: `${baseUrl}/images/location-${citySlug}-${course.category}.jpg`,
         "@id": `${pageUrl}#locationImage`,
         width: 800,
         height: 600,
