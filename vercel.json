@@ -1,14 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "devCommand": "npm run dev",
-  "installCommand": "npm ci",
   "framework": "nextjs",
-  "functions": {
-    "src/app/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/_next/static/(.*)",
