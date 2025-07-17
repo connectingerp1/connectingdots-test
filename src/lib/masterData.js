@@ -6630,7 +6630,7 @@ export const coursesData = {
       title: "Full stack training in {city}",
       subtitle: "Project-based Job Oriented Full stack course in {city}",
       description:
-        "Grow your potential with Connecting Dots' Full Stack course in {city}, where you'll learn essential development skills for a successful tech career. With hands-on training and secure placement support, this course equips you to thrive in the ever-evolving world of full-stack development.",
+        "Grow your potential with Connecting Dot's Full Stack course in {city}, where you'll learn essential development skills for a successful tech career. With hands-on training and secure placement support, this course equips you to thrive in the ever-evolving world of full-stack development.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -6843,7 +6843,7 @@ export const coursesData = {
       paragraphs: [
         "Connecting Dots ERP offers an advanced full-stack course in {city}, designed to meet the evolving needs of the tech industry. With a advance syllabus covering everything from front-end technologies like HTML, CSS, and JavaScript to back-end frameworks like Node.js and Express, this course ensures you gain both theoretical knowledge and practical skills. Our full stack certification in {city} from Connecting Dots ERP helps you stand out in a competitive job market, making you a top candidate for sought-after tech roles. The course is tailored to provide in-depth exposure to the latest industry trends and tools.",
         "One of the key advantages of choosing Connecting Dots ERP is the focus on hands-on training through live projects and real-world development tasks. Our expert trainers, who bring over a decade of industry experience, ensure you are industry-ready upon completion. The full-stack training fees in {city} are structured to be affordable, making high-quality education accessible to students from all backgrounds. In addition to this, we also offer flexible payment plans for eligible candidates. Additionally, students benefit from modern infrastructure, personalized guidance, and peer-to-peer learning, making it the perfect environment for learning full-stack development.",
-        "At Connecting Dots' full-stack classes in {city}, we believe in learning by doing. Collaborative development projects, hackathons, and coding challenges are a regular part of the program, ensuring you're prepared for real-world scenarios. Our full stack course with 100% placement support program, helping you secure top positions in the industry. Whether you're aiming to become a full-stack developer or manage full-scale software projects, this full-stack course in {city} equips you with the skills and confidence to excel in your career.",
+        "At Connecting Dot's full-stack classes in {city}, we believe in learning by doing. Collaborative development projects, hackathons, and coding challenges are a regular part of the program, ensuring you're prepared for real-world scenarios. Our full stack course with 100% placement support program, helping you secure top positions in the industry. Whether you're aiming to become a full-stack developer or manage full-scale software projects, this full-stack course in {city} equips you with the skills and confidence to excel in your career.",
       ],
       listItem1Header: "What makes our Full Stack training in {city} unique?",
       listItem1: [
@@ -7799,7 +7799,7 @@ export const coursesData = {
       title: "MERN Stack Training Program in {city}",
       subtitle: "Project-based Job Oriented MERN Stack Course in {city}",
       description:
-        "Enhance your career prospects with Connecting Dots' MERN stack course in {city}, where you'll master essential development skills using MongoDB, Express.js, React, and Node.js. With hands-on training and job placement support, this course prepares you for the fast-paced world of full-stack development.",
+        "Enhance your career prospects with Connecting Dot's MERN stack course in {city}, where you'll master essential development skills using MongoDB, Express.js, React, and Node.js. With hands-on training and job placement support, this course prepares you for the fast-paced world of full-stack development.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -8189,7 +8189,7 @@ export const coursesData = {
       subtitle:
         "Learn Our advanced Python Course in {city} with practical training",
       description:
-        "Unlock new career opportunities with Connecting Dots' Python course in {city}, designed to help you master one of the most versatile programming languages. Through hands-on training, expert mentorship, and real-world projects, this course prepares you for a wide range of programming roles, making you proficient in Python development and data handling.",
+        "Unlock new career opportunities with Connecting Dot's Python course in {city}, designed to help you master one of the most versatile programming languages. Through hands-on training, expert mentorship, and real-world projects, this course prepares you for a wide range of programming roles, making you proficient in Python development and data handling.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -8579,7 +8579,7 @@ export const coursesData = {
       title: "Advance Salesforce Training in {city}",
       subtitle: "Join our Project-based Salesforce Training Program in {city}",
       description:
-        "Accelerate your career with Connecting Dots' Salesforce course in {city}, designed to equip you with the essential skills required to master Salesforce CRM, one of the most in-demand platforms in the world. Through practical training and project-based learning, this course prepares you for a range of roles in CRM management, cloud solutions, and customer relationship management.",
+        "Accelerate your career with Connecting Dot's Salesforce course in {city}, designed to equip you with the essential skills required to master Salesforce CRM, one of the most in-demand platforms in the world. Through practical training and project-based learning, this course prepares you for a range of roles in CRM management, cloud solutions, and customer relationship management.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -8947,7 +8947,7 @@ export const coursesData = {
       title: "Advance UI/UX Training in {city}",
       subtitle: "Advanced Job-Oriented UI/UX Design Training in {city}",
       description:
-        "Advance your design career with Connecting Dots' UI/UX design course in {city}, where you'll learn the fundamentals of user-centered design, including wireframing, prototyping, and user research. Through hands-on projects and expert guidance, this course prepares you for dynamic roles in the field of user interface and user experience design, with a focus on creativity and practical application.",
+        "Advance your design career with Connecting Dot's UI/UX design course in {city}, where you'll learn the fundamentals of user-centered design, including wireframing, prototyping, and user research. Through hands-on projects and expert guidance, this course prepares you for dynamic roles in the field of user interface and user experience design, with a focus on creativity and practical application.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -9913,7 +9913,7 @@ export const coursesData = {
       paragraphs: [
         "Connecting Dots ERP offers an advanced Power BI training course in {city}, designed to help individuals build strong data analytics and visualization skills. This course provides a well-structured curriculum covering essential topics such as data modeling, Power Query, DAX (Data Analysis Expressions), and creating insightful reports and dashboards. Whether you are new to data analytics or looking to upskill, the Power BI certification in {city} from Connecting Dots ERP ensures that you are ready to tackle real-world business intelligence challenges and stand out in the competitive job market.",
         "What makes Connecting Dots ERP's Power BI training unique is its focus on practical, hands-on learning. Students get to work on live projects and real datasets, which mirror the tasks performed by industry professionals. Our trainers, with years of experience in data analytics, provide personalized attention to ensure every participant gains the required expertise. Additionally, the Power BI training fees in {city} are designed to be affordable, and flexible payment plans are available, making the course accessible to a wide range of learners. The combination of modern facilities, collaborative peer learning, and expert mentorship creates the ideal learning environment for mastering Power BI.",
-        "At Connecting Dots' Power BI classes in {city}, we emphasize experiential learning through case studies, group projects, and data visualization challenges. The program also includes 100% placement support, giving students the opportunity to secure top positions in leading organizations. Whether your goal is to become a business analyst, data analyst, or Power BI consultant, this Power BI course in {city} equips you with the tools and knowledge to excel in the rapidly growing field of data-driven decision-making.",
+        "At Connecting Dot's Power BI classes in {city}, we emphasize experiential learning through case studies, group projects, and data visualization challenges. The program also includes 100% placement support, giving students the opportunity to secure top positions in leading organizations. Whether your goal is to become a business analyst, data analyst, or Power BI consultant, this Power BI course in {city} equips you with the tools and knowledge to excel in the rapidly growing field of data-driven decision-making.",
       ],
       listItem1Header: "What makes our Power BI training in {city} unique?",
       listItem1: [
@@ -10276,7 +10276,7 @@ export const coursesData = {
       paragraphs: [
         "Connecting Dots ERP offers an advanced SQL training course in {city}, tailored to meet the needs of professionals looking to master database management and manipulation. This course covers fundamental to advanced concepts such as SQL queries, joins, subqueries, indexing, and database design, ensuring a deep understanding of how to work with relational databases. The SQL certification in {city} from Connecting Dots ERP provides the skills needed to manage, retrieve, and analyze large datasets, making it an essential tool for data-driven professionals.",
         "What makes the SQL training at Connecting Dots ERP unique is the focus on practical learning. Students work on live databases and real-world scenarios, applying SQL techniques to solve business problems. Our expert trainers, with extensive experience in database management and data analysis, offer personalized guidance throughout the course. The SQL training fees in {city} are competitively priced, with flexible payment options available to accommodate a diverse range of learners. The modern infrastructure, peer-to-peer learning, and project-based approach make it an ideal place for mastering SQL.",
-        "At Connecting Dots' SQL classes in {city}, hands-on practice is at the core of the learning experience. Students are engaged in practical projects, SQL coding challenges, and database management tasks that prepare them for real-world job scenarios. The SQL course with 100% placement support, helping participants secure roles as database administrators, SQL developers, or data analysts. This SQL course equips you with the skills needed to excel in the evolving field of database management and analytics.",
+        "At Connecting Dot's SQL classes in {city}, hands-on practice is at the core of the learning experience. Students are engaged in practical projects, SQL coding challenges, and database management tasks that prepare them for real-world job scenarios. The SQL course with 100% placement support, helping participants secure roles as database administrators, SQL developers, or data analysts. This SQL course equips you with the skills needed to excel in the evolving field of database management and analytics.",
       ],
       listItem1Header: "What makes our SQL training in {city} unique?",
       listItem1: [
@@ -10653,7 +10653,7 @@ export const coursesData = {
       paragraphs: [
         "Connecting Dots ERP offers an advanced Tableau training in {city}, designed to cater to the increasing demand for data visualization and business intelligence skills. The course covers a advance syllabus, focusing on both theoretical foundations and practical applications of Tableau, making it an ideal choice for professionals and students alike. With modules ranging from data connections, data blending, and complex calculations to creating interactive dashboards, this Tableau training ensures participants are equipped with industry-relevant expertise. The Tableau certification in {city} from Connecting Dots ERP is recognized by top companies, helping you advance your career in data analytics and visualization.",
         "What sets Connecting Dots ERP apart is its commitment to hands-on learning. Throughout the course, students work on live projects and real-world data analysis tasks that replicate industry scenarios. Our expert trainers, who have vast experience in data visualization and analytics, provide personalized guidance to ensure every student grasps the essential skills. The Tableau training fees in {city} are structured to be affordable, with flexible payment options available for eligible students, making it easier to access high-quality education. The modern infrastructure, collaborative environment, and expert guidance create the perfect space for mastering Tableau.",
-        "At Connecting Dots' Tableau classes in {city}, we emphasize experiential learning through group projects, case studies, and data challenges. The Tableau course in {city} with 100% placement support, helping students secure roles in top organizations. Whether you're aiming to become a data analyst or a Tableau consultant, this course equips you with the knowledge and skills needed to excel in the fast-growing field of data visualization",
+        "At Connecting Dot's Tableau classes in {city}, we emphasize experiential learning through group projects, case studies, and data challenges. The Tableau course in {city} with 100% placement support, helping students secure roles in top organizations. Whether you're aiming to become a data analyst or a Tableau consultant, this course equips you with the knowledge and skills needed to excel in the fast-growing field of data visualization",
       ],
       listItem1Header: "What makes our Tableau training in {city} unique?",
       listItem1: [
@@ -11574,7 +11574,7 @@ export const coursesData = {
       title: "Core HR Training in {city}",
       subtitle: "Join our Practical-based Core HR Training in {city}",
       description:
-        "Enhance your career with Connecting Dots' Core HR course in {city}, tailored to provide you with the key competencies needed to thrive in the field of human resource management. Focusing on practical skills and hands-on learning, this course equips you for various roles such as recruitment, employee engagement, talent development, and HR data analysis, helping you become a valuable asset in any organization.",
+        "Enhance your career with Connecting Dot's Core HR course in {city}, tailored to provide you with the key competencies needed to thrive in the field of human resource management. Focusing on practical skills and hands-on learning, this course equips you for various roles such as recruitment, employee engagement, talent development, and HR data analysis, helping you become a valuable asset in any organization.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -11869,7 +11869,7 @@ export const coursesData = {
       subtitle:
         "Become a Versatile HR Professional with Our HR Generalist Training in {city}",
       description:
-        "Elevate your career in human resources with Connecting Dots' HR Generalist training in {city}, designed to provide you with a well-rounded understanding of key HR functions. This training program covers recruitment, employee relations, payroll management, performance appraisals, and labor laws, equipping you with the skills required to excel as an HR Generalist in any organization.",
+        "Elevate your career in human resources with Connecting Dot's HR Generalist training in {city}, designed to provide you with a well-rounded understanding of key HR functions. This training program covers recruitment, employee relations, payroll management, performance appraisals, and labor laws, equipping you with the skills required to excel as an HR Generalist in any organization.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -12172,7 +12172,7 @@ export const coursesData = {
       subtitle:
         "Master Data-Driven HR Decision Making with Our HR Analytics Training in {city}",
       description:
-        "Upgrade your HR skills with Connecting Dots' HR Analytics course in {city}, designed to provide a comprehensive understanding of data analysis in human resource management. This course equips you with the tools to analyze employee data, improve HR processes, and make informed decisions. By integrating data-driven insights into HR operations, you will enhance talent management, recruitment, employee engagement, and retention strategies.",
+        "Upgrade your HR skills with Connecting Dot's HR Analytics course in {city}, designed to provide a comprehensive understanding of data analysis in human resource management. This course equips you with the tools to analyze employee data, improve HR processes, and make informed decisions. By integrating data-driven insights into HR operations, you will enhance talent management, recruitment, employee engagement, and retention strategies.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -12470,7 +12470,7 @@ export const coursesData = {
       title: "HR Management Training in {city}",
       subtitle: "Join our complete HR Management Training in {city}",
       description:
-        "Elevate your career with Connecting Dots' HR Management course in {city}, designed to provide in-depth knowledge and hands-on experience in managing human resources effectively. This course covers key areas such as employee recruitment, talent development, performance management, and compliance with labor laws, equipping you with the skills necessary to thrive in HR roles.",
+        "Elevate your career with Connecting Dot's HR Management course in {city}, designed to provide in-depth knowledge and hands-on experience in managing human resources effectively. This course covers key areas such as employee recruitment, talent development, performance management, and compliance with labor laws, equipping you with the skills necessary to thrive in HR roles.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
@@ -12771,7 +12771,7 @@ export const coursesData = {
       title: "Advance HR Payroll Training in {city}",
       subtitle: "Join our Project-based HR Payroll Training in {city}",
       description:
-        "Advance your career with Connecting Dots' HR Payroll course in {city}, meticulously designed to provide you with the essential skills to excel in payroll management within Human Resource Management. This practical, hands-on training focuses on vital areas like payroll processing, tax compliance, employee benefits, and HR systems, equipping you to efficiently manage payroll functions in any organization.",
+        "Advance your career with Connecting Dot's HR Payroll course in {city}, meticulously designed to provide you with the essential skills to excel in payroll management within Human Resource Management. This practical, hands-on training focuses on vital areas like payroll processing, tax compliance, employee benefits, and HR systems, equipping you to efficiently manage payroll functions in any organization.",
       backgroundVideo: "https://i.imgur.com/DpOvcpk.mp4",
       features: ["Live Class", "1:1 mentorship", "Industry projects"],
       alumni: [
