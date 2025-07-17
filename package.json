@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf .next out node_modules/.cache",
-    "rebuild": "npm run clean && npm ci && npm run build",
-    "analyze": "ANALYZE=true npm run build",
-    "check-build": "node scripts/check-build.js"
+    "rebuild": "npm run clean && npm ci && npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
@@ -32,6 +30,7 @@
     "cheerio": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "critters": "^0.0.24",
     "fa-icons": "^0.2.0",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.4.5",
@@ -62,7 +61,6 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^15.1.6",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
     "postcss": "^8",

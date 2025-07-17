@@ -1,41 +1,30 @@
 {
-  "redirects": [
+  "framework": "nextjs",
+  "headers": [
     {
-      "source": "/sap-(:path<[^/]*>)-course-in-(:city<[^/]*>[A-Z][^/]*)",
-      "destination": "/sap-$path-course-in-$city",
-      "permanent": true
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
-      "source": "/hr-courses-training-institute-in-pune",
-      "destination": "/hr-training-course-in-pune",
-      "permanent": true
-    },
-    {
-      "source": "/(:path<.*>[A-Z].*)",
-      "destination": "/$path",
-      "permanent": true
+      "source": "/site.webmanifest",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json"
+        }
+      ]
     }
   ],
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "dashboard.connectingdotserp.com"
-        }
-      ],
-      "destination": "/dashboard/$1"
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "superadmin.connectingdotserp.com"
-        }
-      ],
-      "destination": "/superadmin/$1"
+      "source": "/hr-courses-training-institute-in-pune",
+      "destination": "/hr-training-course-in-pune", 
+      "permanent": true
     }
   ]
 }
