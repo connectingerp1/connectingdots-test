@@ -42,7 +42,7 @@ export const metadata = {
   verification: {
     google: "KRKFsO9AAW2a8qImif8Wj4uzzjmWGA0R6o7IZFJcmPo",
     other: {
-      "ahrefs-site-verification": "b872425e28fadcf9facf8f8257df376299d08f293e0f849e466a66a9b4448eec",
+      "ahrefs-site-verification": "f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0",
     },
   },
   // ✅ FIXED: Add manifest reference at the top level
