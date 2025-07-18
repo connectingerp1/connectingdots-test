@@ -1,9 +1,12 @@
+// src/app/(routes)/sitemap/[city]/page.js
+
 import { notFound } from "next/navigation";
 import CityCoursePage from "@/components/CitySitemap/CityCoursePage";
 import Breadcrumb from "@/components/CitySitemap/Breadcrumb";
+import Link from "next/link";
 
 // This data would ideally come from your CMS or API
-const cityData = {
+export const cityData = {
   pune: {
     name: "Pune",
     description:
@@ -320,6 +323,164 @@ const cityData = {
       "Gain professional expertise in Mangalore, a major port city and educational center in Karnataka with diverse industries.",
   },
 };
+
+// Server-side function to generate all course links for a city
+function generateCityLinks(city) {
+  const courseCategories = [
+    {
+      id: "sap",
+      name: "SAP S/4 HANA Courses",
+      subcategories: [
+        {
+          title: "SAP Functional",
+          courses: [
+            { name: "SAP", slug: `/sap-course-in-${city}` },
+            { name: "SAP FICO", slug: `/sap-fico-course-in-${city}` },
+            { name: "SAP Ariba", slug: `/sap-ariba-course-in-${city}` },
+            { name: "SAP MM", slug: `/sap-mm-course-in-${city}` },
+            { name: "SAP SD", slug: `/sap-sd-course-in-${city}` },
+            { name: "SAP HR/HCM", slug: `/sap-hr-hcm-course-in-${city}` },
+            { name: "SAP PP", slug: `/sap-pp-course-in-${city}` },
+            { name: "SAP QM", slug: `/sap-qm-course-in-${city}` },
+            { name: "SAP PM", slug: `/sap-pm-course-in-${city}` },
+            { name: "SAP PS", slug: `/sap-ps-course-in-${city}` },
+            { name: "SAP EWM", slug: `/sap-ewm-course-in-${city}` },
+            { name: "SAP SCM", slug: `/sap-scm-course-in-${city}` },
+            {
+              name: "SAP SUCCESSFACTOR",
+              slug: `/sap-successfactors-course-in-${city}`,
+            },
+          ],
+        },
+        {
+          title: "SAP Technical",
+          courses: [
+            { name: "SAP ABAP", slug: `/sap-abap-course-in-${city}` },
+            { name: "SAP S/4 HANA", slug: `/sap-s4-hana-course-in-${city}` },
+            { name: "SAP BW/BI", slug: `/sap-bwbi-course-in-${city}` },
+            { name: "SAP BASIS", slug: `/sap-basis-course-in-${city}` },
+          ],
+        },
+      ],
+    },
+    {
+      id: "it",
+      name: "IT Courses",
+      subcategories: [
+        {
+          title: "Data Science",
+          courses: [
+            {
+              name: "MASTERS IN DATA ANALYTICS",
+              slug: `/data-analytics-course-in-${city}`,
+            },
+            {
+              name: "MASTERS IN DATA SCIENCE",
+              slug: `/data-science-course-in-${city}`,
+            },
+            {
+              name: "MASTERS IN BUSINESS ANALYTICS",
+              slug: `/business-analytics-course-in-${city}`,
+            },
+            { name: "CHAT GPT & AI", slug: `/chatgpt-course-in-${city}` },
+          ],
+        },
+      ],
+      courses: [
+        { name: "IT Course", slug: `/it-course-in-${city}` },
+        {
+          name: "Full Stack Training",
+          slug: `/full-stack-developer-course-in-${city}`,
+        },
+        { name: "JAVA", slug: `/java-course-in-${city}` },
+        { name: "MERN Stack", slug: `/mern-stack-course-in-${city}` },
+        { name: "UI/UX Design", slug: `/ui-ux-course-in-${city}` },
+        { name: "Python", slug: `/python-course-in-${city}` },
+        { name: "Salesforce", slug: `/salesforce-training-in-${city}` },
+      ],
+    },
+    {
+      id: "data-viz",
+      name: "Data Visualisation Courses",
+      courses: [
+        {
+          name: "Data Visualisation Course",
+          slug: `/data-visualisation-course-in-${city}`,
+        },
+        { name: "Tableau", slug: `/tableau-training-in-${city}` },
+        { name: "Power BI", slug: `/power-bi-course-in-${city}` },
+        { name: "SQL", slug: `/sql-course-in-${city}` },
+      ],
+    },
+    {
+      id: "digital",
+      name: "Digital Marketing Courses",
+      courses: [
+        {
+          name: "Advance Digital Marketing",
+          slug: `/digital-marketing-course-in-${city}`,
+        },
+        {
+          name: "Pay Per Click Training",
+          slug: `/digital-marketing-course-in-${city}#pay-per-click`,
+        },
+        {
+          name: "Search Engine Optimization",
+          slug: `/digital-marketing-course-in-${city}#search-engine-optimization`,
+        },
+        {
+          name: "Social Media Marketing",
+          slug: `/digital-marketing-course-in-${city}#social-media-marketing`,
+        },
+        {
+          name: "Advance Google Analytics Training",
+          slug: `/digital-marketing-course-in-${city}#advance-analytics`,
+        },
+      ],
+    },
+    {
+      id: "hr",
+      name: "HR Courses",
+      courses: [
+        { name: "HR Training", slug: `/hr-training-course-in-${city}` },
+        { name: "Core HR", slug: `/core-hr-course-in-${city}` },
+        { name: "HR Payroll", slug: `/hr-payroll-course-in-${city}` },
+        { name: "HR Management", slug: `/hr-management-course-in-${city}` },
+        { name: "HR Generalist", slug: `/hr-generalist-course-in-${city}` },
+        { name: "HR Analytics", slug: `/hr-analytics-course-in-${city}` },
+      ],
+    },
+  ];
+
+  const allLinks = [];
+
+  courseCategories.forEach((category) => {
+    if (category.subcategories) {
+      category.subcategories.forEach((sub) => {
+        sub.courses.forEach((course) => {
+          allLinks.push({
+            name: course.name,
+            slug: course.slug,
+            category: category.name,
+            subcategory: sub.title,
+          });
+        });
+      });
+    }
+
+    if (category.courses) {
+      category.courses.forEach((course) => {
+        allLinks.push({
+          name: course.name,
+          slug: course.slug,
+          category: category.name,
+        });
+      });
+    }
+  });
+
+  return allLinks;
+}
 
 export async function generateMetadata({ params }) {
   const city = params.city.toLowerCase();
@@ -667,6 +828,7 @@ export default function CityPage({ params }) {
 
   const cityInfo = cityData[city];
   const jsonLd = generateCityJsonLd(city, cityInfo);
+  const allCourseLinks = generateCityLinks(city);
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },
@@ -676,37 +838,235 @@ export default function CityPage({ params }) {
 
   return (
     <>
-      {/* 3. INJECT JSON-LD SCRIPT */}
+      {/* JSON-LD Script */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* SEO-only content - hidden from users */}
-      <div className="sr-only" aria-hidden="true">
-        {/* <h1>
+      {/* Server-side rendered links for SEO - hidden from users but visible to crawlers */}
+      <div style={{ display: "none" }} aria-hidden="true">
+        <h1>
           Professional Courses in {cityInfo.name} - Connecting Dots ERP Training
           Institute
-        </h1> */}
-        <h2>SAP Training Courses in {cityInfo.name}</h2>
-        <h2>IT & Software Development Courses in {cityInfo.name}</h2>
-        <h2>HR Training Programs in {cityInfo.name}</h2>
-        <h2>Data Science & Analytics Courses in {cityInfo.name}</h2>
-        <h2>Digital Marketing Training in {cityInfo.name}</h2>
-        <h2>Business Analytics Courses in {cityInfo.name}</h2>
-        <h2>Python Programming Courses in {cityInfo.name}</h2>
-        <h2>Java Development Training in {cityInfo.name}</h2>
-        <h2>Full Stack Developer Courses in {cityInfo.name}</h2>
-        <h2>Power BI Training in {cityInfo.name}</h2>
-        <h2>Tableau Courses in {cityInfo.name}</h2>
-        <h2>Salesforce Training in {cityInfo.name}</h2>
-        <h2>UI/UX Design Courses in {cityInfo.name}</h2>
+        </h1>
+
+        {/* All course links for SEO */}
+        <div>
+          <h2>All Training Courses in {cityInfo.name}</h2>
+          {allCourseLinks.map((link, index) => (
+            <div key={index}>
+              <Link href={link.slug}>
+                {link.name} in {cityInfo.name} - {link.category}
+                {link.subcategory && ` - ${link.subcategory}`} - Professional
+                Training with Placement Support
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {/* SAP Courses Section */}
+        <div>
+          <h2>SAP Training Courses in {cityInfo.name}</h2>
+          <Link href={`/sap-course-in-${city}`}>
+            SAP Training in {cityInfo.name} - Complete SAP Modules with
+            Placement
+          </Link>
+          <Link href={`/sap-fico-course-in-${city}`}>
+            SAP FICO Course in {cityInfo.name} - Finance and Controlling Module
+          </Link>
+          <Link href={`/sap-mm-course-in-${city}`}>
+            SAP MM Training in {cityInfo.name} - Materials Management Module
+          </Link>
+          <Link href={`/sap-sd-course-in-${city}`}>
+            SAP SD Course in {cityInfo.name} - Sales and Distribution Module
+          </Link>
+          <Link href={`/sap-hr-hcm-course-in-${city}`}>
+            SAP HR/HCM Training in {cityInfo.name} - Human Capital Management
+          </Link>
+          <Link href={`/sap-pp-course-in-${city}`}>
+            SAP PP Course in {cityInfo.name} - Production Planning Module
+          </Link>
+          <Link href={`/sap-qm-course-in-${city}`}>
+            SAP QM Training in {cityInfo.name} - Quality Management Module
+          </Link>
+          <Link href={`/sap-pm-course-in-${city}`}>
+            SAP PM Course in {cityInfo.name} - Plant Maintenance Module
+          </Link>
+          <Link href={`/sap-ps-course-in-${city}`}>
+            SAP PS Training in {cityInfo.name} - Project System Module
+          </Link>
+          <Link href={`/sap-ewm-course-in-${city}`}>
+            SAP EWM Course in {cityInfo.name} - Extended Warehouse Management
+          </Link>
+          <Link href={`/sap-scm-course-in-${city}`}>
+            SAP SCM Training in {cityInfo.name} - Supply Chain Management
+          </Link>
+          <Link href={`/sap-successfactors-course-in-${city}`}>
+            SAP SuccessFactors Course in {cityInfo.name} - Cloud HR Solution
+          </Link>
+          <Link href={`/sap-ariba-course-in-${city}`}>
+            SAP Ariba Training in {cityInfo.name} - Procurement and Supply Chain
+          </Link>
+          <Link href={`/sap-abap-course-in-${city}`}>
+            SAP ABAP Course in {cityInfo.name} - Advanced Business Application
+            Programming
+          </Link>
+          <Link href={`/sap-s4-hana-course-in-${city}`}>
+            SAP S/4 HANA Training in {cityInfo.name} - Next Generation ERP
+          </Link>
+          <Link href={`/sap-bwbi-course-in-${city}`}>
+            SAP BW/BI Course in {cityInfo.name} - Business Warehouse and
+            Intelligence
+          </Link>
+          <Link href={`/sap-basis-course-in-${city}`}>
+            SAP BASIS Training in {cityInfo.name} - System Administration
+          </Link>
+        </div>
+
+        {/* IT Courses Section */}
+        <div>
+          <h2>IT & Software Development Courses in {cityInfo.name}</h2>
+          <Link href={`/it-course-in-${city}`}>
+            IT Course in {cityInfo.name} - Complete Software Development
+            Training
+          </Link>
+          <Link href={`/java-course-in-${city}`}>
+            Java Training in {cityInfo.name} - Core and Advanced Java
+            Programming
+          </Link>
+          <Link href={`/python-course-in-${city}`}>
+            Python Course in {cityInfo.name} - Programming and Development
+          </Link>
+          <Link href={`/full-stack-developer-course-in-${city}`}>
+            Full Stack Developer Course in {cityInfo.name} - Complete Web
+            Development
+          </Link>
+          <Link href={`/mern-stack-course-in-${city}`}>
+            MERN Stack Training in {cityInfo.name} - MongoDB, Express, React,
+            Node.js
+          </Link>
+          <Link href={`/ui-ux-course-in-${city}`}>
+            UI/UX Design Course in {cityInfo.name} - User Interface and
+            Experience Design
+          </Link>
+          <Link href={`/salesforce-training-in-${city}`}>
+            Salesforce Training in {cityInfo.name} - CRM and Cloud Platform
+          </Link>
+        </div>
+
+        {/* Data Science Courses Section */}
+        <div>
+          <h2>Data Science & Analytics Courses in {cityInfo.name}</h2>
+          <Link href={`/data-science-course-in-${city}`}>
+            Data Science Course in {cityInfo.name} - Complete Data Science
+            Training
+          </Link>
+          <Link href={`/data-analytics-course-in-${city}`}>
+            Data Analytics Training in {cityInfo.name} - Business Intelligence
+            and Analytics
+          </Link>
+          <Link href={`/business-analytics-course-in-${city}`}>
+            Business Analytics Course in {cityInfo.name} - Strategic Data
+            Analysis
+          </Link>
+          <Link href={`/chatgpt-course-in-${city}`}>
+            ChatGPT & AI Course in {cityInfo.name} - Artificial Intelligence
+            Training
+          </Link>
+        </div>
+
+        {/* Data Visualization Courses Section */}
+        <div>
+          <h2>Data Visualization Courses in {cityInfo.name}</h2>
+          <Link href={`/data-visualisation-course-in-${city}`}>
+            Data Visualization Course in {cityInfo.name} - Complete Data Viz
+            Training
+          </Link>
+          <Link href={`/tableau-training-in-${city}`}>
+            Tableau Training in {cityInfo.name} - Business Intelligence and
+            Visualization
+          </Link>
+          <Link href={`/power-bi-course-in-${city}`}>
+            Power BI Course in {cityInfo.name} - Microsoft Business Intelligence
+          </Link>
+          <Link href={`/sql-course-in-${city}`}>
+            SQL Course in {cityInfo.name} - Database Management and Queries
+          </Link>
+        </div>
+
+        {/* HR Courses Section */}
+        <div>
+          <h2>HR Training Programs in {cityInfo.name}</h2>
+          <Link href={`/hr-training-course-in-${city}`}>
+            HR Training in {cityInfo.name} - Complete Human Resources Course
+          </Link>
+          <Link href={`/core-hr-course-in-${city}`}>
+            Core HR Course in {cityInfo.name} - Fundamental HR Practices
+          </Link>
+          <Link href={`/hr-analytics-course-in-${city}`}>
+            HR Analytics Course in {cityInfo.name} - People Analytics and
+            Metrics
+          </Link>
+          <Link href={`/hr-management-course-in-${city}`}>
+            HR Management Training in {cityInfo.name} - Strategic HR Leadership
+          </Link>
+          <Link href={`/hr-generalist-course-in-${city}`}>
+            HR Generalist Course in {cityInfo.name} - Comprehensive HR Skills
+          </Link>
+          <Link href={`/hr-payroll-course-in-${city}`}>
+            HR Payroll Course in {cityInfo.name} - Payroll Management and
+            Processing
+          </Link>
+        </div>
+
+        {/* Digital Marketing Courses Section */}
+        <div>
+          <h2>Digital Marketing Courses in {cityInfo.name}</h2>
+          <Link href={`/digital-marketing-course-in-${city}`}>
+            Digital Marketing Course in {cityInfo.name} - Complete Online
+            Marketing Training
+          </Link>
+          <Link
+            href={`/digital-marketing-course-in-${city}#search-engine-optimization`}
+          >
+            SEO Training in {cityInfo.name} - Search Engine Optimization Course
+          </Link>
+          <Link href={`/digital-marketing-course-in-${city}#pay-per-click`}>
+            PPC Training in {cityInfo.name} - Pay Per Click Advertising Course
+          </Link>
+          <Link
+            href={`/digital-marketing-course-in-${city}#social-media-marketing`}
+          >
+            Social Media Marketing Course in {cityInfo.name} - SMM Training
+          </Link>
+          <Link href={`/digital-marketing-course-in-${city}#advance-analytics`}>
+            Google Analytics Training in {cityInfo.name} - Advanced Analytics
+            Course
+          </Link>
+        </div>
+
+        {/* Additional SEO headings for better keyword coverage */}
+        <h2>Best Training Institute in {cityInfo.name}</h2>
+        <h2>Professional Certification Programs in {cityInfo.name}</h2>
         <h2>Placement Assistance in {cityInfo.name}</h2>
         <h2>Career Support Services in {cityInfo.name}</h2>
-        <h2>Professional Certification Programs in {cityInfo.name}</h2>
         <h2>Industry Expert Trainers in {cityInfo.name}</h2>
-        <h2>Best Training Institute in {cityInfo.name}</h2>
         <h2>Job-Oriented Courses in {cityInfo.name}</h2>
+        <h2>Skill Development Programs in {cityInfo.name}</h2>
+        <h2>Corporate Training in {cityInfo.name}</h2>
+        <h2>Online and Offline Classes in {cityInfo.name}</h2>
+        <h2>Weekend Batches in {cityInfo.name}</h2>
+        <h2>Fast Track Courses in {cityInfo.name}</h2>
+        <h2>Beginner to Advanced Training in {cityInfo.name}</h2>
+        <h2>Hands-on Practical Training in {cityInfo.name}</h2>
+        <h2>Real-time Project Training in {cityInfo.name}</h2>
+        <h2>Interview Preparation in {cityInfo.name}</h2>
+        <h2>Resume Building Support in {cityInfo.name}</h2>
+        <h2>Mock Interview Sessions in {cityInfo.name}</h2>
+        <h2>Industry Recognized Certification in {cityInfo.name}</h2>
+        <h2>Flexible Timing Classes in {cityInfo.name}</h2>
+        <h2>Affordable Course Fees in {cityInfo.name}</h2>
       </div>
 
       <main>
