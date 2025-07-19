@@ -2,42 +2,44 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaUser, FaLock, FaSpinner, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons, including eye icons
+import { FaUser, FaLock, FaSpinner, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // State for login error message
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Check if already logged in
-  useEffect(() => {
-    // Check if localStorage is available (for SSR/SSG safety)
-    if (typeof localStorage !== "undefined") {
-      const token = localStorage.getItem("adminToken");
-      if (token) {
-        const role = localStorage.getItem("adminRole");
-        // Redirect based on role if token exists
-        if (role === "SuperAdmin" || role === "Admin") {
-          router.push("/superadmin/dashboard"); // Redirect to superadmin dashboard
-        } else {
-          router.push("/dashboard"); // Redirect to regular dashboard
-        }
-      }
-    }
-  }, [router]);
+  // New state for tracking focus
+  const [usernameFocused, setUsernameFocused] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   // Helper function to determine if label should be "floated"
   const shouldFloatLabel = (value, isFocused) => {
     return value.length > 0 || isFocused;
   };
 
+  // Check if already logged in
+  useEffect(() => {
+    if (typeof localStorage !== "undefined") {
+      const token = localStorage.getItem("adminToken");
+      if (token) {
+        const role = localStorage.getItem("adminRole");
+        if (role === "SuperAdmin" || role === "Admin") {
+          router.push("/superadmin/dashboard");
+        } else {
+          router.push("/dashboard");
+        }
+      }
+    }
+  }, [router]);
+
   const handleSubmit = async (e, targetPage) => {
-    e.preventDefault(); // Prevent default form submission if called from a button inside a form
+    e.preventDefault();
     setLoading(true);
-    setError(null); // Clear previous errors
+    setError(null);
 
     try {
       const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -57,37 +59,33 @@ const AdminLogin = () => {
       const data = await res.json();
 
       if (res.ok) {
-        // Store auth info in localStorage
         if (typeof localStorage !== "undefined") {
           localStorage.setItem("adminToken", data.token);
           localStorage.setItem("adminRole", data.role);
           localStorage.setItem("adminUsername", data.username);
           localStorage.setItem("adminId", data.id);
-          localStorage.setItem("isAdminLoggedIn", "true"); // Consider if this is necessary
+          localStorage.setItem("isAdminLoggedIn", "true");
         }
 
-        // Redirect based on role
         if (data.role === "SuperAdmin" || data.role === "Admin") {
-          router.push("/superadmin/dashboard"); // Redirect SuperAdmins/Admins to their dashboard
+          router.push("/superadmin/dashboard");
         } else if (targetPage.startsWith("http")) {
-          window.location.href = targetPage; // Redirect to external URL if specified
+          window.location.href = targetPage;
         } else {
-          router.push("/dashboard"); // Default redirect for other roles
+          router.push("/dashboard");
         }
       } else {
-        // Login failed
         setError(data.message || "Admin login failed");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("Server error. Please try again."); // Set a generic server error message
+      setError("Server error. Please try again.");
     }
 
-    setLoading(false); // Always set loading false after attempt
+    setLoading(false);
   };
 
   return (
-    // Main section with background image, centering, and full viewport height
     <section
       className="flex justify-center items-center min-h-screen w-full bg-cover bg-center bg-no-repeat"
       style={{
@@ -99,17 +97,19 @@ const AdminLogin = () => {
           onSubmit={(e) => handleSubmit(e, "/dashboard")}
           className="w-full"
         >
+          {/* Heading */}
           <h2 className="text-2xl font-bold text-center mb-6 text-yellow-100 text-shadow-sm">
             Admin Log-In
           </h2>
 
+          {/* Error Message */}
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-sm">
               {error}
             </div>
           )}
 
-          {/* Username Input */}
+          {/* Username/Email Input */}
           <div className="relative mx-auto mb-6 w-full border-b-2 border-yellow-100 text-shadow">
             <FaUser className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100" />
             <input
@@ -135,7 +135,7 @@ const AdminLogin = () => {
             </label>
           </div>
 
-          {/* Password Input */}
+          {/* Password Input with Show/Hide Toggle */}
           <div className="relative mx-auto mb-8 w-full border-b-2 border-yellow-100 text-shadow">
             <FaLock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100" />
             <input
@@ -159,6 +159,7 @@ const AdminLogin = () => {
             >
               Password
             </label>
+            {/* Show/Hide Password Toggle Button */}
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
@@ -168,16 +169,15 @@ const AdminLogin = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
+
           {/* Submit Buttons */}
           <div className="flex flex-col items-center gap-4 w-full">
-            {" "}
-            {/* Added w-full */}
             {/* Dashboard Login Button */}
             <button
-              type="button" // Keep type="button" as you are using onClick
+              type="button"
               onClick={(e) => handleSubmit(e, "/dashboard")}
-              disabled={loading} // Disable button while loading
-              className="w-4/5 h-11 rounded-full bg-orange-700 text-white text-lg font-semibold border-none outline-none cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center" // Adjusted height, added flex/center for loading spinner
+              disabled={loading}
+              className="w-4/5 h-11 rounded-full bg-orange-700 text-white text-lg font-semibold border-none outline-none cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center"
             >
               {loading ? (
                 <>
@@ -188,14 +188,15 @@ const AdminLogin = () => {
                 "Login to Dashboard"
               )}
             </button>
+
             {/* Blogs Login Button */}
             <button
-              type="button" // Keep type="button" as you are using onClick
+              type="button"
               onClick={(e) =>
                 handleSubmit(e, "https://blog.connectingdotserp.com/")
               }
-              disabled={loading} // Disable button while loading
-              className="w-4/5 h-11 rounded-full bg-orange-700 text-white text-lg font-semibold border-none outline-none cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center" // Adjusted height, added flex/center for loading spinner
+              disabled={loading}
+              className="w-4/5 h-11 rounded-full bg-orange-700 text-white text-lg font-semibold border-none outline-none cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center"
             >
               {loading ? (
                 <>
