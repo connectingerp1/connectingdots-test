@@ -871,7 +871,7 @@ const LeadManagementPage = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar activePage="leads" />
-      <FixedLogo />
+      {/* <FixedLogo /> */}
       <main className="flex-1 lg:ml-0 pt-16 lg:pt-0 overflow-auto">
         <AccessControl section="leads">
           <div className="p-6 max-w-7xl mx-auto">

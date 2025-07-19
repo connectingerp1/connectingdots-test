@@ -278,7 +278,7 @@ const AnalyticsPage = () => {
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar is always present */}
       <Sidebar activePage="analytics" /> {/* Pass activePage prop */}
-      <FixedLogo />
+      {/* <FixedLogo /> */}
       {/* Main content area - takes remaining space */}
       <main className="flex-1 lg:ml-0 pt-16 lg:pt-0 overflow-auto">
         {/* AccessControl handles the overall access to this page's content */}

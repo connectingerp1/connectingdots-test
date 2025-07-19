@@ -318,7 +318,7 @@ const AdminActivityLogsPage = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar activePage="activity" />
-      <FixedLogo />
+      {/* <FixedLogo /> */}
       <main className="flex-1 pt-16 lg:pt-0 overflow-auto">
         <AccessControl section="activity">
           <div className="p-6 max-w-7xl mx-auto">
