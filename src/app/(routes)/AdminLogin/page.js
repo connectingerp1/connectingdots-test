@@ -29,6 +29,11 @@ const AdminLogin = () => {
     }
   }, [router]);
 
+  // Helper function to determine if label should be "floated"
+  const shouldFloatLabel = (value, isFocused) => {
+    return value.length > 0 || isFocused;
+  };
+
   const handleSubmit = async (e, targetPage) => {
     e.preventDefault(); // Prevent default form submission if called from a button inside a form
     setLoading(true);
