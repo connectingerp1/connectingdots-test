@@ -89,84 +89,78 @@ const AdminLogin = () => {
         backgroundImage: `url('https://img.freepik.com/premium-vector/background-night-mountains-whimsical-cartoon-illustration-night-mountains_198565-8267.jpg')`,
       }}
     >
-      {/* Form Box Container with blur effect */}
       <div className="relative w-full max-w-sm md:max-w-md bg-transparent backdrop-filter backdrop-blur-md border border-wheat text-yellow-100 flex flex-col justify-center items-center text-center rounded-3xl p-6 md:p-8 min-h-[400px]">
-        {" "}
-        {/* Adjusted size and padding */}
         <form
           onSubmit={(e) => handleSubmit(e, "/dashboard")}
           className="w-full"
         >
-          {" "}
-          {/* Added w-full to form */}
-          {/* Heading */}
           <h2 className="text-2xl font-bold text-center mb-6 text-yellow-100 text-shadow-sm">
-            {" "}
-            {/* Added mb for spacing, explicit color and shadow */}
             Admin Log-In
           </h2>
-          {/* Optional: Display error message */}
+
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-sm">
               {error}
             </div>
           )}
-          {/* Username/Email Input */}
+
+          {/* Username Input */}
           <div className="relative mx-auto mb-6 w-full border-b-2 border-yellow-100 text-shadow">
-            {" "}
-            {/* Adjusted margin, explicit border color/width */}
-            <FaUser className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100" />{" "}
-            {/* Icon with positioning and color */}
+            <FaUser className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100" />
             <input
               type="text"
               name="username"
               id="admin_username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onFocus={() => setUsernameFocused(true)}
+              onBlur={() => setUsernameFocused(false)}
               required
-              className="peer w-full h-12 bg-transparent border-none outline-none text-base px-3 pr-10 text-yellow-100 placeholder-transparent" // peer for label, placeholder-transparent to hide default, adjusted padding
-              placeholder="Username or Email" // Added placeholder for accessibility
+              className="w-full h-12 bg-transparent border-none outline-none text-base px-3 pr-10 text-yellow-100"
             />
             <label
               htmlFor="admin_username"
-              className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base pointer-events-none transition-all duration-400 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-shadow-none peer-valid:-top-2 peer-valid:text-sm peer-valid:text-shadow-none" // Peer focus/valid states, adjusted top
+              className={`absolute left-0 text-base pointer-events-none transition-all duration-300 ${
+                shouldFloatLabel(username, usernameFocused)
+                  ? "-top-2 text-sm text-shadow-none"
+                  : "top-1/2 transform -translate-y-1/2"
+              }`}
             >
               Username or Email
             </label>
           </div>
-          {/* Password Input with Show/Hide Toggle */}
+
+          {/* Password Input */}
           <div className="relative mx-auto mb-8 w-full border-b-2 border-yellow-100 text-shadow">
-            {" "}
-            {/* Adjusted margin */}
-            <FaLock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100" />{" "}
-            {/* Lock Icon on the left */}
+            <FaLock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100" />
             <input
-              // Dynamically change type based on showPassword state
               type={showPassword ? "text" : "password"}
               name="password"
               id="login_password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setPasswordFocused(true)}
+              onBlur={() => setPasswordFocused(false)}
               required
-              // Adjusted padding to accommodate icons on both sides
-              className="peer w-full h-12 bg-transparent border-none outline-none text-base px-3 pl-10 pr-10 text-yellow-100 placeholder-transparent" // peer for label, adjusted padding
-              placeholder="Password" // Added placeholder for accessibility
+              className="w-full h-12 bg-transparent border-none outline-none text-base px-3 pr-16 text-yellow-100"
             />
             <label
               htmlFor="login_password"
-              className="absolute top-1/2 left-0 transform -translate-y-1/2 text-base pointer-events-none transition-all duration-400 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-shadow-none peer-valid:-top-2 peer-valid:text-sm peer-valid:text-shadow-none" // Peer focus/valid states, adjusted top
+              className={`absolute left-0 text-base pointer-events-none transition-all duration-300 ${
+                shouldFloatLabel(password, passwordFocused)
+                  ? "-top-2 text-sm text-shadow-none"
+                  : "top-1/2 transform -translate-y-1/2"
+              }`}
             >
               Password
             </label>
-            {/* Show/Hide Password Toggle Button */}
             <button
-              type="button" // Important: Use type="button" to prevent form submission
-              onClick={() => setShowPassword((prev) => !prev)} // Toggle state
-              className="absolute right-10 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100 p-1 focus:outline-none" // Positioning and basic styling
-              aria-label={showPassword ? "Hide password" : "Show password"} // Accessibility label
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-10 top-1/2 transform -translate-y-1/2 text-xl text-yellow-100 p-1 focus:outline-none"
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}{" "}
-              {/* Conditionally render eye icons */}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
           {/* Submit Buttons */}
@@ -193,7 +187,7 @@ const AdminLogin = () => {
             <button
               type="button" // Keep type="button" as you are using onClick
               onClick={(e) =>
-                handleSubmit(e, "https://blog-frontend-psi-bay.vercel.app/")
+                handleSubmit(e, "https://blog.connectingdotserp.com/")
               }
               disabled={loading} // Disable button while loading
               className="w-4/5 h-11 rounded-full bg-orange-700 text-white text-lg font-semibold border-none outline-none cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center" // Adjusted height, added flex/center for loading spinner

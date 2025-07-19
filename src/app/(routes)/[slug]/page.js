@@ -1,6 +1,7 @@
-// src/app/(routes)/[slug]/page.js - Fixed with limited static generation
+// src/app/(routes)/[slug]/page.js (Updated with scroll navigation)
 
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import ClientOnly from "@/context/ClientOnly";
 import {
   generateDynamicMetadata,
@@ -18,347 +19,276 @@ import Program from "@/components/CoursesComponents/ProgramHighlights";
 import Description from "@/components/CoursesComponents/Description";
 import FAQ from "@/components/CoursesComponents/FAQ";
 import CoursesRelated from "@/components/CoursesComponents/RelatedCourses";
+
+// Import course-specific modules
 import SapModComponent from "@/components/CoursesComponents/sapmod";
 import Modules from "@/components/CoursesComponents/Modules";
 import HrCard from "@/components/CoursesComponents/HRCard";
 
-// ✅ FIXED: Limited static generation to prevent build timeouts
-export async function generateStaticParams() {
-  try {
-    // Check if data exists
-    if (!coursesData || !citiesData) {
-      console.warn("⚠️ Master data not available for static generation");
-      return [];
-    }
-
-    const params = [];
-    const courseKeys = Object.keys(coursesData);
-    const cityKeys = Object.keys(citiesData);
-
-    // ✅ CRITICAL: Limit generation to prevent build timeouts
-    // Priority cities for initial deployment
-    const priorityCities = [
-      "pune",
-      "mumbai",
-      "delhi",
-      "bangalore",
-      "chennai",
-      "hyderabad",
-    ];
-    const limitedCities = cityKeys.filter((city) =>
-      priorityCities.includes(city)
-    );
-
-    // Priority courses for initial deployment
-    const priorityCourses = [
-      "sap-fico",
-      "sap",
-      "digital-marketing",
-      "data-science",
-      "java",
-    ];
-    const limitedCourses = courseKeys.filter((course) =>
-      priorityCourses.includes(course)
-    );
-
-    // Generate limited combinations first
-    limitedCourses.forEach((courseSlug) => {
-      limitedCities.forEach((citySlug) => {
-        try {
-          const course = coursesData[courseSlug];
-          const city = citiesData[citySlug];
-
-          if (course && city && course.slug && city.name) {
-            params.push({
-              slug: `${courseSlug}-course-in-${citySlug}`,
-            });
-          }
-        } catch (error) {
-          console.warn(
-            `⚠️ Error processing ${courseSlug}-${citySlug}:`,
-            error.message
-          );
-        }
-      });
-    });
-
-    console.log(
-      `✅ Generated ${params.length} priority static params for course pages`
-    );
-
-    // Return limited set for initial deployment
-    return params;
-  } catch (error) {
-    console.error("❌ Error in generateStaticParams:", error);
-    return [];
-  }
-}
-
 // Helper function to parse the slug into course and city components
 function parseSlug(slug) {
-  try {
-    if (!slug || typeof slug !== "string") return null;
-
-    const lastInIndex = slug.lastIndexOf("-in-");
-    if (lastInIndex === -1) return null;
-
-    let coursePart = slug.substring(0, lastInIndex);
-    coursePart = coursePart.replace(
-      /-course$|-training$|-developer$|-developer-course$|-developer-training$/,
-      ""
-    );
-
-    const cityPart = slug.substring(lastInIndex + 4);
-    if (!coursePart || !cityPart) return null;
-
-    return { courseSlug: coursePart, citySlug: cityPart };
-  } catch (error) {
-    console.error("Error parsing slug:", error);
+  const lastInIndex = slug.lastIndexOf("-in-");
+  if (lastInIndex === -1) {
     return null;
   }
+
+  let coursePart = slug.substring(0, lastInIndex);
+  coursePart = coursePart.replace(
+    /-course$|-training$|-developer$|-developer-course$|-developer-training$/,
+    ""
+  );
+
+  const cityPart = slug.substring(lastInIndex + 4);
+
+  return { courseSlug: coursePart, citySlug: cityPart };
 }
 
-// ✅ FIXED: Better error handling in generateMetadata
+// Generate metadata dynamically for each page
 export async function generateMetadata({ params }) {
-  try {
-    const resolvedParams = await params;
-    const slug = resolvedParams?.slug;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
 
-    if (!slug) {
-      return {
-        title: "Course Not Found | Connecting Dots ERP",
-        description: "The requested course page could not be found.",
-      };
-    }
-
-    const parsed = parseSlug(slug);
-    if (!parsed) {
-      return {
-        title: "Invalid Course URL | Connecting Dots ERP",
-        description: "The course URL format is not valid.",
-      };
-    }
-
-    const { courseSlug, citySlug } = parsed;
-
-    if (
-      !coursesData ||
-      !citiesData ||
-      !coursesData[courseSlug] ||
-      !citiesData[citySlug]
-    ) {
-      return {
-        title: "Course Not Available | Connecting Dots ERP",
-        description: "The requested course or location is not available.",
-      };
-    }
-
-    const metadata = generateDynamicMetadata(courseSlug, citySlug);
-    if (!metadata) {
-      return {
-        title: "Course Information Unavailable | Connecting Dots ERP",
-        description: "Course information could not be loaded.",
-      };
-    }
-
-    return {
-      title: metadata.title,
-      description: metadata.description,
-      keywords: metadata.keywords,
-      robots: metadata.robots,
-      alternates: {
-        canonical: metadata.canonical,
-        languages:
-          metadata.alternates?.reduce((acc, alt) => {
-            if (alt.hreflang && alt.href) {
-              acc[alt.hreflang] = alt.href;
-            }
-            return acc;
-          }, {}) || {},
-      },
-      openGraph: metadata.openGraph,
-      twitter: metadata.twitter,
-      icons: {
-        icon: metadata.icons?.icon || "/favicon.ico",
-        apple: metadata.icons?.appleTouchIcon || "/apple-touch-icon.png",
-      },
-      manifest: metadata.manifest || "/site.webmanifest",
-    };
-  } catch (error) {
-    console.error("❌ Error in generateMetadata:", error);
-    return {
-      title: "Error Loading Course | Connecting Dots ERP",
-      description: "An error occurred while loading the course information.",
-    };
+  if (!slug) {
+    console.warn("❌ generateMetadata: Missing slug parameter.");
+    return {};
   }
+
+  const parsed = parseSlug(slug);
+  if (!parsed) {
+    console.warn(
+      `❌ generateMetadata: Slug "${slug}" does not match expected pattern for dynamic course pages.`
+    );
+    return {};
+  }
+
+  const { courseSlug, citySlug } = parsed;
+
+  if (!coursesData[courseSlug] || !citiesData[citySlug]) {
+    console.warn(
+      `❌ generateMetadata: Course "${courseSlug}" or City "${citySlug}" not found in masterData. Returning empty metadata.`
+    );
+    return {};
+  }
+
+  const metadata = generateDynamicMetadata(courseSlug, citySlug);
+  if (!metadata) {
+    console.warn(
+      `❌ generateMetadata: Failed to generate metadata for "${slug}".`
+    );
+    return {};
+  }
+
+  const metadataObject = {
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    robots: metadata.robots,
+    authors: metadata.authors,
+    alternates: {
+      canonical: metadata.canonical,
+      languages: metadata.alternates.reduce((acc, alt) => {
+        if (alt.hreflang && alt.href) {
+          acc[alt.hreflang] = alt.href;
+        }
+        return acc;
+      }, {}),
+    },
+    openGraph: metadata.openGraph,
+    twitter: metadata.twitter,
+    icons: {
+      icon: metadata.icons.icon,
+      apple: metadata.icons.appleTouchIcon,
+    },
+    manifest: metadata.manifest,
+  };
+
+  if (metadata.isMajorCity && metadata.enhancedMeta) {
+    metadataObject.other = metadataObject.other || {};
+    Object.assign(metadataObject.other, {
+      "geo.region": metadata.enhancedMeta.geoRegion,
+      "geo.placename": metadata.enhancedMeta.geoPlacename,
+      "geo.position": metadata.enhancedMeta.geoPosition,
+      ICBM: metadata.enhancedMeta.icbm,
+      "course.provider": metadata.enhancedMeta.courseProvider,
+      "course.location": metadata.enhancedMeta.courseLocation,
+      "course.category": metadata.enhancedMeta.courseCategory,
+      "theme-color": metadata.enhancedMeta.themeColor,
+      "msapplication-navbutton-color":
+        metadata.enhancedMeta.msApplicationNavButtonColor,
+      "apple-mobile-web-app-status-bar-style":
+        metadata.enhancedMeta.appleStatusBarStyle,
+      "mobile-web-capable": metadata.enhancedMeta.mobileWebCapable,
+      "apple-mobile-web-app-capable": metadata.enhancedMeta.appleMobileCapable,
+      "apple-mobile-web-app-title": metadata.enhancedMeta.appleMobileTitle,
+    });
+  }
+
+  if (metadata.facebook?.appId) {
+    metadataObject.other = metadataObject.other || {};
+    metadataObject.other["fb:app_id"] = metadata.facebook.appId;
+  }
+  if (metadata.pinterest?.richPin) {
+    metadataObject.other = metadataObject.other || {};
+    metadataObject.other["pinterest-rich-pin"] = metadata.pinterest.richPin;
+  }
+
+  return metadataObject;
 }
 
-// ✅ FIXED: Main component with better error handling
 const CourseCityPage = async ({ params }) => {
-  try {
-    const resolvedParams = await params;
-    const slug = resolvedParams?.slug;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
 
-    if (!slug) notFound();
+  if (!slug) return notFound();
 
-    const parsed = parseSlug(slug);
-    if (!parsed) notFound();
+  const parsed = parseSlug(slug);
+  if (!parsed) {
+    console.warn(
+      `❌ CourseCityPage: Slug "${slug}" does not match course-city pattern. Returning notFound().`
+    );
+    return notFound();
+  }
 
-    const { courseSlug, citySlug } = parsed;
+  const { courseSlug, citySlug } = parsed;
 
-    if (!coursesData || !citiesData) notFound();
+  const course = coursesData[courseSlug];
+  const city = citiesData[citySlug];
 
-    const course = coursesData[courseSlug];
-    const city = citiesData[citySlug];
+  if (!course || !city) {
+    console.error(
+      `❌ CourseCityPage: Course "${courseSlug}" or City "${citySlug}" not found in masterData. Returning notFound().`
+    );
+    return notFound();
+  }
 
-    if (!course || !city) notFound();
+  const jsonLd = generateDynamicJsonLd(courseSlug, citySlug);
 
-    const jsonLd = generateDynamicJsonLd(courseSlug, citySlug);
-
-    const processPlaceholders = (obj, cityNameToUse) => {
-      try {
-        if (typeof obj === "string") {
-          return obj.replace(/{city}/g, cityNameToUse || "");
-        }
-        if (Array.isArray(obj)) {
-          return obj.map((item) => processPlaceholders(item, cityNameToUse));
-        }
-        if (typeof obj === "object" && obj !== null) {
-          const newObj = {};
-          for (const key in obj) {
-            newObj[key] = processPlaceholders(obj[key], cityNameToUse);
-          }
-          return newObj;
-        }
-        return obj;
-      } catch (error) {
-        console.warn("Error processing placeholders:", error);
-        return obj;
-      }
-    };
-
-    // Safe data processing with fallbacks
-    const headerData = course.header
-      ? processPlaceholders(course.header, city.name)
-      : null;
-    const whyData = course.why
-      ? processPlaceholders(course.why, city.name)
-      : null;
-    const sapModData = course.sapMod
-      ? processPlaceholders(course.sapMod, city.name)
-      : null;
-    const modulesData = course.modulesData
-      ? processPlaceholders(course.modulesData, city.name)
-      : null;
-    const certificateData = course.certificate
-      ? processPlaceholders(course.certificate, city.name)
-      : null;
-    const faqData = course.faq
-      ? processPlaceholders(course.faq, city.name)
-      : null;
-    const relatedCoursesData = course.relatedCourses
-      ? processPlaceholders(course.relatedCourses, city.name)
-      : null;
-    const descriptionContentData = course.descriptionContent
-      ? processPlaceholders(course.descriptionContent, city.name)
-      : null;
-
-    // Check if this is a multi-section course
-    const isMultiSectionCourse =
-      descriptionContentData &&
-      (descriptionContentData.main ||
-        descriptionContentData.ppc ||
-        descriptionContentData.seo);
-
-    // Safe content generation
-    const dynamicBodyContent = `
-      <div class="course-main-content">
-        <h1 class="visually-hidden">${course.title || "Course"} Course in ${city.name || "City"}</h1>
-        <h2 class="visually-hidden">Best ${course.fullTitle || course.title || "Course"} Training in ${city.name || "City"}</h2>
-        <p class="visually-hidden">${(course.description || "").replace(/{city}/g, city.name || "")}</p>
-        
-        <section class="course-summary">
-          <h3>About Our ${course.fullTitle || course.title || "Course"} Course</h3>
-          <p>Our comprehensive ${course.title || "course"} course in ${city.name || "your city"} is designed to equip you with practical skills and industry insights.</p>
-          ${
-            course.jobRoles && course.jobRoles.length > 0
-              ? `<p>Get ready for a successful career in roles such as ${course.jobRoles.slice(0, 2).join(" or ")}.</p>`
-              : ""
-          }
-        </section>
-
-        ${renderOfficeSpecificContent(city, course.title)}
-      </div>
-    `;
-
-    function renderOfficeSpecificContent(cityData, courseTitle) {
-      try {
-        if (cityData.hasOffice && cityData.office) {
-          return `
-            <section class="our-local-presence">
-              <h3>Visit Our Training Center in ${cityData.name}</h3>
-              <p>We're proud to offer in-person training at our state-of-the-art facility in ${cityData.name}.</p>
-              <p><strong>Address:</strong> ${cityData.office.address || ""}</p>
-              <p><strong>Phone:</strong> ${cityData.office.phone || ""}</p>
-              <p><strong>Operating Hours:</strong> ${cityData.office.hours?.open || "9:00"} - ${cityData.office.hours?.close || "18:00"} daily</p>
-              <p>Rated <strong>${cityData.office.rating || "4.5"}/5</strong> by ${cityData.office.reviewCount || "100"} students on Google.</p>
-              ${cityData.office.mapUrl ? `<p><a href="${cityData.office.mapUrl}" target="_blank" rel="noopener noreferrer">Get Directions to our ${courseTitle || "Training"} Training Center</a></p>` : ""}
-            </section>
-          `;
-        }
-        return "";
-      } catch (error) {
-        console.warn("Error rendering office content:", error);
-        return "";
-      }
+  const processPlaceholders = (obj, cityNameToUse) => {
+    if (typeof obj === "string") {
+      return obj.replace(/{city}/g, cityNameToUse);
     }
+    if (Array.isArray(obj)) {
+      return obj.map((item) => processPlaceholders(item, cityNameToUse));
+    }
+    if (typeof obj === "object" && obj !== null) {
+      const newObj = {};
+      for (const key in obj) {
+        newObj[key] = processPlaceholders(obj[key], cityNameToUse);
+      }
+      return newObj;
+    }
+    return obj;
+  };
 
-    // Improved scroll script
-    const scrollScript = `
-      <script>
-        (function() {
-          if (typeof window === 'undefined') return;
-          
-          try {
-            function scrollToHash() {
-              const hash = window.location.hash.replace('#', '');
-              if (hash) {
-                requestAnimationFrame(() => {
-                  setTimeout(() => {
-                    try {
-                      const element = document.getElementById(hash);
-                      if (element) {
-                        element.scrollIntoView({ 
-                          behavior: 'smooth', 
-                          block: 'start',
-                          inline: 'nearest'
-                        });
-                      }
-                    } catch (scrollError) {
-                      console.warn('Scroll error:', scrollError);
-                    }
-                  }, 100);
+  const headerData = processPlaceholders(course.header, city.name);
+  const whyData = processPlaceholders(course.why, city.name);
+  const sapModData = course.sapMod
+    ? processPlaceholders(course.sapMod, city.name)
+    : null;
+  const modulesData = course.modulesData
+    ? processPlaceholders(course.modulesData, city.name)
+    : null;
+  const certificateData = processPlaceholders(course.certificate, city.name);
+  const faqData = processPlaceholders(course.faq, city.name);
+  const relatedCoursesData = processPlaceholders(
+    course.relatedCourses,
+    city.name
+  );
+
+  // Handle description content - check if it's multi-section (like Digital Marketing) or single section
+  const descriptionContentData = processPlaceholders(
+    course.descriptionContent,
+    city.name
+  );
+
+  // Check if this is a multi-section course (like Digital Marketing)
+  const isMultiSectionCourse =
+    descriptionContentData &&
+    (descriptionContentData.main ||
+      descriptionContentData.ppc ||
+      descriptionContentData.seo);
+
+  // Generate dynamic content for the page body.
+  const dynamicBodyContent = `
+    <div class="course-main-content">
+      <!-- These elements now use the global 'visually-hidden' class -->
+      <h1 class="visually-hidden">${course.title} Course in ${city.name}</h1>
+      <h2 class="visually-hidden">Best ${course.fullTitle} Training in ${city.name}</h2>
+      <p class="visually-hidden">${course.description.replace(/{city}/g, city.name)}</p>
+      
+      <section class="course-summary">
+        <h3>About Our ${course.fullTitle} Course</h3>
+        <p>Our comprehensive ${course.title} course in ${city.name} is designed to equip you with ${course.modules.length} key modules, practical skills, and industry insights. With a duration of ${course.duration}, you'll gain expertise in areas like: ${course.modules.slice(0, 3).join(", ")}${course.modules.length > 3 ? "..." : ""}.</p>
+        <p>Get ready for a successful career in roles such as ${course.jobRoles.slice(0, 2).join(" or ")}.</p>
+      </section>
+
+      ${renderOfficeSpecificContent(city, course.title)}
+      
+      <section class="career-path">
+        <h3>Career Opportunities After ${course.fullTitle} Training</h3>
+        <p>Upon successful completion of our ${course.title} course, you'll be prepared for diverse and rewarding career paths, including:</p>
+        <ul>
+          ${course.jobRoles.map((role) => `<li>${role}</li>`).join("")}
+        </ul>
+      </section>
+    </div>
+  `;
+
+  function renderOfficeSpecificContent(cityData, courseTitle) {
+    if (cityData.hasOffice && cityData.office) {
+      return `
+        <section class="our-local-presence">
+          <h3>Visit Our Training Center in ${cityData.name}</h3>
+          <p>We're proud to offer in-person training at our state-of-the-art facility in ${cityData.name}.</p>
+          <p><strong>Address:</strong> ${cityData.office.address}</p>
+          <p><strong>Phone:</strong> ${cityData.office.phone}</p>
+          <p><strong>Operating Hours:</strong> ${cityData.office.hours.open} - ${cityData.office.hours.close} daily</p>
+          <p>Rated <strong>${cityData.office.rating}/5</strong> by ${cityData.office.reviewCount} students on Google.</p>
+          ${cityData.office.mapUrl ? `<p><a href="${cityData.office.mapUrl}" target="_blank" rel="noopener noreferrer">Get Directions to our ${courseTitle} Training Center</a></p>` : ""}
+        </section>
+      `;
+    }
+    return "";
+  }
+
+  // Scroll handling script for hash navigation
+  const scrollScript = `
+    <script>
+      (function() {
+        function scrollToHash() {
+          const hash = window.location.hash.replace('#', '');
+          if (hash) {
+            setTimeout(() => {
+              const element = document.getElementById(hash);
+              if (element) {
+                element.scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'start',
+                  inline: 'nearest'
                 });
               }
-            }
-            
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', scrollToHash);
-            } else {
-              scrollToHash();
-            }
-            
-            window.addEventListener('hashchange', scrollToHash);
-          } catch (error) {
-            console.warn('Scroll script error:', error);
+            }, 500);
           }
-        })();
-      </script>
-    `;
+        }
+        
+        // Handle initial load
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', scrollToHash);
+        } else {
+          scrollToHash();
+        }
+        
+        // Handle hash changes
+        window.addEventListener('hashchange', scrollToHash);
+      })();
+    </script>
+  `;
 
-    // Default layout for all courses (simplified)
+  // Render Digital Marketing specific layout
+  if (courseSlug === "digital-marketing" && isMultiSectionCourse) {
     return (
       <>
+        {/* Inject JSON-LD structured data (server-rendered) */}
         {jsonLd && (
           <script
             type="application/ld+json"
@@ -366,49 +296,110 @@ const CourseCityPage = async ({ params }) => {
           />
         )}
 
+        {/* Inject scroll handling script */}
+        <div dangerouslySetInnerHTML={{ __html: scrollScript }} />
+
+        {/* Render core dynamic content for the page body */}
         <div dangerouslySetInnerHTML={{ __html: dynamicBodyContent }} />
 
-        <ClientOnly
-          fallback={
-            <div
-              style={{
-                minHeight: "200px",
-                padding: "20px",
-                textAlign: "center",
-              }}
-            >
-              <div>Loading page content...</div>
-            </div>
-          }
-        >
-          {headerData && <DSHeader data={headerData} />}
-          {whyData && <Why data={whyData} />}
+        {/* Render Client Components */}
+        <ClientOnly>
+          <DSHeader data={headerData} />
+          <Why data={whyData} />
           {sapModData && <SapModComponent data={sapModData} />}
-          {modulesData && <Modules data={modulesData} />}
           <Counselor />
-          <TrustUs />
-          <Program />
-          {certificateData && <Certificate data={certificateData} />}
-          {descriptionContentData && (
-            <Description data={descriptionContentData} />
-          )}
-          {faqData && <FAQ data={faqData} />}
-          {course.category === "hr" && <HrCard />}
-          {relatedCoursesData && (
-            <CoursesRelated
-              data={relatedCoursesData}
-              currentCityName={city.name}
-            />
-          )}
-        </ClientOnly>
 
-        <div dangerouslySetInnerHTML={{ __html: scrollScript }} />
+          {/* Main description section */}
+          <Description data={descriptionContentData.main} />
+
+          {/* PPC Section with scroll anchor */}
+          <div id="pay-per-click" style={{ scrollMarginTop: "80px" }}>
+            {descriptionContentData.ppc && (
+              <Description data={descriptionContentData.ppc} sectionIndex={0} />
+            )}
+          </div>
+
+          <TrustUs />
+
+          {/* SEO Section with scroll anchor */}
+          <div
+            id="search-engine-optimization"
+            style={{ scrollMarginTop: "80px" }}
+          >
+            {descriptionContentData.seo && (
+              <Description data={descriptionContentData.seo} sectionIndex={1} />
+            )}
+          </div>
+
+          <Certificate data={certificateData} />
+          <Program />
+
+          {/* SMM Section with scroll anchor */}
+          <div id="social-media-marketing" style={{ scrollMarginTop: "80px" }}>
+            {descriptionContentData.smm && (
+              <Description data={descriptionContentData.smm} sectionIndex={0} />
+            )}
+          </div>
+
+          {/* Analytics Section with scroll anchor */}
+          <div id="advance-analytics" style={{ scrollMarginTop: "80px" }}>
+            {descriptionContentData.analytics && (
+              <Description
+                data={descriptionContentData.analytics}
+                sectionIndex={1}
+              />
+            )}
+          </div>
+
+          <FAQ data={faqData} />
+          <CoursesRelated
+            data={relatedCoursesData}
+            currentCityName={city.name}
+          />
+        </ClientOnly>
       </>
     );
-  } catch (error) {
-    console.error("❌ Error in CourseCityPage:", error);
-    notFound();
   }
+
+  // Default layout for other courses (SAP, HR, etc.)
+  return (
+    <>
+      {/* Inject JSON-LD structured data (server-rendered) */}
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+
+      {/* Render core dynamic content for the page body */}
+      <div dangerouslySetInnerHTML={{ __html: dynamicBodyContent }} />
+
+      {/* Render Client Components */}
+      <ClientOnly>
+        <DSHeader data={headerData} />
+        <Why data={whyData} />
+
+        {/* Conditional rendering based on data availability */}
+        {sapModData && <SapModComponent data={sapModData} />}
+        {modulesData && <Modules data={modulesData} />}
+
+        <Counselor />
+
+        <TrustUs />
+        <Program />
+
+        <Certificate data={certificateData} />
+
+        {/* Single description section for non-multi-section courses */}
+        <Description data={descriptionContentData} />
+
+        <FAQ data={faqData} />
+        {course.category === "hr" && <HrCard />}
+        <CoursesRelated data={relatedCoursesData} currentCityName={city.name} />
+      </ClientOnly>
+    </>
+  );
 };
 
 export default CourseCityPage;
