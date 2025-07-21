@@ -23,7 +23,7 @@ import CoursesRelated from "@/components/CoursesComponents/RelatedCourses";
 // Import course-specific modules
 import SapModComponent from "@/components/CoursesComponents/sapmod";
 import Modules from "@/components/CoursesComponents/Modules";
-import HrCard from "@/components/CoursesComponents/HRCard";
+import HrCard from "@/components/CoursesComponents/HRCard"; 
 
 // Helper function to parse the slug into course and city components
 function parseSlug(slug) {

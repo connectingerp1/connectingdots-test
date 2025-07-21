@@ -53,6 +53,30 @@ export const metadata = {
   },
 };
 
+// In your Next.js components or pages
+const pingServer = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ping`);
+    const data = await response.json();
+    console.log('Server status:', data);
+  } catch (error) {
+    console.error('Server ping failed:', error);
+  }
+};
+
+// In your Next.js components or pages
+const pingBlogsServer = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BLOG}/api/blogs/ping`);
+    const data = await response.json();
+    console.log('Server status:', data);
+  } catch (error) {
+    console.error('Server ping failed:', error);
+  }
+};
+
+
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
