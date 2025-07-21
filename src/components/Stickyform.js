@@ -470,11 +470,11 @@ function Stickyform() {
                   <option value="" disabled>
                     Select a course
                   </option>
-                  <option value="SAP">SAP</option>
-                  <option value="IT Courses">IT Courses</option>
+                  <option value="SAP Course">SAP Course</option>
+                  <option value="IT Course">IT Course</option>
                   <option value="Digital Marketing">Digital Marketing</option>
                   <option value="Data Visualisation">Data Visualisation</option>
-                  <option value="HR Courses">HR Courses</option>
+                  <option value="HR Course">HR Course</option>
                   {/* Add more course options as needed */}
                 </select>
                 {errors.course && (

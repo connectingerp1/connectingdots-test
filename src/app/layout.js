@@ -38,11 +38,13 @@ export const metadata = {
   title: {
     default: "Connecting Dots ERP | SAP Training Institute",
   },
-  description: "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",
+  description:
+    "Expert-led training in SAP, Software Development, Digital Marketing, and HR Courses with strong placement support for your career.",
   verification: {
     google: "KRKFsO9AAW2a8qImif8Wj4uzzjmWGA0R6o7IZFJcmPo",
     other: {
-      "ahrefs-site-verification": "f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0",
+      "ahrefs-site-verification":
+        "f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0",
     },
   },
   // ✅ FIXED: Add manifest reference at the top level
@@ -58,24 +60,24 @@ const pingServer = async () => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ping`);
     const data = await response.json();
-    console.log('Server status:', data);
+    console.log("Server status:", data);
   } catch (error) {
-    console.error('Server ping failed:', error);
+    console.error("Server ping failed:", error);
   }
 };
 
 // In your Next.js components or pages
 const pingBlogsServer = async () => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_BLOG}/api/blogs/ping`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL_BLOG}/api/blogs/ping`
+    );
     const data = await response.json();
-    console.log('Server status:', data);
+    console.log("Server status:", data);
   } catch (error) {
-    console.error('Server ping failed:', error);
+    console.error("Server ping failed:", error);
   }
 };
-
-
 
 export default function RootLayout({ children }) {
   return (
@@ -85,7 +87,7 @@ export default function RootLayout({ children }) {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#1a365d" />
         <meta name="mobile-web-app-capable" content="yes" />
-        
+
         {/* GTM Head Script - Critical for GTM to work properly */}
         <Script
           id="gtm-head"
@@ -101,7 +103,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body 
+      <body
         className={`body bg-black ${lato.className} ${rubik.className}`}
         suppressHydrationWarning={true} // ✅ FIXED: Suppress hydration warnings
       >

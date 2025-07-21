@@ -11,7 +11,7 @@ const PopupForm = ({ onSubmitData }) => {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState(""); // This will now hold the select value
   const [location, setLocation] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [countryCode] = useState("+91");
@@ -21,6 +21,16 @@ const PopupForm = ({ onSubmitData }) => {
   const [statusMessage, setStatusMessage] = useState({ text: "", type: "" });
 
   const pathname = usePathname();
+
+  // Course options - same as StickyForm
+  const courseOptions = [
+    { value: "", label: "Select a course", disabled: true },
+    { value: "SAP Course", label: "SAP Course" },
+    { value: "IT Course", label: "IT Course" },
+    { value: "Digital Marketing", label: "Digital Marketing" },
+    { value: "Data Visualisation", label: "Data Visualisation" },
+    { value: "HR Course", label: "HR Course" },
+  ];
 
   useEffect(() => {
     const hiddenPages = [
@@ -80,9 +90,10 @@ const PopupForm = ({ onSubmitData }) => {
       setStatusMessage({ text: "Mobile number is required.", type: "error" });
       return false;
     }
-    if (!course.trim()) {
+    // Updated validation for select dropdown
+    if (!course || course === "") {
       setStatusMessage({
-        text: "Course selection is required.",
+        text: "Please select a course.",
         type: "error",
       });
       return false;
@@ -111,10 +122,6 @@ const PopupForm = ({ onSubmitData }) => {
         text: "Please enter a valid email address.",
         type: "error",
       });
-      return false;
-    }
-    if (course.length > 100) {
-      setStatusMessage({ text: "Course name seems too long.", type: "error" });
       return false;
     }
     if (location.length > 100) {
@@ -148,7 +155,7 @@ const PopupForm = ({ onSubmitData }) => {
       email: email.trim().toLowerCase(),
       contact: mobile.replace(/\D/g, ""),
       countryCode: countryCode,
-      coursename: course.trim(),
+      coursename: course, // Now contains the selected course value
       location: location.trim(),
     };
 
@@ -179,7 +186,7 @@ const PopupForm = ({ onSubmitData }) => {
         setName("");
         setMobile("");
         setEmail("");
-        setCourse("");
+        setCourse(""); // Reset to empty value
         setLocation("");
         setIsChecked(false);
         setStatusMessage({ text: "", type: "" });
@@ -347,16 +354,27 @@ const PopupForm = ({ onSubmitData }) => {
             disabled={isSubmitting}
             aria-describedby="popup-status"
           />
-          <input
-            type="text"
-            placeholder="Which course are you looking for?*"
+          
+          {/* REPLACED: Text input with Select dropdown */}
+          <select
             value={course}
             onChange={(e) => setCourse(e.target.value)}
             required
-            maxLength="100"
             disabled={isSubmitting}
             aria-describedby="popup-status"
-          />
+            className={styles.courseSelect} // Add specific class for styling if needed
+          >
+            {courseOptions.map((option) => (
+              <option 
+                key={option.value} 
+                value={option.value} 
+                disabled={option.disabled}
+              >
+                {option.label}
+              </option>
+            ))}
+          </select>
+
           <input
             type="text"
             placeholder="Add your Location*"
