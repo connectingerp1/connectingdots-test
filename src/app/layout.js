@@ -9,6 +9,7 @@ import Navbar from "@/components/Common/Navbar";
 import Footer from "@/components/Common/Footer";
 import CallAdvisorsStrip from "@/components/Common/CallAdvisorsStrip";
 import Marquee from "@/components/Common/Marquee";
+import ServerPing from "@/components/ServerPing";
 
 // This wrapper will contain all our client-side logic, like Context Providers
 import ClientLayoutWrapper from "@/components/ClientLayoutWrapper";
@@ -47,7 +48,6 @@ export const metadata = {
         "f3b13167d2161bfb1fc945b8ecb8c0e6855cf9394e9e96e12104db099fbbcab0",
     },
   },
-  // ✅ FIXED: Add manifest reference at the top level
   manifest: "/site.webmanifest",
   icons: {
     icon: "/favicon.ico",
@@ -55,35 +55,10 @@ export const metadata = {
   },
 };
 
-// In your Next.js components or pages
-const pingServer = async () => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/ping`);
-    const data = await response.json();
-    console.log("Server status:", data);
-  } catch (error) {
-    console.error("Server ping failed:", error);
-  }
-};
-
-// In your Next.js components or pages
-const pingBlogsServer = async () => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL_BLOG}/api/blogs/ping`
-    );
-    const data = await response.json();
-    console.log("Server status:", data);
-  } catch (error) {
-    console.error("Server ping failed:", error);
-  }
-};
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${lato.variable} ${rubik.variable}`}>
       <head>
-        {/* ✅ FIXED: Ensure manifest is properly linked */}
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#1a365d" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -105,7 +80,7 @@ export default function RootLayout({ children }) {
       </head>
       <body
         className={`body bg-black ${lato.className} ${rubik.className}`}
-        suppressHydrationWarning={true} // ✅ FIXED: Suppress hydration warnings
+        suppressHydrationWarning={true}
       >
         {/* GTM noscript fallback - Required for users with JavaScript disabled */}
         <noscript>
@@ -116,6 +91,9 @@ export default function RootLayout({ children }) {
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+
+        {/* Server Ping Component - Will ping servers on app load */}
+        <ServerPing />
 
         {/* Server-Side Rendered Components */}
         <CallAdvisorsStrip />
