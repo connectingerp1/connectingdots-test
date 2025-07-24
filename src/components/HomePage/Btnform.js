@@ -5,7 +5,6 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "@/styles/HomePage/Btnform.module.css";
 import { User, Mail, Phone, MapPin, X, CheckCircle } from "lucide-react";
-// Import the comprehensive cities data
 import cities from 'cities.json';
 
 // Country codes with phone number lengths
@@ -44,53 +43,43 @@ const Btnform = ({ onClose, course }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
-
-  // Location suggestions state
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [isLoadingCities, setIsLoadingCities] = useState(true);
 
-  // Refs for location functionality
   const locationInputRef = useRef(null);
   const suggestionsRef = useRef(null);
 
-  // Load Indian cities and major global cities
+  // Load location data
   useEffect(() => {
     const loadLocationData = () => {
       try {
         setIsLoadingCities(true);
         
-        // Filter for Indian cities and major international cities
         const indianCities = cities.filter(city => 
           city.country === 'IN' || city.country === 'India'
         );
         
-        // Add major international cities
         const majorInternationalCities = cities.filter(city => 
           ['US', 'UK', 'CA', 'AU', 'DE', 'FR', 'SG', 'AE', 'JP'].includes(city.country) &&
           city.population > 500000
         );
 
-        // Combine and create location strings
         const allLocations = [
-          // Indian cities with state
           ...indianCities.map(city => 
             city.subcountry ? `${city.name}, ${city.subcountry}` : city.name
           ),
-          // Major international cities with country
           ...majorInternationalCities.map(city => 
             `${city.name}, ${city.country}`
           ),
-          // Add common options
           'Remote',
           'Work from Home',
           'Multiple Locations',
           'Willing to Relocate'
         ];
 
-        // Remove duplicates and sort
         const uniqueLocations = [...new Set(allLocations)]
           .filter(location => location && location.trim())
           .sort((a, b) => {
@@ -103,18 +92,15 @@ const Btnform = ({ onClose, course }) => {
             return a.localeCompare(b);
           });
 
-        console.log(`✅ Loaded ${uniqueLocations.length} locations for Btnform`);
         setLocationSuggestions(uniqueLocations);
         
       } catch (error) {
-        console.error('❌ Error loading cities data in Btnform:', error);
-        // Fallback to basic cities
+        console.error('Error loading cities data:', error);
         setLocationSuggestions([
           'Mumbai, Maharashtra', 'Delhi', 'Bangalore, Karnataka', 
           'Hyderabad, Telangana', 'Chennai, Tamil Nadu', 'Kolkata, West Bengal',
           'Pune, Maharashtra', 'Ahmedabad, Gujarat', 'Jaipur, Rajasthan', 
-          'Surat, Gujarat', 'Lucknow, Uttar Pradesh', 'Kanpur, Uttar Pradesh',
-          'Remote', 'Work from Home', 'Multiple Locations'
+          'Remote', 'Work from Home'
         ]);
       } finally {
         setIsLoadingCities(false);
@@ -124,7 +110,7 @@ const Btnform = ({ onClose, course }) => {
     loadLocationData();
   }, []);
 
-  // Enhanced location input change
+  // Handle location input changes
   const handleLocationChange = (e) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, location: value }));
@@ -138,7 +124,6 @@ const Btnform = ({ onClose, course }) => {
                suggestionLower.split(',')[0].trim().startsWith(valueLower);
       });
 
-      // Sort results
       filtered.sort((a, b) => {
         const aLower = a.toLowerCase();
         const bLower = b.toLowerCase();
@@ -160,19 +145,17 @@ const Btnform = ({ onClose, course }) => {
       setFilteredSuggestions(filtered);
       setShowSuggestions(filtered.length > 0);
       setActiveSuggestion(-1);
-      
     } else {
       setShowSuggestions(false);
       setFilteredSuggestions([]);
     }
 
-    // Clear location error if it exists
     if (errors.location) {
       setErrors(prev => ({ ...prev, location: undefined }));
     }
   };
 
-  // Handle suggestion click
+  // Handle suggestion selection
   const handleSuggestionClick = (suggestion) => {
     setFormData(prev => ({ ...prev, location: suggestion }));
     setShowSuggestions(false);
@@ -202,9 +185,6 @@ const Btnform = ({ onClose, course }) => {
         }
         break;
       case 'Escape':
-        setShowSuggestions(false);
-        setActiveSuggestion(-1);
-        break;
       case 'Tab':
         setShowSuggestions(false);
         setActiveSuggestion(-1);
@@ -227,17 +207,15 @@ const Btnform = ({ onClose, course }) => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Frontend validation logic
+  // Form validation
   const validate = () => {
     const newErrors = {};
     const { name, email, contact, countryCode, location } = formData;
 
-    if (!name || !name.trim()) {
+    if (!name?.trim()) {
       newErrors.name = "Name is required";
     }
 
@@ -246,23 +224,15 @@ const Btnform = ({ onClose, course }) => {
       newErrors.email = "Please enter a valid email address";
     }
 
-    // Find selected country for validation rules
     const selectedCountry = countryCodes.find((c) => c.code === countryCode);
-
     if (selectedCountry) {
       const { minLength, maxLength } = selectedCountry;
       const contactDigits = contact.replace(/\D/g, "");
 
-      if (
-        !contactDigits ||
-        contactDigits.length < minLength ||
-        contactDigits.length > maxLength
-      ) {
+      if (!contactDigits || contactDigits.length < minLength || contactDigits.length > maxLength) {
         newErrors.contact = `Please enter a valid ${
           minLength === maxLength ? minLength : `${minLength}-${maxLength}`
         }-digit number for ${selectedCountry.country}`;
-      } else if (!/^\d+$/.test(contactDigits)) {
-        newErrors.contact = "Phone number should contain only digits";
       }
     } else {
       if (!contact || !/^\d{7,15}$/.test(contact.replace(/\D/g, ""))) {
@@ -270,7 +240,7 @@ const Btnform = ({ onClose, course }) => {
       }
     }
 
-    if (!location || !location.trim()) {
+    if (!location?.trim()) {
       newErrors.location = "Location is required";
     } else if (location.length > 100) {
       newErrors.location = "Location seems too long";
@@ -283,22 +253,12 @@ const Btnform = ({ onClose, course }) => {
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const processedValue = name === "contact" ? value.replace(/\D/g, "") : value;
 
-    let processedValue = value;
-    if (name === "contact") {
-      processedValue = value.replace(/\D/g, "");
-    }
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: processedValue,
-    }));
+    setFormData(prev => ({ ...prev, [name]: processedValue }));
 
     if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: undefined,
-      }));
+      setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
 
@@ -306,10 +266,7 @@ const Btnform = ({ onClose, course }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!validate()) {
-      console.log("Frontend validation failed:", errors);
-      return;
-    }
+    if (!validate()) return;
 
     setIsSubmitting(true);
 
@@ -321,17 +278,16 @@ const Btnform = ({ onClose, course }) => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) {
-        console.error("API URL environment variable (NEXT_PUBLIC_API_URL) is not set.");
+        console.error("API URL environment variable is not set.");
         alert("Configuration error. Cannot submit form.");
         setIsSubmitting(false);
         return;
       }
 
       const response = await axios.post(`${apiUrl}/api/submit`, payload);
-
       console.log("Form submitted successfully:", response.data);
+      
       setShowThankYou(true);
-
       setFormData({
         name: "",
         email: "",
@@ -345,53 +301,23 @@ const Btnform = ({ onClose, course }) => {
         setShowThankYou(false);
         if (onClose) onClose();
       }, 3000);
+
     } catch (error) {
       setIsSubmitting(false);
-
-      console.error("--- Error During Form Submission (Btnform) ---");
-      console.error("Raw Error Object:", error);
-
+      console.error("Form submission error:", error);
+      
       let errorMessage = "An error occurred while submitting. Please try again.";
-
       if (axios.isAxiosError(error)) {
-        console.error("Axios error detected.");
-        if (error.response) {
-          const status = error.response.status;
-          const responseData = error.response.data;
-
-          console.error(`Response Status: ${status}`);
-          console.error("Raw Response Data:", responseData);
-
-          if (status === 400) {
-            if (
-              responseData &&
-              typeof responseData === "object" &&
-              responseData.message
-            ) {
-              errorMessage = responseData.message;
-            } else {
-              errorMessage = "Submission failed. Please check your input values.";
-            }
-          } else {
-            errorMessage = `Submission failed due to a server issue (Status: ${status}). Please try again later.`;
-          }
+        if (error.response?.status === 400) {
+          errorMessage = error.response?.data?.message || "Submission failed. Please check your input values.";
         } else if (error.request) {
-          console.error("No response received from server:", error.request);
-          errorMessage = "Cannot reach the server. Please check your internet connection or try again later.";
-        } else {
-          console.error("Axios request setup error:", error.message);
-          errorMessage = `An application error occurred before sending: ${error.message}`;
+          errorMessage = "Cannot reach the server. Please check your internet connection.";
         }
-      } else {
-        console.error("Non-Axios error:", error);
-        errorMessage = `An unexpected application error occurred: ${error.message || "Unknown error"}`;
       }
-
       alert(errorMessage);
     }
   };
 
-  // Find the selected country to display length requirements in placeholder
   const selectedCountry = countryCodes.find(
     (country) => country.code === formData.countryCode
   );
@@ -406,12 +332,8 @@ const Btnform = ({ onClose, course }) => {
   return (
     <div className={styles.formModal}>
       <div className={styles.formContainer}>
-        <button
-          onClick={onClose}
-          className={styles.closeButton}
-          aria-label="Close form"
-        >
-          <X size={24} />
+        <button onClick={onClose} className={styles.closeButton} aria-label="Close form">
+          <X size={18} />
         </button>
 
         <div className={styles.formHeader}>
@@ -420,18 +342,16 @@ const Btnform = ({ onClose, course }) => {
             alt="Connecting Dots ERP Logo"
             className={styles.logo}
           />
-          <h2>Get In Touch with Our Team!</h2>
-          <p>We&apos;d love to hear from you! Fill out the form below.</p>
+          <h2>Get In Touch!</h2>
+          <p>Fill out the form below and we&apos;ll get back to you.</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.contactForm} noValidate>
           {/* Name Field */}
           <div className={styles.formGroup}>
-            <label htmlFor="name" className={styles.formLabel}>
-              Full Name
-            </label>
+            <label htmlFor="name" className={styles.formLabel}>Full Name</label>
             <div className={styles.inputWrapper}>
-              <User className={styles.inputIcon} size={18} aria-hidden="true" />
+              <User className={styles.inputIcon} size={14} />
               <input
                 type="text"
                 id="name"
@@ -439,28 +359,20 @@ const Btnform = ({ onClose, course }) => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter your full name"
-                className={`${styles.formInput} ${
-                  errors.name ? styles.inputError : ""
-                }`}
+                className={`${styles.formInput} ${errors.name ? styles.inputError : ""}`}
                 aria-required="true"
-                aria-invalid={!!errors.name}
-                aria-describedby={errors.name ? "name-error" : undefined}
               />
             </div>
             {errors.name && (
-              <span id="name-error" className={styles.errorText} role="alert">
-                {errors.name}
-              </span>
+              <span className={styles.errorText}>{errors.name}</span>
             )}
           </div>
 
           {/* Email Field */}
           <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.formLabel}>
-              Email Address
-            </label>
+            <label htmlFor="email" className={styles.formLabel}>Email Address</label>
             <div className={styles.inputWrapper}>
-              <Mail className={styles.inputIcon} size={18} aria-hidden="true" />
+              <Mail className={styles.inputIcon} size={14} />
               <input
                 type="email"
                 id="email"
@@ -468,34 +380,24 @@ const Btnform = ({ onClose, course }) => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                className={`${styles.formInput} ${
-                  errors.email ? styles.inputError : ""
-                }`}
+                className={`${styles.formInput} ${errors.email ? styles.inputError : ""}`}
                 aria-required="true"
-                aria-invalid={!!errors.email}
-                aria-describedby={errors.email ? "email-error" : undefined}
               />
             </div>
             {errors.email && (
-              <span id="email-error" className={styles.errorText} role="alert">
-                {errors.email}
-              </span>
+              <span className={styles.errorText}>{errors.email}</span>
             )}
           </div>
 
           {/* Phone Number Field */}
           <div className={styles.formGroup}>
-            <label htmlFor="contact" className={styles.formLabel}>
-              Phone Number
-            </label>
+            <label htmlFor="contact" className={styles.formLabel}>Phone Number</label>
             <div className={styles.phoneInputWrapper}>
               <select
                 name="countryCode"
-                id="countryCode"
                 value={formData.countryCode}
                 onChange={handleChange}
                 className={styles.countryCodeSelect}
-                aria-label="Select Country Code"
               >
                 {countryCodes.map(({ code, country }) => (
                   <option key={code} value={code}>
@@ -504,54 +406,31 @@ const Btnform = ({ onClose, course }) => {
                 ))}
               </select>
               <div className={styles.phoneNumberWrapper}>
-                <Phone
-                  className={styles.inputIco}
-                  size={18}
-                  aria-hidden="true"
-                />
+                <Phone className={styles.phoneIcon} size={14} />
                 <input
                   type="tel"
-                  inputMode="numeric"
                   id="contact"
                   name="contact"
                   value={formData.contact}
                   onChange={handleChange}
                   placeholder={placeholderText}
-                  className={`${styles.phoneNumberInput} ${
-                    errors.contact ? styles.inputError : ""
-                  }`}
+                  className={`${styles.phoneNumberInput} ${errors.contact ? styles.inputError : ""}`}
                   maxLength={selectedCountry?.maxLength || 15}
                   aria-required="true"
-                  aria-invalid={!!errors.contact}
-                  aria-describedby={
-                    errors.contact ? "contact-error" : undefined
-                  }
                 />
               </div>
             </div>
             {errors.contact && (
-              <span
-                id="contact-error"
-                className={styles.errorText}
-                role="alert"
-              >
-                {errors.contact}
-              </span>
+              <span className={styles.errorText}>{errors.contact}</span>
             )}
           </div>
 
-          {/* Enhanced Location Field with Suggestions */}
+          {/* Location Field */}
           <div className={styles.formGroup}>
-            <label htmlFor="location" className={styles.formLabel}>
-              Location
-            </label>
+            <label htmlFor="location" className={styles.formLabel}>Location</label>
             <div className={styles.locationContainer}>
               <div className={styles.inputWrapper}>
-                <MapPin
-                  className={styles.inputIcon}
-                  size={18}
-                  aria-hidden="true"
-                />
+                <MapPin className={styles.inputIcon} size={14} />
                 <input
                   ref={locationInputRef}
                   type="text"
@@ -565,20 +444,12 @@ const Btnform = ({ onClose, course }) => {
                       setShowSuggestions(true);
                     }
                   }}
-                  placeholder={isLoadingCities ? "Loading locations..." : "Enter your city or location"}
-                  className={`${styles.formInput} ${
-                    errors.location ? styles.inputError : ""
-                  }`}
-                  aria-required="true"
-                  aria-invalid={!!errors.location}
-                  aria-describedby={
-                    errors.location ? "location-error" : undefined
-                  }
+                  placeholder={isLoadingCities ? "Loading..." : "Enter your city"}
+                  className={`${styles.formInput} ${errors.location ? styles.inputError : ""}`}
                   disabled={isLoadingCities}
                   autoComplete="off"
+                  aria-required="true"
                 />
-                
-                {/* Loading indicator */}
                 {isLoadingCities && (
                   <div className={styles.loadingIndicator}>
                     <span className={styles.loadingSpinner}></span>
@@ -589,7 +460,7 @@ const Btnform = ({ onClose, course }) => {
               {/* Suggestions Dropdown */}
               {showSuggestions && filteredSuggestions.length > 0 && !isLoadingCities && (
                 <div ref={suggestionsRef} className={styles.suggestionsDropdown}>
-                  {filteredSuggestions.slice(0, 8).map((suggestion, index) => {
+                  {filteredSuggestions.slice(0, 6).map((suggestion, index) => {
                     const isInternational = suggestion.includes(', US') || 
                                           suggestion.includes(', UK') || 
                                           suggestion.includes(', CA') ||
@@ -608,15 +479,13 @@ const Btnform = ({ onClose, course }) => {
                         <span className={styles.suggestionIcon}>
                           {isSpecial ? '💼' : isInternational ? '🌍' : '📍'}
                         </span>
-                        <span className={styles.suggestionText}>
-                          {suggestion}
-                        </span>
+                        <span className={styles.suggestionText}>{suggestion}</span>
                       </div>
                     );
                   })}
-                  {filteredSuggestions.length > 8 && (
+                  {filteredSuggestions.length > 6 && (
                     <div className={styles.suggestionMore}>
-                      +{filteredSuggestions.length - 8} more locations...
+                      +{filteredSuggestions.length - 6} more...
                     </div>
                   )}
                 </div>
@@ -624,17 +493,11 @@ const Btnform = ({ onClose, course }) => {
             </div>
             
             {errors.location && (
-              <span
-                id="location-error"
-                className={styles.errorText}
-                role="alert"
-              >
-                {errors.location}
-              </span>
+              <span className={styles.errorText}>{errors.location}</span>
             )}
           </div>
 
-          {/* Form Actions */}
+          {/* Submit Button */}
           <div className={styles.formActions}>
             <button
               type="submit"
@@ -650,8 +513,8 @@ const Btnform = ({ onClose, course }) => {
       {/* Thank You Modal */}
       {showThankYou && (
         <div className={styles.thankYouOverlay}>
-          <div className={styles.thankYouContent}>  
-            <CheckCircle size={64} color="#28a745" />
+          <div className={styles.thankYouContent}>
+            <CheckCircle size={40} color="#28a745" />
             <h2>Thank You!</h2>
             <p>Your message has been successfully submitted.</p>
           </div>
