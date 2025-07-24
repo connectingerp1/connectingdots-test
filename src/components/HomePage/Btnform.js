@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import axios from "axios"; // Ensure axios is imported
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "@/styles/HomePage/Btnform.module.css";
 import { User, Mail, Phone, MapPin, X, CheckCircle } from "lucide-react";
+// Import the comprehensive cities data
+import cities from 'cities.json';
 
-// Country codes with flags (Unicode) and phone number lengths
+// Country codes with phone number lengths
 const countryCodes = [
   { code: "+1", country: "USA", minLength: 10, maxLength: 10 },
   { code: "+91", country: "India", minLength: 10, maxLength: 10 },
@@ -31,18 +33,204 @@ const countryCodes = [
 ];
 
 const Btnform = ({ onClose, course }) => {
-  // Added course prop if needed
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     contact: "",
     location: "",
-    countryCode: "+91", // Default country code
+    countryCode: "+91",
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+
+  // Location suggestions state
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [isLoadingCities, setIsLoadingCities] = useState(true);
+
+  // Refs for location functionality
+  const locationInputRef = useRef(null);
+  const suggestionsRef = useRef(null);
+
+  // Load Indian cities and major global cities
+  useEffect(() => {
+    const loadLocationData = () => {
+      try {
+        setIsLoadingCities(true);
+        
+        // Filter for Indian cities and major international cities
+        const indianCities = cities.filter(city => 
+          city.country === 'IN' || city.country === 'India'
+        );
+        
+        // Add major international cities
+        const majorInternationalCities = cities.filter(city => 
+          ['US', 'UK', 'CA', 'AU', 'DE', 'FR', 'SG', 'AE', 'JP'].includes(city.country) &&
+          city.population > 500000
+        );
+
+        // Combine and create location strings
+        const allLocations = [
+          // Indian cities with state
+          ...indianCities.map(city => 
+            city.subcountry ? `${city.name}, ${city.subcountry}` : city.name
+          ),
+          // Major international cities with country
+          ...majorInternationalCities.map(city => 
+            `${city.name}, ${city.country}`
+          ),
+          // Add common options
+          'Remote',
+          'Work from Home',
+          'Multiple Locations',
+          'Willing to Relocate'
+        ];
+
+        // Remove duplicates and sort
+        const uniqueLocations = [...new Set(allLocations)]
+          .filter(location => location && location.trim())
+          .sort((a, b) => {
+            const aIsIndian = !a.includes(',') || a.includes('India');
+            const bIsIndian = !b.includes(',') || b.includes('India');
+            
+            if (aIsIndian && !bIsIndian) return -1;
+            if (!aIsIndian && bIsIndian) return 1;
+            
+            return a.localeCompare(b);
+          });
+
+        console.log(`✅ Loaded ${uniqueLocations.length} locations for Btnform`);
+        setLocationSuggestions(uniqueLocations);
+        
+      } catch (error) {
+        console.error('❌ Error loading cities data in Btnform:', error);
+        // Fallback to basic cities
+        setLocationSuggestions([
+          'Mumbai, Maharashtra', 'Delhi', 'Bangalore, Karnataka', 
+          'Hyderabad, Telangana', 'Chennai, Tamil Nadu', 'Kolkata, West Bengal',
+          'Pune, Maharashtra', 'Ahmedabad, Gujarat', 'Jaipur, Rajasthan', 
+          'Surat, Gujarat', 'Lucknow, Uttar Pradesh', 'Kanpur, Uttar Pradesh',
+          'Remote', 'Work from Home', 'Multiple Locations'
+        ]);
+      } finally {
+        setIsLoadingCities(false);
+      }
+    };
+
+    loadLocationData();
+  }, []);
+
+  // Enhanced location input change
+  const handleLocationChange = (e) => {
+    const value = e.target.value;
+    setFormData(prev => ({ ...prev, location: value }));
+
+    if (value.length > 0) {
+      const filtered = locationSuggestions.filter(suggestion => {
+        const suggestionLower = suggestion.toLowerCase();
+        const valueLower = value.toLowerCase();
+        
+        return suggestionLower.includes(valueLower) ||
+               suggestionLower.split(',')[0].trim().startsWith(valueLower);
+      });
+
+      // Sort results
+      filtered.sort((a, b) => {
+        const aLower = a.toLowerCase();
+        const bLower = b.toLowerCase();
+        const valueLower = value.toLowerCase();
+        
+        const aExact = aLower === valueLower;
+        const bExact = bLower === valueLower;
+        if (aExact && !bExact) return -1;
+        if (!aExact && bExact) return 1;
+        
+        const aStarts = aLower.startsWith(valueLower);
+        const bStarts = bLower.startsWith(valueLower);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
+        
+        return a.localeCompare(b);
+      });
+
+      setFilteredSuggestions(filtered);
+      setShowSuggestions(filtered.length > 0);
+      setActiveSuggestion(-1);
+      
+    } else {
+      setShowSuggestions(false);
+      setFilteredSuggestions([]);
+    }
+
+    // Clear location error if it exists
+    if (errors.location) {
+      setErrors(prev => ({ ...prev, location: undefined }));
+    }
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion) => {
+    setFormData(prev => ({ ...prev, location: suggestion }));
+    setShowSuggestions(false);
+    setFilteredSuggestions([]);
+    setActiveSuggestion(-1);
+  };
+
+  // Handle keyboard navigation
+  const handleLocationKeyDown = (e) => {
+    if (!showSuggestions) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveSuggestion(prev => 
+          prev < filteredSuggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveSuggestion(prev => prev > 0 ? prev - 1 : -1);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (activeSuggestion >= 0) {
+          handleSuggestionClick(filteredSuggestions[activeSuggestion]);
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setActiveSuggestion(-1);
+        break;
+      case 'Tab':
+        setShowSuggestions(false);
+        setActiveSuggestion(-1);
+        break;
+    }
+  };
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        locationInputRef.current &&
+        !locationInputRef.current.contains(event.target) &&
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target)
+      ) {
+        setShowSuggestions(false);
+        setActiveSuggestion(-1);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Frontend validation logic
   const validate = () => {
@@ -63,7 +251,7 @@ const Btnform = ({ onClose, course }) => {
 
     if (selectedCountry) {
       const { minLength, maxLength } = selectedCountry;
-      const contactDigits = contact.replace(/\D/g, ""); // Ensure we're checking digits
+      const contactDigits = contact.replace(/\D/g, "");
 
       if (
         !contactDigits ||
@@ -74,11 +262,9 @@ const Btnform = ({ onClose, course }) => {
           minLength === maxLength ? minLength : `${minLength}-${maxLength}`
         }-digit number for ${selectedCountry.country}`;
       } else if (!/^\d+$/.test(contactDigits)) {
-        // This check might be redundant due to replace(/\D/g, ''), but good safeguard
         newErrors.contact = "Phone number should contain only digits";
       }
     } else {
-      // Fallback if country code somehow isn't found
       if (!contact || !/^\d{7,15}$/.test(contact.replace(/\D/g, ""))) {
         newErrors.contact = "Please enter a valid phone number";
       }
@@ -86,10 +272,12 @@ const Btnform = ({ onClose, course }) => {
 
     if (!location || !location.trim()) {
       newErrors.location = "Location is required";
+    } else if (location.length > 100) {
+      newErrors.location = "Location seems too long";
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   // Handle input changes
@@ -98,7 +286,6 @@ const Btnform = ({ onClose, course }) => {
 
     let processedValue = value;
     if (name === "contact") {
-      // Allow only digits for phone numbers
       processedValue = value.replace(/\D/g, "");
     }
 
@@ -107,7 +294,6 @@ const Btnform = ({ onClose, course }) => {
       [name]: processedValue,
     }));
 
-    // Clear the specific error when the user starts typing
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -118,130 +304,91 @@ const Btnform = ({ onClose, course }) => {
 
   // Handle form submission
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    // Perform frontend validation first
     if (!validate()) {
       console.log("Frontend validation failed:", errors);
-      // Optionally alert the first error or rely on inline errors
-      // const firstErrorKey = Object.keys(errors).find(key => errors[key]);
-      // if (firstErrorKey) alert(errors[firstErrorKey]);
-      return; // Stop submission if validation fails
+      return;
     }
 
-    setIsSubmitting(true); // Show loading indicator
+    setIsSubmitting(true);
 
-    // Prepare data payload (ensure all necessary fields are included)
     const payload = {
       ...formData,
-      coursename: course || "General Inquiry", // Include course name if available, else default
+      coursename: course || "General Inquiry",
     };
 
     try {
-      // --- Send data to backend API ---
-      // Use environment variable for API URL
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       if (!apiUrl) {
-        console.error(
-          "API URL environment variable (NEXT_PUBLIC_API_URL) is not set."
-        );
-        // Set error state or alert user
+        console.error("API URL environment variable (NEXT_PUBLIC_API_URL) is not set.");
         alert("Configuration error. Cannot submit form.");
-        setIsSubmitting(false); // Make sure to stop loading state
+        setIsSubmitting(false);
         return;
       }
 
       const response = await axios.post(`${apiUrl}/api/submit`, payload);
 
-      // --- Handle Success ---
       console.log("Form submitted successfully:", response.data);
-      setShowThankYou(true); // Show thank you message
+      setShowThankYou(true);
 
-      // Optionally reset form fields after successful submission
       setFormData({
         name: "",
         email: "",
         contact: "",
         location: "",
-        countryCode: "+91", // Reset to default country code
+        countryCode: "+91",
       });
-      setErrors({}); // Clear any previous errors
+      setErrors({});
 
-      // Close the form/modal after a delay
       setTimeout(() => {
         setShowThankYou(false);
-        if (onClose) onClose(); // Call the onClose prop if provided
-      }, 3000); // 3 seconds delay
+        if (onClose) onClose();
+      }, 3000);
     } catch (error) {
-      // --- Handle Errors ---
-      // Ensure loading state is turned off even if there's an error
       setIsSubmitting(false);
 
       console.error("--- Error During Form Submission (Btnform) ---");
       console.error("Raw Error Object:", error);
-      if (error.config) {
-        console.error("Request Config:", error.config);
-      }
 
-      let errorMessage =
-        "An error occurred while submitting. Please try again."; // Default
+      let errorMessage = "An error occurred while submitting. Please try again.";
 
       if (axios.isAxiosError(error)) {
         console.error("Axios error detected.");
         if (error.response) {
-          // Got a response from the server (but not status 2xx)
           const status = error.response.status;
           const responseData = error.response.data;
-          const responseHeaders = error.response.headers;
 
           console.error(`Response Status: ${status}`);
           console.error("Raw Response Data:", responseData);
-          console.error("Type of Response Data:", typeof responseData);
-          console.error("Response Headers:", responseHeaders);
 
           if (status === 400) {
-            // Check if the backend sent the expected message format
             if (
               responseData &&
               typeof responseData === "object" &&
               responseData.message
             ) {
-              errorMessage = responseData.message; // Use the specific backend message
-              console.log(
-                "Successfully extracted backend message:",
-                errorMessage
-              );
+              errorMessage = responseData.message;
             } else {
-              console.warn(
-                "Received 400 status, but 'message' field missing or data format incorrect in response. Response data was:",
-                responseData
-              );
-              errorMessage =
-                "Submission failed. Please check your input values.";
+              errorMessage = "Submission failed. Please check your input values.";
             }
           } else {
-            // Handle other server errors (5xx, 404, 403 etc.)
             errorMessage = `Submission failed due to a server issue (Status: ${status}). Please try again later.`;
           }
         } else if (error.request) {
-          // Request was made, but no response received
           console.error("No response received from server:", error.request);
-          errorMessage =
-            "Cannot reach the server. Please check your internet connection or try again later.";
+          errorMessage = "Cannot reach the server. Please check your internet connection or try again later.";
         } else {
-          // Error setting up the request with Axios
           console.error("Axios request setup error:", error.message);
           errorMessage = `An application error occurred before sending: ${error.message}`;
         }
       } else {
-        // Error is not from Axios
         console.error("Non-Axios error:", error);
         errorMessage = `An unexpected application error occurred: ${error.message || "Unknown error"}`;
       }
 
-      alert(errorMessage); // Show the determined message to the user
+      alert(errorMessage);
     }
-    // Removed finally block as setIsSubmitting(false) is handled in both success (implicitly via reset/close) and error paths now.
   };
 
   // Find the selected country to display length requirements in placeholder
@@ -269,26 +416,22 @@ const Btnform = ({ onClose, course }) => {
 
         <div className={styles.formHeader}>
           <img
-            // Consider using next/image for optimization if applicable
             src="https://mlir9digcwm2.i.optimole.com/cb:X1mK.5e5cf/w:620/h:191/q:mauto/https://connectingdotserp.in/wp-content/uploads/2024/07/Original-Logo.png"
-            alt="Connecting Dots ERP Logo" // More descriptive alt text
+            alt="Connecting Dots ERP Logo"
             className={styles.logo}
           />
           <h2>Get In Touch with Our Team!</h2>
           <p>We&apos;d love to hear from you! Fill out the form below.</p>
         </div>
 
-        {/* Form Element */}
         <form onSubmit={handleSubmit} className={styles.contactForm} noValidate>
           {/* Name Field */}
           <div className={styles.formGroup}>
             <label htmlFor="name" className={styles.formLabel}>
               Full Name
-            </label>{" "}
-            {/* Added class */}
+            </label>
             <div className={styles.inputWrapper}>
-              <User className={styles.inputIcon} size={18} aria-hidden="true" />{" "}
-              {/* Adjusted icon size */}
+              <User className={styles.inputIcon} size={18} aria-hidden="true" />
               <input
                 type="text"
                 id="name"
@@ -315,8 +458,7 @@ const Btnform = ({ onClose, course }) => {
           <div className={styles.formGroup}>
             <label htmlFor="email" className={styles.formLabel}>
               Email Address
-            </label>{" "}
-            {/* Added class */}
+            </label>
             <div className={styles.inputWrapper}>
               <Mail className={styles.inputIcon} size={18} aria-hidden="true" />
               <input
@@ -341,51 +483,44 @@ const Btnform = ({ onClose, course }) => {
             )}
           </div>
 
-          {/* Phone Number Field (Combined Country Code + Number) */}
+          {/* Phone Number Field */}
           <div className={styles.formGroup}>
             <label htmlFor="contact" className={styles.formLabel}>
               Phone Number
-            </label>{" "}
-            {/* Added class */}
+            </label>
             <div className={styles.phoneInputWrapper}>
-              {" "}
-              {/* Wrapper for select + input */}
               <select
                 name="countryCode"
-                id="countryCode" // Added ID for label association
+                id="countryCode"
                 value={formData.countryCode}
                 onChange={handleChange}
                 className={styles.countryCodeSelect}
-                aria-label="Select Country Code" // Aria label for accessibility
+                aria-label="Select Country Code"
               >
                 {countryCodes.map(({ code, country }) => (
                   <option key={code} value={code}>
-                    {`${code} (${country})`} {/* Clearer format */}
+                    {`${code} (${country})`}
                   </option>
                 ))}
               </select>
               <div className={styles.phoneNumberWrapper}>
-                {" "}
-                {/* Specific wrapper for icon + number input */}
                 <Phone
                   className={styles.inputIco}
                   size={18}
                   aria-hidden="true"
-                />{" "}
-                {/* Adjusted icon */}
+                />
                 <input
-                  type="tel" // Use tel type
-                  inputMode="numeric" // Suggest numeric keyboard
+                  type="tel"
+                  inputMode="numeric"
                   id="contact"
                   name="contact"
                   value={formData.contact}
                   onChange={handleChange}
                   placeholder={placeholderText}
                   className={`${styles.phoneNumberInput} ${
-                    // Use specific class
                     errors.contact ? styles.inputError : ""
                   }`}
-                  maxLength={selectedCountry?.maxLength || 15} // Dynamic max length
+                  maxLength={selectedCountry?.maxLength || 15}
                   aria-required="true"
                   aria-invalid={!!errors.contact}
                   aria-describedby={
@@ -405,35 +540,89 @@ const Btnform = ({ onClose, course }) => {
             )}
           </div>
 
-          {/* Location Field */}
+          {/* Enhanced Location Field with Suggestions */}
           <div className={styles.formGroup}>
             <label htmlFor="location" className={styles.formLabel}>
               Location
-            </label>{" "}
-            {/* Added class */}
-            <div className={styles.inputWrapper}>
-              <MapPin
-                className={styles.inputIcon}
-                size={18}
-                aria-hidden="true"
-              />
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="Enter your city or location" // Slightly more specific placeholder
-                className={`${styles.formInput} ${
-                  errors.location ? styles.inputError : ""
-                }`}
-                aria-required="true"
-                aria-invalid={!!errors.location}
-                aria-describedby={
-                  errors.location ? "location-error" : undefined
-                }
-              />
+            </label>
+            <div className={styles.locationContainer}>
+              <div className={styles.inputWrapper}>
+                <MapPin
+                  className={styles.inputIcon}
+                  size={18}
+                  aria-hidden="true"
+                />
+                <input
+                  ref={locationInputRef}
+                  type="text"
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleLocationChange}
+                  onKeyDown={handleLocationKeyDown}
+                  onFocus={() => {
+                    if (formData.location.length > 0 && filteredSuggestions.length > 0) {
+                      setShowSuggestions(true);
+                    }
+                  }}
+                  placeholder={isLoadingCities ? "Loading locations..." : "Enter your city or location"}
+                  className={`${styles.formInput} ${
+                    errors.location ? styles.inputError : ""
+                  }`}
+                  aria-required="true"
+                  aria-invalid={!!errors.location}
+                  aria-describedby={
+                    errors.location ? "location-error" : undefined
+                  }
+                  disabled={isLoadingCities}
+                  autoComplete="off"
+                />
+                
+                {/* Loading indicator */}
+                {isLoadingCities && (
+                  <div className={styles.loadingIndicator}>
+                    <span className={styles.loadingSpinner}></span>
+                  </div>
+                )}
+              </div>
+
+              {/* Suggestions Dropdown */}
+              {showSuggestions && filteredSuggestions.length > 0 && !isLoadingCities && (
+                <div ref={suggestionsRef} className={styles.suggestionsDropdown}>
+                  {filteredSuggestions.slice(0, 8).map((suggestion, index) => {
+                    const isInternational = suggestion.includes(', US') || 
+                                          suggestion.includes(', UK') || 
+                                          suggestion.includes(', CA') ||
+                                          suggestion.includes(', AU');
+                    const isSpecial = ['Remote', 'Work from Home', 'Multiple Locations', 'Willing to Relocate'].includes(suggestion);
+                    
+                    return (
+                      <div
+                        key={`${suggestion}-${index}`}
+                        className={`${styles.suggestionItem} ${
+                          index === activeSuggestion ? styles.suggestionActive : ''
+                        }`}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                        onMouseEnter={() => setActiveSuggestion(index)}
+                      >
+                        <span className={styles.suggestionIcon}>
+                          {isSpecial ? '💼' : isInternational ? '🌍' : '📍'}
+                        </span>
+                        <span className={styles.suggestionText}>
+                          {suggestion}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  {filteredSuggestions.length > 8 && (
+                    <div className={styles.suggestionMore}>
+                      +{filteredSuggestions.length - 8} more locations...
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
+            
             {errors.location && (
               <span
                 id="location-error"
@@ -445,41 +634,26 @@ const Btnform = ({ onClose, course }) => {
             )}
           </div>
 
-          {/* Form Actions (Submit/Reset Buttons) */}
+          {/* Form Actions */}
           <div className={styles.formActions}>
             <button
               type="submit"
               className={styles.submitButton}
-              disabled={isSubmitting}
+              disabled={isSubmitting || isLoadingCities}
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>
-            {/* Consider if reset button is needed, can sometimes cause accidental data loss */}
-            {/* <button
-              type="button" // Change to type="button" to prevent form submission
-              className={styles.resetButton}
-              onClick={() => {
-                  setFormData({ name: "", email: "", contact: "", location: "", countryCode: "+91"});
-                  setErrors({}); // Clear errors on reset
-                }
-              }
-              disabled={isSubmitting} // Disable reset while submitting
-            >
-              Clear Form
-            </button> */}
           </div>
         </form>
       </div>
 
-      {/* Thank You Modal/Overlay */}
+      {/* Thank You Modal */}
       {showThankYou && (
         <div className={styles.thankYouOverlay}>
-          <div className={styles.thankYouContent}>
+          <div className={styles.thankYouContent}>  
             <CheckCircle size={64} color="#28a745" />
             <h2>Thank You!</h2>
             <p>Your message has been successfully submitted.</p>
-            {/* Optional: Add a button to explicitly close the thank you message */}
-            {/* <button onClick={() => setShowThankYou(false)}>Close</button> */}
           </div>
         </div>
       )}

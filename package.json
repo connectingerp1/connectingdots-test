@@ -28,6 +28,7 @@
     "bootstrap-icons": "^1.11.3",
     "canvas-confetti": "^1.9.3",
     "cheerio": "^1.1.0",
+    "cities.json": "^1.1.50",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "critters": "^0.0.24",

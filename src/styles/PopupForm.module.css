@@ -610,7 +610,7 @@
 
   .popupFormContainer {
     max-width: 320px; /* Increased from 280px */
-    max-height: 85vh; /* Increased from 85vh */
+    max-height: 100vh; /* Increased from 85vh */
     padding: 16px; /* Increased from 12px */
   }
 
@@ -772,4 +772,266 @@
 .popupFormContainer * {
   box-sizing: border-box;
   max-width: 100%;
+}
+
+
+/* Enhanced Location Container with Suggestions */
+.locationContainer {
+  position: relative;
+  width: 100%;
+}
+
+/* Simplified Suggestions Dropdown - Less Animations */
+.suggestionsDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(20, 20, 30, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  
+  /* Scrollable properties */
+  max-height: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  /* Minimal slide animation */
+  animation: fadeIn 0.2s ease-out;
+  
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Simplified slide animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Simplified suggestion items - Minimal hover effects */
+.suggestionItem {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 44px;
+  
+  /* Minimal transition - only for background */
+  transition: background-color 0.15s ease;
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Simplified hover effect - just background change */
+.suggestionItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active state for keyboard navigation */
+.suggestionActive {
+  background: rgba(59, 130, 246, 0.2);
+  color: white;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* Simplified suggestion text */
+.suggestionText {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Simplified suggestion icons - no animations */
+.suggestionIcon {
+  font-size: 14px;
+  opacity: 0.7;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+/* Simplified "more items" indicator */
+.suggestionMore {
+  padding: 8px 15px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  font-style: italic;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Simplified empty state */
+.suggestionEmpty {
+  padding: 16px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Simplified Custom Scrollbar Styling */
+.suggestionsDropdown::-webkit-scrollbar {
+  width: 4px;
+}
+
+.suggestionsDropdown::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.suggestionsDropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.suggestionsDropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Firefox scrollbar styling */
+.suggestionsDropdown {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+/* Loading indicator - simplified */
+.loadingIndicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive design - simplified */
+@media (min-width: 1200px) {
+  .suggestionsDropdown {
+    max-height: 150px;
+  }
+  
+  .suggestionItem {
+    padding: 14px 18px;
+    font-size: 14px;
+    min-height: 48px;
+  }
+  
+  .suggestionIcon {
+    font-size: 16px;
+    width: 22px;
+  }
+  
+  .suggestionsDropdown::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 769px) {
+  .suggestionsDropdown {
+    max-height: 150px;
+  }
+  
+  .suggestionItem {
+    padding: 12px 15px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+  .suggestionsDropdown {
+    max-height: 120px;
+  }
+  
+  .suggestionItem {
+    padding: 10px 12px;
+    font-size: 12px;
+    min-height: 40px;
+  }
+  
+  .suggestionIcon {
+    font-size: 12px;
+    width: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .suggestionsDropdown {
+    max-height: 80px;
+  }
+  
+  .suggestionItem {
+    padding: 8px 10px;
+    font-size: 11px;
+    min-height: 36px;
+    gap: 8px;
+  }
+  
+  .suggestionIcon {
+    font-size: 12px;
+    width: 16px;
+  }
+  
+  .suggestionText {
+    font-size: 11px;
+  }
+  
+  .suggestionsDropdown::-webkit-scrollbar {
+    width: 2px;
+  }
+}
+
+/* Hide scrollbar on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .suggestionsDropdown::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+/* Simple focus state for accessibility */
+.suggestionItem:focus {
+  outline: 1px solid rgba(59, 130, 246, 0.6);
+  outline-offset: -1px;
+  background: rgba(59, 130, 246, 0.15);
 }
