@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const SAPCompassDial = () => {
   const [activeModule, setActiveModule] = useState(null);
@@ -14,7 +15,8 @@ const SAPCompassDial = () => {
       color: '#1E40AF',
       angle: 0,
       icon: '💰',
-      details: 'Master financial processes, reporting, and compliance with industry-leading placement rates'
+      details: 'Master financial processes, reporting, and compliance with industry-leading placement rates',
+      slug: 'sap-fico-course-in-pune'
     },
     {
       id: 'mm',
@@ -24,7 +26,8 @@ const SAPCompassDial = () => {
       color: '#2563EB',
       angle: 45,
       icon: '📦',
-      details: 'Optimize procurement, inventory, and supply chain operations with proven success'
+      details: 'Optimize procurement, inventory, and supply chain operations with proven success',
+      slug: 'sap-mm-course-in-pune'
     },
     {
       id: 'sd',
@@ -34,7 +37,8 @@ const SAPCompassDial = () => {
       color: '#3B82F6',
       angle: 90,
       icon: '🚚',
-      details: 'Streamline sales processes and customer management for career advancement'
+      details: 'Streamline sales processes and customer management for career advancement',
+      slug: 'sap-sd-course-in-pune'
     },
     {
       id: 'abap',
@@ -44,7 +48,8 @@ const SAPCompassDial = () => {
       color: '#60A5FA',
       angle: 135,
       icon: '⚡',
-      details: 'Build custom solutions and enhance SAP functionality with cutting-edge skills'
+      details: 'Build custom solutions and enhance SAP functionality with cutting-edge skills',
+      slug: 'sap-abap-course-in-pune'
     },
     {
       id: 'hcm',
@@ -54,7 +59,8 @@ const SAPCompassDial = () => {
       color: '#93C5FD',
       angle: 180,
       icon: '👥',
-      details: 'Manage workforce, payroll, and talent development with comprehensive training'
+      details: 'Manage workforce, payroll, and talent development with comprehensive training',
+      slug: 'sap-hr-hcm-course-in-pune'
     },
     {
       id: 'basis',
@@ -64,7 +70,8 @@ const SAPCompassDial = () => {
       color: '#60A5FA',
       angle: 225,
       icon: '🔧',
-      details: 'Maintain system performance and security with expert-level knowledge'
+      details: 'Maintain system performance and security with expert-level knowledge',
+      slug: 'sap-basis-course-in-pune'
     },
     {
       id: 'hana',
@@ -74,7 +81,8 @@ const SAPCompassDial = () => {
       color: '#1D4ED8',
       angle: 270,
       icon: '🚀',
-      details: 'Lead digital transformation with in-memory computing and next-gen capabilities'
+      details: 'Lead digital transformation with in-memory computing and next-gen capabilities',
+      slug: 'sap-hana-course-in-pune'
     },
     {
       id: 'pp',
@@ -84,7 +92,8 @@ const SAPCompassDial = () => {
       color: '#3B82F6',
       angle: 315,
       icon: '🏭',
-      details: 'Optimize manufacturing and production workflows with industry best practices'
+      details: 'Optimize manufacturing and production workflows with industry best practices',
+      slug: 'sap-pp-course-in-pune'
     }
   ];
 
@@ -506,15 +515,13 @@ const SAPCompassDial = () => {
               </div>
               
               {/* CTA */}
-              <button 
-                className="w-full py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base"
-                style={{ 
-                  backgroundColor: activeModule.color,
-                  color: 'white'
-                }}
-              >
-                Start Learning {activeModule.name}
-              </button>
+              <a
+    href={`/${activeModule.slug}`}
+    className="bg-gradient-to-r from-[#1471D8] to-[#013383] hover:from-[#1E80F0] hover:to-[#0142a3] text-white font-semibold py-3 px-6 md:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg inline-block text-center text-sm md:text-base"
+    style={{ willChange: 'transform' }}
+  >
+    START LEARNING {activeModule.name}
+  </a>
             </div>
           ) : (
             <div className="text-center py-8 md:py-12">

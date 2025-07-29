@@ -1,17 +1,20 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-import { X, MapPin, Building2, Phone, Mail, Navigation, ExternalLink } from 'lucide-react';
+import { MapPin, Building2, Phone, Mail, Navigation } from 'lucide-react';
 
 // Company locations data
 const companyLocations = [
   {
-    id: 'pune',
-    name: 'Pune Office',
-    coordinates: [18.586540582890077, 73.78154440891436],
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
-    address: '1st Floor, 101, Police, Wireless Colony, Vishal Nagar, Pimple Nilakh, Pune, Pimpri-Chinchwad, Maharashtra 411027',
-    phone: '+91 90040 02941',
-    email: 'pune@company.com'
+    
+      id: 'pune',
+      name: 'Pune Office',
+      coordinates: [18.586540582890077, 73.78154440891436],
+      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+      address: '1st Floor, 101, Police, Wireless Colony, Vishal Nagar, Pimple Nilakh, Pune, Pimpri-Chinchwad, Maharashtra 411027',
+      mapUrl: 'https://www.google.com/maps/dir//1st+Floor,101,+Police,+Wireless+Colony,+Vishal+Nagar,+Pimple+Nilakh,+Pune,+Pimpri-Chinchwad,+Maharashtra+411027/@18.5482844,73.3817727,10z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bc2b919d0592ea1:0xf431691661c2c3ec!2m2!1d73.7814047!2d18.5863803?entry=ttu',
+      phone: '+91 90040 02941'
+    
+    
   },
   {
     id: 'mumbai',
@@ -20,8 +23,8 @@ const companyLocations = [
     image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=80',
     address: "4th Floor, Ram Niwas, B-404, Gokhale Rd, near McDonald's, Dada Patil Wadi, Naupada, Thane West, Thane, Maharashtra 400602",
     description: 'Our Mumbai office in Thane West, strategically located in the financial capital of India.',
-    phone: '+91 90040 05382',
-    email: 'mumbai@company.com'
+    mapUrl: 'https://www.google.com/maps/dir//Connecting+Dot,+Paradise+Tower,+next+to+MCDonalds,+Naupada,+Thane+West,+Mumbai,+Thane,+Maharashtra+400601/@19.1876209,72.9032003,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7b909db7deec9:0x116fea8715c8a1a2!2m2!1d72.9752981!2d19.1876209?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D',
+    phone: '+91 90040 05382'
   },
   {
     id: 'raipur',
@@ -30,81 +33,17 @@ const companyLocations = [
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
     address: 'New Panchsheel Nagar, Civil Lines, Raipur, Chhattisgarh 492001',
     description: 'Our Raipur office in Chhattisgarh, serving as our central India operations hub.',
-    phone: '+91 98765 43212',
-    email: 'raipur@company.com'
+    
+    phone: '+91 89560 01555'
   }
 ];
 
-const OfficeInfoPopup = ({ location, onClose, isVisible }) => {
-  if (!isVisible || !location) return null;
-
-  return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-gray-900/95 backdrop-blur-lg rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-100 border border-gray-700">
-        <div className="relative">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 bg-gray-800/80 hover:bg-gray-700/80 rounded-full transition-colors duration-200"
-          >
-            <X className="w-4 h-4 text-white" />
-          </button>
-          
-          <div className="p-6">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="p-3 bg-blue-600/20 rounded-full">
-                <MapPin className="w-6 h-6 text-blue-400" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-1">{location.name}</h3>
-                <span className="text-gray-400 text-sm">Office Location</span>
-              </div>
-            </div>
-            
-            <p className="text-gray-300 mb-6 leading-relaxed">{location.description}</p>
-            
-            <div className="space-y-3 mb-6">
-              <div className="flex items-start space-x-3">
-                <Building2 className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                <p className="text-gray-300 text-sm leading-relaxed">{location.address}</p>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-gray-400" />
-                <a href={`tel:${location.phone}`} className="text-blue-400 hover:text-blue-300 text-sm font-medium">
-                  {location.phone}
-                </a>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-gray-400" />
-                <a href={`mailto:${location.email}`} className="text-blue-400 hover:text-blue-300 text-sm font-medium">
-                  {location.email}
-                </a>
-              </div>
-            </div>
-            
-            <button
-              onClick={() => window.open(`https://maps.google.com?q=${location.coordinates[0]},${location.coordinates[1]}`, '_blank')}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center justify-center space-x-2"
-            >
-              <span>Get Directions</span>
-              <ExternalLink className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, className = "" }) => {
+const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, onMapLeave, className = "" }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markersRef = useRef([]);
   const [isLoading, setIsLoading] = useState(true);
   const [leafletLoaded, setLeafletLoaded] = useState(false);
-  const [showOfficeInfo, setShowOfficeInfo] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(5);
   
   // Default map center and zoom for India - responsive zoom levels
   const defaultCenter = [20.5937, 78.9629];
@@ -171,13 +110,6 @@ const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, c
       opacity: 0.7
     }).addTo(map.current);
 
-    // Listen to zoom events
-    map.current.on('zoomend', () => {
-      const currentZoom = map.current.getZoom();
-      setZoomLevel(currentZoom);
-      // No longer control showOfficeInfo here
-    });
-
     setIsLoading(false);
 
     // Add markers
@@ -187,13 +119,44 @@ const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, c
       }, index * 200);
     });
 
+    // Add mouse leave handler for map container
+    const handleMouseLeave = () => {
+      if (!map.current) return;
+    
+      const currentZoom = map.current.getZoom();
+      const currentCenter = map.current.getCenter();
+    
+      const centerOffset =
+        Math.abs(currentCenter.lat - defaultCenter[0]) > 0.05 ||
+        Math.abs(currentCenter.lng - defaultCenter[1]) > 0.05;
+    
+      const zoomOffset = Math.abs(currentZoom - defaultZoom) > 0.2;
+    
+      const noActiveLocation = !selectedLocation && !hoveredLocation;
+    
+      if ((centerOffset || zoomOffset) && noActiveLocation) {
+        map.current.flyTo(defaultCenter, defaultZoom, {
+          animate: true,
+          duration: 1.5
+        });
+      }
+    
+      onMapLeave(); // reset selected & hover
+    };
+    
+
+    mapContainer.current.addEventListener('mouseleave', handleMouseLeave);
+
     return () => {
+      if (mapContainer.current) {
+        mapContainer.current.removeEventListener('mouseleave', handleMouseLeave);
+      }
       if (map.current) {
         map.current.remove();
         map.current = null;
       }
     };
-  }, [leafletLoaded, defaultZoom]);
+  }, [leafletLoaded, defaultZoom, onMapLeave]);
 
   // Handle location selection and hovering
   useEffect(() => {
@@ -205,44 +168,20 @@ const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, c
         animate: true,
         duration: 1.5
       });
-      // Show popup after zoom animation completes
-      setTimeout(() => {
-        if (hoveredLocation) {
-          setShowOfficeInfo(true);
-        }
-      }, 3000);
     } else if (selectedLocation) {
       // Stay at selected location when not hovering
       map.current.flyTo(selectedLocation.coordinates, 14, {
         animate: true,
         duration: 1.5
       });
-      // Show popup after zoom animation completes
-      setTimeout(() => {
-        // Only show if not hovering a card
-        if (selectedLocation && !hoveredLocation) {
-          setShowOfficeInfo(true);
-        }
-      }, 1600);
     } else {
       // Return to default view when no location is selected or hovered
       map.current.flyTo(defaultCenter, defaultZoom, {
         animate: true,
         duration: 1.5
       });
-      setShowOfficeInfo(false);
     }
-  }, [selectedLocation, hoveredLocation]);
-
-  // Always show popup if hoveredLocation is set
-  useEffect(() => {
-    if (hoveredLocation) {
-      setShowOfficeInfo(true);
-    } else if (!selectedLocation) {
-      setShowOfficeInfo(false);
-    }
-    // If selectedLocation, showOfficeInfo is handled by the above effect after zoom
-  }, [hoveredLocation, selectedLocation]);
+  }, [selectedLocation, hoveredLocation, defaultCenter, defaultZoom]);
 
   const addMarker = (location, L) => {
     const customIcon = L.divIcon({
@@ -295,10 +234,6 @@ const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, c
     markersRef.current.push(marker);
   };
 
-  const handleCloseOfficeInfo = () => {
-    setShowOfficeInfo(false);
-  };
-
   return (
     <div className={`relative bg-gray-900 rounded-2xl overflow-hidden ${className}`}>
       {(isLoading || !leafletLoaded) && (
@@ -311,12 +246,6 @@ const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, c
       )}
       
       <div ref={mapContainer} className="w-full h-full" />
-      
-      <OfficeInfoPopup 
-        location={hoveredLocation || selectedLocation} 
-        onClose={handleCloseOfficeInfo}
-        isVisible={showOfficeInfo}
-      />
       
       <style jsx>{`
         @keyframes bounce {
@@ -332,7 +261,7 @@ const InteractiveMap = ({ selectedLocation, hoveredLocation, onLocationSelect, c
 const CompactBranchCard = ({ location, isActive, isHovered, onHover, onLeave, onClick }) => {
   return (
     <div
-      className={`group relative p-2 sm:p-3 rounded-lg backdrop-blur-md transition-all duration-300 cursor-pointer transform hover:scale-102 ${
+      className={`group relative p-3 sm:p-4 rounded-xl backdrop-blur-md transition-all duration-300 cursor-pointer transform hover:scale-[1.02] ${
         isActive 
           ? 'bg-gray-800/90 border border-gray-600 shadow-xl' 
           : isHovered
@@ -343,47 +272,53 @@ const CompactBranchCard = ({ location, isActive, isHovered, onHover, onLeave, on
       onMouseLeave={onLeave}
       onClick={() => onClick(location)}
     >
-      <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <div className="relative z-10">
-        <div className="flex items-start justify-between mb-1.5">
-          <div className="flex items-start space-x-1.5">
-            <div className={`p-1 rounded-full transition-colors duration-300 flex-shrink-0 ${
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-start space-x-3">
+            <div className={`p-2 rounded-full transition-colors duration-300 flex-shrink-0 ${
               isActive || isHovered ? 'bg-white/30' : 'bg-white/20 group-hover:bg-white/30'
             }`}>
-              <MapPin className="w-3 h-3 text-white" />
+              <MapPin className="w-4 h-4 text-white" />
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-xs sm:text-sm font-bold text-white mb-0.5 leading-tight">{location.name}</h3>
-              <p className="text-blue-200 text-xs leading-tight line-clamp-1 hidden sm:block">{location.description}</p>
+              <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">{location.name}</h3>
+              <p className="text-blue-200 text-xs sm:text-sm leading-tight line-clamp-1">{location.description}</p>
             </div>
           </div>
           <div className={`transition-transform duration-300 flex-shrink-0 ${
             isActive ? 'rotate-45' : isHovered ? 'rotate-12' : 'group-hover:rotate-12'
           }`}>
-            <Navigation className="w-3 h-3 text-white/70" />
+            <Navigation className="w-4 h-4 text-white/70" />
           </div>
         </div>
 
-        <div className="space-y-1 text-white/80 text-xs">
-        <div className="flex items-start space-x-1.5">
-  <Building2 className="w-3 h-3 mt-0.5 text-white/60 flex-shrink-0" />
-  <p className="leading-tight text-xs">{location.address}</p>
+        <div className="space-y-2 text-white/80 text-xs sm:text-sm">
+        <div className="flex items-start space-x-2">
+  <Building2 className="w-4 h-4 mt-0.5 text-white/60 flex-shrink-0" />
+  <a
+    href={location.mapUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="leading-tight text-white hover:text-blue-500"
+  >
+    {location.address}
+  </a>
 </div>
-          <div className="flex items-center justify-between space-x-2">
-            <div className="flex items-center space-x-1">
-              <Phone className="w-3 h-3 text-white/60 flex-shrink-0" />
-              <span className="truncate text-xs">{location.phone}</span>
+
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="flex items-center space-x-2">
+              <Phone className="w-4 h-4 text-white/60 flex-shrink-0" />
+              <span className="truncate">{location.phone}</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <Mail className="w-3 h-3 text-white/60 flex-shrink-0" />
-              <span className="truncate text-xs">{location.email}</span>
-            </div>
+            
           </div>
         </div>
 
-        <div className="mt-2 pt-2 border-t border-white/10">
-          <button className={`w-full py-1 px-2 rounded-md font-medium transition-all duration-300 text-xs ${
+        <div className="mt-4 pt-3 border-t border-white/10">
+          <button className={`w-full py-2 px-3 rounded-lg font-medium transition-all duration-300 text-sm ${
             isActive 
               ? 'bg-white text-gray-900 shadow-lg' 
               : isHovered
@@ -396,11 +331,11 @@ const CompactBranchCard = ({ location, isActive, isHovered, onHover, onLeave, on
       </div>
       
       {/* Animated border */}
-      <div className={`absolute inset-0 rounded-lg transition-opacity duration-300 ${
+      <div className={`absolute inset-0 rounded-xl transition-opacity duration-300 ${
         isActive || isHovered ? 'opacity-100' : 'opacity-0'
       }`}>
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 p-0.5">
-          <div className="h-full w-full rounded-lg bg-transparent" />
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 p-0.5">
+          <div className="h-full w-full rounded-xl bg-transparent" />
         </div>
       </div>
     </div>
@@ -436,6 +371,11 @@ const OurBranch = () => {
     }
   };
 
+  const handleMapLeave = () => {
+    setSelectedLocation(null);
+    setHoveredLocation(null);
+  };
+
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Background Elements */}
@@ -452,26 +392,14 @@ const OurBranch = () => {
             Our Branches
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Explore our office locations across India. Hover over the cards to preview locations, click to select and zoom in for detailed office information.
+            Explore our office locations across India. Hover over the cards to preview locations, click to select and zoom in.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
-          {/* Map Section */}
-          <div className="xl:col-span-2 order-2 xl:order-1">
-            <div className="sticky top-6">
-              <InteractiveMap
-                selectedLocation={selectedLocation}
-                hoveredLocation={hoveredLocation}
-                onLocationSelect={handleMapLocationSelect}
-                className="h-[300px] sm:h-[400px] lg:h-[600px] shadow-2xl"
-              />
-            </div>
-          </div>
-
-          {/* Branch Cards Section - Ultra Compact and Responsive */}
-          <div className="xl:col-span-1 order-1 xl:order-2">
-            <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-2 sm:gap-3 xl:gap-2 h-[300px] sm:h-[400px] lg:h-[600px] overflow-y-auto xl:overflow-y-visible">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          {/* Branch Cards Section - Mobile First */}
+          <div className="lg:col-span-1 order-1 lg:order-2">
+            <div className="grid grid-cols-1 gap-4 lg:gap-3">
               {companyLocations.map((location) => (
                 <CompactBranchCard
                   key={location.id}
@@ -485,6 +413,19 @@ const OurBranch = () => {
               ))}
             </div>
           </div>
+
+          {/* Map Section */}
+          <div className="lg:col-span-2 order-2 lg:order-1">
+            <div className="sticky top-6">
+              <InteractiveMap
+                selectedLocation={selectedLocation}
+                hoveredLocation={hoveredLocation}
+                onLocationSelect={handleMapLocationSelect}
+                onMapLeave={handleMapLeave}
+                className="h-[400px] sm:h-[500px] lg:h-[600px] shadow-2xl"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Bottom CTA Section */}
@@ -496,6 +437,12 @@ const OurBranch = () => {
       </div>
 
       <style jsx>{`
+        .line-clamp-1 {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
         .line-clamp-2 {
           display: -webkit-box;
           -webkit-line-clamp: 2;

@@ -4,31 +4,33 @@ import { Award, Trophy, Star, Target, Zap, Shield, Users, Globe } from 'lucide-r
 
 const AchievementsSection = () => {
   // Top carousel achievements (10 images)
-  const topAchievements = [
-    { id: 1, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_91_MjScSi9_bgmnxy.jpg', name: 'Industry Award 2024' },
-  { id: 2, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828098/imgi_80_UZSH8He_zl4kz2.jpg', name: 'Best Innovation' },
-  { id: 3, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_78_rZohnIF_jku2pz.jpg', name: '5-Star Rating' },
-  { id: 4, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_102_UZSH8He_g8wqfc.jpg', name: 'Goal Achievement' },
-  { id: 5, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_93_xz6STYH_z1t6x3.jpg', name: 'Performance Excellence' },
-  { id: 6, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_98_qhMS713_wveq2g.jpg', name: 'Security Certification' },
-  { id: 7, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_112_N9jG1Ir_r2mls8.jpg', name: 'Team Excellence' },
-  { id: 8, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_76_qhMS713_lokn1a.jpg', name: 'Global Recognition' },
-  { id: 9, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_81_AQjU01z_dcdszf.jpg', name: 'Leadership Award' },
-  { id: 10, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828097/imgi_91_MjScSi9_bgmnxy.jpg', name: 'Tech Innovation' },];
-
+  const topAchievements = 
+  [
+    { id: 1, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/gmapy0fxdnqxpfbm83cb_r0z2fd.avif', name: 'Industry Award 2024' },
+    { id: 2, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/i06ypluultnhfliv82gy_kj0obe.avif', name: 'Best Innovation' },
+    { id: 3, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683830/cdb8nkgkykuqoy0jfg9r_uplreg.avif', name: '5-Star Rating' },
+    { id: 4, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/nw5iepebayoajxp8esww_b59oz2.avif', name: 'Goal Achievement' },
+    { id: 5, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683833/utc7v1i3i7yppqi32bse_yhxtvi.avif', name: 'Performance Excellence' },
+    { id: 6, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683834/xtmfl5q45977ojac7anx_dlofev.avif', name: 'Security Certification' },
+    { id: 7, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/cqqyqsin3zqmard5alpa_ksnda9.avif', name: 'Team Excellence' },
+    { id: 8, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683830/bgl3w8lvskxfyhj515cx_dcaoe6.avif', name: 'Global Recognition' },
+    { id: 9, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683829/amfowsm7hpqd7teaxi3j_ysysvo.avif', name: 'Leadership Award' },
+    { id: 10, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683834/xtmfl5q45977ojac7anx_dlofev.avif', name: 'Tech Innovation' }
+  ]
   // Bottom carousel achievements (10 different images)
   const bottomAchievements = [
-    { id: 11, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828095/imgi_92_0eKfhXd_sbhrc7.jpg', name: 'Data Analytics Award' },
-  { id: 12, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828095/imgi_77_KJ5KL2n_gu0pyh.jpg', name: 'Customer Choice' },
-  { id: 13, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828095/imgi_88_iNrXB47_bq9oqo.jpg', name: 'Sustainability Medal' },
-  { id: 14, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828095/imgi_86_8FfQnL9_hm4gux.jpg', name: 'Business Excellence' },
-  { id: 15, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_110_iNrXB47_h2fcho.jpg', name: 'Digital Transformation' },
-  { id: 16, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828095/imgi_105_your4dg_jsd4s3.jpg', name: 'Quality Assurance' },
-  { id: 17, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_103_AQjU01z_y4yobr.jpg', name: 'Market Leader' },
-  { id: 18, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_84_ZN86VMR_yd34r8.jpg', name: 'Innovation Hub' },
-  { id: 19, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_85_ADghQbm_pxespn.jpg', name: 'Partnership Award' },
-  { id: 20, image: 'https://res.cloudinary.com/dubeuisom/image/upload/v1752828096/imgi_85_ADghQbm_pxespn.jpg', name: 'Excellence Recognition' },
-];
+    { id: 1, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/gmapy0fxdnqxpfbm83cb_r0z2fd.avif', name: 'Industry Award 2024' },
+    { id: 2, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/i06ypluultnhfliv82gy_kj0obe.avif', name: 'Best Innovation' },
+    { id: 3, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683830/cdb8nkgkykuqoy0jfg9r_uplreg.avif', name: '5-Star Rating' },
+    { id: 4, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/nw5iepebayoajxp8esww_b59oz2.avif', name: 'Goal Achievement' },
+    { id: 5, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683833/utc7v1i3i7yppqi32bse_yhxtvi.avif', name: 'Performance Excellence' },
+    { id: 6, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683834/xtmfl5q45977ojac7anx_dlofev.avif', name: 'Security Certification' },
+    { id: 7, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683518/cqqyqsin3zqmard5alpa_ksnda9.avif', name: 'Team Excellence' },
+    { id: 8, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683830/bgl3w8lvskxfyhj515cx_dcaoe6.avif', name: 'Global Recognition' },
+    { id: 9, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683829/amfowsm7hpqd7teaxi3j_ysysvo.avif', name: 'Leadership Award' },
+    { id: 10, image: 'https://res.cloudinary.com/drvug594q/image/upload/v1753683834/xtmfl5q45977ojac7anx_dlofev.avif', name: 'Tech Innovation' }
+  ]
+  ;
 
   return (
     <section className="py-10 sm:py-16 lg:py-20 bg-gray-50 overflow-hidden">
@@ -36,15 +38,15 @@ const AchievementsSection = () => {
         <div className="flex flex-col lg:flex-row items-start gap-4 sm:gap-6 lg:gap-8">
           {/* Vertical Rectangle Featured Achievement - Left Side (Box 1) */}
           <div className="w-full lg:w-80 flex-shrink-0">
-            <div className="relative group">
-              <div className="relative overflow-hidden rounded-2xl lg:rounded-4xl mb-4 lg:mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=320&h=480&fit=crop" 
-                  alt="Featured Achievement" 
-                  className="w-full h-48 sm:h-64 lg:h-80 object-cover"
-                />
-              </div>
-            </div>
+          <div className="relative group">
+    <div className="relative overflow-hidden rounded-2xl lg:rounded-4xl mb-4 lg:mb-4 h-64 sm:h-64 lg:h-96">
+      <img 
+        src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=320&h=480&fit=crop" 
+        alt="Featured Achievement" 
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </div>
           </div>
 
           {/* Right Side Content */}
