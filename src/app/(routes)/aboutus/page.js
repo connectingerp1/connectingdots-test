@@ -1,6 +1,11 @@
 // src/app/(routes)/aboutus/page.js
 
-import AboutUsClientContent from "@/components/AboutusPage/AboutUsClientContent";
+import React from "react";
+import AchievementsSection from "@/components/TestingAbout/Achievements";
+import Hero from "@/components/TestingAbout/Hero";
+import OurBranch from "@/components/TestingAbout/Locations";
+import SAPCompassDial from "@/components/TestingAbout/Placement";
+import SAPAdoptionRings from "@/components/TestingAbout/SapComp";
 
 // 1. SEO METADATA - Next.js App Router way
 export const metadata = {
@@ -273,8 +278,11 @@ export default function AboutUsPage() {
         <h2>Placement Support & Career Services</h2>
       </div>
 
-      {/* Main Page Content */}
-      <AboutUsClientContent />
+      <Hero />
+      <SAPAdoptionRings />
+      <SAPCompassDial />
+      <AchievementsSection />
+      <OurBranch />
     </>
   );
 }
