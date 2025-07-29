@@ -197,16 +197,16 @@ export default function Hero() {
   const getIconCloudProps = useMemo(() => {
     const props = {
       mobile: { 
-        size: 25,           // Increased from 35 to 65 (85% increase)
-        height: 220,        // Increased from 280 to 350 
+        size: 60,          
+        height: 240,        
         rotationSpeed: 0.6,
-        radius: 180,        // Added radius for better control
-        maxSpeed: 0.05,     // Added for smoother animation
-        initialSpeed: 0.02  // Added for initial animation speed
+        radius: 180,        
+        maxSpeed: 0.05,     
+        initialSpeed: 0.02  
       },
       sm: { 
-        size: 30,           // Increased from 40 to 70 (75% increase)
-        height: 260,        // Increased from 320 to 380
+        size: 65,           
+        height: 280,       
         rotationSpeed: 0.65,
         radius: 190,
         maxSpeed: 0.05,
@@ -329,7 +329,7 @@ export default function Hero() {
               </p>
               
               {/* Mobile/Tablet Icon Cloud - Much larger container for better visibility */}
-              <div className="block pt-16 lg:hidden">
+              <div className="block pt-4 lg:hidden">
                 <div className="flex justify-center">
                   <div 
                     className="relative"
