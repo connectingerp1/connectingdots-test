@@ -309,7 +309,7 @@ export default function Hero() {
       </div>
 
       {/* Desktop/Laptop Icon Cloud */}
-      <div className="absolute right-18 sm:right-20 md:right-24 lg:right-28 xl:right-32 top-64 transform -translate-y-1/2 w-1/3 sm:w-1/4 md:w-1/3 lg:w-2/5 xl:w-1/3 z-10 opacity-90 hidden lg:block">
+      <div className="absolute right-18 sm:right-20 md:right-24 lg:right-28 xl:right-32 top-72 transform -translate-y-1/2 w-1/3 sm:w-1/4 md:w-1/3 lg:w-2/5 xl:w-1/3 z-10 opacity-90 hidden lg:block">
         <div
           className="flex items-center justify-center h-full"
           style={{ transform: "translateZ(0)" }}
