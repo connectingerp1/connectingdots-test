@@ -131,28 +131,164 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          { name: "Overview of SAP ", duration: "2 Weeks" },
-          { name: "Introduction to FI/CO ", duration: "2 Weeks" },
-          {
-            name: "GL and Enterprise Structure – Part 1 ",
-            duration: "2.4 Weeks",
-          },
-          {
-            name: "GL and Enterprise Structure – Part 2 ",
-            duration: "2.4 Weeks",
-          },
-          { name: " GL New Concepts – Part 1 ", duration: "1.2 Weeks" },
-          { name: "New GL Concepts – Part 2 ", duration: "3 Weeks" },
-          {
-            name: "S/4HANA Finance (Simple Finance) – Part 1 ",
-            duration: "1.8 Weeks",
-          },
-          {
-            name: "S/4HANA Finance (Simple Finance) – Part 2 ",
-            duration: "4.4 Weeks",
-          },
-          { name: "Account Payables – Part 1 ", duration: "9 Weeks" },
-        ],
+
+  {
+
+    name: "Financial Accounting (FI)",
+
+    subtopics: [
+
+      "Introduction to SAP FI",
+
+      "Organizational Structure in FI",
+
+      "General Ledger Accounting",
+
+      "Accounts Payable Management",
+
+      "Accounts Receivable Management",
+
+      "Bank Accounting",
+
+      "Tax Configuration in FI",
+
+      "Integration with Other Modules"
+
+    ]
+
+  },
+
+  {
+
+    name: "Controlling (CO)",
+
+    subtopics: [
+
+      "Overview of SAP CO",
+
+      "Cost Element Accounting",
+
+      "Cost Center Accounting",
+
+      "Internal Orders",
+
+      "Profit Center Accounting",
+
+      "Activity-Based Costing (ABC)",
+
+      "Profitability Analysis (CO-PA)",
+
+      "Integration with FI & Other Modules"
+
+    ]
+
+  },
+
+  {
+
+    name: "Asset Accounting",
+
+    subtopics: [
+
+      "Introduction to Asset Accounting",
+
+      "Asset Master Data",
+
+      "Chart of Depreciation",
+
+      "Asset Transactions (Acquisition/Retirement)",
+
+      "Asset Depreciation Runs",
+
+      "Asset Reporting",
+
+      "Integration with General Ledger",
+
+      "Year-End Closing in Asset Accounting"
+
+    ]
+
+  },
+
+  {
+
+    name: "Accounts Payable/Receivable",
+
+    subtopics: [
+
+      "Vendor Master Data",
+
+      "Customer Master Data",
+
+      "Invoice Posting & Payments",
+
+      "Outgoing & Incoming Payments",
+
+      "Payment Program Configuration (F110)",
+
+      "Dunning Process",
+
+      "Credit Management",
+
+      "Reconciliation Accounts Setup"
+
+    ]
+
+  },
+
+  {
+
+    name: "General Ledger",
+
+    subtopics: [
+
+      "GL Master Data",
+
+      "Document Posting in GL",
+
+      "Recurring Entries",
+
+      "Accruals & Deferrals",
+
+      "Parking & Holding Documents",
+
+      "Journal Vouchers",
+
+      "Ledger Groups and Parallel Ledgers",
+
+      "Financial Statement Versions"
+
+    ]
+
+  },
+
+  {
+
+    name: "Cost Center Accounting",
+
+    subtopics: [
+
+      "Cost Center Hierarchy",
+
+      "Planning in Cost Centers",
+
+      "Actual Postings",
+
+      "Statistical Key Figures",
+
+      "Cost Allocations (Assessment/Distribution)",
+
+      "Activity Types",
+
+      "Reports and Variance Analysis",
+
+      "Integration with Other CO Areas"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -689,18 +825,217 @@ export const coursesData = {
       ],
       overview: {
         title: "Syllabus Overview",
-        modules: [
-          { name: "Introduction", duration: "2 Weeks" },
-          { name: "Architecture of R/3 System ", duration: "2 Weeks" },
-          { name: "Components of ABAP Dictionary", duration: "2.4 Weeks" },
-          { name: "ABAP Programming", duration: "2.4 Weeks" },
-          { name: "ABAP Database Access ", duration: "1.2 Weeks" },
-          { name: "Modularization Techniques ", duration: "3 Weeks" },
-          { name: "Open SQL and Additional Topics ", duration: "1.8 Weeks" },
-          { name: "List Generation Techniques ", duration: "4.4 Weeks" },
-          { name: "Performance Analysis ", duration: "9 Weeks" },
-        ],
-      },
+modules: [
+
+  {
+
+    name: "ABAP Programming Fundamentals",
+
+    subtopics: [
+
+      "Introduction to ABAP",
+
+      "ABAP Data Types and Variables",
+
+      "Operators and Control Structures",
+
+      "Internal Tables and Work Areas",
+
+      "Loops and Modularization",
+
+      "Debugging in ABAP",
+
+      "ABAP Editor and Runtime Environment",
+
+      "Best Practices in ABAP"
+
+    ]
+
+  },
+
+  {
+
+    name: "Data Dictionary & Database Access",
+
+    subtopics: [
+
+      "What is Data Dictionary",
+
+      "Domains, Data Elements, and Tables",
+
+      "Views and Search Helps",
+
+      "Table Relationships & Foreign Keys",
+
+      "Indexing and Buffering",
+
+      "Database Table Maintenance",
+
+      "Open SQL Basics",
+
+      "Authorization Checks"
+
+    ]
+
+  },
+
+  {
+
+    name: "Reports & List Generation",
+
+    subtopics: [
+
+      "Classical Reports",
+
+      "Interactive Reports",
+
+      "ALV Reports (List Viewer)",
+
+      "Events in Reporting",
+
+      "Report Selection Screens",
+
+      "User Interaction in Reports",
+
+      "Nested Loops in Reports",
+
+      "Performance in Large Reports"
+
+    ]
+
+  },
+
+  {
+
+    name: "Forms & Interfaces",
+
+    subtopics: [
+
+      "SAP Script Basics",
+
+      "Smart Forms Overview",
+
+      "Adobe Forms",
+
+      "Form Layout Techniques",
+
+      "Calling Forms from Programs",
+
+      "Print Program Integration",
+
+      "Interface Programming Concepts",
+
+      "Data Transfer Between Systems"
+
+    ]
+
+  },
+
+  {
+
+    name: "Modularization Techniques",
+
+    subtopics: [
+
+      "Includes and Subroutines",
+
+      "Function Modules",
+
+      "Groups and Naming Conventions",
+
+      "Parameter Passing Techniques",
+
+      "RFC-enabled Function Modules",
+
+      "Encapsulation and Code Reuse",
+
+      "Enhancement Techniques",
+
+      "BAdIs and User Exits"
+
+    ]
+
+  },
+
+  {
+
+    name: "Performance Analysis & Optimization",
+
+    subtopics: [
+
+      "Performance Bottlenecks",
+
+      "Efficient Use of Internal Tables",
+
+      "Index Optimization",
+
+      "Use of Field Symbols and References",
+
+      "Transaction SE30 and SAT",
+
+      "Memory Management",
+
+      "Code Inspector and SLIN",
+
+      "Best Practices for Optimization"
+
+    ]
+
+  },
+
+  {
+
+    name: "Open SQL & Advanced Topics",
+
+    subtopics: [
+
+      "SELECT Statements in ABAP",
+
+      "Inner and Outer Joins",
+
+      "Nested Queries",
+
+      "FOR ALL ENTRIES",
+
+      "Open SQL vs Native SQL",
+
+      "Data Locking Concepts",
+
+      "Advanced Looping Logic",
+
+      "Dynamic Programming"
+
+    ]
+
+  },
+
+  {
+
+    name: "SAP Module Integration",
+
+    subtopics: [
+
+      "Integration with MM Module",
+
+      "Integration with SD Module",
+
+      "Integration with FI Module",
+
+      "Calling BAPIs and BADIs",
+
+      "Cross-module Data Flow",
+
+      "Function Module Interfaces",
+
+      "IDocs and RFCs",
+
+      "Practical Project Scenario"
+
+    ]
+
+  }
+
+],      },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
         "https://drive.google.com/uc?export=download&id=1_1Gp0OYyasHmBmmMb4ydWYhCxiAC5tqB",
@@ -976,16 +1311,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          { name: "Introduction to SAP Ariba", duration: "2 Weeks" },
-          { name: "Procurement Fundamentals", duration: "2 Weeks" },
-          { name: "Sourcing Solutions", duration: "2.4 Weeks" },
-          { name: "Contract Management", duration: "2.4 Weeks" },
-          { name: "Supplier Lifecycle Management", duration: "1.2 Weeks" },
-          { name: "Spend Analysis & Reporting", duration: "3 Weeks" },
-          { name: "Supplier Collaboration", duration: "1.8 Weeks" },
-          { name: "Advanced Analytics", duration: "4.4 Weeks" },
-          { name: "Integration & Implementation", duration: "2 Weeks" },
-        ],
+
+  {
+
+    name: "SAP Ariba Procurement",
+
+    subtopics: [
+
+      "Introduction to SAP Ariba",
+
+      "Procure-to-Pay Overview",
+
+      "Requisition & Purchase Order Creation",
+
+      "Catalog Management",
+
+      "Invoice Management",
+
+      "Supplier Enablement",
+
+      "Compliance & Policy Enforcement",
+
+      "Integration with ERP Systems"
+
+    ]
+
+  },
+
+  {
+
+    name: "Sourcing Solutions",
+
+    subtopics: [
+
+      "Sourcing Project Lifecycle",
+
+      "Event Creation (RFI, RFP, Auctions)",
+
+      "Bid Analysis & Scoring",
+
+      "Awarding & Contracting",
+
+      "Supplier Invitations",
+
+      "Template Configuration",
+
+      "Collaboration and Messaging",
+
+      "Best Practices for Sourcing"
+
+    ]
+
+  },
+
+  {
+
+    name: "Contract Management",
+
+    subtopics: [
+
+      "Contract Workspace Setup",
+
+      "Contract Authoring Tools",
+
+      "Clause Library & Templates",
+
+      "Approval Workflows",
+
+      "Contract Execution & Signatures",
+
+      "Amendments & Renewals",
+
+      "Audit Trails & Versioning",
+
+      "ERP Integration for Contracts"
+
+    ]
+
+  },
+
+  {
+
+    name: "Supplier Lifecycle Management",
+
+    subtopics: [
+
+      "Supplier Onboarding",
+
+      "Qualification & Risk Assessment",
+
+      "Supplier Performance Evaluation",
+
+      "Supplier Hierarchies",
+
+      "Data Maintenance & Validation",
+
+      "Supplier Certification",
+
+      "Monitoring & Alerts",
+
+      "Collaboration via Ariba Network"
+
+    ]
+
+  },
+
+  {
+
+    name: "Spend Analysis & Reporting",
+
+    subtopics: [
+
+      "Data Extraction & Enrichment",
+
+      "Classification of Spend",
+
+      "Spend Visibility Dashboards",
+
+      "Savings Opportunity Identification",
+
+      "KPIs and Benchmarking",
+
+      "Category Spend Reports",
+
+      "Drill-Down & Filtering",
+
+      "Exporting & Sharing Reports"
+
+    ]
+
+  },
+
+  {
+
+    name: "Supplier Collaboration",
+
+    subtopics: [
+
+      "Ariba Network Overview",
+
+      "Order Confirmation & ASN",
+
+      "Invoice Submission",
+
+      "Dispute Resolution",
+
+      "Performance Feedback Loop",
+
+      "Portal Training for Suppliers",
+
+      "Message Monitoring",
+
+      "Collaboration Best Practices"
+
+    ]
+
+  },
+
+  {
+
+    name: "Advanced Analytics",
+
+    subtopics: [
+
+      "Using Ariba Analytical Reporting",
+
+      "Custom Reports & Queries",
+
+      "Dashboards & Visualization Tools",
+
+      "Predictive Spend Analysis",
+
+      "Data Cube Navigation",
+
+      "AI/ML Use Cases",
+
+      "KPIs and Metrics Setup",
+
+      "Export & Scheduling Options"
+
+    ]
+
+  },
+
+  {
+
+    name: "Cloud-based Integration",
+
+    subtopics: [
+
+      "Integration Overview",
+
+      "Ariba Cloud Integration Gateway (CIG)",
+
+      "IDoc/XML/CSV Formats",
+
+      "ERP (SAP ECC/S4HANA) Integration",
+
+      "Master & Transactional Data Sync",
+
+      "Middleware (CPI/PI) Usage",
+
+      "Error Handling & Monitoring",
+
+      "Security & Authentication"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -1272,19 +1807,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          { name: "Introduction to SAP R/3 Basis", duration: "2 Weeks" },
-          {
-            name: "Architecture of SAP R/3 Application server",
-            duration: "2 Weeks",
-          },
-          { name: "Client Administration", duration: "2.4 Weeks" },
-          { name: "User Managements", duration: "2.4 Weeks" },
-          { name: "Background Jobs", duration: "1.2 Weeks" },
-          { name: "Profile and Operation Modes", duration: "3 Weeks" },
-          { name: "Patch Administration", duration: "1.8 Weeks" },
-          { name: "CCMS", duration: "4.4 Weeks" },
-          { name: "Memory Management and Miscellaneous", duration: "9 Weeks" },
-        ],
+
+  {
+
+    name: "SAP R/3 Architecture",
+
+    subtopics: [
+
+      "Three-Tier Architecture Overview",
+
+      "Presentation, Application & Database Layers",
+
+      "Dispatcher & Work Processes",
+
+      "Client-Server Concept",
+
+      "RFC Communication",
+
+      "SAP Kernel & Instance Structure",
+
+      "System Landscape Concepts",
+
+      "Integration with External Systems"
+
+    ]
+
+  },
+
+  {
+
+    name: "System Installation & Configuration",
+
+    subtopics: [
+
+      "SAP S/4HANA & ECC Installation Overview",
+
+      "Media Preparation & Installation Tools",
+
+      "SWPM & SUM Tools",
+
+      "Initial Configuration Tasks",
+
+      "Post-Installation Activities",
+
+      "Profile Parameters Setup",
+
+      "Installation Logs & Troubleshooting",
+
+      "Add-On Installation"
+
+    ]
+
+  },
+
+  {
+
+    name: "Client Administration",
+
+    subtopics: [
+
+      "Creating & Managing Clients",
+
+      "Client Copy (Local, Remote, Export/Import)",
+
+      "Client Deletion & Protection",
+
+      "Client-Specific vs Cross-Client Settings",
+
+      "Client Role Types",
+
+      "Client-Specific Transport",
+
+      "Logical System Assignment",
+
+      "System Refresh Concepts"
+
+    ]
+
+  },
+
+  {
+
+    name: "User Management & Authorization",
+
+    subtopics: [
+
+      "User Types & Creation",
+
+      "Authorization Objects",
+
+      "Role Maintenance (PFCG)",
+
+      "Profile Generation",
+
+      "SU01, SU10, SUIM Transactions",
+
+      "Authorization Checks & Logs",
+
+      "User Groups & Parameters",
+
+      "Audit & Compliance Tools"
+
+    ]
+
+  },
+
+  {
+
+    name: "Background Jobs & Processing",
+
+    subtopics: [
+
+      "Job Scheduling with SM36",
+
+      "Job Monitoring with SM37",
+
+      "Job Classes & Prioritization",
+
+      "Periodic vs Event-Driven Jobs",
+
+      "Spool Management",
+
+      "Handling Long-Running Jobs",
+
+      "Batch Input Sessions",
+
+      "Job Logs & Error Analysis"
+
+    ]
+
+  },
+
+  {
+
+    name: "Transport Management System (TMS)",
+
+    subtopics: [
+
+      "TMS Configuration Steps",
+
+      "Transport Routes (Single/Multisystem)",
+
+      "Creating & Releasing Transports",
+
+      "Import Queues & Scheduling",
+
+      "Transport Logs & History",
+
+      "Transport Directory Structure",
+
+      "Cross-Client Transport Restrictions",
+
+      "Handling Transport Errors"
+
+    ]
+
+  },
+
+  {
+
+    name: "System Monitoring & Performance",
+
+    subtopics: [
+
+      "CCMS Monitoring",
+
+      "Workload Analysis (ST03N)",
+
+      "Database Performance Tuning",
+
+      "Memory & Buffer Monitoring",
+
+      "EarlyWatch Alert",
+
+      "Application Log Monitoring (SLG1)",
+
+      "Custom Alerts & Thresholds",
+
+      "Root Cause Analysis (RCA)"
+
+    ]
+
+  },
+
+  {
+
+    name: "Patch Administration & Upgrades",
+
+    subtopics: [
+
+      "SAP Kernel Patch Upgrade",
+
+      "Applying SAP Notes (SNOTE)",
+
+      "SPAM/SAINT Usage",
+
+      "Support Package Stacks",
+
+      "SUM Tool for Upgrades",
+
+      "Pre- & Post-Upgrade Steps",
+
+      "Downtime Minimization Techniques",
+
+      "Version Compatibility Checks"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -1569,17 +2301,217 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         // These modules are as provided by the user, acknowledging they are more generic BI topics.
-        modules: [
-          { name: "SQL", duration: "2 Weeks" },
-          { name: "Excel", duration: "2 Weeks" },
-          { name: "POWER BI", duration: "2.4 Weeks" },
-          { name: "Tableau", duration: "2.4 Weeks" },
-          { name: "Divining into World of Data", duration: "1.2 Weeks" },
-          { name: "Python", duration: "3 Weeks" },
-          { name: "Analysis with Python", duration: "1.8 Weeks" },
-          { name: "Machine Learning", duration: "4.4 Weeks" },
-          { name: "Artificial Intelligence", duration: "9 Weeks" },
-        ],
+            modules: [
+
+  {
+
+    name: "SAP BW Data Warehousing",
+
+    subtopics: [
+
+      "Overview of SAP BW Architecture",
+
+      "Data Warehousing Concepts",
+
+      "InfoObjects and InfoProviders",
+
+      "DataStore Objects (DSOs)",
+
+      "MultiProviders & CompositeProviders",
+
+      "Data Flow Management",
+
+      "OLAP Engine Concepts",
+
+      "Integration with SAP ERP"
+
+    ]
+
+  },
+
+  {
+
+    name: "Data Modeling in BW",
+
+    subtopics: [
+
+      "Star Schema and Extended Star Schema",
+
+      "InfoCubes & DSOs",
+
+      "Characteristics & Key Figures",
+
+      "Data Modeling Tools",
+
+      "Hierarchies and Attributes",
+
+      "Aggregation & Indexing",
+
+      "Semantic Partitioning",
+
+      "Best Practices in Modeling"
+
+    ]
+
+  },
+
+  {
+
+    name: "Data Extraction, Transformation, Loading (ETL)",
+
+    subtopics: [
+
+      "Overview of ETL in SAP BW",
+
+      "Source System Configuration",
+
+      "DataSources and Transfer Rules",
+
+      "Transformation & Routines",
+
+      "Loading with InfoPackages",
+
+      "Process Chains Setup",
+
+      "Delta Mechanisms",
+
+      "Monitoring & Error Handling"
+
+    ]
+
+  },
+
+  {
+
+    name: "BEx Query Designer",
+
+    subtopics: [
+
+      "BEx Query Design Basics",
+
+      "Structures and Variables",
+
+      "Filters and Restricted Key Figures",
+
+      "Calculated Key Figures",
+
+      "Conditions and Exceptions",
+
+      "Drilldown and Navigation",
+
+      "Query Views and Workbooks",
+
+      "Performance Optimization Tips"
+
+    ]
+
+  },
+
+  {
+
+    name: "Analysis Process Designer (APD)",
+
+    subtopics: [
+
+      "Purpose of APD in BW",
+
+      "Creating Analysis Processes",
+
+      "Data Sources for APD",
+
+      "Transformations in APD",
+
+      "Result Targets and Outputs",
+
+      "Linking to Data Mining",
+
+      "Use Cases for APD",
+
+      "Performance Monitoring"
+
+    ]
+
+  },
+
+  {
+
+    name: "Web Application Designer (WAD)",
+
+    subtopics: [
+
+      "Introduction to WAD",
+
+      "Layout and Templates",
+
+      "Embedding BEx Queries",
+
+      "Chart and Table Design",
+
+      "Adding Navigation Blocks",
+
+      "Custom JavaScript Enhancements",
+
+      "Publishing to Portal",
+
+      "Tips for Responsive Design"
+
+    ]
+
+  },
+
+  {
+
+    name: "SAP BusinessObjects Integration",
+
+    subtopics: [
+
+      "Overview of BOBJ Suite",
+
+      "Crystal Reports Integration",
+
+      "Web Intelligence (WebI)",
+
+      "Analysis for Office",
+
+      "Universe Design for BW",
+
+      "BOBJ on BW Live Connection",
+
+      "Authentication & SSO Setup",
+
+      "Dashboards and Mobile Reporting"
+
+    ]
+
+  },
+
+  {
+
+    name: "Performance Optimization in BW/BI",
+
+    subtopics: [
+
+      "Partitioning and Aggregates",
+
+      "Compression and Indexing",
+
+      "Query Optimization Techniques",
+
+      "Read Modes and OLAP Cache",
+
+      "DB Statistics and Tuning",
+
+      "Data Volume Management",
+
+      "Process Chain Tuning",
+
+      "Monitoring with ST03N and RSRV"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -1861,22 +2793,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          { name: "Overview of EWM and WM", duration: "2 Weeks" },
-          {
-            name: "Introduction to Organization Elements",
-            duration: "2 Weeks",
-          },
-          { name: "Create Organization Elements", duration: "2.4 Weeks" },
-          { name: "WM organization Structure Creation", duration: "2.4 Weeks" },
-          { name: "Create SD organization Structure", duration: "1.2 Weeks" }, // As provided
-          { name: "Master Data", duration: "3 Weeks" },
-          { name: "Product Master Data and transfers", duration: "1.8 Weeks" },
-          { name: "Warehouse Management Process Flow", duration: "4.4 Weeks" },
-          {
-            name: "Warehouse Management Put away Strategy",
-            duration: "9 Weeks",
-          },
-        ],
+
+  {
+
+    name: "Overview of EWM & WM",
+
+    subtopics: [
+
+      "Introduction to SAP WM and EWM",
+
+      "Key Differences: WM vs. EWM",
+
+      "EWM Architecture & Deployment",
+
+      "EWM Functionalities Overview",
+
+      "Basic Terminologies & Flows",
+
+      "EWM in S/4HANA Context",
+
+      "Business Benefits of EWM",
+
+      "Integration with Logistics Processes"
+
+    ]
+
+  },
+
+  {
+
+    name: "Warehouse Structure & Master Data",
+
+    subtopics: [
+
+      "Warehouse Numbers & Storage Types",
+
+      "Storage Bins & Sections",
+
+      "Activity Areas & Work Centers",
+
+      "Quant & HU Management",
+
+      "Business Partners & Resources",
+
+      "Product & Packaging Specifications",
+
+      "Master Data Replication",
+
+      "Warehouse Task & Order Creation"
+
+    ]
+
+  },
+
+  {
+
+    name: "Inbound & Outbound Processing",
+
+    subtopics: [
+
+      "Inbound Delivery Creation",
+
+      "Goods Receipt & Putaway",
+
+      "Advanced Putaway Strategies",
+
+      "Outbound Delivery Management",
+
+      "Picking & Packing Strategies",
+
+      "Goods Issue Process",
+
+      "Exception Handling in Deliveries",
+
+      "Monitoring Inbound/Outbound Processes"
+
+    ]
+
+  },
+
+  {
+
+    name: "Internal Warehouse Movements",
+
+    subtopics: [
+
+      "Warehouse Tasks & Orders",
+
+      "Ad Hoc Movements",
+
+      "Replenishment Strategies",
+
+      "Slotting & Rearrangement",
+
+      "Posting Changes",
+
+      "Stock Transfers & Rearrangement",
+
+      "HU Movements",
+
+      "Exception Handling during Movements"
+
+    ]
+
+  },
+
+  {
+
+    name: "Physical Inventory",
+
+    subtopics: [
+
+      "Types of Physical Inventory",
+
+      "Inventory Documents Creation",
+
+      "Cycle Counting Procedures",
+
+      "Counting Strategies & Thresholds",
+
+      "Inventory Adjustments",
+
+      "Inventory Reporting",
+
+      "Real-Time Inventory Monitoring",
+
+      "Integration with MM Inventory"
+
+    ]
+
+  },
+
+  {
+
+    name: "Yard Management & Cross-Docking",
+
+    subtopics: [
+
+      "Introduction to Yard Management",
+
+      "Yard Layout and Configuration",
+
+      "Dock Appointment Scheduling",
+
+      "Vehicle Check-In/Check-Out",
+
+      "Basic Cross-Docking Concepts",
+
+      "Preplanned vs Opportunistic Cross-Docking",
+
+      "Document Flow in Yard Management",
+
+      "EWM & TM Integration"
+
+    ]
+
+  },
+
+  {
+
+    name: "Resource Management & Wave Management",
+
+    subtopics: [
+
+      "Resource Configuration & Types",
+
+      "Labor Management Basics",
+
+      "Task Allocation Strategies",
+
+      "Wave Template Design",
+
+      "Wave Assignment Rules",
+
+      "Releasing & Executing Waves",
+
+      "Workload Distribution",
+
+      "Monitoring Wave Execution"
+
+    ]
+
+  },
+
+  {
+
+    name: "Integration with SAP Modules (MM, SD, PP)",
+
+    subtopics: [
+
+      "Material Master Synchronization",
+
+      "Integration with Purchase Orders (MM)",
+
+      "Sales Order Fulfillment (SD)",
+
+      "Delivery & Transportation Documents",
+
+      "Production Supply (PP)",
+
+      "Batch & Serial Number Integration",
+
+      "Status Management Integration",
+
+      "Cross-Module Reporting"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -2165,34 +3291,216 @@ export const coursesData = {
         title: "Syllabus Overview",
         // These modules are more relevant to SAP S/4 HANA than generic BI/AI modules provided in the original input.
         modules: [
-          { name: "Introduction to SAP HANA & S/4HANA", duration: "2 Weeks" },
-          {
-            name: "SAP S/4HANA Architecture & Deployment Options",
-            duration: "2 Weeks",
-          },
-          { name: "SAP Fiori & User Experience", duration: "2.4 Weeks" },
-          {
-            name: "S/4HANA Finance (Simple Finance) Overview",
-            duration: "2.4 Weeks",
-          },
-          {
-            name: "S/4HANA Logistics (Simple Logistics) Overview",
-            duration: "1.2 Weeks",
-          },
-          {
-            name: "Embedded Analytics & Reporting in S/4HANA",
-            duration: "3 Weeks",
-          },
-          { name: "Data Migration to S/4HANA", duration: "1.8 Weeks" },
-          {
-            name: "Customizing & Configuration in S/4HANA",
-            duration: "4.4 Weeks",
-          },
-          {
-            name: "Conversion Scenarios & Best Practices",
-            duration: "9 Weeks",
-          },
-        ],
+
+  {
+
+    name: "SAP HANA Database & Architecture",
+
+    subtopics: [
+
+      "In-Memory Computing Principles",
+
+      "Row vs Column Store",
+
+      "Data Compression & Partitioning",
+
+      "Delta Merge Concept",
+
+      "HANA Studio & Cockpit Overview",
+
+      "Persistence Layer & Backup",
+
+      "Database Security & Roles",
+
+      "Integration with SAP Applications"
+
+    ]
+
+  },
+
+  {
+
+    name: "SAP S/4 HANA Finance (Simple Finance)",
+
+    subtopics: [
+
+      "Universal Journal Concept (ACDOCA)",
+
+      "New Asset Accounting",
+
+      "Integrated Controlling (CO)",
+
+      "Real-Time Financial Reporting",
+
+      "Cash Management & Treasury",
+
+      "Financial Closing Cockpit",
+
+      "Parallel Valuation & Ledgers",
+
+      "Integration with Logistics Modules"
+
+    ]
+
+  },
+
+  {
+
+    name: "SAP S/4 HANA Logistics (Simple Logistics)",
+
+    subtopics: [
+
+      "Simplified Data Models in Logistics",
+
+      "Inventory Management Enhancements",
+
+      "Advanced ATP (aATP)",
+
+      "Embedded EWM & TM Features",
+
+      "Procure-to-Pay Innovations",
+
+      "Order-to-Cash Process",
+
+      "Material Valuation & MRP Live",
+
+      "Fiori-based Logistics Execution"
+
+    ]
+
+  },
+
+  {
+
+    name: "Data Migration to S/4 HANA",
+
+    subtopics: [
+
+      "SAP Migration Cockpit Overview",
+
+      "LTMC & LTMOM Tools",
+
+      "Pre-checks & Readiness Reports",
+
+      "Migration Object Templates",
+
+      "Staging Table Approach",
+
+      "Direct Transfer Method",
+
+      "Data Validation & Reconciliation",
+
+      "Cutover & Go-Live Planning"
+
+    ]
+
+  },
+
+  {
+
+    name: "Fiori Apps & User Experience",
+
+    subtopics: [
+
+      "SAP Fiori Architecture Overview",
+
+      "Fiori Launchpad Configuration",
+
+      "Standard vs Custom Fiori Apps",
+
+      "Catalogs, Groups & Tiles",
+
+      "OData Services Activation",
+
+      "Theme Designer & Branding",
+
+      "Responsive Design & Accessibility",
+
+      "Fiori App Library Navigation"
+
+    ]
+
+  },
+
+  {
+
+    name: "Embedded Analytics in S/4 HANA",
+
+    subtopics: [
+
+      "Core Data Services (CDS Views)",
+
+      "Smart Business KPIs",
+
+      "Query Browser & Analytical List Pages",
+
+      "Multidimensional Reporting",
+
+      "Overview Pages (OVP)",
+
+      "Real-time Reporting with ACDOCA",
+
+      "KPI Modeling Tools",
+
+      "Integration with SAP Analytics Cloud"
+
+    ]
+
+  },
+
+  {
+
+    name: "Customizing & Configuration in S/4 HANA",
+
+    subtopics: [
+
+      "SAP IMG Navigation (SPRO)",
+
+      "Organizational Structures Setup",
+
+      "Configuration of Master Data",
+
+      "Posting Rules & Document Types",
+
+      "Output Management via BRF+",
+
+      "Workflow Configuration Basics",
+
+      "Configuring Fiori Launchpad",
+
+      "Adaptation via In-App Extensibility"
+
+    ]
+
+  },
+
+  {
+
+    name: "Conversion & Implementation Scenarios",
+
+    subtopics: [
+
+      "System Conversion (Brownfield Approach)",
+
+      "New Implementation (Greenfield)",
+
+      "Selective Data Transition (Hybrid)",
+
+      "Readiness Check Tools",
+
+      "Simplification Item Catalog",
+
+      "Custom Code Adaptation",
+
+      "Business Partner Conversion",
+
+      "Post-Migration Validation Steps"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -2477,22 +3785,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          { name: "INTRODUCTION ON SAP R/3", duration: "2 Weeks" },
-          { name: "NEW DIMENSIONS IN SAP", duration: "2 Weeks" },
-          { name: "SAP PROJECT - ASAP METHODOLOGY", duration: "2.4 Weeks" },
-          { name: ": SAP R/3 SYSTEM NAVIGATION", duration: "2.4 Weeks" },
-          { name: ": SAP HIRING ACTIONS – Part 1", duration: "1.2 Weeks" },
-          { name: "SAP HIRING ACTIONS – Part 2", duration: "3 Weeks" },
-          {
-            name: "SAP ORGANIZATIONAL MANAGEMENT – Part 1",
-            duration: "1.8 Weeks",
-          },
-          {
-            name: "SAP ORGANIZATIONAL MANAGEMENT – Part 2",
-            duration: "4.4 Weeks",
-          },
-          { name: "MAINTAIN ASPECTS", duration: "9 Weeks" },
-        ],
+
+  {
+
+    name: "Organizational Management",
+
+    subtopics: [
+
+      "Enterprise Structure & Objects",
+
+      "Organizational Units & Jobs",
+
+      "Position Management",
+
+      "Relationships & Evaluation Paths",
+
+      "Infotype Configuration",
+
+      "Matrix Organization Modeling",
+
+      "Integration with Personnel Administration",
+
+      "Reporting Structure Analysis"
+
+    ]
+
+  },
+
+  {
+
+    name: "Personnel Administration",
+
+    subtopics: [
+
+      "Employee Master Data Maintenance",
+
+      "Hiring & Separation Processes",
+
+      "Action Types & Reasons",
+
+      "Infotypes & Subtypes",
+
+      "Personnel Areas & Subareas",
+
+      "Employee Groups & Subgroups",
+
+      "Integration with Time & Payroll",
+
+      "Data Archiving & Security"
+
+    ]
+
+  },
+
+  {
+
+    name: "Time Management",
+
+    subtopics: [
+
+      "Time Data Recording (Clock In/Out)",
+
+      "Absence & Attendance Types",
+
+      "Work Schedules & Variants",
+
+      "Quotas Configuration",
+
+      "Overtime & Time Evaluation",
+
+      "Public Holiday Calendar Setup",
+
+      "Integration with Payroll",
+
+      "Time Manager’s Workplace (TMW)"
+
+    ]
+
+  },
+
+  {
+
+    name: "Payroll Accounting",
+
+    subtopics: [
+
+      "Payroll Schema & Rules",
+
+      "Wage Types Configuration",
+
+      "Gross-to-Net Calculation",
+
+      "Legal Reporting & Statutory Deductions",
+
+      "Bank Transfers & Payments",
+
+      "Posting to Finance (FI)",
+
+      "Retroactive Accounting",
+
+      "Payroll Simulation & Monitoring"
+
+    ]
+
+  },
+
+  {
+
+    name: "Recruitment & Selection",
+
+    subtopics: [
+
+      "Vacancy Management",
+
+      "Applicant Master Data",
+
+      "Applicant Actions",
+
+      "Selection Criteria Setup",
+
+      "Recruitment Media Management",
+
+      "Workflow for Approvals",
+
+      "Integration with OM & PA",
+
+      "Reporting on Applicants"
+
+    ]
+
+  },
+
+  {
+
+    name: "Compensation Management",
+
+    subtopics: [
+
+      "Compensation Planning Tools",
+
+      "Budgeting & Eligibility Rules",
+
+      "Salary Survey Participation",
+
+      "Job Pricing Configuration",
+
+      "Long-Term Incentives",
+
+      "Pay Scale Management",
+
+      "Manager Self-Service Planning",
+
+      "Integration with Payroll"
+
+    ]
+
+  },
+
+  {
+
+    name: "Performance Management",
+
+    subtopics: [
+
+      "Appraisal Templates & Catalogs",
+
+      "Appraisal Process Flow",
+
+      "Objective Setting & Reviews",
+
+      "Integration with OM & PA",
+
+      "Manager & Employee Roles",
+
+      "Automatic Rating & Calculations",
+
+      "Talent Development Link",
+
+      "Reporting & Analytics"
+
+    ]
+
+  },
+
+  {
+
+    name: "Employee Self-Service (ESS) & Manager Self-Service (MSS)",
+
+    subtopics: [
+
+      "Overview of ESS/MSS Portals",
+
+      "Leave Requests & Approvals",
+
+      "Pay Slip Access & Tax Statements",
+
+      "Personal Data Changes",
+
+      "Team View & Time Tracking",
+
+      "Workflow Integration",
+
+      "Fiori-Based Services",
+
+      "Security & Role Management"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -2774,24 +4276,217 @@ export const coursesData = {
       ],
       overview: {
         title: "Syllabus Overview",
-        modules: [
-          {
-            name: "Introduction to ERP, SAP, R/3 Architecture & S4HANA",
-            duration: "2 Weeks",
-          },
-          { name: "Basic Settings / Navigation", duration: "2 Weeks" },
-          { name: "Organizational Structure", duration: "2.4 Weeks" },
-          { name: "Master Data – Part 1", duration: "2.4 Weeks" },
-          { name: "Master Data – Part 2", duration: "1.2 Weeks" },
-          { name: "Source Determination", duration: "3 Weeks" },
-          { name: "Purchasing Data – Part1", duration: "1.8 Weeks" },
-          { name: "Outline agreement", duration: "4.4 Weeks" },
-          {
-            name: "Release Procedure for purchasing documents",
-            duration: "9 Weeks",
-          },
-        ],
-      },
+  modules: [
+
+  {
+
+    name: "Master Data Management (Material Master, Vendor Master)",
+
+    subtopics: [
+
+      "Material Types & Views Overview",
+
+      "Material Master Creation & Maintenance",
+
+      "Vendor Master Data Configuration",
+
+      "Purchasing & Accounting Views",
+
+      "Source List & Info Records",
+
+      "Centralized vs Decentralized Master Data",
+
+      "Number Range Configuration",
+
+      "Integration with Other Modules"
+
+    ]
+
+  },
+
+  {
+
+    name: "Procurement Process (P2P)",
+
+    subtopics: [
+
+      "Purchase Requisition Creation",
+
+      "Request for Quotation (RFQ)",
+
+      "Purchase Order (PO) Processing",
+
+      "Goods Receipt Posting",
+
+      "Invoice Posting & Matching",
+
+      "Release Strategy Setup",
+
+      "Outline Agreements (Contracts/Scheduling)",
+
+      "Reporting in Procurement"
+
+    ]
+
+  },
+
+  {
+
+    name: "Inventory Management",
+
+    subtopics: [
+
+      "Goods Movement Types (101, 102, etc.)",
+
+      "Stock Overview & Analysis (MMBE)",
+
+      "Goods Issue & Transfer Posting",
+
+      "Batch Management",
+
+      "Stock Types (Unrestricted, Blocked, Quality)",
+
+      "Special Stock Handling (Subcontracting, Consignment)",
+
+      "Reservations & Material Documents",
+
+      "Integration with WM/EWM"
+
+    ]
+
+  },
+
+  {
+
+    name: "Material Requirements Planning (MRP)",
+
+    subtopics: [
+
+      "MRP Types & Procedures",
+
+      "Planning File Entry & Processing Keys",
+
+      "Lot Sizing Techniques",
+
+      "Planning Horizon Setup",
+
+      "Source Determination & Quota Arrangements",
+
+      "MRP Controllers & Exception Messages",
+
+      "MD01/MD04 Transaction Usage",
+
+      "Integration with Production Planning"
+
+    ]
+
+  },
+
+  {
+
+    name: "Physical Inventory",
+
+    subtopics: [
+
+      "Inventory Document Creation",
+
+      "Cycle Counting Configuration",
+
+      "Posting Inventory Differences",
+
+      "Counting Methods & Thresholds",
+
+      "Batch & Serial Number Tracking",
+
+      "Annual vs Continuous Inventory",
+
+      "Inventory Reports (MB5B, MI20, etc.)",
+
+      "Integration with Financial Adjustments"
+
+    ]
+
+  },
+
+  {
+
+    name: "Valuation and Account Determination",
+
+    subtopics: [
+
+      "Valuation Classes & Types",
+
+      "Automatic Account Posting (OBYC)",
+
+      "Split Valuation Concepts",
+
+      "Price Control (Standard vs Moving Avg)",
+
+      "GR/IR Clearing Account Setup",
+
+      "Account Category Reference",
+
+      "Material Ledger Overview",
+
+      "FI Integration with MM Valuation"
+
+    ]
+
+  },
+
+  {
+
+    name: "Invoice Verification",
+
+    subtopics: [
+
+      "Three-Way Matching Concept",
+
+      "Invoice Posting via MIRO",
+
+      "Handling Variances & Blocks",
+
+      "Subsequent Debit/Credit Transactions",
+
+      "Credit Memo Processing",
+
+      "Automatic Posting to FI",
+
+      "Invoice Release Strategy",
+
+      "Reporting & Analysis (MRBR, MIR5)"
+
+    ]
+
+  },
+
+  {
+
+    name: "Integration with other SAP Modules (FI, SD, PP)",
+
+    subtopics: [
+
+      "Purchase Order to FI Postings",
+
+      "Stock Movements Affecting Finance",
+
+      "Procurement for Sales Orders (SD)",
+
+      "Subcontracting Process with PP",
+
+      "Intercompany Stock Transfers",
+
+      "Automatic Postings to G/L",
+
+      "Third-Party Order Processing",
+
+      "Data Flow Between Modules"
+
+    ]
+
+  }
+
+],      },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
         "https://drive.google.com/uc?export=download&id=1lFs52kQRb0t2S7FGouh4zl06rJxD1frO",
@@ -3073,26 +4768,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          // Corrected to be specific to SAP PM
-          {
-            name: "Introduction to SAP Plant Maintenance",
-            duration: "2 Weeks",
-          },
-          {
-            name: "Organizational Structure & Master Data",
-            duration: "2 Weeks",
-          },
-          { name: "Notifications & Work Orders", duration: "2.4 Weeks" },
-          { name: "Preventive Maintenance", duration: "2.4 Weeks" },
-          { name: "Breakdown & Corrective Maintenance", duration: "1.2 Weeks" },
-          {
-            name: "Spare Parts Management (Integration with MM)",
-            duration: "3 Weeks",
-          },
-          { name: "Reporting & Analysis in SAP PM", duration: "1.8 Weeks" },
-          { name: "Maintenance Cost Controlling", duration: "4.4 Weeks" },
-          { name: "Mobile Solutions for PM", duration: "9 Weeks" },
-        ],
+
+  {
+
+    name: "Organizational Structure in PM",
+
+    subtopics: [
+
+      "Maintenance Planning Plant",
+
+      "Planner Groups & Work Centers",
+
+      "Maintenance Plants & Locations",
+
+      "Maintenance Planning Strategies",
+
+      "Functional Hierarchy Setup",
+
+      "Object Types & Catalog Profiles",
+
+      "Responsibilities & Roles Setup",
+
+      "Integration with Enterprise Structure"
+
+    ]
+
+  },
+
+  {
+
+    name: "Technical Objects (Functional Locations, Equipment)",
+
+    subtopics: [
+
+      "Functional Location Hierarchies",
+
+      "Equipment Master Records",
+
+      "Serial Numbers & Object Lists",
+
+      "Classification of Equipment",
+
+      "Bills of Material (BOM) for Equipment",
+
+      "Measuring Points & Counters",
+
+      "Warranties & Object Histories",
+
+      "Installation & Dismantling Processes"
+
+    ]
+
+  },
+
+  {
+
+    name: "Maintenance Processing (Notifications, Orders)",
+
+    subtopics: [
+
+      "Creating Maintenance Notifications",
+
+      "Notification Types & Prioritization",
+
+      "Maintenance Orders Creation",
+
+      "Order Types & Costing",
+
+      "Operations, Materials & Components",
+
+      "Time Confirmation & Technical Completion",
+
+      "Order Settlement Process",
+
+      "Work Clearance Management"
+
+    ]
+
+  },
+
+  {
+
+    name: "Preventive Maintenance Planning",
+
+    subtopics: [
+
+      "Maintenance Strategies & Packages",
+
+      "Maintenance Plans (Time, Performance-based)",
+
+      "Scheduling Parameters & Deadlines",
+
+      "Task List Assignment",
+
+      "Call Horizon & Offset Settings",
+
+      "Maintenance Item Configuration",
+
+      "Cycle Modifications & Shifts",
+
+      "Performance Monitoring & Compliance"
+
+    ]
+
+  },
+
+  {
+
+    name: "Corrective Maintenance",
+
+    subtopics: [
+
+      "Unplanned Maintenance Flow",
+
+      "Fault Logging & Classification",
+
+      "Root Cause Documentation",
+
+      "Breakdown Notifications",
+
+      "Order Processing for Repairs",
+
+      "Use of Refurbishment Orders",
+
+      "Downtime Tracking",
+
+      "Feedback & Cost Capture"
+
+    ]
+
+  },
+
+  {
+
+    name: "Calibration Management",
+
+    subtopics: [
+
+      "Integration with Quality Management",
+
+      "Calibration-specific Equipment",
+
+      "Inspection Characteristics for Calibration",
+
+      "Calibration Plans & Scheduling",
+
+      "Results Recording & Documentation",
+
+      "Deviation Handling",
+
+      "Compliance with Regulatory Standards",
+
+      "Audit Trails & Certificates"
+
+    ]
+
+  },
+
+  {
+
+    name: "Reporting & Analytics in PM",
+
+    subtopics: [
+
+      "Notification & Order Reports",
+
+      "Technical Object Analysis",
+
+      "Maintenance History Tracking",
+
+      "Maintenance Backlog Reports",
+
+      "KPIs & Maintenance Efficiency",
+
+      "Cost Analysis Reports",
+
+      "Custom Reports via Queries",
+
+      "SAP Fiori Reporting Tools"
+
+    ]
+
+  },
+
+  {
+
+    name: "Integration with other SAP Modules (MM, PP, QM)",
+
+    subtopics: [
+
+      "Material Reservation & Usage (MM)",
+
+      "Production Equipment Maintenance (PP)",
+
+      "Quality Inspections during Maintenance (QM)",
+
+      "Cost Center & Order Settlement (CO)",
+
+      "Procurement of External Services",
+
+      "Notification Triggers from Other Modules",
+
+      "Linked Workflows & Alerts",
+
+      "Master Data Synchronization"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -3374,25 +5259,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          {
-            name: "Introduction to ERP, SAP R/3, S4 HANA Architecture",
-            duration: "2 Weeks",
-          },
-          { name: "Navigation & Basic settings in SAP", duration: "2 Weeks" },
-          {
-            name: "Organizational Structure of an enterprise in the SAP R/3 system",
-            duration: "2.4 Weeks",
-          },
-          { name: "Master Data - Bill of Material", duration: "2.4 Weeks" },
-          { name: "Work centre Management", duration: "1.2 Weeks" },
-          { name: "Master Data - Routing", duration: "3 Weeks" },
-          { name: "Planning", duration: "1.8 Weeks" },
-          {
-            name: "Flexible Planning - Standard SOP Planning",
-            duration: "4.4 Weeks",
-          },
-          { name: "Demand Management", duration: "9 Weeks" },
-        ],
+
+  {
+
+    name: "Introduction to SAP Production Planning",
+
+    subtopics: [
+
+      "Overview of Production Types (Make-to-Stock, Make-to-Order)",
+
+      "Integration with Other SAP Modules (MM, SD, FICO)",
+
+      "PP Master Data Flow",
+
+      "End-to-End Production Cycle",
+
+      "Business Scenarios in Manufacturing",
+
+      "Planning Strategies & Policies",
+
+      "Role of PP in Supply Chain",
+
+      "Key Transactions in SAP PP"
+
+    ]
+
+  },
+
+  {
+
+    name: "Master Data (BOM, Work Center, Routing)",
+
+    subtopics: [
+
+      "Bill of Materials (BOM) Creation & Usage",
+
+      "Routing Definition & Operation Steps",
+
+      "Work Center Setup & Capacities",
+
+      "Production Version Management",
+
+      "Task List Types & Dependencies",
+
+      "Master Recipe in Process Industries",
+
+      "Reference Operation Sets",
+
+      "Data Consistency & Maintenance"
+
+    ]
+
+  },
+
+  {
+
+    name: "Demand Management & Sales and Operations Planning (SOP)",
+
+    subtopics: [
+
+      "Planned Independent Requirements (PIR)",
+
+      "Flexible Planning & Standard SOP",
+
+      "Forecasting in SOP",
+
+      "Transfer of SOP to Demand Management",
+
+      "Make-to-Order vs Make-to-Stock Scenarios",
+
+      "Product Group Planning",
+
+      "Interactive vs Automatic Planning",
+
+      "Integration with CO-PA and SD"
+
+    ]
+
+  },
+
+  {
+
+    name: "Material Requirements Planning (MRP)",
+
+    subtopics: [
+
+      "MRP Types & Control Parameters",
+
+      "MRP Run Execution (MD01, MD02)",
+
+      "Lot Size & Safety Stock Settings",
+
+      "Planning Horizon & Scheduling",
+
+      "MRP Exception Messages",
+
+      "Procurement Proposals (Planned Orders, Purchase Reqs)",
+
+      "MRP Evaluation & Reporting (MD04, MD05)",
+
+      "Multilevel & Single Level Planning"
+
+    ]
+
+  },
+
+  {
+
+    name: "Capacity Planning",
+
+    subtopics: [
+
+      "Work Center Capacity Definition",
+
+      "Rough-Cut Capacity Planning (RCCP)",
+
+      "Capacity Requirements Planning (CRP)",
+
+      "Finite & Infinite Scheduling",
+
+      "Capacity Evaluation Tools",
+
+      "Capacity Leveling (CM25, CM21)",
+
+      "Shift Planning & Calendars",
+
+      "Bottleneck Resource Management"
+
+    ]
+
+  },
+
+  {
+
+    name: "Production Order Execution",
+
+    subtopics: [
+
+      "Order Creation & Release",
+
+      "Order Printing & Shop Papers",
+
+      "Material Staging & Issue",
+
+      "Confirmation of Production Activities",
+
+      "Goods Receipt Posting",
+
+      "Order Settlement & Variance Analysis",
+
+      "Rework & Scrap Handling",
+
+      "Status Management in Orders"
+
+    ]
+
+  },
+
+  {
+
+    name: "Shop Floor Control",
+
+    subtopics: [
+
+      "Dispatching of Production Orders",
+
+      "Sequence Scheduling",
+
+      "Monitoring Order Progress",
+
+      "Capacity Utilization Reports",
+
+      "Shift Notes & Logs",
+
+      "Integration with MES Systems",
+
+      "Production Execution Tracking",
+
+      "Use of SAP Fiori Apps for Shop Floor"
+
+    ]
+
+  },
+
+  {
+
+    name: "Reporting & Analytics in PP",
+
+    subtopics: [
+
+      "Production Order Information System (COOIS)",
+
+      "Capacity Load Reports (CM01, CM07)",
+
+      "Planned vs Actual Cost Analysis",
+
+      "Lead Time & Throughput Metrics",
+
+      "Custom PP Reports via SQVI/SQ01",
+
+      "Fiori Dashboards for PP",
+
+      "Integration with Embedded Analytics",
+
+      "Exception Reporting for Planners"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -3676,32 +5752,217 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          // Corrected to be specific to SAP PS modules
-          { name: "Introduction to SAP Project Systems", duration: "2 Weeks" },
-          {
-            name: "Project Structures (WBS Elements & Networks)",
-            duration: "2 Weeks",
-          },
-          { name: "Project Planning & Scheduling", duration: "2.4 Weeks" },
-          {
-            name: "Resource Management & Capacity Planning",
-            duration: "2.4 Weeks",
-          },
-          { name: "Cost Planning & Budgeting in PS", duration: "1.2 Weeks" },
-          {
-            name: "Project Execution & Progress Tracking",
-            duration: "3 Weeks",
-          },
-          {
-            name: "Integration with other SAP Modules (FI, CO, MM, SD)",
-            duration: "1.8 Weeks",
-          },
-          {
-            name: "Project Reporting & Information System",
-            duration: "4.4 Weeks",
-          },
-          { name: "Period-End Closing in Projects", duration: "9 Weeks" },
-        ],
+
+  {
+
+    name: "Project Structures (WBS Elements)",
+
+    subtopics: [
+
+      "Work Breakdown Structure (WBS) Hierarchy",
+
+      "Project Definition & Profiles",
+
+      "Milestone Configuration",
+
+      "Planning Elements vs Account Assignment Elements",
+
+      "Templates & Standard WBS Models",
+
+      "Status Management & User Status",
+
+      "WBS Reporting & Analysis",
+
+      "Integration with Networks & Cost Planning"
+
+    ]
+
+  },
+
+  {
+
+    name: "Network & Activity Management",
+
+    subtopics: [
+
+      "Network Header & Activities",
+
+      "Relationships & Dependencies",
+
+      "Activity Types & Work Centers",
+
+      "Scheduling & Float Calculation",
+
+      "Confirmation of Activities",
+
+      "Activity Costing",
+
+      "Capacity Planning in Networks",
+
+      "Linking Networks to WBS Elements"
+
+    ]
+
+  },
+
+  {
+
+    name: "Resource Planning & Scheduling",
+
+    subtopics: [
+
+      "Internal vs External Resource Planning",
+
+      "Personnel Assignment to Activities",
+
+      "Work Center Capacity Allocation",
+
+      "Shift Scheduling for Projects",
+
+      "Resource Demand Forecasting",
+
+      "Integrated Planning with HR",
+
+      "Use of Project Planning Board (CJ20N)",
+
+      "Scheduling Scenarios & Simulations"
+
+    ]
+
+  },
+
+  {
+
+    name: "Cost & Revenue Planning",
+
+    subtopics: [
+
+      "Primary & Secondary Cost Planning",
+
+      "Cost Planning at WBS and Network Level",
+
+      "Unit Costing vs Detailed Planning",
+
+      "Revenue Planning for Customer Projects",
+
+      "Plan/Actual Cost Comparisons",
+
+      "Use of Costing Sheets",
+
+      "Forecasting Cost to Completion",
+
+      "Integration with CO-OPA (Internal Orders)"
+
+    ]
+
+  },
+
+  {
+
+    name: "Budgeting & Availability Control",
+
+    subtopics: [
+
+      "Budget Upload & Versions",
+
+      "Budget Release Process",
+
+      "Availability Control Settings",
+
+      "Tolerance Limits & Exceptions",
+
+      "Budgeting at WBS vs Network Level",
+
+      "Transfer & Supplement Functions",
+
+      "Budget Reporting (S_ALR_87013558)",
+
+      "Integration with Investment Management"
+
+    ]
+
+  },
+
+  {
+
+    name: "Project Reporting & Progress Analysis",
+
+    subtopics: [
+
+      "Structure Overview Reports",
+
+      "Actual vs Planned Cost Analysis",
+
+      "Milestone Trend Analysis (MTA)",
+
+      "Progress Tracking & Earned Value",
+
+      "Project Cash Flow Reports",
+
+      "Graphical Reporting Tools",
+
+      "User-defined Layouts (CJ20N)",
+
+      "SAP Fiori Apps for Project Reporting"
+
+    ]
+
+  },
+
+  {
+
+    name: "Material Management in Projects (Integration with MM)",
+
+    subtopics: [
+
+      "Material Assignment to WBS/Activities",
+
+      "PR/PO Generation from Networks",
+
+      "Inventory Tracking for Projects",
+
+      "Project Stock (Q Stock) Handling",
+
+      "Component Overview in CJ20N",
+
+      "Goods Issue to Project",
+
+      "Third-Party Procurement for Projects",
+
+      "Integration with Valuation & Costing"
+
+    ]
+
+  },
+
+  {
+
+    name: "Integration with Financials (FI/CO)",
+
+    subtopics: [
+
+      "Automatic Posting of Costs & Revenues",
+
+      "Settlement to Cost Centers/Assets",
+
+      "Overhead Calculation from PS",
+
+      "Accrual & Deferral Handling",
+
+      "Integration with Internal Orders",
+
+      "Tax & Currency Considerations",
+
+      "Reporting in CO Module for Projects",
+
+      "Audit Trails & Financial Reconciliation"
+
+    ]
+
+  }
+
+],
+
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -3984,20 +6245,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          // Corrected to be specific to SAP QM
-          { name: "Introduction to SAP QM", duration: "2 Weeks" },
-          { name: "Quality Planning (Master Data)", duration: "2 Weeks" },
-          { name: "Quality Inspection Processing", duration: "2.4 Weeks" },
-          {
-            name: "Quality Certificates & Notifications",
-            duration: "2.4 Weeks",
-          },
-          { name: "Quality Control & Reporting", duration: "1.2 Weeks" },
-          { name: "QM in Procurement", duration: "3 Weeks" },
-          { name: "QM in Production", duration: "1.8 Weeks" },
-          { name: "Audits Management", duration: "4.4 Weeks" },
-          { name: "Integration with other SAP Modules", duration: "9 Weeks" },
-        ],
+
+  {
+
+    title: "Quality Planning (Master Data, Inspection Plans)",
+
+    subtopics: [
+
+      "Inspection Characteristics & Master Inspection Characteristics (MICs)",
+
+      "Inspection Methods & Catalogs",
+
+      "Inspection Plan Creation & Assignment",
+
+      "Sampling Procedures & Schemes",
+
+      "Task List Management for QM",
+
+      "Versioning of Inspection Plans",
+
+      "Quality Info Records",
+
+      "Integration with Engineering Change Management"
+
+    ]
+
+  },
+
+  {
+
+    title: "Quality Inspection (In-process, Goods Receipt)",
+
+    subtopics: [
+
+      "Inspection Lot Creation",
+
+      "Inspection Lot Types (GR, In-process, Delivery)",
+
+      "Results Recording Process",
+
+      "Usage Decisions",
+
+      "Stock Posting from Inspection",
+
+      "Defect Recording during Inspection",
+
+      "Inspection during Production Process",
+
+      "Integration with Warehouse & Inventory"
+
+    ]
+
+  },
+
+  {
+
+    title: "Quality Control (Statistical Process Control)",
+
+    subtopics: [
+
+      "Control Charts Setup & Interpretation",
+
+      "Defining SPC Criteria in MICs",
+
+      "Statistical Evaluation of Inspection Results",
+
+      "Control Limits & Alerts",
+
+      "Trend Analysis & Process Capability",
+
+      "Inspection Point Processing",
+
+      "Automatic Triggering of SPC",
+
+      "Compliance with Quality Standards"
+
+    ]
+
+  },
+
+  {
+
+    title: "Quality Certificates & Notifications",
+
+    subtopics: [
+
+      "Certificate Profile Creation",
+
+      "Certificate of Analysis (COA)",
+
+      "Certificate Printing During Delivery",
+
+      "Notification Types & Categories",
+
+      "Defect Notifications & Processing",
+
+      "Corrective/Preventive Actions",
+
+      "Reference to Inspection Lot or Equipment",
+
+      "Workflow Integration for Notifications"
+
+    ]
+
+  },
+
+  {
+
+    title: "Audits Management",
+
+    subtopics: [
+
+      "Planning & Scheduling Audits",
+
+      "Audit Types (Internal, External, Supplier)",
+
+      "Audit Checklist Management",
+
+      "Execution & Documentation",
+
+      "Findings & Follow-ups",
+
+      "Compliance Tracking",
+
+      "Audit Reports & Dashboards",
+
+      "Integration with Quality Notifications"
+
+    ]
+
+  },
+
+  {
+
+    title: "Failure Mode and Effects Analysis (FMEA)",
+
+    subtopics: [
+
+      "FMEA Structure and Methodology",
+
+      "Risk Priority Number (RPN) Calculation",
+
+      "Preventive and Detection Actions",
+
+      "Linking FMEA with Inspection Plans",
+
+      "Control Plan Setup",
+
+      "Standard FMEA Templates",
+
+      "Reporting & Monitoring RPN Changes",
+
+      "Collaboration with Engineering Teams"
+
+    ]
+
+  },
+
+  {
+
+    title: "Integration with other SAP Modules (PP, MM, PM)",
+
+    subtopics: [
+
+      "Inspection in Procurement Process (MM)",
+
+      "In-Process Inspection during Production (PP)",
+
+      "Calibration Inspection (PM)",
+
+      "Inventory Movement based on QM Results",
+
+      "Notification Link with Maintenance Orders",
+
+      "Vendor Evaluation Integration",
+
+      "Production Order Quality Checks",
+
+      "Cost Capture via Controlling Module"
+
+    ]
+
+  },
+
+  {
+
+    title: "Calibration Management in QM",
+
+    subtopics: [
+
+      "Calibration Task List",
+
+      "Calibration Inspection Plans",
+
+      "Triggering Calibration via PM Orders",
+
+      "Result Recording for Calibration",
+
+      "Certificate Generation for Calibration",
+
+      "Measurement Document Creation",
+
+      "Compliance & Regulatory Traceability",
+
+      "Integration with Equipment Master Data"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -4282,26 +6739,217 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          // Corrected to be specific to SAP SCM, rather than generic data science
-          {
-            name: "Introduction to SAP SCM & its Components",
-            duration: "2 Weeks",
-          },
-          { name: "Demand Planning (DP) & Forecasting", duration: "2 Weeks" },
-          { name: "Supply Network Planning (SNP)", duration: "2.4 Weeks" },
-          {
-            name: "Production Planning & Detailed Scheduling (PP/DS)",
-            duration: "2.4 Weeks",
-          },
-          { name: "Global Available-to-Promise (GATP)", duration: "1.2 Weeks" },
-          { name: "Transportation Management (TM)", duration: "3 Weeks" },
-          {
-            name: "Warehouse Management (EWM) Overview",
-            duration: "1.8 Weeks",
-          },
-          { name: "Integration with SAP ECC/S/4HANA", duration: "4.4 Weeks" },
-          { name: "Supply Chain Monitoring & Analytics", duration: "9 Weeks" },
-        ],
+
+  {
+
+    title: "Supply Chain Planning (APO)",
+
+    subtopics: [
+
+      "Overview of Advanced Planning & Optimization (APO)",
+
+      "Demand Planning (DP)",
+
+      "Supply Network Planning (SNP)",
+
+      "Production Planning/Detailed Scheduling (PP/DS)",
+
+      "Global Available-to-Promise (GATP)",
+
+      "Integration with SAP ECC",
+
+      "Planning Book & Data Views",
+
+      "Heuristics and Optimizer Configuration"
+
+    ]
+
+  },
+
+  {
+
+    title: "Procurement & Inventory Management",
+
+    subtopics: [
+
+      "Purchase Requisition and Order Processing",
+
+      "Vendor Selection and Evaluation",
+
+      "Goods Receipt and Inventory Updates",
+
+      "Inventory Valuation and Accounting",
+
+      "Batch Management",
+
+      "Stock Transfer and Transfer Posting",
+
+      "Material Master Data Management",
+
+      "Integration with MRP & Warehouse Systems"
+
+    ]
+
+  },
+
+  {
+
+    title: "Production Planning & Detailed Scheduling",
+
+    subtopics: [
+
+      "Production Planning Strategies",
+
+      "Capacity Planning & Load Leveling",
+
+      "Routing & Work Center Assignments",
+
+      "Scheduling Algorithms in PP/DS",
+
+      "Setup Matrix and Sequencing",
+
+      "Order Confirmation & Execution",
+
+      "Production Monitoring",
+
+      "Integration with MES Systems"
+
+    ]
+
+  },
+
+  {
+
+    title: "Logistics Execution (Warehouse & Transport)",
+
+    subtopics: [
+
+      "Outbound Delivery Processing",
+
+      "Goods Issue & Shipping",
+
+      "Handling Unit Management",
+
+      "Warehouse Structure in LE-WM",
+
+      "Picking, Packing, and Staging",
+
+      "Transportation Planning and Execution",
+
+      "Carrier Selection & Freight Settlement",
+
+      "Integration with SAP EWM & TM"
+
+    ]
+
+  },
+
+  {
+
+    title: "Order Fulfillment & Customer Service",
+
+    subtopics: [
+
+      "Sales Order Processing",
+
+      "Available-to-Promise (ATP) Checks",
+
+      "Backorder Processing",
+
+      "Delivery Scheduling",
+
+      "Customer Communication & CRM",
+
+      "Returns & Reverse Logistics",
+
+      "Service Order Management",
+
+      "Customer Complaint Handling"
+
+    ]
+
+  },
+
+  {
+
+    title: "Supply Chain Analytics & Reporting",
+
+    subtopics: [
+
+      "KPI Dashboards for SCM",
+
+      "Supply Chain Performance Metrics",
+
+      "Inventory Turnover & Fill Rate Analysis",
+
+      "Demand vs Forecast Accuracy",
+
+      "Lead Time Analysis",
+
+      "SCM Cube in BW",
+
+      "SAP Fiori & Embedded Analytics",
+
+      "Real-time Reporting with SAP HANA"
+
+    ]
+
+  },
+
+  {
+
+    title: "Integration with other SAP Modules (MM, SD, PP)",
+
+    subtopics: [
+
+      "Data Synchronization Across Modules",
+
+      "Purchase Order to Inventory Link (MM)",
+
+      "Sales Order to Delivery & Billing (SD)",
+
+      "Production Orders & BOM Integration (PP)",
+
+      "Accounting & Cost Control (FI/CO)",
+
+      "Batch and Serial Number Tracking",
+
+      "ATP & GATP Synchronization",
+
+      "Cross-module Reporting & Analytics"
+
+    ]
+
+  },
+
+  {
+
+    title: "Demand & Supply Network Planning",
+
+    subtopics: [
+
+      "Demand Forecasting Techniques",
+
+      "Causal and Statistical Forecasting",
+
+      "Supply Network Design & Modeling",
+
+      "Multi-echelon Inventory Optimization",
+
+      "Push vs Pull Replenishment",
+
+      "Safety Stock Planning",
+
+      "Service Level Optimization",
+
+      "Collaboration with Suppliers and Partners"
+
+    ]
+
+  }
+
+],
+
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -4587,35 +7235,217 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          // Corrected to be specific to SAP SD
-          { name: "Introduction to SAP ERP & SD Module", duration: "2 Weeks" },
-          {
-            name: "Organizational Structure in Sales & Distribution",
-            duration: "2 Weeks",
-          },
-          {
-            name: "Customer Master & Material Master Data in SD",
-            duration: "2.4 Weeks",
-          },
-          {
-            name: "Sales Document Processing (Sales Order, Inquiry, Quotation)",
-            duration: "2.4 Weeks",
-          },
-          {
-            name: "Pricing Procedure & Condition Technique",
-            duration: "1.2 Weeks",
-          },
-          { name: "Delivery Processing & Shipping", duration: "3 Weeks" },
-          {
-            name: "Billing Process & Invoice Management",
-            duration: "1.8 Weeks",
-          },
-          {
-            name: "Credit Management & Rebate Processing",
-            duration: "4.4 Weeks",
-          },
-          { name: "Foreign Trade & Intrastat", duration: "9 Weeks" },
-        ],
+
+  {
+
+    title: "Sales Order Processing",
+
+    subtopics: [
+
+      "Sales Document Types (Inquiry, Quotation, Order)",
+
+      "Order Creation & Change Processes",
+
+      "Schedule Lines & Delivery Dates",
+
+      "Item Categories & Copy Control",
+
+      "Availability Check (ATP)",
+
+      "Text Determination",
+
+      "Output Determination (Print, Email)",
+
+      "Integration with Delivery and Billing"
+
+    ]
+
+  },
+
+  {
+
+    title: "Pricing & Conditions",
+
+    subtopics: [
+
+      "Condition Technique Overview",
+
+      "Condition Records & Types (PR00, K004, etc.)",
+
+      "Access Sequence & Condition Tables",
+
+      "Pricing Procedure Configuration",
+
+      "Discounts, Surcharges & Taxes",
+
+      "Customer/Material Specific Pricing",
+
+      "Free Goods Determination",
+
+      "Pricing in Sales Order & Invoice"
+
+    ]
+
+  },
+
+  {
+
+    title: "Shipping & Transportation",
+
+    subtopics: [
+
+      "Delivery Document Processing",
+
+      "Shipping Point Determination",
+
+      "Route Determination & Scheduling",
+
+      "Picking, Packing & Handling Units",
+
+      "Goods Issue Posting",
+
+      "Transportation Planning & Execution",
+
+      "Freight Cost Calculation",
+
+      "Integration with WM & TM"
+
+    ]
+
+  },
+
+  {
+
+    title: "Billing & Invoice Management",
+
+    subtopics: [
+
+      "Billing Document Types",
+
+      "Invoice Creation (VF01) & Output",
+
+      "Pro Forma Invoice Handling",
+
+      "Billing Plans (Milestone, Periodic)",
+
+      "Credit & Debit Memo Processing",
+
+      "Account Determination (FI Integration)",
+
+      "Billing Due List Processing",
+
+      "Archiving & Audit Compliance"
+
+    ]
+
+  },
+
+  {
+
+    title: "Credit Management",
+
+    subtopics: [
+
+      "Credit Control Areas",
+
+      "Static vs Dynamic Credit Check",
+
+      "Credit Limit Management",
+
+      "Credit Exposure Monitoring",
+
+      "Credit Blocks & Release Workflow",
+
+      "Integration with Sales Order & Delivery",
+
+      "Risk Categories & Scoring",
+
+      "Reports & Credit Review Tools"
+
+    ]
+
+  },
+
+  {
+
+    title: "Customer Master Data",
+
+    subtopics: [
+
+      "General Data, Company Code & Sales Area Views",
+
+      "Customer Account Groups",
+
+      "Partner Functions (Sold-to, Ship-to, etc.)",
+
+      "Customer Hierarchies",
+
+      "Master Data Maintenance (XD01, VD01)",
+
+      "Customer Blocking & Deletion",
+
+      "Text, Output & Pricing Data",
+
+      "Integration with FI & CRM"
+
+    ]
+
+  },
+
+  {
+
+    title: "Sales Information System",
+
+    subtopics: [
+
+      "Standard Reports & Key Figures",
+
+      "Info Structures & Update Rules",
+
+      "Flexible Analysis in LIS",
+
+      "Drill-down Reports",
+
+      "Customer & Material Statistics",
+
+      "Quota Management & Sales Targets",
+
+      "Forecasting Tools",
+
+      "Integration with BW/BI"
+
+    ]
+
+  },
+
+  {
+
+    title: "Integration with other SAP Modules (MM, FICO)",
+
+    subtopics: [
+
+      "Third-Party Sales Processing (MM Link)",
+
+      "Material Master View Coordination",
+
+      "Billing Integration with FI (Account Postings)",
+
+      "Credit Management Integration with FI/AR",
+
+      "Inventory Checks & Reservations (MM)",
+
+      "Revenue Recognition (FI-RA)",
+
+      "Automatic Journal Entry Posting",
+
+      "Cross-module Reporting & Reconciliation"
+
+    ]
+
+  }
+
+],
+
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -4900,32 +7730,216 @@ export const coursesData = {
       overview: {
         title: "Syllabus Overview",
         modules: [
-          // Corrected to be specific to SAP SuccessFactors modules
-          { name: "Introduction to SuccessFactors", duration: "2 Weeks" },
-          {
-            name: "Navigation Basics & Platform Fundamentals",
-            duration: "2 Weeks",
-          },
-          { name: "SuccessFactors Employee Central", duration: "2.4 Weeks" },
-          { name: "Role-Based Permissions & Security", duration: "2.4 Weeks" },
-          {
-            name: "Setting Up Data Models & Configuration",
-            duration: "1.2 Weeks",
-          },
-          { name: "Business Rules & Workflows", duration: "3 Weeks" },
-          {
-            name: "Working with Picklists & Foundation Objects",
-            duration: "1.8 Weeks",
-          },
-          {
-            name: "Position Management & Org Structure",
-            duration: "4.4 Weeks",
-          },
-          {
-            name: "Workflow, Alert Messages, and Email Notifications",
-            duration: "9 Weeks",
-          },
-        ],
+
+  {
+
+    title: "Employee Central (Core HR)",
+
+    subtopics: [
+
+      "Foundation Objects & Generic Objects",
+
+      "Employee & Job Information",
+
+      "Position Management",
+
+      "Event Reason & Workflow Management",
+
+      "Time Off Configuration",
+
+      "Global Benefits & Payroll Integration",
+
+      "Data Imports & Mass Changes",
+
+      "Role-Based Permissions (RBP)"
+
+    ]
+
+  },
+
+  {
+
+    title: "Talent Acquisition (Recruiting & Onboarding)",
+
+    subtopics: [
+
+      "Requisition Template Configuration",
+
+      "Job Posting & Career Site Builder",
+
+      "Candidate Pipeline Management",
+
+      "Interview Scheduling & Collaboration",
+
+      "Offer Letter Management",
+
+      "Onboarding 2.0 Process Flow",
+
+      "Document Management & e-Signature",
+
+      "Integration with Employee Central"
+
+    ]
+
+  },
+
+  {
+
+    title: "Performance & Goal Management",
+
+    subtopics: [
+
+      "Goal Plan Template Configuration",
+
+      "SMART Goal Alignment",
+
+      "Performance Form Templates",
+
+      "360-Degree Feedback Process",
+
+      "Calibration & Talent Review",
+
+      "Continuous Performance Management (CPM)",
+
+      "Route Maps & Workflow Steps",
+
+      "Integration with Compensation Planning"
+
+    ]
+
+  },
+
+  {
+
+    title: "Learning Management System (LMS)",
+
+    subtopics: [
+
+      "Item, Curriculum, and Program Setup",
+
+      "Assignment Profiles & Learning Paths",
+
+      "Online vs Instructor-Led Training (ILT)",
+
+      "Scheduled Offerings & Class Management",
+
+      "Completion Tracking & Evaluations",
+
+      "Compliance & Certification Management",
+
+      "Reporting using Plateau Reports",
+
+      "LMS Integration with BizX"
+
+    ]
+
+  },
+
+  {
+
+    title: "Compensation Management",
+
+    subtopics: [
+
+      "Compensation Plan Template Design",
+
+      "Eligibility Rules & Guidelines",
+
+      "Budgeting & Pay Matrix Configuration",
+
+      "Merit, Bonus & Stock Components",
+
+      "Compensation Statements",
+
+      "Executive Review & Planning",
+
+      "Integration with Performance Ratings",
+
+      "Calibration & Validation Rules"
+
+    ]
+
+  },
+
+  {
+
+    title: "Workforce Planning & Analytics",
+
+    subtopics: [
+
+      "Workforce Planning Models",
+
+      "Scenario Planning & Forecasting",
+
+      "Headcount & FTE Tracking",
+
+      "Turnover & Attrition Metrics",
+
+      "Operational Reporting in Report Center",
+
+      "Canvas Reports & Story Reports",
+
+      "Role-Based Report Access",
+
+      "Integration with SAP Analytics Cloud"
+
+    ]
+
+  },
+
+  {
+
+    title: "SuccessFactors Integrations",
+
+    subtopics: [
+
+      "Integration Center Basics",
+
+      "SAP Cloud Platform Integration (CPI)",
+
+      "SFTP File-based Integrations",
+
+      "OData & SFAPI APIs",
+
+      "Point-to-Point Integrations",
+
+      "Data Replication to SAP ERP",
+
+      "Intelligent Services Center",
+
+      "Employee Central Payroll (ECP) Sync"
+
+    ]
+
+  },
+
+  {
+
+    title: "System Configuration & Data Models",
+
+    subtopics: [
+
+      "Corporate Data Model & Succession Data Model",
+
+      "CSF (Country Specific Fields) Setup",
+
+      "Business Rules & Workflows",
+
+      "Picklist Management",
+
+      "Import/Export of Configuration",
+
+      "Admin Center Tools (Manage Business Config)",
+
+      "Provisioning & Instance Synchronization",
+
+      "System Audit & Data Privacy Tools"
+
+    ]
+
+  }
+
+],
       },
       videoUrl: "https://i.imgur.com/8wkvVyH.mp4",
       downloadLink:
@@ -5481,143 +8495,193 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "Business Analytics CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "15 Months",
-          modules: [
-            {
-              title: "Tableau + Excel",
-              duration: "5 Months",
-              content: [
-                "Advanced Excel functions and data manipulation",
-                "Tableau fundamentals and dashboard creation",
-                "Data visualization best practices",
-                "Interactive reporting and storytelling with data",
-                "Business intelligence dashboard design",
-                "Data connection and blending techniques",
-              ],
-            },
-            {
-              title: "Python Basic to Advance",
-              duration: "4 Months",
-              content: [
-                "Python programming fundamentals",
-                "Data manipulation with Pandas and NumPy",
-                "Statistical analysis with Python libraries",
-                "Data visualization with Matplotlib and Seaborn",
-                "Web scraping and API integration",
-                "Automation and scripting for business processes",
-              ],
-            },
-            {
-              title: "Structured Query Language(SQL)",
-              duration: "3 Months",
-              content: [
-                "Database fundamentals and design principles",
-                "Advanced SQL queries and joins",
-                "Data aggregation and window functions",
-                "Stored procedures and database optimization",
-                "Data warehousing concepts",
-                "ETL processes and data pipeline creation",
-              ],
-            },
-            {
-              title: "Big Data Computing",
-              duration: "3 Months",
-              content: [
-                "Introduction to Big Data technologies",
-                "Hadoop ecosystem and distributed computing",
-                "Apache Spark for large-scale data processing",
-                "NoSQL databases and data storage solutions",
-                "Cloud computing platforms for analytics",
-                "Real-time data processing and streaming analytics",
-              ],
-            },
-            {
-              title: "Machine Learning Ops",
-              duration: "1 Month",
-              content: [
-                "ML model deployment and monitoring",
-                "CI/CD pipelines for machine learning",
-                "Model versioning and experiment tracking",
-                "Production ML system architecture",
-                "Performance monitoring and model maintenance",
-                "Automated retraining and model updates",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "20 Months",
-          modules: [
-            {
-              title: "Data Structures and Algorithms",
-              duration: "6 Months",
-              content: [
-                "Advanced data structures for analytics",
-                "Algorithm optimization for large datasets",
-                "Graph algorithms for network analysis",
-                "Time series analysis algorithms",
-                "Optimization algorithms for business problems",
-                "Complexity analysis and performance tuning",
-              ],
-            },
-            {
-              title: "Data Engineering",
-              duration: "5 Months",
-              content: [
-                "Data pipeline architecture and design",
-                "ETL/ELT processes and automation",
-                "Data quality and governance frameworks",
-                "Stream processing and real-time analytics",
-                "Data lake and warehouse implementation",
-                "Microservices architecture for data systems",
-              ],
-            },
-            {
-              title: "AI and Deep Learning",
-              duration: "4 Months",
-              content: [
-                "Neural networks and deep learning fundamentals",
-                "Computer vision for business applications",
-                "Natural language processing for text analytics",
-                "Reinforcement learning for optimization",
-                "AI model interpretation and explainability",
-                "Advanced ML algorithms and ensemble methods",
-              ],
-            },
-            {
-              title: "Project Specializations",
-              duration: "4 Months",
-              content: [
-                "Industry-specific analytics projects",
-                "Customer analytics and segmentation",
-                "Financial modeling and risk analysis",
-                "Supply chain optimization projects",
-                "Marketing analytics and attribution modeling",
-                "Capstone project with real business data",
-              ],
-            },
-            {
-              title: "Production ML Systems",
-              duration: "2 Months",
-              content: [
-                "Scalable ML system architecture",
-                "Model serving and API development",
-                "A/B testing for ML models",
-                "Monitoring and alerting systems",
-                "Security and compliance in ML systems",
-                "Cost optimization for production ML",
-              ],
-            },
-          ],
-        },
-      ],
+   "modulesData": {
+    "title": "Business Analytics CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-business-analytics",
+      "downloadCurriculum": "https://example.com/download-curriculum-business-analytics"
     },
+    "banner": {
+      "title": "Master Data Analytics for Business Decision Making",
+      "subtitle": "From Excel to Machine Learning, become a data-driven problem solver.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["Excel", "SQL", "Python", "Tableau", "Big Data", "ML Ops"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Tableau + Excel",
+            "duration": "5 Months",
+            "content": [
+              "Advanced Excel functions and data manipulation",
+              "Tableau fundamentals and dashboard creation",
+              "Data visualization best practices",
+              "Interactive reporting and storytelling with data",
+              "Business intelligence dashboard design",
+              "Data connection and blending techniques"
+            ],
+            "detailedContent": [
+              "Master Excel for advanced business analytics",
+              "Build interactive dashboards in Tableau",
+              "Design effective BI visuals for stakeholders",
+              "Tell compelling data stories with visuals",
+              "Combine data from multiple sources",
+              "Follow industry standards for dashboard creation"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "MLflow", "icon": "/CourseCurriculum/mlflow.avif", "alt": "MLflow" },
+              { "name": "Docker", "icon": "/CourseCurriculum/docker.webp", "alt": "Docker" },
+              { "name": "Kubernetes", "icon": "/CourseCurriculum/kubernetes.webp", "alt": "Kubernetes" },
+              { "name": "TensorFlow", "icon": "/CourseCurriculum/tensorflow.webp", "alt": "TensorFlow" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-business-analytics",
+              "downloadCurriculum": "https://example.com/download-curriculum-business-analytics"
+            }
+          },
+          {
+            "title": "Python Basic to Advance",
+            "duration": "4 Months",
+            "content": [
+              "Python programming fundamentals",
+              "Data manipulation with Pandas and NumPy",
+              "Statistical analysis with Python libraries",
+              "Data visualization with Matplotlib and Seaborn",
+              "Web scraping and API integration",
+              "Automation and scripting for business processes"
+            ],
+            "detailedContent": [
+              "Master Python for business data tasks",
+              "Analyze data using Pandas & NumPy",
+              "Create effective data visualizations",
+              "Scrape websites & use APIs for insights",
+              "Automate reporting workflows",
+              "Apply statistical tools to real datasets"
+            ],
+            "toolsAndTechnologies":[
+  {
+    "name": "Python",
+    "icon": "https://img.icons8.com/color/48/000000/python.png",
+    "alt": "Python logo"
+  },
+  {
+    "name": "Pandas",
+    "icon": "https://img.icons8.com/color/48/000000/pandas.png",
+    "alt": "Pandas logo"
+  },
+  {
+    "name": "NumPy",
+    "icon": "https://img.icons8.com/color/48/000000/numpy.png",
+    "alt": "NumPy logo"
+  },
+  {
+    "name": "Matplotlib",
+    "icon": "https://img.icons8.com/color/48/000000/matplotlib.png",
+    "alt": "Matplotlib logo"
+  }
+]
+, 
+            "actions": {
+              "startLearning": "https://example.com/start-learning-business-analytics",
+              "downloadCurriculum": "https://example.com/download-curriculum-business-analytics"
+            }
+          },
+          {
+            "title": "Structured Query Language(SQL)",
+            "duration": "3 Months",
+            "content": [
+              "Database fundamentals and design principles",
+              "Advanced SQL queries and joins",
+              "Data aggregation and window functions",
+              "Stored procedures and database optimization",
+              "Data warehousing concepts",
+              "ETL processes and data pipeline creation"
+            ],
+            "detailedContent": [
+              "Design effective relational schemas",
+              "Write optimized SQL queries for analytics",
+              "Use window functions for deep insights",
+              "Create stored procedures for automation",
+              "Understand data warehousing architecture",
+              "Build scalable ETL pipelines"
+            ],
+            "toolsAndTechnologies":
+              [
+          { "name": "MySQL", "icon": "/CourseCurriculum/sql.webp", "alt": "sql" },
+          { "name": "PostgreSQL", "icon": "/CourseCurriculum/postgree.webp", "alt": "postgree"  },
+          { "name": "SQL Server", "icon": "/CourseCurriculum/sqlserver.webp", "alt": "sqlserver"  },
+          { "name": "Oracle", "icon": "/CourseCurriculum/oracle.webp", "alt": "oracle"  }
+        ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-business-analytics",
+              "downloadCurriculum": "https://example.com/download-curriculum-business-analytics"
+            }
+          },
+          {
+            "title": "Big Data Computing",
+            "duration": "3 Months",
+            "content": [
+              "Introduction to Big Data technologies",
+              "Hadoop ecosystem and distributed computing",
+              "Apache Spark for large-scale data processing",
+              "NoSQL databases and data storage solutions",
+              "Cloud computing platforms for analytics",
+              "Real-time data processing and streaming analytics"
+            ],
+            "detailedContent": [
+              "Understand Hadoop and Spark fundamentals",
+              "Work with NoSQL storage systems",
+              "Leverage AWS for big data workflows",
+              "Stream and batch data processing models",
+              "Implement real-time analytics solutions",
+              "Manage distributed data systems"
+            ],
+            "toolsAndTechnologies":  [
+          { "name": "Hadoop", "icon":  "https://img.icons8.com/color/480/hadoop-distributed-file-system.png", "alt": "hadoop" },
+          { "name": "Spark", "icon": "https://img.icons8.com/color/480/apache-spark.png", "alt": "apachespark"  },
+          { "name": "Kafka", "icon": "https://img.icons8.com/nolan/512/apache-kafka.png", "alt": "kafka"  },
+          { "name": "Hive", "icon": "/CourseCurriculum/hive.webp", "alt": "hive"  }
+        ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-business-analytics",
+              "downloadCurriculum": "https://example.com/download-curriculum-business-analytics"
+            }
+          },
+          {
+            "title": "Production ML Systems",
+            "duration": "2 Months",
+            "content": [
+              "Scalable ML system architecture",
+              "Model serving and API development",
+              "A/B testing for ML models",
+              "Monitoring and alerting systems",
+              "Security and compliance in ML systems",
+              "Cost optimization for production ML"
+            ],
+            "detailedContent": [
+              "Design scalable ML architecture",
+              "Deploy models with APIs and services",
+              "Run experiments with A/B testing",
+              "Set up monitoring tools for ML",
+              "Ensure model compliance and security",
+              "Reduce infrastructure costs with optimization"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Apache Air Flow", "icon": "/CourseCurriculum/Apache airflow.webp", "alt": "Apache Air Flow" },
+              { "name": "Kubeflow", "icon": "/CourseCurriculum/kubeflow.webp", "alt": "Kubeflow" },
+              { "name": "Prometheus", "icon": "/CourseCurriculum/prometheus.webp", "alt": "Prometheus" },
+              { "name": "TensorFlow", "icon": "https://img.icons8.com/external-tal-revivo-color-tal-revivo/96/external-data-visualization-and-monitoring-with-support-for-graphite-and-influxdb-logo-color-tal-revivo.png", "alt": "TensorFlow" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-business-analytics",
+              "downloadCurriculum": "https://example.com/download-curriculum-business-analytics"
+            }
+          }
+        ],
+      },
+    ],
+  },
 
     // Data for Certificate Component
     certificate: {
@@ -5884,143 +8948,173 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "DATA Analytics CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "15 Months",
-          modules: [
-            {
-              title: "Tableau + Excel",
-              duration: "5 Months",
-              content: [
-                "Advanced Excel functions and data analysis techniques",
-                "Pivot tables, charts, and statistical functions",
-                "Tableau fundamentals and data connection",
-                "Creating interactive dashboards and visualizations",
-                "Data storytelling and presentation techniques",
-                "Advanced Tableau calculations and parameters",
-              ],
-            },
-            {
-              title: "Python Basic to Advance",
-              duration: "4 Months",
-              content: [
-                "Python programming fundamentals for data analytics",
-                "Data manipulation with Pandas and NumPy",
-                "Data visualization with Matplotlib and Seaborn",
-                "Statistical analysis and hypothesis testing",
-                "Web scraping and data collection techniques",
-                "Advanced Python libraries for analytics",
-              ],
-            },
-            {
-              title: "Structured Query Language(SQL)",
-              duration: "3 Months",
-              content: [
-                "Database fundamentals and relational concepts",
-                "Advanced SQL queries and data retrieval",
-                "Data aggregation and window functions",
-                "Database optimization and performance tuning",
-                "Data warehousing and ETL processes",
-                "Working with multiple databases and joins",
-              ],
-            },
-            {
-              title: "Big Data Computing",
-              duration: "3 Months",
-              content: [
-                "Introduction to Big Data technologies and concepts",
-                "Hadoop ecosystem and distributed computing",
-                "Apache Spark for large-scale data processing",
-                "NoSQL databases and data storage solutions",
-                "Real-time data processing and streaming",
-                "Cloud platforms for big data analytics",
-              ],
-            },
-            {
-              title: "Machine Learning Ops",
-              duration: "1 Month",
-              content: [
-                "Introduction to machine learning for analytics",
-                "Model deployment and monitoring in production",
-                "Automated machine learning pipelines",
-                "Performance monitoring and model maintenance",
-                "Version control for ML models and data",
-                "Best practices for ML operations",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "20 Months",
-          modules: [
-            {
-              title: "Data Structures and Algorithms",
-              duration: "6 Months",
-              content: [
-                "Advanced data structures for analytics applications",
-                "Algorithm optimization for large datasets",
-                "Graph algorithms for network analysis",
-                "Time series analysis and forecasting algorithms",
-                "Optimization algorithms for business problems",
-                "Complexity analysis and performance optimization",
-              ],
-            },
-            {
-              title: "Data Engineering",
-              duration: "5 Months",
-              content: [
-                "Data pipeline design and architecture",
-                "ETL/ELT processes and automation",
-                "Data quality assessment and governance",
-                "Stream processing and real-time analytics",
-                "Data lake and warehouse implementation",
-                "Microservices architecture for data systems",
-              ],
-            },
-            {
-              title: "AI and Deep Learning",
-              duration: "4 Months",
-              content: [
-                "Neural networks and deep learning fundamentals",
-                "Computer vision applications in analytics",
-                "Natural language processing for text analytics",
-                "Reinforcement learning for optimization",
-                "AI model interpretation and explainability",
-                "Advanced machine learning algorithms",
-              ],
-            },
-            {
-              title: "Project Specializations",
-              duration: "4 Months",
-              content: [
-                "Industry-specific analytics projects",
-                "Customer behavior analysis and segmentation",
-                "Financial analytics and risk modeling",
-                "Supply chain analytics and optimization",
-                "Marketing analytics and campaign optimization",
-                "Capstone project with real business datasets",
-              ],
-            },
-            {
-              title: "Production ML Systems",
-              duration: "2 Months",
-              content: [
-                "Scalable analytics system architecture",
-                "Model serving and API development",
-                "A/B testing for analytics models",
-                "Monitoring and alerting for production systems",
-                "Security and compliance in analytics systems",
-                "Cost optimization for production analytics",
-              ],
-            },
-          ],
-        },
-      ],
+
+  "modulesData": {
+    "title": "DATA Analytics CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-data-analytics",
+      "downloadCurriculum": "https://example.com/download-curriculum-data-analytics"
     },
+    "banner": {
+      "title": "Looking for IT Courses?",
+      "subtitle": "No need to Google 10 tabs — everything's listed right here.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["IoT", "Angular", "React", "AWS", "Data Science", "Java", "Python"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Tableau + Excel",
+            "duration": "5 Months",
+            "content": [
+              "Data Visualization Fundamentals",
+              "Excel Advanced Functions",
+              "Tableau Desktop Basics",
+              "Dashboard Creation",
+              "Data Analysis Techniques"
+            ],
+            "detailedContent": [
+              "Advanced Excel functions and data analysis techniques",
+              "Pivot tables, charts, and statistical functions",
+              "Tableau fundamentals and data connection",
+              "Creating interactive dashboards and visualizations",
+              "Data storytelling and presentation techniques",
+              "Advanced Tableau calculations and parameters"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Tableau", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752296596/dashboard_k6hhwd.png" },
+              { "name": "Excel", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752296885/excel_1_swvlt5.png" },
+              { "name": "SQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752297330/imgi_158_sql-3d-icon-png_xh9ule.png" },
+              { "name": "Python", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752208406/python_ut82h4.png" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-tableau-excel",
+              "downloadCurriculum": "https://example.com/download-curriculum-tableau-excel"
+            }
+          },
+          {
+            "title": "Python Basic to Advance",
+            "duration": "4 Months",
+            "content": [
+              "Python Syntax and Basics",
+              "Data Structures",
+              "Object-Oriented Programming",
+              "Libraries (Pandas, NumPy)",
+              "Advanced Python Concepts"
+            ],
+            "detailedContent": [
+              "Python programming fundamentals for data analytics",
+              "Data manipulation with Pandas and NumPy",
+              "Data visualization with Matplotlib and Seaborn",
+              "Statistical analysis and hypothesis testing",
+              "Web scraping and data collection techniques",
+              "Advanced Python libraries for analytics"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Python", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752208406/python_ut82h4.png" },
+              { "name": "Pandas", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752817663/imgi_137_pandas_vzf4jt.webp" },
+              { "name": "NumPy", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752298356/imgi_122_numpy-big-logo-300x300_i966nd.png" },
+              { "name": "Matplotlib", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752817778/imgi_114_1024px-Matplotlib_icon.svg_qqtj7q.webp" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-python",
+              "downloadCurriculum": "https://example.com/download-curriculum-python"
+            }
+          },
+          {
+            "title": "Structured Query Language (SQL)",
+            "duration": "3 Months",
+            "content": [
+              "Database Fundamentals",
+              "SQL Queries and Joins",
+              "Database Design",
+              "Advanced SQL Functions",
+              "Performance Optimization"
+            ],
+            "detailedContent": [
+              "Database fundamentals and relational concepts",
+              "Advanced SQL queries and data retrieval",
+              "Data aggregation and window functions",
+              "Database optimization and performance tuning",
+              "Data warehousing and ETL processes",
+              "Working with multiple databases and joins"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "MySQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752297330/imgi_158_sql-3d-icon-png_xh9ule.png" },
+              { "name": "PostgreSQL", "icon":"/CourseCurriculum/postgree.webp", "alt": "postgree"  },
+              { "name": "SQL Server", "icon":"/CourseCurriculum/sqlserver.webp", "alt": "sqlserver"   },
+              { "name": "Oracle", "icon":"/CourseCurriculum/oracle.webp", "alt": "oracle"   }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-sql",
+              "downloadCurriculum": "https://example.com/download-curriculum-sql"
+            }
+          },
+          {
+            "title": "Big Data Computing",
+            "duration": "3 Months",
+            "content": [
+              "Hadoop Ecosystem",
+              "Apache Spark",
+              "Data Processing",
+              "Distributed Computing",
+              "Big Data Analytics"
+            ],
+            "detailedContent": [
+              "Introduction to Big Data technologies and concepts",
+              "Hadoop ecosystem and distributed computing",
+              "Apache Spark for large-scale data processing",
+              "NoSQL databases and data storage solutions",
+              "Real-time data processing and streaming",
+              "Cloud platforms for big data analytics"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Hadoop", "icon":"https://img.icons8.com/color/480/hadoop-distributed-file-system.png", "alt": "hadoop"   },
+              { "name": "Spark", "icon": "https://img.icons8.com/color/480/apache-spark.png", "alt": "spark"  },
+              { "name": "Kafka", "icon": "https://img.icons8.com/nolan/512/apache-kafka.png", "alt": "kafka"  },
+              { "name": "Hive", "icon":"/CourseCurriculum/hive.webp", "alt": "hive"  }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-bigdata",
+              "downloadCurriculum": "https://example.com/download-curriculum-bigdata"
+            }
+          },
+          {
+            "title": "Machine Learning Ops",
+            "duration": "1 Month",
+            "content": [
+              "MLOps Fundamentals",
+              "Model Deployment",
+              "CI/CD for ML",
+              "Model Monitoring",
+              "Production Best Practices"
+            ],
+            "detailedContent": [
+              "Introduction to machine learning for analytics",
+              "Model deployment and monitoring in production",
+              "Automated machine learning pipelines",
+              "Performance monitoring and model maintenance",
+              "Version control for ML models and data",
+              "Best practices for ML operations"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Docker", "icon": "/CourseCurriculum/docker.webp", "alt": "docker" },
+              { "name": "Kubernetes", "icon": "/CourseCurriculum/kubernetes.webp", "alt": "kubernetes"},
+              { "name": "MLflow", "icon": "/CourseCurriculum/mlflow.avif", "alt": "mlflow" },
+              { "name": "TensorFlow", "icon": "/CourseCurriculum/tensorflow.webp", "alt": "tensorflow" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-mlops",
+              "downloadCurriculum": "https://example.com/download-curriculum-mlops"
+            },
+          },
+        ],
+      },
+    ],
+  },
+  
+
 
     // Data for Certificate Component
     certificate: {
@@ -6289,150 +9383,173 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "DATA SCIENCE CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "15 Months",
-          modules: [
-            {
-              title: "Tableau + Excel",
-              duration: "5 Months",
-              content: [
-                "Basic Visual Analytics",
-                "More Charts and Graphs, Operations on Data and Calculations in Tableau",
-                "Advanced Visual Analytics and Level Of Detail (LOD) Expressions",
-                "Geographic Visualizations, Advanced Charts, and Worksheet and Workbook Formatting",
-                "Introduction to Excel and Formulas",
-                "Pivot Tables, Charts and Statistical functions",
-              ],
-            },
-            {
-              title: "Python Basic to Advance",
-              duration: "4 Months",
-              content: [
-                "Basic Python Concepts",
-                "Control Flow and Functions",
-                "Data Structures and Classes",
-                "Exception Handling and Recursion",
-                "Regular Expressions and Libraries",
-                "Exploratory Data Analysis",
-                "Practical Applications",
-              ],
-            },
-            {
-              title: "Structured Query Language(SQL)",
-              duration: "3 Months",
-              content: [
-                "CRUD Operations",
-                "Normalization",
-                "Joins (INNER, OUTER, LEFT, RIGHT, CROSS, SELF JOIN)",
-                "Transactions",
-                "Advanced Queries on University Schema",
-                "Stored Procedures",
-                "Common Table Expressions",
-              ],
-            },
-            {
-              title: "Big Data Computing",
-              duration: "3 Months",
-              content: [
-                "Introduction to Big Data",
-                "Hadoop and Its Evolution",
-                "HDFS Architecture",
-                "Hadoop Ecosystem",
-                "HDFS Commands",
-                "Intro Linux Commands",
-              ],
-            },
-            {
-              title: "Machine Learning Ops",
-              duration: "1 Month",
-              content: [
-                "Introduction to Machine Learning",
-                "Types of ML Algorithms",
-                "Feature Selection",
-                "Handling Categorical Data",
-                "Linear Regression",
-                "Logistic Regression",
-                "KNN (K-Nearest Neighbors)",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "20 Months",
-          modules: [
-            {
-              title: "Data Structures and Algorithms",
-              duration: "6 Months",
-              content: [
-                "Sorting Algorithms",
-                "Searching Algorithms",
-                "Linked Lists",
-                "Stacks and Queues",
-                "Tree Traversal Techniques",
-                "Graphs",
-                "Advanced Topics",
-              ],
-            },
-            {
-              title: "Data Engineering",
-              duration: "5 Months",
-              content: [
-                "Introduction to Data Engineering",
-                "Data Pipelines",
-                "ETL Processes",
-                "Data Warehousing",
-                "Stream Processing",
-                "Cloud Data Platforms",
-                "Data Quality and Governance",
-              ],
-            },
-            {
-              title: "AI and Deep Learning",
-              duration: "4 Months",
-              content: [
-                "Introduction to AI",
-                "Deep Learning Architectures",
-                "Convolutional Neural Networks",
-                "Recurrent Neural Networks",
-                "Natural Language Processing",
-                "Computer Vision",
-                "Reinforcement Learning",
-              ],
-            },
-            {
-              title: "Project Specializations",
-              duration: "4 Months",
-              content: [
-                "Healthcare Data Science Projects",
-                "Financial Analytics and Risk Modeling",
-                "E-commerce Recommendation Systems",
-                "Social Media Analytics",
-                "IoT Data Analysis",
-                "Capstone Project with Industry Data",
-              ],
-            },
-            {
-              title: "Production ML Systems",
-              duration: "2 Months",
-              content: [
-                "Production Machine Learning",
-                "Scaling ML Systems",
-                "ML System Design",
-                "Model Deployment and Monitoring",
-                "MLOps Best Practices",
-                "Case Studies",
-              ],
-            },
-          ],
-        },
-      ],
+     "modulesData": {
+    "title": "DATA Analytics CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-data-analytics",
+      "downloadCurriculum": "https://example.com/download-curriculum-data-analytics"
     },
+    "banner": {
+      "title": "Looking for IT Courses?",
+      "subtitle": "No need to Google 10 tabs — everything's listed right here.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["IoT", "Angular", "React", "AWS", "Data Science", "Java", "Python"]
+    },
+    "tabs": [
+      {
+        "modules": [
+  {
+  "title": "Data Engineering",
+  "duration": "3 Months",
+  "content": [
+    "Hadoop Ecosystem",
+    "Apache Spark",
+    "Data Lakes & Warehouses",
+    "ETL Pipelines",
+    "Batch & Stream Processing"
+  ],
+  "detailedContent": [
+    "Introduction to data engineering concepts and architecture",
+    "Working with Hadoop, Spark, and distributed systems",
+    "Building and managing data pipelines with ETL",
+    "Data storage solutions: Data lakes vs. Data warehouses",
+    "Batch vs stream processing using Apache Kafka and Flink",
+    "Scheduling workflows using Apache Airflow"
+  ],
+  "toolsAndTechnologies": [
+    { "name": "Apache Spark", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752818816/imgi_125_apache-spark_dxlhe9.png", "alt": "Apache Spark" },
+    { "name": "Apache Kafka", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752818964/imgi_140_kafka_opensource_wjwzrd.webp", "alt": "Apache Kafka" },
+    { "name": "Apache Airflow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819133/imgi_134_apache-airflow_t7qyod.png", "alt": "Apache Airflow" },
+    { "name": "Hadoop", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819023/imgi_130_hadoop_zl8q9g.png", "alt": "Hadoop" }
+  ],
+  "actions": {
+    "startLearning": "https://example.com/start-learning-dataengineering",
+    "downloadCurriculum": "https://example.com/download-curriculum-dataengineering"
+  }
+},
+{
+  "title": "Data Structures & Algorithms (DSA)",
+  "duration": "2 Months",
+  "content": [
+    "Arrays & Linked Lists",
+    "Stacks & Queues",
+    "Trees & Graphs",
+    "Searching & Sorting",
+    "Problem Solving Techniques"
+  ],
+  "detailedContent": [
+    "Core concepts of data structures for technical interviews",
+    "Hands-on with arrays, linked lists, stacks and queues",
+    "Understanding and solving tree and graph problems",
+    "Sorting techniques: quick, merge, heap, bubble",
+    "Binary search and divide & conquer metfhods",
+    "Competitive programming practice sessions"
+  ],
+  "toolsAndTechnologies": [
+    { "name": "C++", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819278/imgi_105_cpp_vna2od.png", "alt": "C++" },
+    { "name": "Java", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819343/imgi_109_java_udf1vm.png", "alt": "Java" },
+    { "name": "Python", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752208406/python_ut82h4.png", "alt": "Python" },
+    { "name": "LeetCode", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819422/imgi_112_leetcode_wdp4zy.png", "alt": "LeetCode" }
+  ]
+  ,
+  "actions": {
+    "startLearning": "https://example.com/start-learning-dsa",
+    "downloadCurriculum": "https://example.com/download-curriculum-dsa"
+  }
+},
+{
+  "title": "AI & Deep Learning",
+  "duration": "2 Months",
+  "content": [
+    "Neural Networks",
+    "Convolutional Neural Networks",
+    "Recurrent Neural Networks",
+    "Transfer Learning",
+    "Natural Language Processing"
+  ],
+  "detailedContent": [
+    "Deep learning concepts using TensorFlow and PyTorch",
+    "Building and training neural networks",
+    "Image classification using CNNs",
+    "Time series and sequence modeling with RNNs and LSTMs",
+    "BERT and transformers for NLP applications",
+    "Deployment and evaluation of DL models"
+  ],
+  "toolsAndTechnologies": [
+    { "name": "TensorFlow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819540/imgi_121_tensorflow_bz38gr.png", "alt": "TensorFlow" },
+    { "name": "Keras", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819637/imgi_124_keras_logo_lkzpsf.webp", "alt": "Keras" },
+    { "name": "PyTorch", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819704/imgi_120_pytorch_vlz0pk.png", "alt": "PyTorch" },
+    { "name": "OpenCV", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752819830/imgi_119_opencv_zqvmrj.png", "alt": "OpenCV" }
+  ],
+  "actions": {
+    "startLearning": "https://example.com/start-learning-ai",
+    "downloadCurriculum": "https://example.com/download-curriculum-ai"
+  }
+},
+{
+  "title": "Product ML Systems",
+  "duration": "1.5 Months",
+  "content": [
+    "System Design for ML",
+    "Scalable ML APIs",
+    "A/B Testing",
+    "Monitoring & Logging",
+    "Post-deployment Maintenance"
+  ],
+  "detailedContent": [
+    "Designing production-ready ML systems at scale",
+    "Implementing scalable APIs for inference",
+    "End-to-end model lifecycle in product environments",
+    "Monitoring, logging, and analytics for ML models",
+    "Data drift detection and model retraining",
+    "A/B testing for model performance"
+  ],
+  "toolsAndTechnologies": [
+    { "name": "FastAPI", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752820132/imgi_136_fastapi_qjpqi3.png", "alt": "FastAPI" },
+    { "name": "Prometheus", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752820184/imgi_128_prometheus_logo_ztxq4a.png", "alt": "Prometheus" },
+    { "name": "Grafana", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752820254/imgi_127_grafana_dwqjzy.webp", "alt": "Grafana" },
+    { "name": "MLflow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752820311/imgi_126_mlflow_g6q5kn.png", "alt": "MLflow" }
+  ],
+  "actions": {
+    "startLearning": "https://example.com/start-learning-productml",
+    "downloadCurriculum": "https://example.com/download-curriculum-productml"
+  }
+},
+{
+  "title": "Tableau + Excel",
+  "duration": "5 Months",
+  "content": [
+    "Data Visualization Fundamentals",
+    "Excel Advanced Functions",
+    "Tableau Desktop Basics",
+    "Dashboard Creation",
+    "Data Analysis Techniques"
+  ],
+  "detailedContent": [
+    "Comprehensive coverage of data visualization fundamentals with practical examples and hands-on exercises.",
+    "Comprehensive coverage of excel advanced functions with practical examples and hands-on exercises.",
+    "Comprehensive coverage of tableau desktop basics with practical examples and hands-on exercises.",
+    "Comprehensive coverage of dashboard creation with practical examples and hands-on exercises.",
+    "Comprehensive coverage of data analysis techniques with practical examples and hands-on exercises."
+  ],
+  "toolsAndTechnologies": [
+    { "name": "Tableau", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752820736/imgi_150_tableau_tyxgjj.png", "alt": "Tableau" },
+    { "name": "Excel", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752820799/imgi_151_excel_goorla.png", "alt": "Excel" },
+    { "name": "SQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821052/imgi_154_sql_ktmfhe.png", "alt": "SQL" },
+    { "name": "Python", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821105/imgi_155_python_dz2ljk.png", "alt": "Python" }
+  ],
+  "actions": {
+    "startLearning": "https://example.com/start-learning-tableau-excel",
+    "downloadCurriculum": "https://example.com/download-curriculum-tableau-excel"
+  }
+}
 
+
+        ],
+      },
+    ],
+  },
+  
     // Data for Certificate Component
     certificate: {
       courseTitle: "Data Science Certificate",
@@ -6699,132 +9816,175 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "FULL STACK TRAINING CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "6 Months",
-          modules: [
-            {
-              title: "HTML5 & CSS3 Fundamentals",
-              duration: "1.5 Months",
-              content: [
-                "HTML5 semantic elements and structure",
-                "CSS3 styling, layouts, and responsive design",
-                "Flexbox and CSS Grid for modern layouts",
-                "CSS animations and transitions",
-                "Bootstrap framework for rapid development",
-                "Cross-browser compatibility and best practices",
-              ],
-            },
-            {
-              title: "JavaScript & ES6+ Features",
-              duration: "2 Months",
-              content: [
-                "JavaScript fundamentals and DOM manipulation",
-                "ES6+ features: arrow functions, destructuring, modules",
-                "Asynchronous JavaScript: Promises, async/await",
-                "Event handling and browser APIs",
-                "Object-oriented programming in JavaScript",
-                "Error handling and debugging techniques",
-              ],
-            },
-            {
-              title: "React.js Frontend Development",
-              duration: "1.5 Months",
-              content: [
-                "React components and JSX syntax",
-                "State management and props handling",
-                "React Hooks and functional components",
-                "Routing with React Router",
-                "Form handling and validation",
-                "Integration with APIs and external libraries",
-              ],
-            },
-            {
-              title: "Backend with Node.js",
-              duration: "1 Month",
-              content: [
-                "Node.js fundamentals and npm ecosystem",
-                "Express.js framework for web applications",
-                "RESTful API design and implementation",
-                "Middleware and error handling",
-                "Authentication and authorization",
-                "File handling and server-side operations",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "8 Months",
-          modules: [
-            {
-              title: "Advanced Frontend Technologies",
-              duration: "2 Months",
-              content: [
-                "Advanced React patterns and performance optimization",
-                "State management with Redux or Context API",
-                "TypeScript for type-safe development",
-                "Testing with Jest and React Testing Library",
-                "Progressive Web Apps (PWA) development",
-                "Modern build tools: Webpack, Vite",
-              ],
-            },
-            {
-              title: "Backend & Database Management",
-              duration: "2 Months",
-              content: [
-                "Advanced Node.js and Express.js concepts",
-                "Database design and SQL fundamentals",
-                "MongoDB and NoSQL database operations",
-                "Database optimization and indexing",
-                "Data modeling and relationships",
-                "Database security and backup strategies",
-              ],
-            },
-            {
-              title: "DevOps & Deployment",
-              duration: "1.5 Months",
-              content: [
-                "Version control with Git and GitHub",
-                "CI/CD pipelines and automation",
-                "Cloud deployment: AWS, Heroku, Netlify",
-                "Docker containerization basics",
-                "Server management and monitoring",
-                "Performance optimization and scaling",
-              ],
-            },
-            {
-              title: "Full Stack Project Development",
-              duration: "2 Months",
-              content: [
-                "End-to-end project planning and architecture",
-                "E-commerce application development",
-                "Social media platform creation",
-                "Real-time chat application with WebSockets",
-                "API integration and third-party services",
-                "Project deployment and maintenance",
-              ],
-            },
-            {
-              title: "Industry Best Practices",
-              duration: "0.5 Months",
-              content: [
-                "Code quality and review processes",
-                "Security best practices for web applications",
-                "Performance monitoring and optimization",
-                "Agile development methodologies",
-                "Documentation and code maintenance",
-                "Career guidance and interview preparation",
-              ],
-            },
-          ],
-        },
-      ],
+    "modulesData": {
+    "title": "FULL STACK TRAINING CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-fullstack",
+      "downloadCurriculum": "https://example.com/download-curriculum-fullstack"
     },
-
+    "banner": {
+      "title": "Looking for IT Courses?",
+      "subtitle": "No need to Google 10 tabs — everything's listed right here.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["HTML", "CSS", "JavaScript", "React", "Node.js", "SQL", "MongoDB"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "HTML5 & CSS3 Fundamentals",
+            "duration": "1.5 Months",
+            "content": [
+              "HTML5 semantic elements and structure",
+              "CSS3 styling, layouts, and responsive design",
+              "Flexbox and CSS Grid for modern layouts",
+              "CSS animations and transitions",
+              "Bootstrap framework for rapid development",
+              "Cross-browser compatibility and best practices"
+            ],
+            "detailedContent": [
+              "Understanding HTML5 structure and semantic tags",
+              "Creating responsive layouts using Flexbox and Grid",
+              "Styling pages with modern CSS3 techniques",
+              "Using Bootstrap for quick and consistent UI",
+              "Building cross-browser compatible websites",
+              "Implementing animations and transitions for interactivity"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "HTML5", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821231/html5_jgn1gi.png", "alt": "HTML5" },
+              { "name": "CSS3", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821286/css3_q8xwby.png", "alt": "CSS3" },
+              { "name": "Bootstrap", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821335/bootstrap_mjyukm.png", "alt": "Bootstrap" },
+              { "name": "Figma", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821801/figma_tsmfke.png", "alt": "Figma" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-html-css",
+              "downloadCurriculum": "https://example.com/download-curriculum-html-css"
+            }
+          },
+          {
+            "title": "JavaScript & ES6+ Features",
+            "duration": "2 Months",
+            "content": [
+              "JavaScript fundamentals and DOM manipulation",
+              "ES6+ features: arrow functions, destructuring, modules",
+              "Asynchronous JavaScript: Promises, async/await",
+              "Event handling and browser APIs",
+              "Object-oriented programming in JavaScript",
+              "Error handling and debugging techniques"
+            ],
+            "detailedContent": [
+              "Mastering core JavaScript syntax and logic",
+              "Understanding modern ES6+ features and usage",
+              "Building interactive UIs with DOM and event handling",
+              "Working with asynchronous code using async/await",
+              "Implementing OOP patterns in JavaScript",
+              "Debugging efficiently and handling errors gracefully"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "JavaScript", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821407/javascript_tltma6.png", "alt": "JavaScript" },
+              { "name": "ES6", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821463/es6_n1v0si.png", "alt": "ES6+" },
+              { "name": "Console", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821905/console_puzquc.png", "alt": "Browser Console" },
+              { "name": "Debugger", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821974/debugger_rndb9o.png", "alt": "Debugger" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-js",
+              "downloadCurriculum": "https://example.com/download-curriculum-js"
+            }
+          },
+          {
+            "title": "React.js Frontend Development",
+            "duration": "1.5 Months",
+            "content": [
+              "React components and JSX syntax",
+              "State management and props handling",
+              "React Hooks and functional components",
+              "Routing with React Router",
+              "Form handling and validation",
+              "Integration with APIs and external libraries"
+            ],
+            "detailedContent": [
+              "Learning the React component model and JSX",
+              "Managing state and props across components",
+              "Using hooks like useState, useEffect, useContext",
+              "Implementing routing with React Router",
+              "Building forms with validation logic",
+              "Integrating APIs and using external libraries"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "React", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821550/react_l3qvcy.png", "alt": "React" },
+              { "name": "React Router", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821597/react-router_gtbqqw.png", "alt": "React Router" },
+              { "name": "Redux", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822097/redux_jwyixt.png", "alt": "Redux" },
+              { "name": "Axios", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822166/axios_nlo9ee.png", "alt": "Axios" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-react",
+              "downloadCurriculum": "https://example.com/download-curriculum-react"
+            }
+          },
+          {
+            "title": "Backend with Node.js",
+            "duration": "1 Month",
+            "content": [
+              "Node.js fundamentals and npm ecosystem",
+              "Express.js framework for web applications",
+              "RESTful API design and implementation",
+              "Middleware and error handling",
+              "Authentication and authorization",
+              "File handling and server-side operations"
+            ],
+            "detailedContent": [
+              "Understanding Node.js architecture and event loop",
+              "Building APIs using Express framework",
+              "Designing scalable and RESTful endpoints",
+              "Implementing middleware and error handling patterns",
+              "Using JWTs for secure authentication",
+              "Handling file uploads and server I/O operations"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Node.js", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821647/nodejs_q1kqyu.png", "alt": "Node.js" },
+              { "name": "Express.js", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752821692/express_pueohf.png", "alt": "Express.js" },
+              { "name": "JWT", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822236/jwt_wz0wiu.png", "alt": "JWT" },
+              { "name": "Postman", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822297/postman_dkrxrq.png", "alt": "Postman" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-node",
+              "downloadCurriculum": "https://example.com/download-curriculum-node"
+            }
+          },
+           {
+            "title": "Industry Best Practices",
+            "duration": "0.5 Months",
+            "content": [
+              "Code quality and review processes",
+              "Security best practices for web applications",
+              "Performance monitoring and optimization",
+              "Agile development methodologies",
+              "Documentation and code maintenance",
+              "Career guidance and interview preparation"
+            ],
+            "detailedContent": [
+              "Following secure coding standards and peer reviews",
+              "Using tools for performance monitoring and auditing",
+              "Understanding Agile, Scrum, and Kanban workflows",
+              "Maintaining clean, well-documented code",
+              "Leveraging CI/CD tools and version control systems",
+              "Tips for cracking tech interviews and portfolio building"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Git", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822369/git_axzqws.png", "alt": "Git" },
+              { "name": "Jira", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822426/jira_s4az5b.png", "alt": "Jira" },
+              { "name": "Lighthouse", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822493/lighthouse_hiyfki.png", "alt": "Lighthouse" },
+              { "name": "GitHub", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822566/github_t4wyz9.png", "alt": "GitHub" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-best-practices",
+              "downloadCurriculum": "https://example.com/download-curriculum-best-practices"
+            }
+           }
+        ],
+      },
+    ],
+  },
     // Data for Certificate Component
     certificate: {
       courseTitle: "Full-Stack Certificate",
@@ -7092,126 +10252,170 @@ export const coursesData = {
 
     // Data for Modules Component (course-specific curriculum)
     modulesData: {
-      title: "CHAT GPT AND AI CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "12 Months",
-          modules: [
-            {
-              title: "AI Fundamentals & Python",
-              duration: "3 Months",
-              content: [
-                "Introduction to Artificial Intelligence and its applications",
-                "Python programming for AI and data science",
-                "Mathematics for AI: Linear Algebra, Statistics, Calculus",
-                "Data manipulation with NumPy and Pandas",
-                "Data visualization with Matplotlib and Seaborn",
-                "Introduction to Jupyter Notebooks and development environment",
-              ],
-            },
-            {
-              title: "Machine Learning Essentials",
-              duration: "3 Months",
-              content: [
-                "Supervised learning algorithms: Regression and Classification",
-                "Unsupervised learning: Clustering and Dimensionality Reduction",
-                "Model evaluation and validation techniques",
-                "Feature engineering and selection",
-                "Scikit-learn library for machine learning",
-                "Hands-on projects with real-world datasets",
-              ],
-            },
-            {
-              title: "Deep Learning & Neural Networks",
-              duration: "3 Months",
-              content: [
-                "Introduction to neural networks and deep learning",
-                "TensorFlow and Keras for deep learning",
-                "Convolutional Neural Networks (CNNs) for image processing",
-                "Recurrent Neural Networks (RNNs) for sequence data",
-                "Transfer learning and pre-trained models",
-                "Building and training deep learning models",
-              ],
-            },
-            {
-              title: "Natural Language Processing",
-              duration: "3 Months",
-              content: [
-                "Text preprocessing and tokenization",
-                "Sentiment analysis and text classification",
-                "Named Entity Recognition (NER)",
-                "Introduction to transformers and BERT",
-                "Working with ChatGPT API and OpenAI models",
-                "Building chatbots and conversational AI systems",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "18 Months",
-          modules: [
-            {
-              title: "Advanced Machine Learning",
-              duration: "4 Months",
-              content: [
-                "Ensemble methods and advanced algorithms",
-                "Hyperparameter tuning and model optimization",
-                "Time series analysis and forecasting",
-                "Reinforcement learning fundamentals",
-                "AutoML and automated machine learning",
-                "Advanced feature engineering techniques",
-              ],
-            },
-            {
-              title: "Large Language Models & GPT",
-              duration: "4 Months",
-              content: [
-                "Understanding transformer architecture",
-                "Fine-tuning large language models",
-                "Prompt engineering and optimization",
-                "Building applications with GPT-3/4 and ChatGPT",
-                "Retrieval-Augmented Generation (RAG) systems",
-                "Custom chatbot development and deployment",
-              ],
-            },
-            {
-              title: "Computer Vision & AI Applications",
-              duration: "3 Months",
-              content: [
-                "Image processing and computer vision fundamentals",
-                "Object detection and image segmentation",
-                "Facial recognition and biometric systems",
-                "Generative AI and image synthesis",
-                "AI in healthcare, finance, and autonomous systems",
-                "Real-time AI applications and edge computing",
-              ],
-            },
-            {
-              title: "AI Ethics & Production Systems",
-              duration: "3 Months",
-              content: [
-                "AI ethics, bias detection, and responsible AI",
-                "Model deployment and MLOps practices",
-                "Cloud platforms for AI: AWS, Azure, Google Cloud",
-                "Monitoring and maintaining AI systems in production",
-                "Scalability and performance optimization",
-                "AI governance and compliance frameworks",
-              ],
-            },
-            {
-              title: "Capstone Projects & Industry Applications",
-              duration: "4 Months",
-              content: [
-                "End-to-end AI project development",
-                "Industry-specific AI solutions",
-                "Building AI-powered web applications",
-                "Research project and paper writing",
-                "Portfolio development and presentation",
-                "Interview preparation and career guidance",
-              ],
-            },
+    "title": "CHAT GPT AND AI CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning",
+      "downloadCurriculum": "https://example.com/download-curriculum"
+    },
+    "banner": {
+      "title": "Explore the Future of AI and ChatGPT",
+      "subtitle": "Master the most in-demand tools with our AI-focused curriculum.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["Python", "NumPy", "Pandas", "Matplotlib", "Scikit-learn", "TensorFlow", "Keras"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "AI Fundamentals & Python",
+            "duration": "3 Months",
+            "content": [
+              "Introduction to Artificial Intelligence and its applications",
+              "Python programming for AI and data science",
+              "Mathematics for AI: Linear Algebra, Statistics, Calculus",
+              "Data manipulation with NumPy and Pandas",
+              "Data visualization with Matplotlib and Seaborn",
+              "Introduction to Jupyter Notebooks and development environment"
+            ],
+            "detailedContent": [
+              "Understanding AI domains and practical use cases",
+              "Mastering Python syntax and data handling",
+              "Learning mathematical foundations essential for AI",
+              "Performing data analysis with NumPy and Pandas",
+              "Creating visualizations with Matplotlib and Seaborn",
+              "Setting up and using Jupyter for development"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "Python", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822601/python_ytxfrz.png", "alt": "Python"},
+              {"name": "NumPy", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822694/numpy_hapcbr.png", "alt": "NumPy"},
+              {"name": "Pandas", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822732/pandas_pfsmdt.png", "alt": "Pandas"},
+              {"name": "Matplotlib", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822785/matplotlib_jlmkhk.png", "alt": "Matplotlib"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning",
+              "downloadCurriculum": "https://example.com/download-curriculum"
+            }
+          },
+          {
+            "title": "Machine Learning Essentials",
+            "duration": "3 Months",
+            "content": [
+              "Supervised learning: Regression and Classification",
+              "Unsupervised learning: Clustering and Dimensionality Reduction",
+              "Model evaluation and cross-validation",
+              "Feature engineering and data preprocessing",
+              "Introduction to Scikit-learn library",
+              "Hands-on ML projects with real-world datasets"
+            ],
+            "detailedContent": [
+              "Building ML models using regression and classification",
+              "Clustering datasets and reducing dimensions",
+              "Validating models using cross-validation methods",
+              "Selecting and transforming features for ML",
+              "Implementing ML workflows with Scikit-learn",
+              "Developing end-to-end ML projects with real data"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "Scikit-learn", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822864/sklearn_ffx6ji.png", "alt": "Scikit-learn"},
+              {"name": "XGBoost", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822912/xgboost_rxdx0j.png", "alt": "XGBoost"},
+              {"name": "Keras", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822958/keras_l7hcw7.png", "alt": "Keras"},
+              {"name": "TensorFlow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823003/tensorflow_vqrgmb.png", "alt": "TensorFlow"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning",
+              "downloadCurriculum": "https://example.com/download-curriculum"
+            }
+          },
+          {
+            "title": "Deep Learning & Neural Networks",
+            "duration": "3 Months",
+            "content": [
+              "Basics of neural networks and deep learning",
+              "Working with TensorFlow and Keras",
+              "Convolutional Neural Networks (CNNs) concepts",
+              "Recurrent Neural Networks (RNNs) and LSTM",
+              "Transfer learning and pre-trained models",
+              "Deploying and evaluating deep learning models"
+            ],
+            "detailedContent": [
+              "Exploring perceptrons and multilayer networks",
+              "Building neural networks with TensorFlow and Keras",
+              "Image processing with CNN architectures",
+              "Sequence modeling using RNNs and LSTMs",
+              "Utilizing pre-trained models for efficiency",
+              "Model deployment for real-world applications"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "TensorFlow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823003/tensorflow_vqrgmb.png", "alt": "TensorFlow"},
+              {"name": "Keras", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752822958/keras_l7hcw7.png", "alt": "Keras"},
+              {"name": "OpenCV", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823093/opencv_it7hqk.png", "alt": "OpenCV"},
+              {"name": "Colab", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823139/colab_r2wv7j.png", "alt": "Google Colab"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning",
+              "downloadCurriculum": "https://example.com/download-curriculum"
+            }
+          },
+          {
+            "title": "Natural Language Processing",
+            "duration": "3 Months",
+            "content": [
+              "Text cleaning and preprocessing techniques",
+              "Text classification and sentiment analysis",
+              "Named Entity Recognition and POS tagging",
+              "Introduction to transformers and BERT",
+              "Working with ChatGPT and OpenAI API",
+              "Building chatbots and conversational agents"
+            ],
+            "detailedContent": [
+              "Preparing textual data using NLP tools",
+              "Classifying documents and analyzing sentiments",
+              "Extracting key information with NER and POS",
+              "Implementing transformer-based models like BERT",
+              "Integrating OpenAI’s GPT models into apps",
+              "Creating real-time intelligent chatbots"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "SpaCy", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823187/spacy_w8ye4y.png", "alt": "SpaCy"},
+              {"name": "Hugging Face", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823235/huggingface_s9xs3p.png", "alt": "Hugging Face"},
+              {"name": "OpenAI API", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823280/openai_wdfkwv.png", "alt": "OpenAI API"},
+              {"name": "BERT", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823332/bert_tyu6bc.png", "alt": "BERT"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning",
+              "downloadCurriculum": "https://example.com/download-curriculum"
+            }
+          },
+          {
+            "title": "Computer Vision & AI Applications",
+            "duration": "3 Months",
+            "content": [
+              "Fundamentals of computer vision and image processing",
+              "Object detection using YOLO and SSD",
+              "Image segmentation and classification",
+              "Facial recognition and biometrics",
+              "AI in healthcare, automotive, and finance",
+              "Edge computing and real-time AI deployment"
+            ],
+            "detailedContent": [
+              "Understanding image data formats and filters",
+              "Detecting objects using deep learning models",
+              "Dividing and labeling images for analysis",
+              "Implementing biometric-based recognition",
+              "Exploring AI-powered industry use cases",
+              "Deploying vision models on edge devices"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "YOLO", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823375/yolo_ikj0ur.png", "alt": "YOLO"},
+              {"name": "OpenCV", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823093/opencv_it7hqk.png", "alt": "OpenCV"},
+              {"name": "TensorFlow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823003/tensorflow_vqrgmb.png", "alt": "TensorFlow"},
+              {"name": "Edge Impulse", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823431/edgeimpulse_ogg8hj.png", "alt": "Edge Impulse"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning",
+              "downloadCurriculum": "https://example.com/download-curriculum"
+            }
+          }
           ],
         },
       ],
@@ -7480,127 +10684,171 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "JAVA TRAINING CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "5 Months",
-          modules: [
-            {
-              title: "Core Java Fundamentals",
-              duration: "1.5 Months",
-              content: [
-                "Java syntax, variables, and data types",
-                "Control structures: loops, conditionals, and branching",
-                "Object-Oriented Programming concepts: classes, objects, inheritance",
-                "Encapsulation, polymorphism, and abstraction",
-                "Exception handling and error management",
-                "Input/Output operations and file handling",
-              ],
-            },
-            {
-              title: "Advanced Java Concepts",
-              duration: "1.5 Months",
-              content: [
-                "Java Collections Framework: List, Set, Map interfaces",
-                "Generics and type safety in Java",
-                "Multithreading and concurrent programming",
-                "Lambda expressions and functional programming",
-                "Stream API for data processing",
-                "Java 8+ features and modern Java development",
-              ],
-            },
-            {
-              title: "Database Integration",
-              duration: "1 Month",
-              content: [
-                "JDBC fundamentals and database connectivity",
-                "SQL basics and database operations",
-                "Connection pooling and database optimization",
-                "Prepared statements and stored procedures",
-                "Transaction management and data integrity",
-                "Working with MySQL and PostgreSQL databases",
-              ],
-            },
-            {
-              title: "Web Development with Java",
-              duration: "1 Month",
-              content: [
-                "Introduction to web development concepts",
-                "Servlets and JSP fundamentals",
-                "HTTP protocol and web application architecture",
-                "Session management and cookies",
-                "Building dynamic web applications",
-                "Deployment and web server configuration",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "7 Months",
-          modules: [
-            {
-              title: "Spring Framework Mastery",
-              duration: "2 Months",
-              content: [
-                "Spring Core: Dependency Injection and IoC container",
-                "Spring MVC for web application development",
-                "Spring Boot for rapid application development",
-                "Spring Data JPA for database operations",
-                "Spring Security for authentication and authorization",
-                "RESTful web services with Spring REST",
-              ],
-            },
-            {
-              title: "Hibernate & JPA",
-              duration: "1.5 Months",
-              content: [
-                "Object-Relational Mapping (ORM) concepts",
-                "Hibernate configuration and session management",
-                "Entity mapping and relationships",
-                "HQL (Hibernate Query Language) and Criteria API",
-                "Caching strategies and performance optimization",
-                "JPA annotations and best practices",
-              ],
-            },
-            {
-              title: "Microservices & Cloud",
-              duration: "1.5 Months",
-              content: [
-                "Microservices architecture and design patterns",
-                "Spring Cloud for microservices development",
-                "API Gateway and service discovery",
-                "Docker containerization for Java applications",
-                "Cloud deployment on AWS/Azure",
-                "Monitoring and logging in distributed systems",
-              ],
-            },
-            {
-              title: "Testing & DevOps",
-              duration: "1 Month",
-              content: [
-                "Unit testing with JUnit and Mockito",
-                "Integration testing strategies",
-                "Test-driven development (TDD) practices",
-                "Maven and Gradle build automation",
-                "CI/CD pipelines with Jenkins",
-                "Code quality tools: SonarQube, Checkstyle",
-              ],
-            },
-            {
-              title: "Enterprise Projects",
-              duration: "1 Month",
-              content: [
-                "E-commerce application development",
-                "Banking system with Spring Boot",
-                "RESTful API development and documentation",
-                "Real-time chat application with WebSockets",
-                "Performance optimization and scalability",
-                "Code review and deployment best practices",
-              ],
-            },
+    modulesData:  {
+    "title": "JAVA TRAINING CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-java",
+      "downloadCurriculum": "https://example.com/download-curriculum-java"
+    },
+    "banner": {
+      "title": "Master Core to Advanced Java Development",
+      "subtitle": "Build robust, scalable applications with hands-on Java training.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["Java", "Spring Boot", "Hibernate", "MySQL", "JSP", "JUnit"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Core Java Fundamentals",
+            "duration": "1.5 Months",
+            "content": [
+              "Java syntax, variables, and data types",
+              "Control structures and loops",
+              "Object-Oriented Programming concepts",
+              "Exception handling and debugging",
+              "Input/Output streams and file handling",
+              "Understanding encapsulation and inheritance"
+            ],
+            "detailedContent": [
+              "Learn Java’s basic syntax, primitive types, and variable usage",
+              "Use if-else, switch, for, while, and do-while for flow control",
+              "Implement OOP using classes, objects, inheritance, and abstraction",
+              "Handle exceptions with try-catch-finally, and use debugging techniques",
+              "Perform file I/O using Java FileReader, BufferedReader, and FileWriter",
+              "Apply encapsulation, inheritance, and access modifiers effectively"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Java", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823659/java_gjaazm.png", "alt": "Java" },
+              { "name": "Eclipse", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823734/eclipse_yrivqp.png", "alt": "Eclipse" },
+              { "name": "VS Code", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823766/vscode_m2u4g0.png", "alt": "VS Code" },
+              { "name": "IntelliJ IDEA", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823697/intellij_l25hbp.png", "alt": "IntelliJ IDEA" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-java",
+              "downloadCurriculum": "https://example.com/download-curriculum-java"
+            }
+          },
+          {
+            "title": "Advanced Java Concepts",
+            "duration": "1.5 Months",
+            "content": [
+              "Java Collections Framework",
+              "Generics and type safety",
+              "Multithreading and concurrency",
+              "Lambda expressions in Java",
+              "Stream API for data processing",
+              "Java 8+ features and functional programming"
+            ],
+            "detailedContent": [
+              "Explore Lists, Sets, Maps and learn to choose the right collection",
+              "Use generics for reusable code with strong type safety",
+              "Manage threads, race conditions, and thread pools",
+              "Write concise, modern code with lambda expressions",
+              "Process large datasets efficiently using Streams",
+              "Utilize Java 8+ features like Optional, Functional Interfaces"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Java", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823659/java_gjaazm.png", "alt": "Java" },
+              { "name": "JVisualVM", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823802/jvisualvm_k6yuhb.png", "alt": "JVisualVM" },
+              { "name": "Maven", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823848/maven_s1kdtp.png", "alt": "Maven" },
+              { "name": "Gradle", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823880/gradle_ldgkju.png", "alt": "Gradle" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-java",
+              "downloadCurriculum": "https://example.com/download-curriculum-java"
+            }
+          },
+          {
+            "title": "Database Integration",
+            "duration": "1 Month",
+            "content": [
+              "JDBC connectivity in Java",
+              "Performing CRUD operations using SQL",
+              "Using prepared statements and parameterized queries",
+              "Transaction management and rollback",
+              "Database normalization and indexing",
+              "Working with MySQL and PostgreSQL"
+            ],
+            "detailedContent": [
+              "Establish JDBC connections to relational databases",
+              "Execute Create, Read, Update, Delete using SQL from Java",
+              "Use prepared statements to avoid SQL injection",
+              "Manage transactions for data consistency and rollback",
+              "Understand database normalization and schema design",
+              "Practice with MySQL Workbench and PostgreSQL Studio"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "JDBC", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823908/jdbc_lfydk3.png", "alt": "JDBC" },
+              { "name": "MySQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823936/mysql_mozwlb.png", "alt": "MySQL" },
+              { "name": "PostgreSQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752823970/postgresql_kqgqkl.png", "alt": "PostgreSQL" },
+              { "name": "DBeaver", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824002/dbeaver_j4z1aj.png", "alt": "DBeaver" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-java",
+              "downloadCurriculum": "https://example.com/download-curriculum-java"
+            }
+          },
+          {
+            "title": "Web Development with Java",
+            "duration": "1 Month",
+            "content": [
+              "Servlets and JSP lifecycle",
+              "Session and cookie management",
+              "HTTP request/response handling",
+              "Creating dynamic web pages with JSP",
+              "MVC architecture in Java web apps",
+              "Deploying apps on Apache Tomcat"
+            ],
+            "detailedContent": [
+              "Create server-side apps using Java Servlets",
+              "Track user sessions using cookies and session objects",
+              "Handle GET, POST requests and manage responses",
+              "Embed Java logic inside HTML with JSP",
+              "Separate concerns using Model-View-Controller design",
+              "Deploy WAR files on Tomcat or similar servers"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Apache Tomcat", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824051/tomcat_zb2o2z.png", "alt": "Tomcat" },
+              { "name": "JSP", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824088/jsp_glvto9.png", "alt": "JSP" },
+              { "name": "HTML5", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824127/html_hjdgkd.png", "alt": "HTML5" },
+              { "name": "CSS3", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824162/css3_lujrji.png", "alt": "CSS3" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-java",
+              "downloadCurriculum": "https://example.com/download-curriculum-java"
+            }
+          },
+          {
+            "title": "Spring Framework Mastery",
+            "duration": "2 Months",
+            "content": [
+              "Spring Core and Dependency Injection",
+              "Spring Boot and auto-configuration",
+              "Spring MVC and controller design",
+              "Creating REST APIs using Spring REST",
+              "Spring Security and JWT integration",
+              "Data access with Spring Data JPA"
+            ],
+            "detailedContent": [
+              "Use Spring Core for bean creation and IoC patterns",
+              "Leverage Spring Boot for rapid development with minimal setup",
+              "Design MVC-based applications with Spring controllers",
+              "Develop RESTful endpoints using Spring annotations",
+              "Secure applications using Spring Security and JWT",
+              "Integrate JPA repositories for seamless DB access"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Spring Boot", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824205/springboot_hgfqpp.png", "alt": "Spring Boot" },
+              { "name": "Spring Security", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824250/springsecurity_ac4yqd.png", "alt": "Spring Security" },
+              { "name": "Postman", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824283/postman_e6sc5l.png", "alt": "Postman" },
+              { "name": "REST", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824315/rest_tjwa8r.png", "alt": "REST APIs" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-java",
+              "downloadCurriculum": "https://example.com/download-curriculum-java"
+            }
+          }
           ],
         },
       ],
@@ -7868,127 +11116,171 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "MERN STACK TRAINING CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "6 Months",
-          modules: [
-            {
-              title: "Frontend Fundamentals & React",
-              duration: "2 Months",
-              content: [
-                "HTML5, CSS3, and JavaScript ES6+ fundamentals",
-                "React.js components, JSX, and virtual DOM",
-                "State management and props handling",
-                "React Hooks: useState, useEffect, useContext",
-                "React Router for single-page applications",
-                "Responsive design and CSS frameworks",
-              ],
-            },
-            {
-              title: "Backend Development with Node.js & Express",
-              duration: "2 Months",
-              content: [
-                "Node.js fundamentals and npm ecosystem",
-                "Express.js framework and middleware",
-                "RESTful API design and implementation",
-                "HTTP methods, status codes, and error handling",
-                "Authentication with JWT and bcrypt",
-                "File uploads and server-side validation",
-              ],
-            },
-            {
-              title: "Database Management with MongoDB",
-              duration: "1 Month",
-              content: [
-                "MongoDB fundamentals and document-based storage",
-                "Mongoose ODM for Node.js integration",
-                "Database design and schema modeling",
-                "CRUD operations and query optimization",
-                "Indexing and aggregation pipelines",
-                "Database relationships and population",
-              ],
-            },
-            {
-              title: "Full Stack Integration & Deployment",
-              duration: "1 Month",
-              content: [
-                "Connecting React frontend with Express backend",
-                "API integration and data fetching",
-                "State management across the application",
-                "Environment variables and configuration",
-                "Basic deployment on Heroku and Netlify",
-                "Version control with Git and GitHub",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "8 Months",
-          modules: [
-            {
-              title: "Advanced React & State Management",
-              duration: "2 Months",
-              content: [
-                "Advanced React patterns and performance optimization",
-                "Redux for complex state management",
-                "Context API and useReducer hook",
-                "React Testing Library and Jest",
-                "TypeScript integration with React",
-                "Progressive Web Apps (PWA) development",
-              ],
-            },
-            {
-              title: "Advanced Backend & APIs",
-              duration: "2 Months",
-              content: [
-                "Advanced Express.js patterns and middleware",
-                "GraphQL API development with Apollo Server",
-                "Real-time applications with Socket.io",
-                "Microservices architecture patterns",
-                "API security and rate limiting",
-                "Caching strategies with Redis",
-              ],
-            },
-            {
-              title: "Database Optimization & Security",
-              duration: "1.5 Months",
-              content: [
-                "Advanced MongoDB operations and aggregation",
-                "Database performance optimization",
-                "Data validation and sanitization",
-                "Security best practices and OWASP guidelines",
-                "Backup and recovery strategies",
-                "Working with multiple databases",
-              ],
-            },
-            {
-              title: "DevOps & Production Deployment",
-              duration: "1.5 Months",
-              content: [
-                "Docker containerization for MERN applications",
-                "CI/CD pipelines with GitHub Actions",
-                "Cloud deployment on AWS, Azure, or Google Cloud",
-                "Load balancing and scaling strategies",
-                "Monitoring and logging with tools like PM2",
-                "Performance optimization and SEO",
-              ],
-            },
-            {
-              title: "Industry Projects & Portfolio",
-              duration: "1 Month",
-              content: [
-                "E-commerce platform development",
-                "Social media application with real-time features",
-                "Task management system with team collaboration",
-                "Blog platform with content management",
-                "Portfolio website and project documentation",
-                "Code review and deployment best practices",
-              ],
-            },
+  "modulesData": {
+    "title": "MERN STACK TRAINING CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-mern",
+      "downloadCurriculum": "https://example.com/download-curriculum-mern"
+    },
+    "banner": {
+      "title": "Master Full Stack Web Development with MERN",
+      "subtitle": "From frontend to backend, become a job-ready full stack developer.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["React", "Node.js", "MongoDB", "Express", "JavaScript", "Git", "Redux"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Frontend Fundamentals & React",
+            "duration": "2 Months",
+            "content": [
+              "HTML5, CSS3, and JavaScript ES6+ fundamentals",
+              "React.js components, JSX, and virtual DOM",
+              "State management and props handling",
+              "React Hooks: useState, useEffect, useContext",
+              "React Router for single-page applications",
+              "Responsive design and CSS frameworks"
+            ],
+            "detailedContent": [
+              "Learn HTML, CSS, and JavaScript essentials for frontend",
+              "Understand how React builds UIs with virtual DOM",
+              "Manage component state and props efficiently",
+              "Implement functional features using React Hooks",
+              "Build navigable SPAs with React Router",
+              "Apply responsive designs using CSS libraries"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "React", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824076/react_js_pjivfw.png", "alt": "React"},
+              {"name": "JavaScript", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824238/javascript_xdcjfu.png", "alt": "JavaScript"},
+              {"name": "CSS3", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824306/css3_wyafcg.png", "alt": "CSS3"},
+              {"name": "HTML5", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824370/html5_z1egjw.png", "alt": "HTML5"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-mern",
+              "downloadCurriculum": "https://example.com/download-curriculum-mern"
+            }
+          },
+          {
+            "title": "Backend Development with Node.js & Express",
+            "duration": "2 Months",
+            "content": [
+              "Node.js fundamentals and npm ecosystem",
+              "Express.js framework and middleware",
+              "RESTful API design and implementation",
+              "HTTP methods, status codes, and error handling",
+              "Authentication with JWT and bcrypt",
+              "File uploads and server-side validation"
+            ],
+            "detailedContent": [
+              "Learn backend development using Node.js",
+              "Build APIs and routes using Express framework",
+              "Handle different HTTP methods and errors",
+              "Secure endpoints with JWT and bcrypt",
+              "Process file uploads securely",
+              "Validate data on server before processing"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "Node.js", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824461/nodejs_vzkqwc.png", "alt": "Node.js"},
+              {"name": "Express.js", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824499/expressjs_o45hdz.png", "alt": "Express.js"},
+              {"name": "JWT", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824536/jwt_myy5kp.png", "alt": "JWT"},
+              {"name": "bcrypt", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824563/bcrypt_dkhhtk.png", "alt": "bcrypt"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-mern",
+              "downloadCurriculum": "https://example.com/download-curriculum-mern"
+            }
+          },
+          {
+            "title": "Database Management with MongoDB",
+            "duration": "1 Month",
+            "content": [
+              "MongoDB fundamentals and document-based storage",
+              "Mongoose ODM for Node.js integration",
+              "Database design and schema modeling",
+              "CRUD operations and query optimization",
+              "Indexing and aggregation pipelines",
+              "Database relationships and population"
+            ],
+            "detailedContent": [
+              "Understand NoSQL document-based databases",
+              "Integrate MongoDB with Node using Mongoose",
+              "Design database schemas effectively",
+              "Perform CRUD and optimize queries",
+              "Use indexes and aggregation pipelines",
+              "Model relationships using references"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "MongoDB", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824597/mongodb_bmbtcv.png", "alt": "MongoDB"},
+              {"name": "Mongoose", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824648/mongoose_m7mwdj.png", "alt": "Mongoose"},
+              {"name": "NoSQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824682/nosql_f9gdni.png", "alt": "NoSQL"},
+              {"name": "Aggregation", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824735/aggregate_fqzly2.png", "alt": "Aggregation"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-mern",
+              "downloadCurriculum": "https://example.com/download-curriculum-mern"
+            }
+          },
+          {
+            "title": "Full Stack Integration & Deployment",
+            "duration": "1 Month",
+            "content": [
+              "Connecting React frontend with Express backend",
+              "API integration and data fetching",
+              "State management across the application",
+              "Environment variables and configuration",
+              "Basic deployment on Heroku and Netlify",
+              "Version control with Git and GitHub"
+            ],
+            "detailedContent": [
+              "Link frontend and backend for full stack",
+              "Integrate APIs to send/receive data",
+              "Manage app-wide state effectively",
+              "Use environment variables securely",
+              "Deploy projects to platforms like Heroku",
+              "Track changes using GitHub"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "Git", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824770/git_jpt2pi.png", "alt": "Git"},
+              {"name": "GitHub", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824807/github_ojoqyo.png", "alt": "GitHub"},
+              {"name": "Heroku", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824834/heroku_uhb3wt.png", "alt": "Heroku"},
+              {"name": "Netlify", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824875/netlify_efcwxi.png", "alt": "Netlify"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-mern",
+              "downloadCurriculum": "https://example.com/download-curriculum-mern"
+            }
+          },
+          {
+            "title": "Industry Projects & Portfolio",
+            "duration": "1 Month",
+            "content": [
+              "E-commerce platform development",
+              "Social media application with real-time features",
+              "Task management system with team collaboration",
+              "Blog platform with content management",
+              "Portfolio website and project documentation",
+              "Code review and deployment best practices"
+            ],
+            "detailedContent": [
+              "Build industry-relevant MERN projects",
+              "Develop real-time and collaborative apps",
+              "Create a portfolio and host it online",
+              "Document your code and decisions",
+              "Understand code review strategies",
+              "Deploy final projects professionally"
+            ],
+            "toolsAndTechnologies": [
+              {"name": "VS Code", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824908/vscode_kppzcy.png", "alt": "VS Code"},
+              {"name": "Figma", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824944/figma_kq7mgl.png", "alt": "Figma"},
+              {"name": "Trello", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824977/trello_joxphl.png", "alt": "Trello"},
+              {"name": "GitHub Pages", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825016/githubpages_m9v7rq.png", "alt": "GitHub Pages"}
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-mern",
+              "downloadCurriculum": "https://example.com/download-curriculum-mern"
+            }
+          }
           ],
         },
       ],
@@ -8137,6 +11429,7 @@ export const coursesData = {
     updatedAt: "2025-07-03T00:00:00Z", // Used in: JSON-LD WebPage dateModified
   },
 
+
   python: {
     // === BASIC COURSE INFO ===
     title: "Python Programming", // Used in: Page titles, headers, SEO
@@ -8259,127 +11552,171 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "PYTHON TRAINING CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "4 Months",
-          modules: [
-            {
-              title: "Python Fundamentals",
-              duration: "1 Month",
-              content: [
-                "Python syntax, variables, and data types",
-                "Control structures: loops, conditionals, and functions",
-                "Data structures: lists, tuples, dictionaries, and sets",
-                "File handling and input/output operations",
-                "Error handling and exception management",
-                "Python standard library and modules",
-              ],
-            },
-            {
-              title: "Object-Oriented Programming",
-              duration: "1 Month",
-              content: [
-                "Classes and objects in Python",
-                "Inheritance, polymorphism, and encapsulation",
-                "Method overriding and operator overloading",
-                "Abstract classes and interfaces",
-                "Design patterns and best practices",
-                "Package creation and module management",
-              ],
-            },
-            {
-              title: "Data Analysis & Visualization",
-              duration: "1 Month",
-              content: [
-                "NumPy for numerical computing",
-                "Pandas for data manipulation and analysis",
-                "Matplotlib and Seaborn for data visualization",
-                "Working with CSV, JSON, and Excel files",
-                "Data cleaning and preprocessing techniques",
-                "Statistical analysis and data insights",
-              ],
-            },
-            {
-              title: "Web Development Basics",
-              duration: "1 Month",
-              content: [
-                "Introduction to web development concepts",
-                "Flask framework for web applications",
-                "HTML templates and form handling",
-                "Database integration with SQLite",
-                "RESTful API development basics",
-                "Deployment and hosting fundamentals",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "6 Months",
-          modules: [
-            {
-              title: "Advanced Python Concepts",
-              duration: "1.5 Months",
-              content: [
-                "Decorators, generators, and context managers",
-                "Multithreading and multiprocessing",
-                "Regular expressions and pattern matching",
-                "Lambda functions and functional programming",
-                "Memory management and performance optimization",
-                "Advanced data structures and algorithms",
-              ],
-            },
-            {
-              title: "Django Web Framework",
-              duration: "2 Months",
-              content: [
-                "Django architecture and MVC pattern",
-                "Models, views, and templates (MVT)",
-                "Django ORM and database operations",
-                "User authentication and authorization",
-                "Django REST framework for APIs",
-                "Testing and deployment strategies",
-              ],
-            },
-            {
-              title: "Database Integration & APIs",
-              duration: "1 Month",
-              content: [
-                "SQL databases with PostgreSQL and MySQL",
-                "NoSQL databases with MongoDB",
-                "Database design and optimization",
-                "API development and consumption",
-                "Third-party API integrations",
-                "Authentication and security best practices",
-              ],
-            },
-            {
-              title: "Automation & Scripting",
-              duration: "1 Month",
-              content: [
-                "Web scraping with BeautifulSoup and Scrapy",
-                "Task automation and scheduling",
-                "Email automation and notifications",
-                "File system operations and batch processing",
-                "GUI development with Tkinter",
-                "System administration scripts",
-              ],
-            },
-            {
-              title: "Machine Learning & Projects",
-              duration: "0.5 Months",
-              content: [
-                "Introduction to machine learning with scikit-learn",
-                "Data preprocessing for ML models",
-                "Building and evaluating ML models",
-                "Real-world project development",
-                "Code versioning with Git and GitHub",
-                "Portfolio development and deployment",
-              ],
-            },
+      "modulesData": {
+    "title": "PYTHON TRAINING CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-python",
+      "downloadCurriculum": "https://example.com/download-curriculum-python"
+    },
+    "banner": {
+      "title": "Become a Pro Python Developer",
+      "subtitle": "Master Python from fundamentals to automation and ML with hands-on projects.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["Python", "Flask", "Pandas", "Django", "Git", "NumPy"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Python Fundamentals",
+            "duration": "1 Month",
+            "content": [
+              "Python syntax, variables, and data types",
+              "Control structures: loops, conditionals, and functions",
+              "Data structures: lists, tuples, dictionaries, and sets",
+              "File handling and input/output operations",
+              "Error handling and exception management",
+              "Python standard library and modules"
+            ],
+            "detailedContent": [
+              "Learn basic syntax and variables in Python",
+              "Implement logic using loops and conditionals",
+              "Work with built-in data structures efficiently",
+              "Read and write files with Python I/O operations",
+              "Handle exceptions and errors gracefully",
+              "Explore modules in the Python standard library"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Python", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900100/python_sj0z9k.png", "alt": "Python" },
+              { "name": "IDLE", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900190/idle_e1mpmq.png", "alt": "IDLE" },
+              { "name": "Jupyter", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900234/jupyter_du2iqq.png", "alt": "Jupyter Notebook" },
+              { "name": "VS Code", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824908/vscode_kppzcy.png", "alt": "VS Code" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-python",
+              "downloadCurriculum": "https://example.com/download-curriculum-python"
+            }
+          },
+          {
+            "title": "Object-Oriented Programming in Python",
+            "duration": "1 Month",
+            "content": [
+              "Classes and objects in Python",
+              "Inheritance, polymorphism, and encapsulation",
+              "Method overriding and operator overloading",
+              "Abstract classes and interfaces",
+              "Design patterns and best practices",
+              "Package creation and module management"
+            ],
+            "detailedContent": [
+              "Understand core OOP principles in Python",
+              "Create reusable code using inheritance",
+              "Override methods and overload operators",
+              "Use abstract classes for structured designs",
+              "Apply OOP design patterns effectively",
+              "Package your code and manage modules"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Python OOP", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900375/oop_luwxnz.png", "alt": "OOP" },
+              { "name": "UML", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900445/uml_z3hgfp.png", "alt": "UML" },
+              { "name": "PyCharm", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900502/pycharm_bzdcny.png", "alt": "PyCharm" },
+              { "name": "Git", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824770/git_jpt2pi.png", "alt": "Git" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-python",
+              "downloadCurriculum": "https://example.com/download-curriculum-python"
+            }
+          },
+          {
+            "title": "Data Analysis & Visualization",
+            "duration": "1 Month",
+            "content": [
+              "NumPy for numerical computing",
+              "Pandas for data manipulation and analysis",
+              "Matplotlib and Seaborn for data visualization",
+              "Working with CSV, JSON, and Excel files",
+              "Data cleaning and preprocessing techniques",
+              "Statistical analysis and data insights"
+            ],
+            "detailedContent": [
+              "Use NumPy for high-performance computation",
+              "Analyze datasets using Pandas",
+              "Visualize trends with Matplotlib & Seaborn",
+              "Import/export data from common formats",
+              "Clean and prepare messy datasets",
+              "Perform basic statistical analysis"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Pandas", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900639/pandas_gqif4c.png", "alt": "Pandas" },
+              { "name": "NumPy", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900733/numpy_lc9dsm.png", "alt": "NumPy" },
+              { "name": "Matplotlib", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900808/matplotlib_usnrxp.png", "alt": "Matplotlib" },
+              { "name": "Seaborn", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900890/seaborn_zhaf0q.png", "alt": "Seaborn" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-python",
+              "downloadCurriculum": "https://example.com/download-curriculum-python"
+            }
+          },
+          {
+            "title": "Web Development with Flask",
+            "duration": "1 Month",
+            "content": [
+              "Introduction to web development concepts",
+              "Flask framework for web applications",
+              "HTML templates and form handling",
+              "Database integration with SQLite",
+              "RESTful API development basics",
+              "Deployment and hosting fundamentals"
+            ],
+            "detailedContent": [
+              "Learn backend web development using Flask",
+              "Render templates and handle forms",
+              "Connect Flask apps to databases",
+              "Create basic RESTful APIs",
+              "Deploy projects to cloud platforms",
+              "Host projects on Heroku or Netlify"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Flask", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752900950/flask_bmspcs.png", "alt": "Flask" },
+              { "name": "SQLite", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901007/sqlite_dskcpo.png", "alt": "SQLite" },
+              { "name": "HTML", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824370/html5_z1egjw.png", "alt": "HTML" },
+              { "name": "Bootstrap", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901084/bootstrap_y5gcb5.png", "alt": "Bootstrap" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-python",
+              "downloadCurriculum": "https://example.com/download-curriculum-python"
+            }
+          },
+          {
+            "title": "Automation, ML & Final Projects",
+            "duration": "1 Month",
+            "content": [
+              "Web scraping with BeautifulSoup and Scrapy",
+              "Task automation and scheduling scripts",
+              "Intro to ML with scikit-learn",
+              "Building and evaluating basic ML models",
+              "System administration and scripting",
+              "Portfolio building with GitHub"
+            ],
+            "detailedContent": [
+              "Automate repetitive tasks with Python scripts",
+              "Scrape data from the web using libraries",
+              "Get started with ML using scikit-learn",
+              "Build basic models and evaluate results",
+              "Develop and document portfolio projects",
+              "Push your code to GitHub for visibility"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "BeautifulSoup", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901129/bs4_kmxt1q.png", "alt": "BeautifulSoup" },
+              { "name": "scikit-learn", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901180/sklearn_k0msyz.png", "alt": "scikit-learn" },
+              { "name": "GitHub", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824807/github_ojoqyo.png", "alt": "GitHub" },
+              { "name": "Scrapy", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901231/scrapy_mdnptm.png", "alt": "Scrapy" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-python",
+              "downloadCurriculum": "https://example.com/download-curriculum-python"
+            }
+          }
           ],
         },
       ],
@@ -8649,103 +11986,171 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "SALES FORCE TRAINING CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "3 Months",
-          modules: [
-            {
-              title: "Salesforce CRM Fundamentals",
-              duration: "1 Month",
-              content: [
-                "Introduction to Salesforce and cloud computing",
-                "Salesforce ecosystem and platform overview",
-                "Understanding CRM concepts and business processes",
-                "Salesforce navigation and user interface",
-                "Standard objects: Accounts, Contacts, Leads, Opportunities",
-                "Data model and relationships in Salesforce",
-              ],
-            },
-            {
-              title: "Salesforce Administration",
-              duration: "1 Month",
-              content: [
-                "User management and security settings",
-                "Profiles, roles, and permission sets",
-                "Custom objects and fields creation",
-                "Page layouts and record types",
-                "Validation rules and formula fields",
-                "Workflow rules and process automation",
-              ],
-            },
-            {
-              title: "Reports & Dashboards",
-              duration: "1 Month",
-              content: [
-                "Creating and customizing reports",
-                "Report types and folder management",
-                "Dashboard creation and components",
-                "Scheduled reports and email alerts",
-                "Analytics and data visualization",
-                "Salesforce mobile app configuration",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "6 Months",
-          modules: [
-            {
-              title: "Apex Programming",
-              duration: "2 Months",
-              content: [
-                "Apex language fundamentals and syntax",
-                "Object-oriented programming in Apex",
-                "SOQL and SOSL queries",
-                "DML operations and database methods",
-                "Triggers and trigger frameworks",
-                "Exception handling and debugging",
-              ],
-            },
-            {
-              title: "Visualforce & Lightning",
-              duration: "2 Months",
-              content: [
-                "Visualforce pages and components",
-                "Controllers and extensions",
-                "Lightning Web Components (LWC)",
-                "Lightning App Builder and components",
-                "Lightning Design System",
-                "Event handling and component communication",
-              ],
-            },
-            {
-              title: "Integration & Advanced Topics",
-              duration: "1 Month",
-              content: [
-                "REST and SOAP API integration",
-                "Salesforce Connect and external data",
-                "Single Sign-On (SSO) and authentication",
-                "Deployment and change management",
-                "Performance optimization and best practices",
-                "Salesforce DX and version control",
-              ],
-            },
-            {
-              title: "Industry Projects & Certification Prep",
-              duration: "1 Month",
-              content: [
-                "Real-world Salesforce implementation projects",
-                "Sales Cloud and Service Cloud configuration",
-                "Marketing Cloud and Commerce Cloud basics",
-                "Certification exam preparation",
-                "Mock interviews and resume building",
-                "Portfolio development and deployment",
-              ],
-            },
+    "modulesData": {
+    "title": "SALESFORCE TRAINING CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-salesforce",
+      "downloadCurriculum": "https://example.com/download-curriculum-salesforce"
+    },
+    "banner": {
+      "title": "Master Salesforce CRM & Cloud Solutions",
+      "subtitle": "From CRM fundamentals to automation and deployment – become job-ready with Salesforce skills.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp",
+      "technologies": ["Salesforce", "Apex", "Visualforce", "Lightning", "CRM"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Salesforce CRM Fundamentals",
+            "duration": "1 Month",
+            "content": [
+              "Introduction to Salesforce and cloud computing",
+              "Salesforce ecosystem and platform overview",
+              "Understanding CRM concepts and business processes",
+              "Salesforce navigation and user interface",
+              "Standard objects: Accounts, Contacts, Leads, Opportunities",
+              "Data model and relationships in Salesforce"
+            ],
+            "detailedContent": [
+              "Understand Salesforce platform and CRM importance",
+              "Navigate the interface and core modules",
+              "Learn key standard objects and their roles",
+              "Understand business logic with real-world scenarios",
+              "Explore data relationships and object linking",
+              "Grasp CRM best practices in cloud environments"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Salesforce", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901306/salesforce_qzntrq.png", "alt": "Salesforce" },
+              { "name": "Cloud Computing", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901358/cloud_mbjbyu.png", "alt": "Cloud" },
+              { "name": "CRM", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901398/crm_zvgfye.png", "alt": "CRM" },
+              { "name": "UI/UX", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901439/uiux_xbpl1a.png", "alt": "UI/UX" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-salesforce",
+              "downloadCurriculum": "https://example.com/download-curriculum-salesforce"
+            }
+          },
+          {
+            "title": "Salesforce Administration",
+            "duration": "1 Month",
+            "content": [
+              "User management and security settings",
+              "Profiles, roles, and permission sets",
+              "Custom objects and fields creation",
+              "Page layouts and record types",
+              "Validation rules and formula fields",
+              "Workflow rules and process automation"
+            ],
+            "detailedContent": [
+              "Manage users, roles, and permissions securely",
+              "Customize Salesforce using objects and fields",
+              "Design page layouts for better user experience",
+              "Apply automation with workflow and validation rules",
+              "Build formulas and logic-driven UI elements",
+              "Implement security at every level of the org"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Admin Console", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901487/adminpanel_plqqrc.png", "alt": "Admin Panel" },
+              { "name": "Workflow", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901529/workflow_a9fzqq.png", "alt": "Workflow" },
+              { "name": "Security", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901572/security_h1ykik.png", "alt": "Security" },
+              { "name": "Formula", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901613/formula_iumifx.png", "alt": "Formula Field" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-salesforce",
+              "downloadCurriculum": "https://example.com/download-curriculum-salesforce"
+            }
+          },
+          {
+            "title": "Reports & Dashboards",
+            "duration": "1 Month",
+            "content": [
+              "Creating and customizing reports",
+              "Report types and folder management",
+              "Dashboard creation and components",
+              "Scheduled reports and email alerts",
+              "Analytics and data visualization",
+              "Salesforce mobile app configuration"
+            ],
+            "detailedContent": [
+              "Build customized reports and dashboards",
+              "Use advanced filters and folder permissions",
+              "Schedule and automate report delivery",
+              "Visualize data trends with charts and graphs",
+              "Leverage dashboards for strategic decisions",
+              "Enable and use Salesforce on mobile"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Reports", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901656/reports_h3u8dr.png", "alt": "Reports" },
+              { "name": "Dashboards", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901692/dashboards_wnpirq.png", "alt": "Dashboards" },
+              { "name": "Analytics", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901731/analytics_fqstz7.png", "alt": "Analytics" },
+              { "name": "Mobile App", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901764/mobileapp_iff9oi.png", "alt": "Mobile App" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-salesforce",
+              "downloadCurriculum": "https://example.com/download-curriculum-salesforce"
+            }
+          },
+          {
+            "title": "Apex & Lightning Development",
+            "duration": "1.5 Months",
+            "content": [
+              "Apex programming language and OOP",
+              "SOQL and SOSL queries for data retrieval",
+              "Triggers and DML operations",
+              "Visualforce pages and Lightning components",
+              "Lightning Web Components (LWC)",
+              "Event handling and design system"
+            ],
+            "detailedContent": [
+              "Write server-side logic using Apex",
+              "Query Salesforce data using SOQL/SOSL",
+              "Implement business logic with triggers",
+              "Build UI using Visualforce and Lightning",
+              "Create dynamic components using LWC",
+              "Understand event handling in modern UI"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Apex", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901804/apex_jwdphc.png", "alt": "Apex" },
+              { "name": "LWC", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901850/lwc_lbr8f3.png", "alt": "Lightning Web Components" },
+              { "name": "SOQL", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901888/soql_ueeygz.png", "alt": "SOQL" },
+              { "name": "Visualforce", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901929/visualforce_lncgaf.png", "alt": "Visualforce" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-salesforce",
+              "downloadCurriculum": "https://example.com/download-curriculum-salesforce"
+            }
+          },
+          {
+            "title": "Salesforce Projects & Certification",
+            "duration": "0.5 Month",
+            "content": [
+              "Real-world Salesforce implementation projects",
+              "Sales Cloud and Service Cloud configuration",
+              "Marketing Cloud and Commerce Cloud basics",
+              "Certification exam preparation",
+              "Mock interviews and resume building",
+              "Portfolio development and deployment"
+            ],
+            "detailedContent": [
+              "Apply skills to real Salesforce projects",
+              "Work with various Salesforce cloud modules",
+              "Prepare for certification with mock tests",
+              "Craft a compelling Salesforce resume",
+              "Present your work via a professional portfolio",
+              "Practice deployment and sandbox usage"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Sales Cloud", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752901974/salescloud_yjtzwa.png", "alt": "Sales Cloud" },
+              { "name": "Service Cloud", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752902022/servicecloud_djuvav.png", "alt": "Service Cloud" },
+              { "name": "Marketing Cloud", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752902075/marketingcloud_wz0jnd.png", "alt": "Marketing Cloud" },
+              { "name": "Certification", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752902128/certification_twko4n.png", "alt": "Certification" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-salesforce",
+              "downloadCurriculum": "https://example.com/download-curriculum-salesforce"
+            }
+          }
           ],
         },
       ],
@@ -9016,115 +12421,166 @@ export const coursesData = {
     },
 
     // Data for Modules Component (course-specific curriculum)
-    modulesData: {
-      title: "UIUX TRAINING CURRICULUM",
-      tabs: [
-        {
-          type: "beginner",
-          duration: "4 Months",
-          modules: [
-            {
-              title: "Design Fundamentals",
-              duration: "1 Month",
-              content: [
-                "Introduction to UI/UX design principles",
-                "Color theory and psychology in design",
-                "Typography fundamentals and font selection",
-                "Layout principles and visual hierarchy",
-                "Design thinking methodology",
-                "Understanding user-centered design approach",
-              ],
-            },
-            {
-              title: "User Research & Analysis",
-              duration: "1 Month",
-              content: [
-                "User research methods and techniques",
-                "Creating user personas and user journey maps",
-                "Conducting interviews and surveys",
-                "Competitive analysis and market research",
-                "Information architecture and site mapping",
-                "User empathy and behavioral analysis",
-              ],
-            },
-            {
-              title: "Wireframing & Prototyping",
-              duration: "1 Month",
-              content: [
-                "Low-fidelity and high-fidelity wireframing",
-                "Prototyping tools and techniques",
-                "Interactive prototypes and micro-interactions",
-                "Paper prototyping and digital wireframes",
-                "Storyboarding and user flow creation",
-                "Rapid prototyping methodologies",
-              ],
-            },
-            {
-              title: "Design Tools Mastery",
-              duration: "1 Month",
-              content: [
-                "Figma fundamentals and advanced features",
-                "Adobe XD for UI/UX design",
-                "Sketch for interface design",
-                "InVision for prototyping and collaboration",
-                "Design handoff and developer collaboration",
-                "Version control and design file management",
-              ],
-            },
-          ],
-        },
-        {
-          type: "advanced",
-          duration: "6 Months",
-          modules: [
-            {
-              title: "Advanced Visual Design",
-              duration: "1.5 Months",
-              content: [
-                "Advanced typography and type systems",
-                "Icon design and illustration for UI",
-                "Brand identity and visual consistency",
-                "Advanced color systems and accessibility",
-                "Motion design and animation principles",
-                "Visual storytelling and emotional design",
-              ],
-            },
-            {
-              title: "Interaction Design & Usability",
-              duration: "1.5 Months",
-              content: [
-                "Interaction design patterns and best practices",
-                "Usability testing methods and tools",
-                "A/B testing and user feedback analysis",
-                "Accessibility standards (WCAG) and inclusive design",
-                "Mobile-first and responsive design principles",
-                "Cross-platform design considerations",
-              ],
-            },
-            {
-              title: "Design Systems & Advanced Tools",
-              duration: "1.5 Months",
-              content: [
-                "Creating and maintaining design systems",
-                "Component libraries and style guides",
-                "Advanced Figma techniques and plugins",
-                "Design tokens and scalable design",
-                "Collaboration tools and design workflows",
-                "Design documentation and handoff processes",
-              ],
-            },
-            {
-              title: "Industry Projects & Portfolio",
-              duration: "1.5 Months",
-              content: [
-                "End-to-end UX case study development",
-                "Mobile app design project",
-                "Web application redesign challenge",
-                "E-commerce platform UX optimization",
-                "Portfolio creation and presentation skills",
-                "Client communication and design critique",
-              ],
-            },
+   "modulesData":{
+    "title": "UI/UX TRAINING CURRICULUM",
+    "globalActions": {
+      "startLearning": "https://example.com/start-learning-uiux",
+      "downloadCurriculum": "https://example.com/download-curriculum-uiux"
+    },
+    "banner": {
+      "title": "Master UI/UX Design from Research to Prototyping",
+      "subtitle": "Design user-centered interfaces and experiences from scratch.",
+      "image": "https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/UIUXBanner_uiux.webp",
+      "technologies": ["Figma", "Adobe XD", "Sketch", "InVision", "Design Thinking", "User Research"]
+    },
+    "tabs": [
+      {
+        "modules": [
+          {
+            "title": "Design Fundamentals",
+            "duration": "1 Month",
+            "content": [
+              "Introduction to UI/UX design principles",
+              "Color theory and psychology in design",
+              "Typography fundamentals and font selection",
+              "Layout principles and visual hierarchy",
+              "Design thinking methodology",
+              "Understanding user-centered design approach"
+            ],
+            "detailedContent": [
+              "Learn the foundation of good design with UI/UX principles",
+              "Understand how color and typography affect user experience",
+              "Design layouts that guide attention and deliver clarity",
+              "Use design thinking to solve real-world problems",
+              "Practice a user-centered approach to design decisions"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Design Thinking", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825400/designthinking_qrfh8l.png", "alt": "Design Thinking" },
+              { "name": "Color Theory", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825431/color_palette_jh34zn.png", "alt": "Color Theory" },
+              { "name": "Typography", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825472/typography_z0xd3v.png", "alt": "Typography" },
+              { "name": "UI Principles", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825502/uiux_principles_kzyvpg.png", "alt": "UI Principles" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-uiux",
+              "downloadCurriculum": "https://example.com/download-curriculum-uiux"
+            }
+          },
+          {
+            "title": "User Research & Analysis",
+            "duration": "1 Month",
+            "content": [
+              "User research methods and techniques",
+              "Creating user personas and user journey maps",
+              "Conducting interviews and surveys",
+              "Competitive analysis and market research",
+              "Information architecture and site mapping",
+              "User empathy and behavioral analysis"
+            ],
+            "detailedContent": [
+              "Discover user needs through research and surveys",
+              "Develop personas and map user journeys",
+              "Analyze competitors and market data",
+              "Build site architecture for usability",
+              "Understand user behaviors to shape better designs"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Persona Creator", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825533/persona_tool_a3xpnq.png", "alt": "Persona Creator" },
+              { "name": "Survey Tools", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825565/survey_toolbox_unqoi9.png", "alt": "Survey Tools" },
+              { "name": "Journey Maps", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825592/journey_map_toi27f.png", "alt": "Journey Maps" },
+              { "name": "Empathy Mapping", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825617/empathy_map_howtio.png", "alt": "Empathy Mapping" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-uiux",
+              "downloadCurriculum": "https://example.com/download-curriculum-uiux"
+            }
+          },
+          {
+            "title": "Wireframing & Prototyping",
+            "duration": "1 Month",
+            "content": [
+              "Low-fidelity and high-fidelity wireframing",
+              "Prototyping tools and techniques",
+              "Interactive prototypes and micro-interactions",
+              "Paper prototyping and digital wireframes",
+              "Storyboarding and user flow creation",
+              "Rapid prototyping methodologies"
+            ],
+            "detailedContent": [
+              "Sketch rough ideas using wireframes",
+              "Create interactive prototypes to test flows",
+              "Add micro-interactions for smoother UX",
+              "Map user flows with clear navigation paths",
+              "Use paper and digital tools for quick iterations"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Figma", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824944/figma_kq7mgl.png", "alt": "Figma" },
+              { "name": "Adobe XD", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825650/adobexd_uz2zie.png", "alt": "Adobe XD" },
+              { "name": "Sketch", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825683/sketch_pdu3zj.png", "alt": "Sketch" },
+              { "name": "InVision", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825710/invision_k0shbp.png", "alt": "InVision" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-uiux",
+              "downloadCurriculum": "https://example.com/download-curriculum-uiux"
+            }
+          },
+          {
+            "title": "Design Tools Mastery",
+            "duration": "1 Month",
+            "content": [
+              "Figma fundamentals and advanced features",
+              "Adobe XD for UI/UX design",
+              "Sketch for interface design",
+              "InVision for prototyping and collaboration",
+              "Design handoff and developer collaboration",
+              "Version control and design file management"
+            ],
+            "detailedContent": [
+              "Master popular design tools like Figma and XD",
+              "Collaborate with developers using InVision",
+              "Understand version control for design files",
+              "Use tool-specific plugins to speed up design work",
+              "Deliver clean files for seamless handoff"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Figma", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824944/figma_kq7mgl.png", "alt": "Figma" },
+              { "name": "Sketch", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825683/sketch_pdu3zj.png", "alt": "Sketch" },
+              { "name": "InVision", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825710/invision_k0shbp.png", "alt": "InVision" },
+              { "name": "Adobe XD", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825650/adobexd_uz2zie.png", "alt": "Adobe XD" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-uiux",
+              "downloadCurriculum": "https://example.com/download-curriculum-uiux"
+            }
+          },
+          {
+            "title": "Industry Projects & Portfolio (Advanced)",
+            "duration": "1 Month",
+            "content": [
+              "End-to-end UX case study development",
+              "Mobile app design project",
+              "Web application redesign challenge",
+              "E-commerce platform UX optimization",
+              "Portfolio creation and presentation skills",
+              "Client communication and design critique"
+            ],
+            "detailedContent": [
+              "Apply skills in real-world UI/UX projects",
+              "Redesign apps and websites to improve UX",
+              "Develop a personal design portfolio",
+              "Learn how to present and defend your design",
+              "Improve client communication and feedback handling"
+            ],
+            "toolsAndTechnologies": [
+              { "name": "Notion", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825741/notion_pmvdlu.png", "alt": "Notion" },
+              { "name": "Trello", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752824977/trello_joxphl.png", "alt": "Trello" },
+              { "name": "Behance", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825766/behance_e4qknr.png", "alt": "Behance" },
+              { "name": "Portfolio Tools", "icon": "https://res.cloudinary.com/dudu879kr/image/upload/v1752825794/portfolio_tool_v5yznj.png", "alt": "Portfolio Tools" }
+            ],
+            "actions": {
+              "startLearning": "https://example.com/start-learning-uiux",
+              "downloadCurriculum": "https://example.com/download-curriculum-uiux"
+            }
+          }
           ],
         },
       ],
