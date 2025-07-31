@@ -146,7 +146,7 @@ function Curriculum({ data }) {
                         className={`px-3 py-2 rounded-lg border-2 min-w-[100px] max-w-[180px] flex-shrink-0 text-xs font-medium transition-all duration-300 overflow-hidden ${
                           selectedModule === index
                             ? "text-white border-[#1d3b75] shadow-md bg-[#1d3b75]"
-                            : "text-gray-700 border-gray-300 bg-white hover:bg-[#1d3b75] hover:text-white hover:border-[#1d3b75]"
+                            : "text-gray-700 border-gray-300 bg-white hover:bg-[#1d3b75] hover:border-[#1d3b75]"
                         }`}
                         style={{ minHeight: "40px" }}
                       >

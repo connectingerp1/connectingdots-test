@@ -160,7 +160,7 @@ const SapModComponent = ({ data }) => {
   }
 
   return (
-    <div className="w-full bg-[#2d2d2d] mb-16 sm:mb-20 lg:mb-24">
+    <div className="w-full bg-[#2d2d2d] mb-4 sm:mb-4 lg:mb-4">
       <div className="bg-[#2d2d2d] flex flex-col items-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 min-h-[600px]">
         {/* Header */}
         <div className="w-full max-w-6xl mb-6 sm:mb-8">
@@ -258,7 +258,7 @@ const SapModComponent = ({ data }) => {
               {/* Download Brochure button for desktop */}
               <button
                 onClick={handleDownloadBrochureClick}
-                className="mt-4 font-bold rounded-full py-2 px-6 transition-all duration-200 items-center justify-center gap-2 text-base hidden sm:flex shadow-lg border-0 bg-[#091327] text-white hover:bg-white hover:text-[#0d1e3a]"
+                className="mt-4 font-bold rounded-full py-2 px-6 transition-all duration-200 items-center justify-center gap-2 text-base hidden sm:flex shadow-lg border-0 bg-[#091327] text-white"
                 style={{ boxShadow: "0 4px 16px 0 rgba(0,0,0,0.18)" }}
               >
                 Download Brochure
@@ -449,7 +449,7 @@ const SapModComponent = ({ data }) => {
         <div className="flex sm:hidden w-full justify-center items-center mt-6 mb-4">
           <button
             onClick={handleDownloadBrochureClick}
-            className="font-bold rounded-full py-3 px-6 transition-all duration-200 flex items-center justify-center gap-2 text-base mx-auto shadow-lg border-0 bg-[#091327] text-white hover:bg-white hover:text-[#091327]"
+            className="font-bold rounded-full py-3 px-6 transition-all duration-200 flex items-center justify-center gap-2 text-base mx-auto shadow-lg border-0 bg-[#091327] text-white"
             style={{ boxShadow: "0 4px 16px 0 rgba(0,0,0,0.18)" }}
           >
             Download Brochure
