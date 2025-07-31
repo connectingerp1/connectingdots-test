@@ -1,4 +1,4 @@
-// src/app/(routes)/[slug]/page.js (Updated with scroll navigation)
+// src/app/(routes)/[slug]/page.js (Updated with Curriculum component)
 
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -23,7 +23,8 @@ import CoursesRelated from "@/components/CoursesComponents/RelatedCourses";
 // Import course-specific modules
 import SapModComponent from "@/components/CoursesComponents/sapmod";
 import Modules from "@/components/CoursesComponents/Modules";
-import HrCard from "@/components/CoursesComponents/HRCard"; 
+import Curriculum from "@/components/CoursesComponents/Curriculam"; 
+import HrCard from "@/components/CoursesComponents/HRCard";
 
 // Helper function to parse the slug into course and city components
 function parseSlug(slug) {
@@ -208,6 +209,11 @@ const CourseCityPage = async ({ params }) => {
       descriptionContentData.ppc ||
       descriptionContentData.seo);
 
+  // Determine which curriculum component to use based on data structure
+  const shouldUseNewCurriculum =
+    modulesData && modulesData.tabs && Array.isArray(modulesData.tabs);
+  const shouldUseLegacyModules = modulesData && !shouldUseNewCurriculum;
+
   // Generate dynamic content for the page body.
   const dynamicBodyContent = `
     <div class="course-main-content">
@@ -307,6 +313,11 @@ const CourseCityPage = async ({ params }) => {
           <DSHeader data={headerData} />
           <Why data={whyData} />
           {sapModData && <SapModComponent data={sapModData} />}
+
+          {/* Curriculum Components - New vs Legacy */}
+          {shouldUseNewCurriculum && <Curriculum data={course} />}
+          {shouldUseLegacyModules && <Modules data={modulesData} />}
+
           <Counselor />
 
           {/* Main description section */}
@@ -361,7 +372,7 @@ const CourseCityPage = async ({ params }) => {
     );
   }
 
-  // Default layout for other courses (SAP, HR, etc.)
+  // Default layout for other courses (SAP, HR, Data Analytics, etc.)
   return (
     <>
       {/* Inject JSON-LD structured data (server-rendered) */}
@@ -380,15 +391,24 @@ const CourseCityPage = async ({ params }) => {
         <DSHeader data={headerData} />
         <Why data={whyData} />
 
-        {/* Conditional rendering based on data availability */}
+        {/* Conditional rendering based on data availability and course type */}
         {sapModData && <SapModComponent data={sapModData} />}
-        {modulesData && <Modules data={modulesData} />}
+
+        {/* Curriculum Components - New vs Legacy */}
+        {shouldUseNewCurriculum && (
+          <div id="curriculum" style={{ scrollMarginTop: "80px" }}>
+            <Curriculum data={course} />
+          </div>
+        )}
+        {shouldUseLegacyModules && (
+          <div id="modules" style={{ scrollMarginTop: "80px" }}>
+            <Modules data={modulesData} />
+          </div>
+        )}
 
         <Counselor />
-
         <TrustUs />
         <Program />
-
         <Certificate data={certificateData} />
 
         {/* Single description section for non-multi-section courses */}
