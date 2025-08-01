@@ -263,7 +263,7 @@ const DashboardLayout = ({ children }) => {
       <div className="flex flex-col min-h-screen bg-gray-100">
         {/* Main Content Area */}
         <main className="flex-1 p-6 mt-10 mx-auto w-full">
-          <FixedLogo />
+          {/* <FixedLogo /> */}
           {/* children will be dashboard/page.js */}
           {children}
         </main>
