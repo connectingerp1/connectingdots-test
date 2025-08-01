@@ -8005,22 +8005,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "MLflow",
-                  icon: "/CourseCurriculum/mlflow.avif",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958127/mlflow_ih6orq.avif",
                   alt: "MLflow",
                 },
                 {
                   name: "Docker",
-                  icon: "/CourseCurriculum/docker.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958118/docker_lxl4kz.webp",
                   alt: "Docker",
                 },
                 {
                   name: "Kubernetes",
-                  icon: "/CourseCurriculum/kubernetes.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958126/Kubernetes_mgxslj.webp",
                   alt: "Kubernetes",
                 },
                 {
                   name: "TensorFlow",
-                  icon: "/CourseCurriculum/tensorflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "TensorFlow",
                 },
               ],
@@ -8101,22 +8101,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "MySQL",
-                  icon: "/CourseCurriculum/sql.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752297330/imgi_158_sql-3d-icon-png_xh9ule.png",
                   alt: "sql",
                 },
                 {
                   name: "PostgreSQL",
-                  icon: "/CourseCurriculum/postgree.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958131/postgree_gstwpl.webp",
                   alt: "postgree",
                 },
                 {
                   name: "SQL Server",
-                  icon: "/CourseCurriculum/sqlserver.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/sqlserver_omumwf.webp",
                   alt: "sqlserver",
                 },
                 {
                   name: "Oracle",
-                  icon: "/CourseCurriculum/oracle.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958131/oracle_rfcihh.webp",
                   alt: "oracle",
                 },
               ],
@@ -8149,22 +8149,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Hadoop",
-                  icon: "https://img.icons8.com/color/480/hadoop-distributed-file-system.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958120/hadoop_i72dgc.webp",
                   alt: "hadoop",
                 },
                 {
                   name: "Spark",
-                  icon: "https://img.icons8.com/color/480/apache-spark.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958138/spark_pnysg0.webp",
                   alt: "apachespark",
                 },
                 {
                   name: "Kafka",
-                  icon: "https://img.icons8.com/nolan/512/apache-kafka.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752302769/imgi_148_kafka_m4ewr7.png",
                   alt: "kafka",
                 },
                 {
                   name: "Hive",
-                  icon: "/CourseCurriculum/hive.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958121/hive_rjhtj9.webp",
                   alt: "hive",
                 },
               ],
@@ -8197,22 +8197,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Apache Air Flow",
-                  icon: "/CourseCurriculum/Apache airflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958114/Apache_airflow_ameg1k.webp",
                   alt: "Apache Air Flow",
                 },
                 {
                   name: "Kubeflow",
-                  icon: "/CourseCurriculum/kubeflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958124/kubeflow_vitenc.webp",
                   alt: "Kubeflow",
                 },
                 {
                   name: "Prometheus",
-                  icon: "/CourseCurriculum/prometheus.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958133/prometheus_ts651w.webp",
                   alt: "Prometheus",
                 },
                 {
                   name: "TensorFlow",
-                  icon: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/96/external-data-visualization-and-monitoring-with-support-for-graphite-and-influxdb-logo-color-tal-revivo.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "TensorFlow",
                 },
               ],
@@ -8629,17 +8629,17 @@ export const coursesData = {
                 },
                 {
                   name: "PostgreSQL",
-                  icon: "/CourseCurriculum/postgree.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958131/postgree_gstwpl.webp",
                   alt: "postgree",
                 },
                 {
                   name: "SQL Server",
-                  icon: "/CourseCurriculum/sqlserver.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/sqlserver_omumwf.webp",
                   alt: "sqlserver",
                 },
                 {
                   name: "Oracle",
-                  icon: "/CourseCurriculum/oracle.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958131/oracle_rfcihh.webp",
                   alt: "oracle",
                 },
               ],
@@ -8670,22 +8670,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Hadoop",
-                  icon: "https://img.icons8.com/color/480/hadoop-distributed-file-system.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958120/hadoop_i72dgc.webp",
                   alt: "hadoop",
                 },
                 {
                   name: "Spark",
-                  icon: "https://img.icons8.com/color/480/apache-spark.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958138/spark_pnysg0.webp",
                   alt: "spark",
                 },
                 {
                   name: "Kafka",
-                  icon: "https://img.icons8.com/nolan/512/apache-kafka.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752302769/imgi_148_kafka_m4ewr7.png",
                   alt: "kafka",
                 },
                 {
                   name: "Hive",
-                  icon: "/CourseCurriculum/hive.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958121/hive_rjhtj9.webp",
                   alt: "hive",
                 },
               ],
@@ -8716,22 +8716,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Docker",
-                  icon: "/CourseCurriculum/docker.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958118/docker_lxl4kz.webp",
                   alt: "docker",
                 },
                 {
                   name: "Kubernetes",
-                  icon: "/CourseCurriculum/kubernetes.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958126/Kubernetes_mgxslj.webp",
                   alt: "kubernetes",
                 },
                 {
                   name: "MLflow",
-                  icon: "/CourseCurriculum/mlflow.avif",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958127/mlflow_ih6orq.avif",
                   alt: "mlflow",
                 },
                 {
                   name: "TensorFlow",
-                  icon: "/CourseCurriculum/tensorflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "tensorflow",
                 },
               ],
@@ -9059,22 +9059,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Apache Spark",
-                  icon: "/CourseCurriculum/apachespark.webp",
-                  alt: "apachespark",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958115/apachespark_ayxhtb.webp",
+                  alt: "spark",
                 },
                 {
                   name: "Apache Kafka",
-                  icon: "https://img.icons8.com/nolan/512/apache-kafka.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752302769/imgi_148_kafka_m4ewr7.png",
                   alt: "Apache Kafka",
                 },
                 {
                   name: "Apache Airflow",
-                  icon: "/CourseCurriculum/Apache airflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958114/Apache_airflow_ameg1k.webp",
                   alt: "Apache Airflow",
                 },
                 {
                   name: "Hadoop",
-                  icon: "/CourseCurriculum/hadoop.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958120/hadoop_i72dgc.webp",
                   alt: "Hadoop",
                 },
               ],
@@ -9104,24 +9104,20 @@ export const coursesData = {
                 "Competitive programming practice sessions",
               ],
               toolsAndTechnologies: [
-                {
-                  name: "C++",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752819278/imgi_105_cpp_vna2od.png",
-                  alt: "C++",
-                },
+                { name: "C++", icon: "/CourseCurriculum/cpp.webp", alt: "C++" },
                 {
                   name: "Java",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752819343/imgi_109_java_udf1vm.png",
+                  icon: "https://img.icons8.com/color/500/java-coffee-cup-logo--v1.png",
                   alt: "Java",
                 },
                 {
                   name: "Python",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752208406/python_ut82h4.png",
+                  icon: "https://img.icons8.com/fluency/500/python.png",
                   alt: "Python",
                 },
                 {
                   name: "LeetCode",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752819422/imgi_112_leetcode_wdp4zy.png",
+                  icon: "https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/100/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png",
                   alt: "LeetCode",
                 },
               ],
@@ -9152,7 +9148,7 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "TensorFlow",
-                  icon: "/CourseCurriculum/tensorflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "tensorflow",
                 },
                 {
@@ -9163,12 +9159,12 @@ export const coursesData = {
                 },
                 {
                   name: "PyTorch",
-                  icon: "/CourseCurriculum/pytorch.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958134/pytorch_w7kjhd.webp",
                   alt: "PyTorch",
                 },
                 {
                   name: "OpenCV",
-                  icon: "/CourseCurriculum/open cv.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958130/open_cv_k4lryl.webp",
                   alt: "OpenCV",
                 },
               ],
@@ -9204,7 +9200,7 @@ export const coursesData = {
                 },
                 {
                   name: "Prometheus",
-                  icon: "/CourseCurriculum/prometheus.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958133/prometheus_ts651w.webp",
                   alt: "Prometheus",
                 },
                 {
@@ -9214,7 +9210,7 @@ export const coursesData = {
                 },
                 {
                   name: "MLflow",
-                  icon: "/CourseCurriculum/mlflow.avif",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958127/mlflow_ih6orq.avif",
                   alt: "MLflow",
                 },
               ],
@@ -9244,19 +9240,19 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Tableau",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752296596/dashboard_k6hhwd.png",
+                  icon: "https://img.icons8.com/color/500/tableau-software.png",
                 },
                 {
                   name: "Excel",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752296885/excel_1_swvlt5.png",
+                  icon: "https://img.icons8.com/color/500/microsoft-excel-2019--v1.png",
                 },
                 {
                   name: "SQL",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752297330/imgi_158_sql-3d-icon-png_xh9ule.png",
+                  icon: "https://img.icons8.com/fluency/96/sql.png",
                 },
                 {
                   name: "Python",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752208406/python_ut82h4.png",
+                  icon: "https://img.icons8.com/fluency/100/python.png",
                 },
               ],
               actions: {
@@ -9645,7 +9641,7 @@ export const coursesData = {
                 },
                 {
                   name: "Debugger",
-                  icon: "/CourseCurriculum/debugger.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958118/debugger_b10fa3.webp",
                   alt: "debugger",
                 },
               ],
@@ -9682,7 +9678,7 @@ export const coursesData = {
                 },
                 {
                   name: "React Router",
-                  icon: "/CourseCurriculum/react router.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958134/react_router_uzyey6.webp",
                   alt: "React Router",
                 },
                 {
@@ -9692,7 +9688,7 @@ export const coursesData = {
                 },
                 {
                   name: "Axios",
-                  icon: "/CourseCurriculum/axios.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958115/axios_xghgnf.webp",
                   alt: "Axios",
                 },
               ],
@@ -9739,7 +9735,7 @@ export const coursesData = {
                 },
                 {
                   name: "Postman",
-                  icon: "/CourseCurriculum/postman.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958133/postman_tbnxz4.webp",
                   alt: "Postman",
                 },
               ],
@@ -10114,7 +10110,7 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Python",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752208406/python_ut82h4.png",
+                  icon: "https://img.icons8.com/fluency/500/python.png",
                   alt: "Python",
                 },
                 {
@@ -10160,22 +10156,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Scikit-learn",
-                  icon: "/CourseCurriculum/scikit.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958137/scikit_v8jneg.webp",
                   alt: "Scikit-learn",
                 },
                 {
                   name: "XGBoost",
-                  icon: "/CourseCurriculum/xgboost.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/xgboost_tthtp1.webp",
                   alt: "XGBoost",
                 },
                 {
                   name: "Keras",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752822958/keras_l7hcw7.png",
+                  icon: "https://img.icons8.com/material-rounded/100/keras.png",
                   alt: "Keras",
                 },
                 {
                   name: "TensorFlow",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752823003/tensorflow_vqrgmb.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "TensorFlow",
                 },
               ],
@@ -10206,22 +10202,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "TensorFlow",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752823003/tensorflow_vqrgmb.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "TensorFlow",
                 },
                 {
                   name: "Keras",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752822958/keras_l7hcw7.png",
+                  icon: "https://img.icons8.com/material-rounded/100/keras.png",
                   alt: "Keras",
                 },
                 {
                   name: "OpenCV",
-                  icon: "/CourseCurriculum/open cv.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958130/open_cv_k4lryl.webp",
                   alt: "OpenCV",
                 },
                 {
                   name: "Colab",
-                  icon: "/CourseCurriculum/colab.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958115/colab_jmvpxm.webp",
                   alt: "Google Colab",
                 },
               ],
@@ -10252,7 +10248,7 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "SpaCy",
-                  icon: "/CourseCurriculum/spacy.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958138/spacy_dpjwum.webp",
                   alt: "SpaCy",
                 },
                 {
@@ -10267,7 +10263,7 @@ export const coursesData = {
                 },
                 {
                   name: "BERT",
-                  icon: "/CourseCurriculum/bert.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958115/bert_qfxcly.webp",
                   alt: "BERT",
                 },
               ],
@@ -10298,22 +10294,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "YOLO",
-                  icon: "/CourseCurriculum/yolo.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958143/yolo_qdvhwy.webp",
                   alt: "YOLO",
                 },
                 {
                   name: "OpenCV",
-                  icon: "/CourseCurriculum/open cv.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958130/open_cv_k4lryl.webp",
                   alt: "OpenCV",
                 },
                 {
                   name: "TensorFlow",
-                  icon: "/CourseCurriculum/tensorflow.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/tensorflow_fltbbj.webp",
                   alt: "TensorFlow",
                 },
                 {
                   name: "Edge Impulse",
-                  icon: "/CourseCurriculum/edge impulse.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958119/edge_impulse_eg8jxe.webp",
                   alt: "Edge Impulse",
                 },
               ],
@@ -10636,22 +10632,22 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Java",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752823659/java_gjaazm.png",
+                  icon: "https://img.icons8.com/color/100/java-coffee-cup-logo--v1.png",
                   alt: "Java",
                 },
                 {
                   name: "Eclipse",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752823734/eclipse_yrivqp.png",
+                  icon: "/CourseCurriculum/eclipse.webp",
                   alt: "Eclipse",
                 },
                 {
                   name: "VS Code",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752823766/vscode_m2u4g0.png",
+                  icon: "https://img.icons8.com/color/500/visual-studio-code-2019.png",
                   alt: "VS Code",
                 },
                 {
                   name: "IntelliJ IDEA",
-                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1752823697/intellij_l25hbp.png",
+                  icon: "https://img.icons8.com/color/500/intellij-idea.png",
                   alt: "IntelliJ IDEA",
                 },
               ],
@@ -10688,17 +10684,17 @@ export const coursesData = {
                 },
                 {
                   name: "JVisualVM",
-                  icon: "/CourseCurriculum/jvisualvm.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958123/jvisualvm_by8p7o.webp",
                   alt: "JVisualVM",
                 },
                 {
                   name: "Maven",
-                  icon: "/CourseCurriculum/maven.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958127/maven_qsha6x.webp",
                   alt: "Maven",
                 },
                 {
                   name: "Gradle",
-                  icon: "/CourseCurriculum/gradle.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958119/gradle_wun1of.webp",
                   alt: "Gradle",
                 },
               ],
@@ -10730,7 +10726,7 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "JDBC",
-                  icon: "/CourseCurriculum/jdbc.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958122/jdbc_hrtf8e.webp",
                   alt: "JDBC",
                 },
                 {
@@ -10740,12 +10736,12 @@ export const coursesData = {
                 },
                 {
                   name: "PostgreSQL",
-                  icon: "/CourseCurriculum/postgree.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958131/postgree_gstwpl.webp",
                   alt: "PostgreSQL",
                 },
                 {
                   name: "DBeaver",
-                  icon: "/CourseCurriculum/dbeaver.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958116/dbeaver_cfnlij.webp",
                   alt: "DBeaver",
                 },
               ],
@@ -10829,12 +10825,12 @@ export const coursesData = {
                 },
                 {
                   name: "Spring Security",
-                  icon: "/CourseCurriculum/springsecurity.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958138/springsecurity_mngqof.webp",
                   alt: "Spring Security",
                 },
                 {
                   name: "Postman",
-                  icon: "/CourseCurriculum/postman.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958133/postman_tbnxz4.webp",
                   alt: "Postman",
                 },
                 {
@@ -11267,12 +11263,12 @@ export const coursesData = {
                 },
                 {
                   name: "NoSQL",
-                  icon: "/CourseCurriculum/nosql.webp",
+                  icon: "/https://res.cloudinary.com/dudu879kr/image/upload/v1753958130/nosql_zxq1og.webp",
                   alt: "NoSQL",
                 },
                 {
                   name: "Aggregation",
-                  icon: "/CourseCurriculum/aggregation.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958114/aggregation_ysw0el.webp",
                   alt: "Aggregation",
                 },
               ],
@@ -11319,7 +11315,7 @@ export const coursesData = {
                 },
                 {
                   name: "Netlify",
-                  icon: "/CourseCurriculum/netlify.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958131/netlify_qlqrhj.webp",
                   alt: "Netlify",
                 },
               ],
@@ -11690,12 +11686,12 @@ export const coursesData = {
                 },
                 {
                   name: "IDLE",
-                  icon: "/CourseCurriculum/idle.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958121/idle_kfdsuz.webp",
                   alt: "IDLE",
                 },
                 {
                   name: "Jupyter",
-                  icon: "/CourseCurriculum/jupyter.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958123/jupyter_us3hf1.webp",
                   alt: "Jupyter Notebook",
                 },
                 {
@@ -11735,10 +11731,14 @@ export const coursesData = {
                   icon: "https://img.icons8.com/color/500/python--v1.png",
                   alt: "OOP",
                 },
-                { name: "UML", icon: "/CourseCurriculum/uml.webp", alt: "UML" },
+                {
+                  name: "UML",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958142/uml_phu2ef.webp",
+                  alt: "UML",
+                },
                 {
                   name: "PyCharm",
-                  icon: "/CourseCurriculum/pycharm.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958134/pycharm_afxyro.webp",
                   alt: "PyCharm",
                 },
                 {
@@ -11790,7 +11790,7 @@ export const coursesData = {
                 },
                 {
                   name: "Seaborn",
-                  icon: "/CourseCurriculum/seaborn.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958137/seaborn_nai220.webp",
                   alt: "Seaborn",
                 },
               ],
@@ -11827,7 +11827,7 @@ export const coursesData = {
                 },
                 {
                   name: "SQLite",
-                  icon: "/CourseCurriculum/sqlite.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958141/sqlite_weeyzh.webp",
                   alt: "SQLite",
                 },
                 {
@@ -11874,7 +11874,7 @@ export const coursesData = {
                 },
                 {
                   name: "scikit-learn",
-                  icon: "/CourseCurriculum/scikit.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958137/scikit_v8jneg.webp",
                   alt: "scikit-learn",
                 },
                 {
@@ -11884,7 +11884,7 @@ export const coursesData = {
                 },
                 {
                   name: "Scrapy",
-                  icon: "/CourseCurriculum/scrapy.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958137/scrapy_lqm6cw.webp",
                   alt: "Scrapy",
                 },
               ],
@@ -12302,7 +12302,7 @@ export const coursesData = {
                 },
                 {
                   name: "Dashboards",
-                  icon: "/CourseCurriculum/dashboard.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958115/dashboard_gdngmd.webp",
                   alt: "Dashboards",
                 },
                 {
@@ -12344,17 +12344,17 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Apex",
-                  icon: "/CourseCurriculum/apex.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958115/apex_dwlcx4.webp",
                   alt: "Apex",
                 },
                 {
                   name: "LWC",
-                  icon: "/CourseCurriculum/lwc.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958126/lwc_qnzjin.webp",
                   alt: "Lightning Web Components",
                 },
                 {
                   name: "SOQL",
-                  icon: "https://img.icons8.com/ios-filled/100/sql.png",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958140/sql_wonstk.webp",
                   alt: "SOQL",
                 },
                 {
@@ -12396,12 +12396,12 @@ export const coursesData = {
                 },
                 {
                   name: "Service Cloud",
-                  icon: "/CourseCurriculum/service cloud.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958137/service_cloud_npv5tg.webp",
                   alt: "Service Cloud",
                 },
                 {
                   name: "Marketing Cloud",
-                  icon: "/CourseCurriculum/marketing cloud.webp",
+                  icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958127/marketing_cloud_qvd5qh.webp",
                   alt: "Marketing Cloud",
                 },
                 {
@@ -12777,7 +12777,7 @@ export const coursesData = {
               toolsAndTechnologies: [
                 {
                   name: "Persona Creator",
-                  icon: "https://img.icons8.com/liquid-glass/100/portfolio.png",
+                  icon: "https://img.icons8.com/external-vectorslab-flat-vectorslab/100/external-Portfolio-files-and-folders-vectorslab-flat-vectorslab.png",
                   alt: "Persona Creator",
                 },
                 {
@@ -14532,7 +14532,7 @@ export const coursesData = {
         {
           name: "SQL",
           description: "Become a SQL expert",
-          icon: "https://i.imgur.com/y0zkEYb.mp4",
+          icon: "https://res.cloudinary.com/dudu879kr/image/upload/v1753958140/sql_wonstk.webp",
           alt: "SQL icon",
         },
         {
