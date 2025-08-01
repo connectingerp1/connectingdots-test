@@ -10,6 +10,7 @@ function Curriculum({ data }) {
   const [selectedTopicIndex, setSelectedTopicIndex] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formTrigger, setFormTrigger] = useState(""); // Track which button triggered the form
 
   // Get the curriculum data from the new structure
   const curriculumData = data?.modulesData;
@@ -23,8 +24,19 @@ function Curriculum({ data }) {
     }
   }, [curriculumData]);
 
-  // Form handling functions (simplified like Counselor component)
+  // Form handling functions
   const handleStartLearningClick = () => {
+    setFormTrigger("start-learning");
+    setShowForm(true);
+  };
+
+  const handleDownloadCurriculumClick = () => {
+    setFormTrigger("download-curriculum");
+    setShowForm(true);
+  };
+
+  const handleBannerClick = () => {
+    setFormTrigger("banner");
     setShowForm(true);
   };
 
@@ -36,15 +48,36 @@ function Curriculum({ data }) {
     setFormSubmitted(true);
     setShowForm(false);
 
-    // After form submission, redirect to learning platform
+    // After form submission, perform action based on what triggered the form
     setTimeout(() => {
-      if (curriculumData.globalActions?.startLearning) {
-        window.open(curriculumData.globalActions.startLearning, "_blank");
-      } else {
-        // Fallback URL or action
-        alert(
-          "Thank you for your interest! We'll contact you soon with learning details."
-        );
+      if (formTrigger === "start-learning") {
+        if (curriculumData.globalActions?.startLearning) {
+          window.open(curriculumData.globalActions.startLearning, "_blank");
+        } else {
+          alert(
+            "Thank you for your interest! We'll contact you soon with learning details."
+          );
+        }
+      } else if (formTrigger === "download-curriculum") {
+        if (curriculumData.globalActions?.downloadCurriculum) {
+          window.open(
+            curriculumData.globalActions.downloadCurriculum,
+            "_blank"
+          );
+        } else {
+          alert(
+            "Thank you for your interest! We'll send you the curriculum soon."
+          );
+        }
+      } else if (formTrigger === "banner") {
+        // You can customize this action - maybe open both links or a specific landing page
+        if (curriculumData.globalActions?.startLearning) {
+          window.open(curriculumData.globalActions.startLearning, "_blank");
+        } else {
+          alert(
+            "Thank you for your interest! We'll contact you soon with more information."
+          );
+        }
       }
     }, 1000);
   };
@@ -235,27 +268,30 @@ function Curriculum({ data }) {
                         ))}
                       </div>
 
-                      {/* Banner */}
+                      {/* Banner - Now clickable */}
                       {curriculumData.banner && (
                         <div className="my-6">
                           <img
                             src="https://res.cloudinary.com/dudu879kr/image/upload/v1752485069/ITBanner_vkag1x.webp"
                             alt="IT Courses Banner"
-                            className="w-full rounded-lg shadow-lg object-cover"
+                            className="w-full rounded-lg shadow-lg object-cover cursor-pointer hover:opacity-90 transition-opacity duration-200"
                             style={{ boxShadow: "0 0 24px 0 #1d3b75" }}
+                            onClick={handleBannerClick}
                           />
                         </div>
                       )}
 
                       {/* Action Buttons */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                        {/* Start Learning Button - Now opens form */}
+                        {/* Start Learning Button */}
                         <button
                           onClick={handleStartLearningClick}
                           className="px-4 py-3 rounded-lg text-white font-semibold text-sm bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                         >
                           <span className="flex items-center justify-center">
-                            {formSubmitted ? "Submitted!" : "Start Learning"}
+                            {formSubmitted && formTrigger === "start-learning"
+                              ? "Submitted!"
+                              : "Start Learning"}
                             <svg
                               className="w-4 h-4 ml-2"
                               fill="none"
@@ -272,22 +308,16 @@ function Curriculum({ data }) {
                           </span>
                         </button>
 
-                        {/* Download Curriculum Button */}
+                        {/* Download Curriculum Button - Now opens form */}
                         <button
-                          onClick={() => {
-                            if (
-                              curriculumData.globalActions?.downloadCurriculum
-                            ) {
-                              window.open(
-                                curriculumData.globalActions.downloadCurriculum,
-                                "_blank"
-                              );
-                            }
-                          }}
+                          onClick={handleDownloadCurriculumClick}
                           className="px-4 py-3 rounded-lg border-2 border-blue-500 text-blue-500 font-semibold text-sm hover:bg-blue-500 hover:text-white transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                         >
                           <span className="flex items-center justify-center">
-                            Download Curriculum
+                            {formSubmitted &&
+                            formTrigger === "download-curriculum"
+                              ? "Submitted!"
+                              : "Download Curriculum"}
                             <svg
                               className="w-4 h-4 ml-2"
                               fill="none"
@@ -313,7 +343,7 @@ function Curriculum({ data }) {
         </div>
       </div>
 
-      {/* Simple Form Connection (same as Counselor component) */}
+      {/* Form Component */}
       {showForm && (
         <Btnform onClose={handleCloseForm} onSubmit={handleFormSubmit} />
       )}
@@ -335,7 +365,9 @@ function Curriculum({ data }) {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Thank you! We'll contact you soon.
+            {formTrigger === "download-curriculum"
+              ? "Thank you! We'll send you the curriculum soon."
+              : "Thank you! We'll contact you soon."}
           </div>
         </div>
       )}
