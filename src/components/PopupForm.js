@@ -650,16 +650,18 @@ const PopupForm = ({ onSubmitData }) => {
     <div className={styles.popupFormOverlay} onClick={handleOverlayClick}>
       <div className={styles.popupFormContainer} onClick={handleFormClick}>
         {/* Video Background */}
-        <video
+        {/* <video
           className={styles.videoBackground}
           autoPlay
           loop
           muted
           playsInline
         >
-          <source src="/bg/bg7.mp4" type="video/mp4" />
+          <source src="/bg/bg13.mp4" type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
+
+        <div className={styles.videoBackground}></div>
 
         {/* Enhanced lightning border effect */}
         <div className={styles.lightningBorder}>
