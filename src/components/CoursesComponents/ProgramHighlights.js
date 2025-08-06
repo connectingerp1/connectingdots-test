@@ -388,7 +388,7 @@ const ProgramHighlights = () => {
                   <div className="flex flex-col items-center justify-center space-y-4">
                     <div className="w-[350px] h-[180px] rounded-2xl shadow-xl flex items-center justify-center p-4">
                       <Image
-                        src="/navbar/Connecting Logo New.png"
+                        src="/Navbar/Connecting Logo New.png"
                         alt="Logo"
                         width={320}
                         height={160}
